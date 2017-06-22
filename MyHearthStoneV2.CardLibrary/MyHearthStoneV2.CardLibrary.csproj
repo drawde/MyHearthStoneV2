@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Card.cs" />
+    <Compile Include="CardEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servant\BaseServant.cs" />
     <Compile Include="Servant\Classical\JiaoXiaoDeZhongShi.cs" />

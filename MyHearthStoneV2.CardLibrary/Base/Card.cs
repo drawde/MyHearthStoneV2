@@ -9,6 +9,6 @@ namespace MyHearthStoneV2.CardLibrary.Base
 {
     public interface Card
     {
-
+        CardLocation cardLocation { get; set; }
     }
 }

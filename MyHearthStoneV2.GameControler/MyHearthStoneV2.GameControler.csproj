@@ -43,6 +43,24 @@
     <Compile Include="Controler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj">
+      <Project>{3b4169e8-c550-48fe-bdbf-c67e0716a23a}</Project>
+      <Name>MyHearthStoneV2.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj">
+      <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
+      <Name>MyHearthStoneV2.CardLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj">
+      <Project>{b9d8f912-6398-4807-892f-88f169f6bc02}</Project>
+      <Name>MyHearthStoneV2.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
+      <Project>{1ef058cd-18c5-4a4f-be6e-490164c0316b}</Project>
+      <Name>MyHearthStoneV2.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

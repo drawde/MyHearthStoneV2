@@ -29,6 +29,10 @@ namespace MyHearthStoneV2.CardLibrary.Servant
         /// </summary>
         int Cost { get; set; }
 
+        /// <summary>
+        /// 场上位置下标
+        /// </summary>
+        int ChessboardIndex { get; set; }
         void InChessboard();
         void OutChessboard();
     }

@@ -11,6 +11,22 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
         private int _damage = 1;
         private int _life = 1;
         private int _cost = 1;
+        private CardLocation _cardLocation = CardLocation.牌库;
+
+
+        private int _chessboardIndex = -1;
+        public int ChessboardIndex
+        {
+            get
+            {
+                return _chessboardIndex;
+            }
+
+            set
+            {
+                _chessboardIndex += value;
+            }
+        }
         public int Damage
         {
             get
@@ -55,6 +71,19 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
             set
             {
                 _cost += value;
+            }
+        }
+
+        public CardLocation cardLocation
+        {
+            get
+            {
+                return _cardLocation;
+            }
+
+            set
+            {
+                _cardLocation = value;
             }
         }
 
