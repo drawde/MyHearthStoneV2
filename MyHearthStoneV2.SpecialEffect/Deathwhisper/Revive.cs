@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.SpecialEffect.Deathwhisper
 {
+    /// <summary>
+    /// 亡语
+    /// </summary>
     public interface Revive: ISpecialEffect
     {
     }

@@ -1,5 +1,4 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.SpecialEffect.WarCry;
+﻿using MyHearthStoneV2.CardLibrary.SpecialEffect.Other;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Classical
 {
-    public class JiaoXiaoDeZhongShi : BaseServant, ChangeBody
+    public class Al_akir : BaseServant, Charge, Windfury, HolyShield, Taunt
     {
-        private int _damage = 2;
-        private int _life = 1;
-        private int _cost = 1;
+        private int _damage = 3;
+        private int _life = 4;
+        private int _cost = 8;
         private CardLocation _cardLocation = CardLocation.牌库;
 
         public CardLocation CardLocation
@@ -27,6 +26,19 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
                 _cardLocation = value;
             }
         }
+        private List<Type> _lstBuff;
+        public List<Type> LstBuff
+        {
+            get
+            {
+                return _lstBuff;
+            }
+
+            set
+            {
+                _lstBuff = value;
+            }
+        }
         public string Describe
         {
             get
@@ -39,7 +51,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
         {
             get
             {
-                return Rarity.普通;
+                return Rarity.传说;
             }
         }
         private int _chessboardIndex = -1;
@@ -85,7 +97,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
         {
             get
             {
-                return "叫嚣的中士";
+                return "风领主奥拉基尔";
             }
         }
 
@@ -102,8 +114,6 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
             }
         }
 
-        
-
         public void InChessboard()
         {
             throw new NotImplementedException();
@@ -112,10 +122,5 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
         public void OutChessboard()
         {
         }
-
-        public void Spell()
-        {
-        }
-        
     }
 }

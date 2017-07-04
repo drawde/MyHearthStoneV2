@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyHearthStoneV2.CardLibrary.Monitor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,28 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
 {
+    [PropertyChangedNotification]
     public class XiaoZhiZhu : BaseServant
     {
         private int _damage = 1;
         private int _life = 1;
         private int _cost = 1;
         private CardLocation _cardLocation = CardLocation.牌库;
+        public string Describe
+        {
+            get
+            {
+                return "";
+            }
+        }
 
+        public Rarity Rare
+        {
+            get
+            {
+                return Rarity.普通;
+            }
+        }
 
         private int _chessboardIndex = -1;
         public int ChessboardIndex
@@ -74,7 +90,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
             }
         }
 
-        public CardLocation cardLocation
+        public CardLocation CardLocation
         {
             get
             {

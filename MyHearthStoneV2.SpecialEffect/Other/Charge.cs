@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.SpecialEffect.WarCry
+namespace MyHearthStoneV2.SpecialEffect.Other
 {
     /// <summary>
-    /// 战吼：改变随从属性
+    /// 冲锋
     /// </summary>
-    public interface ChangeBody : ISpecialEffect
+    public interface Charge: ISpecialEffect
     {
-
     }
 }

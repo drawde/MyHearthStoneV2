@@ -1,4 +1,5 @@
-﻿using MyHearthStoneV2.SpecialEffect.Deathwhisper;
+﻿using MyHearthStoneV2.CardLibrary.Monitor;
+using MyHearthStoneV2.CardLibrary.SpecialEffect.Deathwhisper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,30 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
 {
+    [PropertyChangedNotification]
     public class GuiLingZhiZhu : BaseServant, Revive
     {
         private int _damage = 1;
         private int _life = 2;
         private int _cost = 2;
-        
+
+        public string Describe
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public Rarity Rare
+        {
+            get
+            {
+                return Rarity.精良;
+            }
+        }
         private CardLocation _cardLocation = CardLocation.牌库;
-        public CardLocation cardLocation
+        public CardLocation CardLocation
         {
             get
             {
@@ -65,7 +82,6 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
                 _life = value;
             }
         }
-
         public string Name
         {
             get
@@ -96,8 +112,15 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
 
         }
 
-        public void Spell()
-        {
-        }
+
+
+        //public void Spell()
+        //{
+        //    XiaoZhiZhu z1 = new XiaoZhiZhu();
+        //    z1.Damage = 2;
+        //    XiaoZhiZhu z2 = new XiaoZhiZhu();
+        //    z2.Damage = 3;
+        //}
+
     }
 }

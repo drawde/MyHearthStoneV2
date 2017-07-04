@@ -4,16 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C63D9B8D-118D-4DC1-A9BD-8B36BB3225D3}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{7047871D-A6FC-4008-8104-33EF8B69B4E9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyHearthStoneV2.GameControler</RootNamespace>
-    <AssemblyName>MyHearthStoneV2.GameControler</AssemblyName>
+    <RootNamespace>MyHearthStoneV2.TestConsole</RootNamespace>
+    <AssemblyName>MyHearthStoneV2.TestConsole</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <DontImportPostSharp>True</DontImportPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -45,17 +48,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controler.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj">
-      <Project>{3b4169e8-c550-48fe-bdbf-c67e0716a23a}</Project>
-      <Name>MyHearthStoneV2.BLL</Name>
-    </ProjectReference>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj">
       <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
       <Name>MyHearthStoneV2.CardLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
+      <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
+      <Name>MyHearthStoneV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.GameControler\MyHearthStoneV2.GameControler.csproj">
+      <Project>{c63d9b8d-118d-4dc1-a9bd-8b36bb3225d3}</Project>
+      <Name>MyHearthStoneV2.GameControler</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj">
       <Project>{b9d8f912-6398-4807-892f-88f169f6bc02}</Project>
@@ -66,11 +77,6 @@
       <Name>MyHearthStoneV2.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\PostSharp.4.3.33\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.3.33\tools\PostSharp.targets')" />
   <Target Name="EnsurePostSharpImported" BeforeTargets="BeforeBuild" Condition="'$(PostSharp30Imported)' == ''">

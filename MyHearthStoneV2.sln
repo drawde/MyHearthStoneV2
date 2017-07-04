@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Web", "Hear
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardLibrary", "MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj", "{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.SpecialEffect", "MyHearthStoneV2.SpecialEffect\MyHearthStoneV2.SpecialEffect.csproj", "{DD096772-6D55-4A35-A678-10F00B0C29B3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Game", "MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj", "{B9D8F912-6398-4807-892F-88F169F6BC02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.GameControler", "MyHearthStoneV2.GameControler\MyHearthStoneV2.GameControler.csproj", "{C63D9B8D-118D-4DC1-A9BD-8B36BB3225D3}"
@@ -20,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Common", "MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj", "{E5DCD04C-6945-4E1F-B5F8-AA9E7A2BBB99}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.BLL", "MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj", "{3B4169E8-C550-48FE-BDBF-C67E0716A23A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.TestConsole", "MyHearthStoneV2.TestConsole\MyHearthStoneV2.TestConsole.csproj", "{7047871D-A6FC-4008-8104-33EF8B69B4E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD096772-6D55-4A35-A678-10F00B0C29B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD096772-6D55-4A35-A678-10F00B0C29B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD096772-6D55-4A35-A678-10F00B0C29B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD096772-6D55-4A35-A678-10F00B0C29B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9D8F912-6398-4807-892F-88F169F6BC02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9D8F912-6398-4807-892F-88F169F6BC02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9D8F912-6398-4807-892F-88F169F6BC02}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +59,10 @@ Global
 		{3B4169E8-C550-48FE-BDBF-C67E0716A23A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B4169E8-C550-48FE-BDBF-C67E0716A23A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B4169E8-C550-48FE-BDBF-C67E0716A23A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7047871D-A6FC-4008-8104-33EF8B69B4E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7047871D-A6FC-4008-8104-33EF8B69B4E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7047871D-A6FC-4008-8104-33EF8B69B4E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7047871D-A6FC-4008-8104-33EF8B69B4E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

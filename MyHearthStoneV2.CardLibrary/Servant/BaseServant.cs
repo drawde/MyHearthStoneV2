@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.CardLibrary.Base;
+using MyHearthStoneV2.CardLibrary.Monitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Servant
 {
+    /// <summary>
+    /// 随从基类
+    /// </summary>
     public interface BaseServant : Card
     {
         /// <summary>
@@ -19,10 +23,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant
         /// </summary>
         int Damage { get; set; }
 
-        /// <summary>
-        /// 名称
-        /// </summary>
-        string Name { get; }
+        
 
         /// <summary>
         /// 费用
@@ -35,5 +36,6 @@ namespace MyHearthStoneV2.CardLibrary.Servant
         int ChessboardIndex { get; set; }
         void InChessboard();
         void OutChessboard();
+        //List<Type> LstBuff { get; set; }
     }
 }
