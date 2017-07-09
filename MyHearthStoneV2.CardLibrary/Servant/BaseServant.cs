@@ -1,5 +1,4 @@
 ﻿using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.Monitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +35,6 @@ namespace MyHearthStoneV2.CardLibrary.Servant
         int ChessboardIndex { get; set; }
         void InChessboard();
         void OutChessboard();
-        //List<Type> LstBuff { get; set; }
+        List<BuffTime> LstBuff { get; set; }
     }
 }

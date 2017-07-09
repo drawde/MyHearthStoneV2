@@ -53,6 +53,10 @@
       <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
       <Name>MyHearthStoneV2.CardLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
+      <Project>{1ef058cd-18c5-4a4f-be6e-490164c0316b}</Project>
+      <Name>MyHearthStoneV2.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,5 +1,6 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
+﻿using MyHearthStoneV2.CardEnum;
 using MyHearthStoneV2.CardLibrary.SpecialEffect.WarCry;
+using MyHearthStoneV2.CardMonitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Classical
 {
+    [PropertyChangedNotification]
     public class JiaoXiaoDeZhongShi : BaseServant, ChangeBody
     {
         private int _damage = 2;
@@ -15,6 +17,34 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
         private int _cost = 1;
         private CardLocation _cardLocation = CardLocation.牌库;
 
+        private string _gameID;
+        private string _userCode;
+
+        public string GameID
+        {
+            get
+            {
+                return _gameID;
+            }
+
+            set
+            {
+                _gameID = value;
+            }
+        }
+
+        public string UserCode
+        {
+            get
+            {
+                return _userCode;
+            }
+
+            set
+            {
+                _userCode = value;
+            }
+        }
         public CardLocation CardLocation
         {
             get
@@ -40,6 +70,20 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
             get
             {
                 return Rarity.普通;
+            }
+        }
+
+        private List<BuffTime> _lstBuff = new List<BuffTime>();
+        public List<BuffTime> LstBuff
+        {
+            get
+            {
+                return _lstBuff;
+            }
+
+            set
+            {
+                _lstBuff = value;
             }
         }
         private int _chessboardIndex = -1;
@@ -106,7 +150,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
 
         public void InChessboard()
         {
-            throw new NotImplementedException();
+            LstBuff.Add(new BuffTime(typeof(ChangeBody), BuffTimeLimit.己方回合结束));
         }
 
         public void OutChessboard()

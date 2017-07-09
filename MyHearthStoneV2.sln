@@ -21,6 +21,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.BLL", "MyHe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.TestConsole", "MyHearthStoneV2.TestConsole\MyHearthStoneV2.TestConsole.csproj", "{7047871D-A6FC-4008-8104-33EF8B69B4E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardEnum", "MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj", "{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardMonitor", "MyHearthStoneV2.CardMonitor\MyHearthStoneV2.CardMonitor.csproj", "{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardAction", "MyHearthStoneV2.CardAction\MyHearthStoneV2.CardAction.csproj", "{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +69,18 @@ Global
 		{7047871D-A6FC-4008-8104-33EF8B69B4E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7047871D-A6FC-4008-8104-33EF8B69B4E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7047871D-A6FC-4008-8104-33EF8B69B4E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

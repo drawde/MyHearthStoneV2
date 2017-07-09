@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MyHearthStoneV2.Model;
 namespace MyHearthStoneV2.Game
 {
     /// <summary>
@@ -12,7 +12,15 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public class Chessboard
     {
-        
+        /// <summary>
+        /// 先手玩家
+        /// </summary>
+        public hs_users FirstUser;
+
+        /// <summary>
+        /// 后手玩家
+        /// </summary>
+        public hs_users SecondUser;
 
         /// <summary>
         /// 本局中所有的牌

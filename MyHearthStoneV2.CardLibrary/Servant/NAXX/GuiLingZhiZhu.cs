@@ -1,5 +1,6 @@
-﻿using MyHearthStoneV2.CardLibrary.Monitor;
+﻿using MyHearthStoneV2.CardEnum;
 using MyHearthStoneV2.CardLibrary.SpecialEffect.Deathwhisper;
+using MyHearthStoneV2.CardMonitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,34 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
         private int _life = 2;
         private int _cost = 2;
 
+        private string _gameID;
+        private string _userCode;
+
+        public string GameID
+        {
+            get
+            {
+                return _gameID;
+            }
+
+            set
+            {
+                _gameID = value;
+            }
+        }
+
+        public string UserCode
+        {
+            get
+            {
+                return _userCode;
+            }
+
+            set
+            {
+                _userCode = value;
+            }
+        }
         public string Describe
         {
             get
@@ -28,6 +57,20 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
             get
             {
                 return Rarity.精良;
+            }
+        }
+
+        private List<BuffTime> _lstBuff = new List<BuffTime>();
+        public List<BuffTime> LstBuff
+        {
+            get
+            {
+                return _lstBuff;
+            }
+
+            set
+            {
+                _lstBuff = value;
             }
         }
         private CardLocation _cardLocation = CardLocation.牌库;
@@ -105,6 +148,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
 
         public void InChessboard()
         {
+            LstBuff.Add(new BuffTime(typeof(Revive), BuffTimeLimit.无限制));
         }
 
         public void OutChessboard()

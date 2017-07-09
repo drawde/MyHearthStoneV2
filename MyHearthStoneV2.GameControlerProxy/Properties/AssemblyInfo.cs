@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("MyHearthStoneV2.SpecialEffect")]
+[assembly: AssemblyTitle("MyHearthStoneV2.GameControlerProxy")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyHearthStoneV2.SpecialEffect")]
+[assembly: AssemblyProduct("MyHearthStoneV2.GameControlerProxy")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("dd096772-6d55-4a35-a678-10f00b0c29b3")]
+[assembly: Guid("d89317e9-4f71-4e19-bb74-bcfaf2c753c5")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

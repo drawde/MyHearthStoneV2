@@ -1,4 +1,5 @@
-﻿using MyHearthStoneV2.CardLibrary.Monitor;
+﻿using MyHearthStoneV2.CardEnum;
+using MyHearthStoneV2.CardMonitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,35 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
         private int _life = 1;
         private int _cost = 1;
         private CardLocation _cardLocation = CardLocation.牌库;
+
+        private string _gameID;
+        private string _userCode;
+
+        public string GameID
+        {
+            get
+            {
+                return _gameID;
+            }
+
+            set
+            {
+                _gameID = value;
+            }
+        }
+
+        public string UserCode
+        {
+            get
+            {
+                return _userCode;
+            }
+
+            set
+            {
+                _userCode = value;
+            }
+        }
         public string Describe
         {
             get
@@ -29,7 +59,19 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
                 return Rarity.普通;
             }
         }
+        private List<BuffTime> _lstBuff = new List<BuffTime>();
+        public List<BuffTime> LstBuff
+        {
+            get
+            {
+                return _lstBuff;
+            }
 
+            set
+            {
+                _lstBuff = value;
+            }
+        }
         private int _chessboardIndex = -1;
         public int ChessboardIndex
         {

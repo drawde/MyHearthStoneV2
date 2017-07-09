@@ -1,4 +1,6 @@
-﻿using MyHearthStoneV2.CardLibrary.SpecialEffect.Other;
+﻿using MyHearthStoneV2.CardEnum;
+using MyHearthStoneV2.CardLibrary.SpecialEffect.Other;
+using MyHearthStoneV2.CardMonitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +9,42 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Classical
 {
+    [PropertyChangedNotification]
     public class Al_akir : BaseServant, Charge, Windfury, HolyShield, Taunt
     {
         private int _damage = 3;
         private int _life = 4;
         private int _cost = 8;
         private CardLocation _cardLocation = CardLocation.牌库;
+        private int _chessboardIndex = -1;
+        private string _gameID;
+        private string _userCode;
+
+        public string GameID
+        {
+            get
+            {
+                return _gameID;
+            }
+
+            set
+            {
+                _gameID = value;
+            }
+        }
+
+        public string UserCode
+        {
+            get
+            {
+                return _userCode;
+            }
+
+            set
+            {
+                _userCode = value;
+            }
+        }
 
         public CardLocation CardLocation
         {
@@ -26,8 +58,8 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
                 _cardLocation = value;
             }
         }
-        private List<Type> _lstBuff;
-        public List<Type> LstBuff
+        private List<BuffTime> _lstBuff =new List<BuffTime>();
+        public List<BuffTime> LstBuff
         {
             get
             {
@@ -54,7 +86,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
                 return Rarity.传说;
             }
         }
-        private int _chessboardIndex = -1;
+        
         public int ChessboardIndex
         {
             get
@@ -114,9 +146,14 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
             }
         }
 
+
+
         public void InChessboard()
         {
-            throw new NotImplementedException();
+            LstBuff.Add(new BuffTime(typeof(Charge), BuffTimeLimit.无限制));
+            LstBuff.Add(new BuffTime(typeof(Windfury), BuffTimeLimit.无限制));
+            LstBuff.Add(new BuffTime(typeof(HolyShield), BuffTimeLimit.无限制));
+            LstBuff.Add(new BuffTime(typeof(Taunt), BuffTimeLimit.无限制));
         }
 
         public void OutChessboard()

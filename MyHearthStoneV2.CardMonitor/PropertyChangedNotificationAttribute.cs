@@ -2,8 +2,10 @@
 using PostSharp.Extensibility;
 using System;
 using System.Reflection;
+using MyHearthStoneV2.Common.Util;
+using MyHearthStoneV2.CardEnum;
 
-namespace MyHearthStoneV2.CardLibrary.Monitor
+namespace MyHearthStoneV2.CardMonitor
 {
     /// <summary>
     /// 卡牌属性监视器
@@ -29,7 +31,6 @@ namespace MyHearthStoneV2.CardLibrary.Monitor
             string property = eventArgs.Method.Name.Substring(4);
             if (isSetter)
             {
-                var life = 0;
                 Console.WriteLine(string.Format("Property \"{0}\" was changed from \"{1}\" to \"{2}\"."
                     , property
                     , this._preValue
@@ -37,15 +38,24 @@ namespace MyHearthStoneV2.CardLibrary.Monitor
                 //Console.WriteLine(eventArgs.Instance);
                 if (property == "Life")
                 {
+                    var life = 0;
                     life = int.Parse(this.GetPropertyValue(eventArgs.Instance, property).ToString());
                     if (life == 0)
                     {
-                        var mths = eventArgs.Instance.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-                        foreach (var mth in mths)
-                        {
+                        //var mths = eventArgs.Instance.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                        //foreach (var mth in mths)
+                        //{
 
-                        }
-                        //eventArgs.Instance.GetType().GetMethod("Spell").Invoke(eventArgs.Instance, null);
+                        //}
+                        eventArgs.Instance.GetType().GetMethod("OutChessboard").Invoke(eventArgs.Instance, null);
+                    }
+                }
+                else if (property == "CardLocation")
+                {
+                    CardLocation cl = (CardLocation)Enum.Parse(typeof(CardLocation), this.GetPropertyValue(eventArgs.Instance, property).ToString());
+                    if (cl == CardLocation.场上)
+                    {
+                        eventArgs.Instance.GetType().GetMethod("InChessboard").Invoke(eventArgs.Instance, null);
                     }
                 }
             }
