@@ -22,34 +22,25 @@ namespace MyHearthStoneV2.GameControler
         {
             
         }
-        private Chessboard chessboard;
-        private hs_users firstPlayer;
-        private hs_users secondPlayer;
+        internal Chessboard chessboard;
+        internal hs_users firstPlayer;
+        internal hs_users secondPlayer;
         /// <summary>
         /// 当前回合玩家
         /// </summary>
-        private hs_users currentPlayer;
+        internal hs_users currentPlayer;
 
         /// <summary>
         /// 当前回合剩余秒数
         /// </summary>
-        private int currentRoundRemainingSecond;
+        internal int currentRoundRemainingSecond;
 
         /// <summary>
         /// 进行完的回合数
         /// </summary>
         private int roundCount = 0;
 
-        /// <summary>
-        /// 创建一局游戏
-        /// </summary>
-        /// <param name="firstPlayer">先手玩家</param>
-        /// <param name="secondPlayer">后手玩家</param>
-        /// <returns>游戏ID</returns>
-        public static string CreateGame(string firstPlayer, string secondPlayer)
-        {
-            return SignUtil.CreateSign(firstPlayer);
-        }
+        
 
         public void GameStart()
         {

@@ -1,4 +1,5 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿using MyHearthStoneV2.CardAction.Servant.NAXX;
+using MyHearthStoneV2.CardEnum;
 using MyHearthStoneV2.CardLibrary;
 using MyHearthStoneV2.CardLibrary.Servant.Classical;
 using MyHearthStoneV2.CardLibrary.Servant.NAXX;
@@ -23,8 +24,15 @@ namespace MyHearthStoneV2.TestConsole
             //zhizhu.Life = 3;
             //zhizhu.Life = 0;
             //Controler ctl = new Controler();
-            Al_akir ao = new Al_akir();
-            ao.CardLocation = CardLocation.场上;
+            //Al_akir ao = new Al_akir();
+            //ao.CardLocation = CardLocation.场上;
+
+            GuiLingZhiZhu zhizhu = new GuiLingZhiZhu();
+            
+            GuiLingZhiZhuAction action = new GuiLingZhiZhuAction(zhizhu);
+            zhizhu.Damage = 2;
+            Console.WriteLine(action._entity.Damage);
+            //action.Life
             Console.ReadKey();
         }
         public static void Test<T>(Action<T> action, T p)

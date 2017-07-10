@@ -9,5 +9,10 @@ namespace MyHearthStoneV2.CardAction.Servant.NAXX
 {
     public class GuiLingZhiZhuAction
     {
+        public GuiLingZhiZhu _entity;
+        public GuiLingZhiZhuAction(GuiLingZhiZhu entity)
+        {
+            _entity = entity;
+        }
     }
 }

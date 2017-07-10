@@ -56,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyHearthStoneV2.CardAction\MyHearthStoneV2.CardAction.csproj">
+      <Project>{a9c4ecaa-b24c-4507-89e4-ca95f7ffbaf0}</Project>
+      <Name>MyHearthStoneV2.CardAction</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj">
       <Project>{07edba98-a0de-406a-8145-7bdba71e06d4}</Project>
       <Name>MyHearthStoneV2.CardEnum</Name>

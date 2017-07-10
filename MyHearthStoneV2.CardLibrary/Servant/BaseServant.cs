@@ -33,6 +33,11 @@ namespace MyHearthStoneV2.CardLibrary.Servant
         /// 场上位置下标
         /// </summary>
         int ChessboardIndex { get; set; }
+
+        /// <summary>
+        /// 卡牌ID
+        /// </summary>
+        string CardID { get; set; }
         void InChessboard();
         void OutChessboard();
         List<BuffTime> LstBuff { get; set; }

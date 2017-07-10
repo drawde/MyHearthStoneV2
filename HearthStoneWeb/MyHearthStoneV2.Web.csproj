@@ -190,6 +190,16 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyHearthStoneV2.CardAction\MyHearthStoneV2.CardAction.csproj">
+      <Project>{a9c4ecaa-b24c-4507-89e4-ca95f7ffbaf0}</Project>
+      <Name>MyHearthStoneV2.CardAction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj">
+      <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
+      <Name>MyHearthStoneV2.CardLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

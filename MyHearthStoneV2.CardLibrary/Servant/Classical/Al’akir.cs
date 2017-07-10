@@ -19,7 +19,20 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
         private int _chessboardIndex = -1;
         private string _gameID;
         private string _userCode;
+        private string _cardID;
 
+        public string CardID
+        {
+            get
+            {
+                return _cardID;
+            }
+
+            set
+            {
+                _cardID = value;
+            }
+        }
         public string GameID
         {
             get
