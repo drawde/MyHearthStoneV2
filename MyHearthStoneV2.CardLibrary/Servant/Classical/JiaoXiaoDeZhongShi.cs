@@ -121,7 +121,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
 
             set
             {
-                _damage += value;
+                _damage = value;
             }
         }
 

@@ -27,6 +27,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardMonitor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardAction", "MyHearthStoneV2.CardAction\MyHearthStoneV2.CardAction.csproj", "{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{5CA23F5F-4A7D-47A5-A08E-83FB632B367F}"
+	ProjectSection(SolutionItems) = preProject
+		MyHearthStoneV2.BLL\bin\Debug\System.Web.Http.dll = MyHearthStoneV2.BLL\bin\Debug\System.Web.Http.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

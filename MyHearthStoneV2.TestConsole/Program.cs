@@ -30,7 +30,8 @@ namespace MyHearthStoneV2.TestConsole
             GuiLingZhiZhu zhizhu = new GuiLingZhiZhu();
             
             GuiLingZhiZhuAction action = new GuiLingZhiZhuAction(zhizhu);
-            zhizhu.Damage = 2;
+            zhizhu.Damage = 0;
+            Console.WriteLine(zhizhu.Damage);
             Console.WriteLine(action._entity.Damage);
             //action.Life
             Console.ReadKey();

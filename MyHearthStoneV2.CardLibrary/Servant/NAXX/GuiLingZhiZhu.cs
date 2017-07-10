@@ -124,7 +124,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
 
             set
             {
-                _damage += value;
+                _damage = value;
             }
         }
 
