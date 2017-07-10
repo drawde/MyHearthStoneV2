@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyHearthStoneV2.CardLibrary</RootNamespace>
+    <AssemblyName>MyHearthStoneV2.CardLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <DontImportPostSharp>True</DontImportPostSharp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PostSharp, Version=4.3.33.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostSharp.4.3.33\lib\net35-client\PostSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\Card.cs" />
+    <Compile Include="BuffTime.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servant\BaseServant.cs" />
+    <Compile Include="Servant\Classical\Al’akir.cs" />
+    <Compile Include="Servant\Classical\JiaoXiaoDeZhongShi.cs" />
+    <Compile Include="Servant\NAXX\GuiLingZhiZhu.cs" />
+    <Compile Include="Servant\NAXX\XiaoZhiZhu.cs" />
+    <Compile Include="SpecialEffect\Deathwhisper\Revive.cs" />
+    <Compile Include="SpecialEffect\ISpecialEffect.cs" />
+    <Compile Include="SpecialEffect\Other\Charge.cs" />
+    <Compile Include="SpecialEffect\Other\HolyShield.cs" />
+    <Compile Include="SpecialEffect\Other\Taunt.cs" />
+    <Compile Include="SpecialEffect\Other\Windfury.cs" />
+    <Compile Include="SpecialEffect\WarCry\ChangeBody.cs" />
+    <Compile Include="Spell\ISpell.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Weapon\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj">
+      <Project>{07edba98-a0de-406a-8145-7bdba71e06d4}</Project>
+      <Name>MyHearthStoneV2.CardEnum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.CardMonitor\MyHearthStoneV2.CardMonitor.csproj">
+      <Project>{90a54fcc-2e14-4bea-af70-8bd47d9cff72}</Project>
+      <Name>MyHearthStoneV2.CardMonitor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
+      <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
+      <Name>MyHearthStoneV2.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\PostSharp.4.3.33\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.3.33\tools\PostSharp.targets')" />
+  <Target Name="EnsurePostSharpImported" BeforeTargets="BeforeBuild" Condition="'$(PostSharp30Imported)' == ''">
+    <Error Condition="!Exists('..\packages\PostSharp.4.3.33\tools\PostSharp.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://www.postsharp.net/links/nuget-restore." />
+    <Error Condition="Exists('..\packages\PostSharp.4.3.33\tools\PostSharp.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://www.postsharp.net/links/nuget-restore." />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
