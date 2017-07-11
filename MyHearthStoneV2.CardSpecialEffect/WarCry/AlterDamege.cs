@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.SpecialEffect.Other
+namespace MyHearthStoneV2.CardSpecialEffect.WarCry
 {
     /// <summary>
-    /// 圣盾
+    /// 战吼：改变伤害
     /// </summary>
-    public interface HolyShield : ISpecialEffect
+    public class AlterDamege: ISpecialEffect
     {
     }
 }

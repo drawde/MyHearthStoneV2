@@ -1,5 +1,4 @@
 ﻿using MyHearthStoneV2.CardEnum;
-using MyHearthStoneV2.CardLibrary.SpecialEffect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace MyHearthStoneV2.CardLibrary.Base
     /// <summary>
     /// 卡牌基类接口
     /// </summary>
-    public interface Card
+    public class Card
     {
         /// <summary>
         /// 游戏ID

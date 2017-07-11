@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.SpecialEffect.Other
+namespace MyHearthStoneV2.CardSpecialEffect.Other
 {
     /// <summary>
-    /// 风怒
+    /// 圣盾
     /// </summary>
-    public interface Windfury : ISpecialEffect
+    public class HolyShield : ISpecialEffect
     {
     }
 }

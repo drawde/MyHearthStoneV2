@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.SpecialEffect.Other
+namespace MyHearthStoneV2.CardSpecialEffect.Deathwhisper
 {
     /// <summary>
-    /// 嘲讽
+    /// 亡语：复活
     /// </summary>
-    public interface Taunt : ISpecialEffect
+    public class Revive: ISpecialEffect
     {
     }
 }

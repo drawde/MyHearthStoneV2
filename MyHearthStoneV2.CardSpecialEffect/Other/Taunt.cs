@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.SpecialEffect.Other
+namespace MyHearthStoneV2.CardSpecialEffect.Other
 {
     /// <summary>
-    /// 冲锋
+    /// 嘲讽
     /// </summary>
-    public interface Charge: ISpecialEffect
+    public class Taunt : ISpecialEffect
     {
     }
 }
