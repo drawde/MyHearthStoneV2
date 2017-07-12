@@ -38,6 +38,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.ConnectorNET.Data.6.8.3.2\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.ConnectorNET.Entity.6.8.3.2\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -68,22 +76,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBLL.cs" />
-    <Compile Include="FutrueStoreEDMX.cs">
+    <Compile Include="hs_invitation_BLL.cs">
+      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MyHearthStoneEDMX.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FutrueStoreEDMX.tt</DependentUpon>
+      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
     </Compile>
     <Compile Include="hs_gamerecord_BLL.cs">
-      <DependentUpon>FutrueStoreEDMX.tt</DependentUpon>
+      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
     </Compile>
     <Compile Include="hs_game_BLL.cs">
-      <DependentUpon>FutrueStoreEDMX.tt</DependentUpon>
+      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
     </Compile>
     <Compile Include="hs_usercardgroup_BLL.cs">
-      <DependentUpon>FutrueStoreEDMX.tt</DependentUpon>
+      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
     </Compile>
     <Compile Include="hs_users_BLL.cs">
-      <DependentUpon>FutrueStoreEDMX.tt</DependentUpon>
+      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
     </Compile>
     <Compile Include="PageAttribute\DataVerifyAttribute.cs" />
     <Compile Include="PageAttribute\ExceptionAttribute.cs" />
@@ -112,9 +123,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FutrueStoreEDMX.tt">
+    <Content Include="MyHearthStoneEDMX.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>FutrueStoreEDMX.cs</LastGenOutput>
+      <LastGenOutput>MyHearthStoneEDMX.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

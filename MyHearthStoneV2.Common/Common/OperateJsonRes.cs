@@ -68,7 +68,7 @@ namespace MyHearthStoneV2.Common.Common
             return SerializeToJson(jsonResult);
         }
 
-        public static string SuccessResult(string data)
+        public static string SuccessResult(string data = "")
         {
             IMTextResult textRes = new IMTextResult();
             textRes.res = OperateResCodeEnum.成功.GetHashCode();

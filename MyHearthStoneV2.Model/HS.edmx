@@ -29,6 +29,17 @@
           <Property Name="RoundIndex" Type="int" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
+        <EntityType Name="hs_invitation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvitationCode" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FromUserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ToUserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
         <EntityType Name="hs_usercardgroup">
           <Key>
             <PropertyRef Name="ID" />
@@ -48,10 +59,13 @@
           <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Mobile" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="Myhearthstonev2ModelStoreContainer">
           <EntitySet Name="hs_game" EntityType="Self.hs_game" Schema="myhearthstonev2" store:Type="Tables" />
           <EntitySet Name="hs_gamerecord" EntityType="Self.hs_gamerecord" Schema="myhearthstonev2" store:Type="Tables" />
+          <EntitySet Name="hs_invitation" EntityType="Self.hs_invitation" Schema="myhearthstonev2" store:Type="Tables" />
           <EntitySet Name="hs_usercardgroup" EntityType="Self.hs_usercardgroup" Schema="myhearthstonev2" store:Type="Tables" />
           <EntitySet Name="hs_users" EntityType="Self.hs_users" Schema="myhearthstonev2" store:Type="Tables" />
         </EntityContainer>
@@ -64,6 +78,7 @@
           <EntitySet Name="hs_gamerecord" EntityType="Myhearthstonev2Model.hs_gamerecord" />
           <EntitySet Name="hs_usercardgroup" EntityType="Myhearthstonev2Model.hs_usercardgroup" />
           <EntitySet Name="hs_users" EntityType="Myhearthstonev2Model.hs_users" />
+          <EntitySet Name="hs_invitation" EntityType="Myhearthstonev2Model.hs_invitation" />
         </EntityContainer>
         <EntityType Name="hs_game">
           <Key>
@@ -107,6 +122,19 @@
           <Property Name="UserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="hs_invitation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvitationCode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FromUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" />
         </EntityType>
       </Schema>
@@ -155,11 +183,25 @@
           <EntitySetMapping Name="hs_users">
             <EntityTypeMapping TypeName="Myhearthstonev2Model.hs_users">
               <MappingFragment StoreEntitySet="hs_users">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserCode" ColumnName="UserCode" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hs_invitation">
+            <EntityTypeMapping TypeName="Myhearthstonev2Model.hs_invitation">
+              <MappingFragment StoreEntitySet="hs_invitation">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ToUserCode" ColumnName="ToUserCode" />
+                <ScalarProperty Name="FromUserCode" ColumnName="FromUserCode" />
+                <ScalarProperty Name="InvitationCode" ColumnName="InvitationCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

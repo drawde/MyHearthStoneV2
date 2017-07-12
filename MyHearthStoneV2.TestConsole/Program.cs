@@ -1,8 +1,10 @@
-﻿using MyHearthStoneV2.CardAction.Servant.NAXX;
+﻿using MyHearthStoneV2.BLL;
+using MyHearthStoneV2.CardAction.Servant.NAXX;
 using MyHearthStoneV2.CardEnum;
 using MyHearthStoneV2.CardLibrary;
 using MyHearthStoneV2.CardLibrary.Servant.Classical;
 using MyHearthStoneV2.CardLibrary.Servant.NAXX;
+using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.GameControler;
 using System;
 using System.Collections.Generic;
@@ -28,7 +30,8 @@ namespace MyHearthStoneV2.TestConsole
             //ao.CardLocation = CardLocation.场上;
 
             GuiLingZhiZhu zhizhu = new GuiLingZhiZhu();
-            
+            SignUtil.CreateSign("");
+            new hs_invitation_BLL().CreateInvitationCode("58657C04BCADF3C6AA26F2B79D24994D");
             GuiLingZhiZhuAction action = new GuiLingZhiZhuAction(zhizhu);
             zhizhu.Damage = 0;
             Console.WriteLine(zhizhu.Damage);

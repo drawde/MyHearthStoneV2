@@ -1,4 +1,6 @@
 ﻿using MyHearthStoneV2.CardLibrary.Base;
+using MyHearthStoneV2.CardLibrary.Hero;
+using MyHearthStoneV2.CardLibrary.Servant;
 using MyHearthStoneV2.CardLibrary.Servant.NAXX;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,24 @@ namespace MyHearthStoneV2.CardAction.Servant.NAXX
 
         public void Attack(IBiology target)
         {
-            throw new NotImplementedException();
+            if (typeof(BaseHero).IsAssignableFrom(target.GetType()))
+            {
+                BaseHero hero = (BaseHero)target;
+                if (hero.Ammo >= _entity.Damage)
+                {
+                    hero.Ammo -= _entity.Damage;
+                }
+                else
+                {                    
+                    hero.Life -= _entity.Damage - hero.Ammo;
+                    hero.Ammo = 0;
+                }
+            }
+            else
+            {
+                BaseServant servant = (BaseServant)target;
+                servant.Life -= _entity.Damage;
+            }
         }
     }
 }

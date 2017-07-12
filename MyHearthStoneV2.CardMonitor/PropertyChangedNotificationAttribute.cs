@@ -47,7 +47,7 @@ namespace MyHearthStoneV2.CardMonitor
                         //{
 
                         //}
-                        eventArgs.Instance.GetType().GetMethod("OutChessboard").Invoke(eventArgs.Instance, null);
+                        //eventArgs.Instance.GetType().GetMethod("OutChessboard").Invoke(eventArgs.Instance, null);
                     }
                 }
                 else if (property == "CardLocation")
@@ -55,7 +55,7 @@ namespace MyHearthStoneV2.CardMonitor
                     CardLocation cl = (CardLocation)Enum.Parse(typeof(CardLocation), this.GetPropertyValue(eventArgs.Instance, property).ToString());
                     if (cl == CardLocation.场上)
                     {
-                        eventArgs.Instance.GetType().GetMethod("InChessboard").Invoke(eventArgs.Instance, null);
+                        //eventArgs.Instance.GetType().GetMethod("InChessboard").Invoke(eventArgs.Instance, null);
                     }
                 }
             }

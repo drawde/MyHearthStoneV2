@@ -10,16 +10,16 @@ namespace MyHearthStoneV2.CardLibrary.Servant
     /// <summary>
     /// 随从基类
     /// </summary>
-    public abstract class BaseServant : Card
+    public abstract class BaseServant : IBiology
     {
         /// <summary>
         /// 费用
         /// </summary>
-        int Cost { get; set; }
+        public int Cost { get; set; }
 
         /// <summary>
         /// 场上位置下标
         /// </summary>
-        int ChessboardIndex { get; set; }
+        public int ChessboardIndex { get; set; }
     }
 }
