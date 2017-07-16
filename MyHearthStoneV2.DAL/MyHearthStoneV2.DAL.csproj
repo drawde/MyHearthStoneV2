@@ -62,22 +62,12 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkContext .cs" />
-    <Compile Include="MyHearthStoneV2.Context1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyHearthStoneV2.Context.tt</DependentUpon>
-    </Compile>
+    <Compile Include="MyHearthStoneV2.Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MyHearthStoneV2.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MyHearthStoneV2.Context1.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

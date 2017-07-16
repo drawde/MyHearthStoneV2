@@ -76,26 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBLL.cs" />
-    <Compile Include="hs_invitation_BLL.cs">
-      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MyHearthStoneEDMX.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
-    </Compile>
-    <Compile Include="hs_gamerecord_BLL.cs">
-      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
-    </Compile>
-    <Compile Include="hs_game_BLL.cs">
-      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
-    </Compile>
-    <Compile Include="hs_usercardgroup_BLL.cs">
-      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
-    </Compile>
-    <Compile Include="hs_users_BLL.cs">
-      <DependentUpon>MyHearthStoneEDMX.tt</DependentUpon>
-    </Compile>
+    <Compile Include="hs_gamerecord_BLL.cs" />
+    <Compile Include="hs_game_BLL.cs" />
+    <Compile Include="hs_usercardgroup_BLL.cs" />
+    <Compile Include="InvitationBll.cs" />
     <Compile Include="PageAttribute\DataVerifyAttribute.cs" />
     <Compile Include="PageAttribute\ExceptionAttribute.cs" />
     <Compile Include="PageAttribute\JurisdictionAttribute.cs" />
@@ -103,10 +87,14 @@
     <Compile Include="PageAttribute\RecordResultAttribute.cs" />
     <Compile Include="PageAttribute\VersionCtlAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsersBll.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
@@ -121,15 +109,6 @@
       <Project>{1ef058cd-18c5-4a4f-be6e-490164c0316b}</Project>
       <Name>MyHearthStoneV2.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MyHearthStoneEDMX.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MyHearthStoneEDMX.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

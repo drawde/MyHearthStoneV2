@@ -1,7 +1,5 @@
 
 
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,31 +11,19 @@ using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Common.Util;
 
 
-
 namespace MyHearthStoneV2.BLL
 {
-
-public  class hs_gamerecord_BLL:BaseBLL<hs_gamerecord>
-{
-		private IRepository<hs_gamerecord> _repository = new Repository<hs_gamerecord>();
+    public  class hs_gamerecord_BLL:BaseBLL<hs_gamerecord>
+    {
+    		private IRepository<hs_gamerecord> _repository = new Repository<hs_gamerecord>();
+            
         
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-}
-
+        
+        
+        
+        
+        
+        
+        
+    }
 }
