@@ -58,14 +58,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PostSharp, Version=4.3.33.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.4.3.33\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
@@ -196,6 +188,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj">
+      <Project>{f69a8aeb-ab89-4f87-b2fd-af68d009e42e}</Project>
+      <Name>MyHearthStoneV2.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.CardAction\MyHearthStoneV2.CardAction.csproj">
       <Project>{a9c4ecaa-b24c-4507-89e4-ca95f7ffbaf0}</Project>
       <Name>MyHearthStoneV2.CardAction</Name>
@@ -203,6 +199,10 @@
     <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj">
       <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
       <Name>MyHearthStoneV2.CardLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
+      <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>
+      <Name>MyHearthStoneV2.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

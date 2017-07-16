@@ -15,12 +15,12 @@ namespace MyHearthStoneV2.Game
         /// <summary>
         /// 先手玩家
         /// </summary>
-        public hs_users FirstUser;
+        public HS_Users FirstUser;
 
         /// <summary>
         /// 后手玩家
         /// </summary>
-        public hs_users SecondUser;
+        public HS_Users SecondUser;
 
         /// <summary>
         /// 本局中所有的牌

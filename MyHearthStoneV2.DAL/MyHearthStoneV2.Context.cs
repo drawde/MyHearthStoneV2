@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.DAL
     public partial class MyHearthStoneV2Context : DbContext
     {
         public MyHearthStoneV2Context()
-            : base("name=myhearthstonev2Entities2")
+            : base("name=MyHearthStoneV2Entities")
         {
         }
     
@@ -26,10 +26,10 @@ namespace MyHearthStoneV2.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<hs_game> hs_game { get; set; }
-        public virtual DbSet<hs_gamerecord> hs_gamerecord { get; set; }
-        public virtual DbSet<hs_usercardgroup> hs_usercardgroup { get; set; }
-        public virtual DbSet<hs_users> hs_users { get; set; }
-        public virtual DbSet<hs_invitation> hs_invitation { get; set; }
+        public virtual DbSet<HS_Game> hs_game { get; set; }
+        public virtual DbSet<HS_GameRecord> hs_gamerecord { get; set; }
+        public virtual DbSet<HS_UserCardGroup> hs_usercardgroup { get; set; }
+        public virtual DbSet<HS_Users> hs_users { get; set; }
+        public virtual DbSet<HS_Invitation> hs_invitation { get; set; }
     }
 }

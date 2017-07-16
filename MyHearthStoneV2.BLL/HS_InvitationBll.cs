@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,12 +11,12 @@ using MyHearthStoneV2.Common.Common;
 
 namespace MyHearthStoneV2.BLL
 {
-    public class hs_invitation_BLL : BaseBLL<hs_invitation>
+    public class HS_InvitationBll : BaseBLL<HS_Invitation>
     {
-        private IRepository<hs_invitation> _repository = new Repository<hs_invitation>();
+        private IRepository<HS_Invitation> _repository = new Repository<HS_Invitation>();
         public string CreateInvitationCode(string userCode)
         {
-            hs_users_BLL userBll = new hs_users_BLL();
+            HS_UsersBll userBll = new HS_UsersBll();
             if (userCode.IsNullOrEmpty() || !userBll.IsUserCodeRepeat(userCode))
             {
                 return OperateJsonRes.Error(Common.Enum.OperateResCodeEnum.参数错误);
@@ -28,7 +26,7 @@ namespace MyHearthStoneV2.BLL
                 return OperateJsonRes.Error(Common.Enum.OperateResCodeEnum.参数错误);
             }
             string code = SignUtil.CreateSign(userCode + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            hs_invitation invitation = new hs_invitation();
+            HS_Invitation invitation = new HS_Invitation();
             invitation.AddTime = DateTime.Now;
             invitation.FromUserCode = userCode;
             invitation.InvitationCode = code;
@@ -38,9 +36,9 @@ namespace MyHearthStoneV2.BLL
             return OperateJsonRes.SuccessResult(code);
         }
 
-        public hs_invitation GetInvitation(string userCode, InvitationStatus status = InvitationStatus.无)
+        public HS_Invitation GetInvitation(string userCode, InvitationStatus status = InvitationStatus.无)
         {
-            var where = LDMFilter.True<hs_invitation>();
+            var where = LDMFilter.True<HS_Invitation>();
             where = where.And(c => c.FromUserCode == userCode);
             if (status != InvitationStatus.无)
             {
@@ -49,9 +47,9 @@ namespace MyHearthStoneV2.BLL
             var res = _repository.Get(where).Result;
             return res.TotalItemsCount > 0 ? res.Items.First() : null;
         }
-        public hs_invitation GetInvitation(string invitationCode, string userCode)
+        public HS_Invitation GetInvitation(string invitationCode, string userCode)
         {
-            var where = LDMFilter.True<hs_invitation>();
+            var where = LDMFilter.True<HS_Invitation>();
             where = where.And(c => c.InvitationCode == invitationCode && c.Status == (int)InvitationStatus.未使用 && c.FromUserCode != userCode);
             var res = _repository.Get(where).Result;
             return res.TotalItemsCount > 0 ? res.Items.First() : null;

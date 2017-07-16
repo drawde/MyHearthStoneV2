@@ -23,12 +23,12 @@ namespace MyHearthStoneV2.GameControler
             
         }
         internal Chessboard chessboard;
-        internal hs_users firstPlayer;
-        internal hs_users secondPlayer;
+        internal HS_Users firstPlayer;
+        internal HS_Users secondPlayer;
         /// <summary>
         /// 当前回合玩家
         /// </summary>
-        internal hs_users currentPlayer;
+        internal HS_Users currentPlayer;
 
         /// <summary>
         /// 当前回合剩余秒数

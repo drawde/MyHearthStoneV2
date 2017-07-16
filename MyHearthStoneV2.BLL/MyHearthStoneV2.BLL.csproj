@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3B4169E8-C550-48FE-BDBF-C67E0716A23A}</ProjectGuid>
+    <ProjectGuid>{F69A8AEB-AB89-4F87-B2FD-AF68D009E42E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyHearthStoneV2.BLL</RootNamespace>
@@ -38,14 +38,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.ConnectorNET.Data.6.8.3.2\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MySql.Data.Entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.ConnectorNET.Entity.6.8.3.2\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -58,10 +50,6 @@
     <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Web.Http.Common.4.0.20126.16343\lib\net40\System.Web.Http.Common.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -78,8 +66,9 @@
     <Compile Include="BaseBLL.cs" />
     <Compile Include="hs_gamerecord_BLL.cs" />
     <Compile Include="hs_game_BLL.cs" />
+    <Compile Include="HS_InvitationBll.cs" />
     <Compile Include="hs_usercardgroup_BLL.cs" />
-    <Compile Include="InvitationBll.cs" />
+    <Compile Include="HS_UsersBll.cs" />
     <Compile Include="PageAttribute\DataVerifyAttribute.cs" />
     <Compile Include="PageAttribute\ExceptionAttribute.cs" />
     <Compile Include="PageAttribute\JurisdictionAttribute.cs" />
@@ -87,14 +76,10 @@
     <Compile Include="PageAttribute\RecordResultAttribute.cs" />
     <Compile Include="PageAttribute\VersionCtlAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsersBll.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
@@ -106,7 +91,7 @@
       <Name>MyHearthStoneV2.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
-      <Project>{1ef058cd-18c5-4a4f-be6e-490164c0316b}</Project>
+      <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>
       <Name>MyHearthStoneV2.Model</Name>
     </ProjectReference>
   </ItemGroup>

@@ -13,9 +13,9 @@ using MyHearthStoneV2.Common.Util;
 
 namespace MyHearthStoneV2.BLL
 {
-    public  class hs_gamerecord_BLL:BaseBLL<hs_gamerecord>
+    public  class hs_gamerecord_BLL:BaseBLL<HS_GameRecord>
     {
-    		private IRepository<hs_gamerecord> _repository = new Repository<hs_gamerecord>();
+    		private IRepository<HS_GameRecord> _repository = new Repository<HS_GameRecord>();
             
         
         

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,41 +12,40 @@ using MyHearthStoneV2.Common.Enum;
 
 namespace MyHearthStoneV2.BLL
 {
-
-    public class hs_users_BLL : BaseBLL<hs_users>
+    public class HS_UsersBll : BaseBLL<HS_Users>
     {
-        private IRepository<hs_users> _repository = new Repository<hs_users>();
+        private IRepository<HS_Users> _repository = new Repository<HS_Users>();
         public string Register(string userName, string pwd, string mobile, string email, string invitationCode)
         {
-            hs_invitation_BLL invBll = new hs_invitation_BLL();
+            HS_InvitationBll invBll = new HS_InvitationBll();
             if (userName.IsNullOrEmpty() || pwd.IsNullOrEmpty() || invitationCode.IsNullOrEmpty())
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.²ÎÊı´íÎó);
+                return OperateJsonRes.Error(OperateResCodeEnum.å‚æ•°é”™è¯¯);
             }
             if (IsRepeat(userName))
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.ÓÃ»§ÃûÖØ¸´);
+                return OperateJsonRes.Error(OperateResCodeEnum.ç”¨æˆ·åé‡å¤);
             }
             if (!mobile.IsNullOrEmpty() && IsRepeat(mobile))
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.ÊÖ»úºÅÖØ¸´);
+                return OperateJsonRes.Error(OperateResCodeEnum.æ‰‹æœºå·é‡å¤);
             }
             if (!email.IsNullOrEmpty() && IsRepeat(email))
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.ÓÊÏäÖØ¸´);
+                return OperateJsonRes.Error(OperateResCodeEnum.é‚®ç®±é‡å¤);
             }
             string userCode = SignUtil.CreateSign(userName + invitationCode + DateTime.Now.ToString("yyyyMMddHHmmss"));
             if (invBll.GetInvitation(invitationCode, userCode) == null)
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.²ÎÊı´íÎó);
+                return OperateJsonRes.Error(OperateResCodeEnum.å‚æ•°é”™è¯¯);
             }
-            hs_users user = new hs_users();
+            HS_Users user = new HS_Users();
             user.AddTime = DateTime.Now;
             user.Email = email.TryParseString();
             user.Mobile = mobile.TryParseString();
             user.Password = SignUtil.CreateSign(pwd);
             user.UserCode = userCode;
-            user.UserName = userName;            
+            user.UserName = userName;
             _repository.Insert(user);
             return OperateJsonRes.SuccessResult();
         }

@@ -13,9 +13,9 @@ using MyHearthStoneV2.Common.Util;
 
 namespace MyHearthStoneV2.BLL
 {
-    public  class hs_usercardgroup_BLL:BaseBLL<hs_usercardgroup>
+    public  class hs_usercardgroup_BLL:BaseBLL<HS_UserCardGroup>
     {
-    		private IRepository<hs_usercardgroup> _repository = new Repository<hs_usercardgroup>();
+    		private IRepository<HS_UserCardGroup> _repository = new Repository<HS_UserCardGroup>();
             
         
         

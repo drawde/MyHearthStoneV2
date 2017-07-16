@@ -50,10 +50,6 @@
     <Compile Include="Servant\NAXX\GuiLingZhiZhuAction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj">
-      <Project>{3b4169e8-c550-48fe-bdbf-c67e0716a23a}</Project>
-      <Name>MyHearthStoneV2.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj">
       <Project>{07edba98-a0de-406a-8145-7bdba71e06d4}</Project>
       <Name>MyHearthStoneV2.CardEnum</Name>
@@ -77,10 +73,6 @@
     <ProjectReference Include="..\MyHearthStoneV2.GameControler\MyHearthStoneV2.GameControler.csproj">
       <Project>{c63d9b8d-118d-4dc1-a9bd-8b36bb3225d3}</Project>
       <Name>MyHearthStoneV2.GameControler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
-      <Project>{1ef058cd-18c5-4a4f-be6e-490164c0316b}</Project>
-      <Name>MyHearthStoneV2.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

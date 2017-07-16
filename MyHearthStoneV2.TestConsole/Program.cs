@@ -31,7 +31,7 @@ namespace MyHearthStoneV2.TestConsole
 
             GuiLingZhiZhu zhizhu = new GuiLingZhiZhu();
             SignUtil.CreateSign("");
-            new InvitationBll().CreateInvitationCode("58657C04BCADF3C6AA26F2B79D24994D");
+            //new HS_InvitationBll().CreateInvitationCode("58657C04BCADF3C6AA26F2B79D24994D");
             GuiLingZhiZhuAction action = new GuiLingZhiZhuAction(zhizhu);
             zhizhu.Damage = 0;
             Console.WriteLine(zhizhu.Damage);

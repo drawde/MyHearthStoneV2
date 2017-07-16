@@ -54,7 +54,7 @@
       <Name>MyHearthStoneV2.CardLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
-      <Project>{1ef058cd-18c5-4a4f-be6e-490164c0316b}</Project>
+      <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>
       <Name>MyHearthStoneV2.Model</Name>
     </ProjectReference>
   </ItemGroup>

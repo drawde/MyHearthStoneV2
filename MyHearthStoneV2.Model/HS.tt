@@ -119,7 +119,7 @@ foreach (var complex in typeMapper.GetItemsToGenerate<ComplexType>(itemCollectio
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false)#>
-<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#>
+<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#> 
 {
 <#
     var complexProperties = typeMapper.GetComplexProperties(complex);
@@ -315,7 +315,7 @@ public class CodeStringGenerator
     {
         return string.Format(
             CultureInfo.InvariantCulture,
-            "{0} {1}partial class {2}{3}:BaseEntity",
+            "{0} {1}partial class {2}{3} :BaseEntity",
             Accessibility.ForType(entity),
             _code.SpaceAfter(_code.AbstractOption(entity)),
             _code.Escape(entity),
