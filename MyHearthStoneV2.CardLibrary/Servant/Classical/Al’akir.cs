@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyHearthStoneV2.CardSpecialEffect.Other;
+using MyHearthStoneV2.CardSpecialEffect;
+
 namespace MyHearthStoneV2.CardLibrary.Servant.Classical
 {
     [PropertyChangedNotification]
@@ -15,9 +17,8 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
         public int Life = 4;
         public int Cost = 8;
         public CardLocation CardLocation = CardLocation.牌库;
-        
-        public List<BuffTime> LstBuff = new List<BuffTime>() { new BuffTime(typeof(Taunt), BuffTimeLimit.无限制) , new BuffTime(typeof(Windfury), BuffTimeLimit.无限制),
-        new BuffTime(typeof(Charge), BuffTimeLimit.无限制),new BuffTime(typeof(HolyShield), BuffTimeLimit.无限制)};
+
+        public List<ISpecialEffect> LstBuff = new List<ISpecialEffect>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
         public string Describe
         {
             get

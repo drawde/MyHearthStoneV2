@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardSpecialEffect.WarCry
 {
-    /// <summary>
-    /// 战吼：改变伤害
-    /// </summary>
-    public class AlterDamege: ISpecialEffect
+    public class SE_JiaoXiaoDeZhongShi:ISpecialEffect
     {
+        public CardEnum.BuffTimeLimit buffTime = CardEnum.BuffTimeLimit.无限制;
     }
 }

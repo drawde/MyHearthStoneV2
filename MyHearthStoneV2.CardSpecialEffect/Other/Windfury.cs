@@ -11,5 +11,6 @@ namespace MyHearthStoneV2.CardSpecialEffect.Other
     /// </summary>
     public class Windfury : ISpecialEffect
     {
+        public CardEnum.BuffTimeLimit buffTime = CardEnum.BuffTimeLimit.无限制;
     }
 }

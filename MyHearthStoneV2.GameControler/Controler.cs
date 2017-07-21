@@ -1,6 +1,8 @@
-﻿using MyHearthStoneV2.Common.Util;
+﻿using MyHearthStoneV2.CardLibrary.Base;
+using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Game;
 using MyHearthStoneV2.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +20,39 @@ namespace MyHearthStoneV2.GameControler
         /// 游戏ID
         /// </summary>
         public string GameID { get; set; }
-        internal Controler()
+
+        /// <summary>
+        /// 初始化控制器
+        /// </summary>
+        /// <param name="gameID"></param>
+        /// <param name="_firstPlayer"></param>
+        /// <param name="_secondPlayer"></param>
+        /// <param name="firstCardGroup"></param>
+        /// <param name="secondCardGroup"></param>
+        internal Controler(string gameID, HS_Users _firstPlayer, HS_Users _secondPlayer, HS_UserCardGroup firstCardGroup, HS_UserCardGroup secondCardGroup)
         {
-            
+            GameID = gameID;
+            firstPlayer = _firstPlayer;
+            secondPlayer = _secondPlayer;
+            chessboard = new Chessboard();
+            chessboard.FirstUser = firstPlayer;
+            chessboard.SecondUser = secondPlayer;
+            chessboard.FirstPlayerCards = JsonConvert.DeserializeObject<List<Card>>(firstCardGroup.CardDetail);
         }
         internal Chessboard chessboard;
         internal HS_Users firstPlayer;
         internal HS_Users secondPlayer;
+
+        /// <summary>
+        /// 先手玩家费用
+        /// </summary>
+        internal int FirstPlayerPower = 0;
+
+        /// <summary>
+        /// 后手玩家费用
+        /// </summary>
+        internal int SecondPlayerPower = 0;
+
         /// <summary>
         /// 当前回合玩家
         /// </summary>

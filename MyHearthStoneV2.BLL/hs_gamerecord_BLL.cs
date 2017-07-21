@@ -13,17 +13,12 @@ using MyHearthStoneV2.Common.Util;
 
 namespace MyHearthStoneV2.BLL
 {
-    public  class hs_gamerecord_BLL:BaseBLL<HS_GameRecord>
+    public class hs_gamerecord_BLL : BaseBLL<HS_GameRecord>
     {
-    		private IRepository<HS_GameRecord> _repository = new Repository<HS_GameRecord>();
-            
-        
-        
-        
-        
-        
-        
-        
-        
+        private IRepository<HS_GameRecord> _repository = new Repository<HS_GameRecord>();
+        private hs_gamerecord_BLL()
+        {
+        }
+        public static hs_gamerecord_BLL Instance = new hs_gamerecord_BLL();
     }
 }

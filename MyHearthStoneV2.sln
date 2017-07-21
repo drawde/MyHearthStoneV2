@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Web", "HearthStoneWeb\MyHearthStoneV2.Web.csproj", "{82C9E741-CB6A-42DF-890A-4F43FA76C8F3}"
 EndProject
@@ -30,6 +30,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Model", "MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj", "{E20A5218-63CA-4C40-BF0E-2835B7E4260D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.BLL", "MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj", "{F69A8AEB-AB89-4F87-B2FD-AF68D009E42E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.API", "MyHearthStoneV2.API\MyHearthStoneV2.API.csproj", "{07B14CE3-9D45-4B7E-AC89-2F20DD60706E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Redis", "MyHearthStoneV2.Redis\MyHearthStoneV2.Redis.csproj", "{1AA98BBB-2C51-466F-A3CF-5327A0A47EF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +97,14 @@ Global
 		{F69A8AEB-AB89-4F87-B2FD-AF68D009E42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F69A8AEB-AB89-4F87-B2FD-AF68D009E42E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F69A8AEB-AB89-4F87-B2FD-AF68D009E42E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07B14CE3-9D45-4B7E-AC89-2F20DD60706E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07B14CE3-9D45-4B7E-AC89-2F20DD60706E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07B14CE3-9D45-4B7E-AC89-2F20DD60706E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07B14CE3-9D45-4B7E-AC89-2F20DD60706E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA98BBB-2C51-466F-A3CF-5327A0A47EF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA98BBB-2C51-466F-A3CF-5327A0A47EF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA98BBB-2C51-466F-A3CF-5327A0A47EF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA98BBB-2C51-466F-A3CF-5327A0A47EF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

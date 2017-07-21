@@ -9,7 +9,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace MyHearthStoneV2.DAL.Impl
 {
     public class UnitOfWorkContext : IUnitOfWorkContext
@@ -47,7 +46,6 @@ namespace MyHearthStoneV2.DAL.Impl
                 IsCommitted = true;
                 return result;
             }
-            
             catch (DbUpdateException e)
             {
                 if (e.InnerException != null && e.InnerException.InnerException is SqlException)

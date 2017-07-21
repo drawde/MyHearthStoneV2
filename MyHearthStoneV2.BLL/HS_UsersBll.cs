@@ -15,9 +15,38 @@ namespace MyHearthStoneV2.BLL
     public class HS_UsersBll : BaseBLL<HS_Users>
     {
         private IRepository<HS_Users> _repository = new Repository<HS_Users>();
+        private HS_UsersBll()
+        {
+        }
+        public static HS_UsersBll Instance = new HS_UsersBll();
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <param name="userCode">用户编码</param>
+        /// <returns>用户实体</returns>
+        public HS_Users GetUser(string userCode)
+        {
+            var res = _repository.Get(c => c.UserCode == userCode).Result;
+            if (res.TotalItemsCount > 0)
+                return res.Items.First();
+            return null;
+        }
+
+        /// <summary>
+        /// 根据用户名获取用户
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns>用户实体</returns>
+        public HS_Users GetUserByUserName(string userName)
+        {
+            var res = _repository.Get(c => c.UserName == userName).Result;
+            if (res.TotalItemsCount > 0)
+                return res.Items.First();
+            return null;
+        }
+
         public string Register(string userName, string pwd, string mobile, string email, string invitationCode)
         {
-            HS_InvitationBll invBll = new HS_InvitationBll();
             if (userName.IsNullOrEmpty() || pwd.IsNullOrEmpty() || invitationCode.IsNullOrEmpty())
             {
                 return OperateJsonRes.Error(OperateResCodeEnum.参数错误);
@@ -35,7 +64,7 @@ namespace MyHearthStoneV2.BLL
                 return OperateJsonRes.Error(OperateResCodeEnum.邮箱重复);
             }
             string userCode = SignUtil.CreateSign(userName + invitationCode + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            if (invBll.GetInvitation(invitationCode, userCode) == null)
+            if (HS_InvitationBll.Instance.GetInvitation(invitationCode, userCode) == null)
             {
                 return OperateJsonRes.Error(OperateResCodeEnum.参数错误);
             }

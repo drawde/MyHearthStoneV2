@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MyHearthStoneV2.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MyHearthStoneV2.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="HS_Game">
           <Key>
             <PropertyRef Name="ID" />
@@ -57,7 +57,7 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Mobile" Type="varchar" MaxLength="13" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
@@ -69,8 +69,7 @@
           <EntitySet Name="HS_UserCardGroup" EntityType="Self.HS_UserCardGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_Users" EntityType="Self.HS_Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyHearthStoneV2.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -119,25 +118,25 @@
           <Property Name="CardDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AddTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="HS_Users">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Mobile" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityContainer Name="MyHearthStoneV2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="HS_Game" EntityType="Self.HS_Game" />
           <EntitySet Name="HS_GameRecord" EntityType="Self.HS_GameRecord" />
           <EntitySet Name="HS_Invitation" EntityType="Self.HS_Invitation" />
           <EntitySet Name="HS_UserCardGroup" EntityType="Self.HS_UserCardGroup" />
-          <EntitySet Name="HS_Users" EntityType="Self.HS_Users" />
+          <EntitySet Name="HS_Users" EntityType="MyHearthStoneV2.Model.HS_Users" />
         </EntityContainer>
+        <EntityType Name="HS_Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -196,13 +195,13 @@
           <EntitySetMapping Name="HS_Users">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_Users">
               <MappingFragment StoreEntitySet="HS_Users">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

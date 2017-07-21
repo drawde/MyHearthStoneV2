@@ -26,14 +26,14 @@ namespace MyHearthStoneV2.Common.Common
         public static string VerifyFail()
         {
             IMResultBase result = new IMResultBase();
-            result.res = OperateResCodeEnum.内部错误.GetHashCode();
+            result.code = OperateResCodeEnum.内部错误.GetHashCode();
             result.msg = OperateResCodeEnum.内部错误.ToString();
             return JsonConvert.SerializeObject(result);
         }
         public static string Error(OperateResCodeEnum resCodeEnum, string ERR = "")
         {
             IMResultBase result = new IMResultBase();
-            result.res = resCodeEnum.GetHashCode();
+            result.code = resCodeEnum.GetHashCode();
             result.msg = string.IsNullOrWhiteSpace(ERR) ? resCodeEnum.ToString() : ERR;
             return JsonConvert.SerializeObject(result);
         }
@@ -48,7 +48,7 @@ namespace MyHearthStoneV2.Common.Common
             PageResult<T> pr = new PageResult<T>();
             pr.Items = data;
             pr.TotalItemsCount = totalCount;
-            jsonResult.res = OperateResCodeEnum.成功.GetHashCode();
+            jsonResult.code = OperateResCodeEnum.成功.GetHashCode();
             jsonResult.msg = OperateResCodeEnum.成功.ToString();
             jsonResult.data = pr;
             return SerializeToJson(jsonResult);
@@ -62,7 +62,7 @@ namespace MyHearthStoneV2.Common.Common
         public static string SuccessPageResult<T>(IPagedItemsResult<T> data)
         {
             IMPageResult<T> jsonResult = new IMPageResult<T>();
-            jsonResult.res = OperateResCodeEnum.成功.GetHashCode();
+            jsonResult.code = OperateResCodeEnum.成功.GetHashCode();
             jsonResult.msg = OperateResCodeEnum.成功.ToString();
             jsonResult.data = data;
             return SerializeToJson(jsonResult);
@@ -71,7 +71,7 @@ namespace MyHearthStoneV2.Common.Common
         public static string SuccessResult(string data = "")
         {
             IMTextResult textRes = new IMTextResult();
-            textRes.res = OperateResCodeEnum.成功.GetHashCode();
+            textRes.code = OperateResCodeEnum.成功.GetHashCode();
             textRes.msg = OperateResCodeEnum.成功.ToString();
             textRes.data = data;
             return SerializeToJson(textRes);
@@ -79,7 +79,7 @@ namespace MyHearthStoneV2.Common.Common
         public static string SuccessResult<T>(T model)
         {
             IMSingleModelResult<T> textRes = new IMSingleModelResult<T>();
-            textRes.res = OperateResCodeEnum.成功.GetHashCode();
+            textRes.code = OperateResCodeEnum.成功.GetHashCode();
             textRes.msg = OperateResCodeEnum.成功.ToString();
             textRes.data = model;
             return SerializeToJson(textRes);
@@ -91,7 +91,7 @@ namespace MyHearthStoneV2.Common.Common
             {
                 if (dt != null && dt.Rows != null && dt.Rows.Count > 0)
                 {
-                    res.res = (int)OperateResCodeEnum.成功;
+                    res.code = (int)OperateResCodeEnum.成功;
                     PageResult<T> pr = new PageResult<T>();
                     pr.Items = JsonConvert.DeserializeObject<List<T>>(SerializeToJson(dt));
                     pr.TotalItemsCount = count;
@@ -99,13 +99,13 @@ namespace MyHearthStoneV2.Common.Common
                 }
                 else
                 {
-                    res.res = (int)OperateResCodeEnum.查询不到需要的数据;
+                    res.code = (int)OperateResCodeEnum.查询不到需要的数据;
                     res.msg = "查询不到需要的数据";
                 }
             }
             catch
             {
-                res.res = (int)OperateResCodeEnum.内部错误;
+                res.code = (int)OperateResCodeEnum.内部错误;
             }
 
             return JsonConvert.SerializeObject(res);

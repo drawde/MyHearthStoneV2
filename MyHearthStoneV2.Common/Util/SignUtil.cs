@@ -9,6 +9,11 @@ namespace MyHearthStoneV2.Common.Util
 {
     public class SignUtil
     {
+        /// <summary>
+        /// 生成MD5签名
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string CreateSign(string str)
         {
             var md5 = MD5.Create();

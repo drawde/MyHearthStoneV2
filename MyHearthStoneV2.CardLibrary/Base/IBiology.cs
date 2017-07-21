@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyHearthStoneV2.CardSpecialEffect;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// </summary>
         public string CardID { get; set; }
 
-        public List<BuffTime> LstBuff { get; set; }
+        public List<ISpecialEffect> LstBuff { get; set; }
 
         /// <summary>
         /// 当前回合剩余攻击次数

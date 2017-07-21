@@ -12,6 +12,13 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public class Chessboard
     {
+        //public Chessboard(HS_Users firstPlayer, HS_Users secondPlayer, List<Card> fristCardGroup, List<Card> secondCardGroup)
+        //{
+        //    FirstUser = firstPlayer;
+        //    SecondUser = secondPlayer;
+        //    FirstPlayerCards = fristCardGroup;
+
+        //}
         /// <summary>
         /// 先手玩家
         /// </summary>
@@ -25,7 +32,7 @@ namespace MyHearthStoneV2.Game
         /// <summary>
         /// 本局中所有的牌
         /// </summary>
-        private List<Card> AllCard;
+        public List<Card> AllCard;
 
 
         /// <summary>

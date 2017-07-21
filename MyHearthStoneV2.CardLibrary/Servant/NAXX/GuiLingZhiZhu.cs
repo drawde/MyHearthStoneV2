@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyHearthStoneV2.CardSpecialEffect.Deathwhisper;
+using MyHearthStoneV2.CardSpecialEffect;
+
 namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
 {
     [PropertyChangedNotification]
@@ -31,7 +33,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
             }
         }
 
-        public List<BuffTime> LstBuff = new List<BuffTime>() { new BuffTime(typeof(Revive), BuffTimeLimit.无限制) };
+        public List<ISpecialEffect> LstBuff = new List<ISpecialEffect>() { new SE_GuiLingZhiZhu() };
         
         public string Name
         {

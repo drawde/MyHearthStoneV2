@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyHearthStoneV2.CardSpecialEffect;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Classical
 {
@@ -32,8 +33,8 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
                 return Rarity.普通;
             }
         }
-        
-        public List<BuffTime> LstBuff = new List<BuffTime>() { new BuffTime(typeof(AlterDamege), BuffTimeLimit.己方回合结束) };
+
+        public List<ISpecialEffect> LstBuff = new List<ISpecialEffect>() { new SE_JiaoXiaoDeZhongShi() };
         
 
         public string Name

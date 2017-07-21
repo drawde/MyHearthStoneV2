@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Common.JsonModel
         /// <summary>
         /// 返回值
         /// </summary>
-        public int res { get; set; }
+        public int code { get; set; }
 
         /// <summary>
         /// 返回值说明

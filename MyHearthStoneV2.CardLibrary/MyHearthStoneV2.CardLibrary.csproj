@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Base\Card.cs" />
     <Compile Include="Base\IBiology.cs" />
-    <Compile Include="BuffTime.cs" />
     <Compile Include="Hero\BaseHero.cs" />
     <Compile Include="Hero\Hunter.cs" />
     <Compile Include="Hero\Warlock.cs" />

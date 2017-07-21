@@ -14,10 +14,14 @@ namespace MyHearthStoneV2.BLL
     public class HS_InvitationBll : BaseBLL<HS_Invitation>
     {
         private IRepository<HS_Invitation> _repository = new Repository<HS_Invitation>();
-        public string CreateInvitationCode(string userCode)
+
+        private HS_InvitationBll()
         {
-            HS_UsersBll userBll = new HS_UsersBll();
-            if (userCode.IsNullOrEmpty() || !userBll.IsUserCodeRepeat(userCode))
+        }
+        public static HS_InvitationBll Instance = new HS_InvitationBll();
+        public string CreateInvitationCode(string userCode)
+        {            
+            if (userCode.IsNullOrEmpty() || !HS_UsersBll.Instance.IsUserCodeRepeat(userCode))
             {
                 return OperateJsonRes.Error(Common.Enum.OperateResCodeEnum.参数错误);
             }
