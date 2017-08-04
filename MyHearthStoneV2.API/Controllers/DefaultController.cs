@@ -8,6 +8,7 @@ using System.Web.Http;
 using Newtonsoft.Json;
 using ServiceStack.Redis;
 using MyHearthStoneV2.Redis;
+using System.Configuration;
 
 namespace MyHearthStoneV2.API.Controllers
 {
@@ -33,5 +34,11 @@ namespace MyHearthStoneV2.API.Controllers
             //return Json<string>(OperateJsonRes.SuccessResult());
         }
 
+        [HttpPost]
+        [HttpGet]
+        public string Config()
+        {
+            return ConfigurationManager.AppSettings["TestKey"];
+        }
     }
 }

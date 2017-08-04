@@ -1,7 +1,9 @@
 ﻿using MyHearthStoneV2.CardLibrary.Base;
+using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Game;
 using MyHearthStoneV2.Model;
+using MyHearthStoneV2.Redis;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace MyHearthStoneV2.GameControler
     /// <summary>
     /// 游戏控制器
     /// </summary>
-    public class Controler
+    public partial class Controler
     {
         /// <summary>
         /// 游戏ID
@@ -29,55 +31,115 @@ namespace MyHearthStoneV2.GameControler
         /// <param name="_secondPlayer"></param>
         /// <param name="firstCardGroup"></param>
         /// <param name="secondCardGroup"></param>
-        internal Controler(string gameID, HS_Users _firstPlayer, HS_Users _secondPlayer, HS_UserCardGroup firstCardGroup, HS_UserCardGroup secondCardGroup)
+        public Controler(string gameID, HS_Users _firstPlayer, HS_Users _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup)
         {
+            #region 加载玩家卡组
             GameID = gameID;
-            firstPlayer = _firstPlayer;
-            secondPlayer = _secondPlayer;
+            
+
+            UserCards firstUser = new UserCards();
+            firstUser.User = _firstPlayer;
+            firstUser.IsActivation = true;
+            firstUser.IsFirst = true;
+            firstUser.AllCards = new List<Card>();
+            List<Card> lstCardLib = new List<Card>();
+            using (var redisClient = RedisManager.GetClient())
+            {
+                lstCardLib = redisClient.Get<List<Card>>(ConfigEnum.CardsInstance.ToString());
+            }
+            firstCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
+            {
+                firstUser.AllCards.Add(lstCardLib.First(c => c.CardCode == detail.CardCode));
+            });
+            firstUser.StockCards = firstUser.AllCards;
+
+            UserCards secondUser = new UserCards();
+            secondUser.User = _secondPlayer;
+            secondUser.IsActivation = true;
+            secondUser.IsFirst = false;
+            secondUser.AllCards = new List<Card>();
+            secondCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
+            {
+                secondUser.AllCards.Add(lstCardLib.First(c => c.CardCode == detail.CardCode));
+            });
+
+            secondUser.StockCards = secondUser.AllCards;
+
             chessboard = new Chessboard();
-            chessboard.FirstUser = firstPlayer;
-            chessboard.SecondUser = secondPlayer;
-            chessboard.FirstPlayerCards = JsonConvert.DeserializeObject<List<Card>>(firstCardGroup.CardDetail);
+            chessboard.Players = new List<UserCards>();
+            chessboard.Players.Add(firstUser);
+            chessboard.Players.Add(secondUser);
+            #endregion
+
+            #region 初始化开场选牌
+            int firstPickUpCount = 4;
+            List<Card> lstFirstPickUpCard = new List<Card>();
+            List<Card> lstSecondPickUpCard = new List<Card>();
+
+            List<int> lstRndIndex = RandomUtil.CreateRandomInt(0, chessboard.Players.First(c => c.IsFirst).AllCards.Count - 1, firstPickUpCount);
+            for (int i = 0; i < lstRndIndex.Count; i++)
+            {
+                if (i < lstRndIndex.Count - 1)
+                {
+                    lstFirstPickUpCard.Add(chessboard.Players.First(c => c.IsFirst).AllCards[lstRndIndex[i]]);
+                }
+                lstSecondPickUpCard.Add(chessboard.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]]);
+            }
+            firstUser.InitCards = lstFirstPickUpCard;
+            firstUser.DeskCards = new List<Card>();
+            firstUser.HandCards = new List<Card>();
+            firstUser.StockCards = new List<Card>();
+            
+            secondUser.InitCards = lstSecondPickUpCard;
+            secondUser.DeskCards = new List<Card>();
+            secondUser.HandCards = new List<Card>();
+            secondUser.StockCards = new List<Card>();
+            #endregion
+
+            List<Card> lstAll = new List<Card>();
+            lstAll.AddRange(firstUser.AllCards);
+            lstAll.AddRange(secondUser.AllCards);
+            chessboard.AllCard = lstAll;
+            SetCurrentRoundCode();
         }
-        internal Chessboard chessboard;
-        internal HS_Users firstPlayer;
-        internal HS_Users secondPlayer;
 
-        /// <summary>
-        /// 先手玩家费用
-        /// </summary>
-        internal int FirstPlayerPower = 0;
+        //System.Timers.Timer
 
-        /// <summary>
-        /// 后手玩家费用
-        /// </summary>
-        internal int SecondPlayerPower = 0;
+        public Chessboard chessboard { get; set; }
 
-        /// <summary>
-        /// 当前回合玩家
-        /// </summary>
-        internal HS_Users currentPlayer;
+        //internal HS_Users firstPlayer;
+        //internal HS_Users secondPlayer;
+
 
         /// <summary>
         /// 当前回合剩余秒数
         /// </summary>
-        internal int currentRoundRemainingSecond;
+        public int currentRoundRemainingSecond { get; set; }
 
         /// <summary>
         /// 进行完的回合数
         /// </summary>
-        private int roundCount = 0;
+        public int roundIndex { get; set; }
 
-        
+        /// <summary>
+        /// 当前回合编码
+        /// </summary>
+        public string currentRoundCode { get; set; }
 
         public void GameStart()
         {
         }
 
-        public void RoundEnd(string player)
+
+
+
+
+        public void PickUpACard(string userCode)
         {
+
         }
-        public void RoundStart(string player)
+
+        public void RoundStart()
         {
         }
     }

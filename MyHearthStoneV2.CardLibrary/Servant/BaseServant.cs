@@ -12,10 +12,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant
     /// </summary>
     public abstract class BaseServant : IBiology
     {
-        /// <summary>
-        /// 费用
-        /// </summary>
-        public int Cost { get; set; }
+        
 
         /// <summary>
         /// 场上位置下标

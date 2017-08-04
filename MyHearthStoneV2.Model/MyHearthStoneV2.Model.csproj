@@ -74,6 +74,9 @@
     <Compile Include="HS_UserCardGroup.cs">
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>
+    <Compile Include="HS_UserCardGroupDetail.cs">
+      <DependentUpon>HS.tt</DependentUpon>
+    </Compile>
     <Compile Include="HS_Users.cs">
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>

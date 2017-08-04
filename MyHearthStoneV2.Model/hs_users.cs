@@ -21,5 +21,8 @@ namespace MyHearthStoneV2.Model
         public string Mobile { get; set; }
         public string Email { get; set; }
         public System.DateTime AddTime { get; set; }
+        public string SecretCode { get; set; }
+        public string HeadImg { get; set; }
+        public string NickName { get; set; }
     }
 }

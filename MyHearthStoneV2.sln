@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Web", "HearthStoneWeb\MyHearthStoneV2.Web.csproj", "{82C9E741-CB6A-42DF-890A-4F43FA76C8F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Web", "MyHearthStoneV2.Web\MyHearthStoneV2.Web.csproj", "{82C9E741-CB6A-42DF-890A-4F43FA76C8F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardLibrary", "MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj", "{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}"
 EndProject

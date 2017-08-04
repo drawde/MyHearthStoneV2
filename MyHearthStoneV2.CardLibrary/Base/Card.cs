@@ -13,6 +13,10 @@ namespace MyHearthStoneV2.CardLibrary.Base
     public abstract class Card
     {
         /// <summary>
+        /// 费用
+        /// </summary>
+        public int Cost { get; set; }
+        /// <summary>
         /// 游戏ID
         /// </summary>
         public string GameID { get; set; }
@@ -37,5 +41,10 @@ namespace MyHearthStoneV2.CardLibrary.Base
         public Rarity Rare { get; }
 
         public CardLocation CardLocation { get; set; }
+
+        /// <summary>
+        /// 卡牌编码
+        /// </summary>
+        public string CardCode { get; set; }
     }
 }

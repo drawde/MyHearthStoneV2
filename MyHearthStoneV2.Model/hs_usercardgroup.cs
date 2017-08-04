@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.Model
         public int ID { get; set; }
         public string UserCode { get; set; }
         public string GroupName { get; set; }
-        public string CardDetail { get; set; }
-        public string AddTime { get; set; }
+        public string GroupCode { get; set; }
+        public System.DateTime AddTime { get; set; }
     }
 }

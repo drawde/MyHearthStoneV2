@@ -1,0 +1,15 @@
+﻿ul {
+    list-style-type: none;
+}
+.Left {
+    float:left;
+}
+.Red {
+    color:salmon;
+}
+.TextLeft {
+    text-align:left
+}
+.TextRight {
+    text-align:right
+}

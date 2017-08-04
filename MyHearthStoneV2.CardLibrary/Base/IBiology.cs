@@ -31,6 +31,6 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// <summary>
         /// 当前回合剩余攻击次数
         /// </summary>
-        public int CurrentRoundRemainingAttackTimes { get; set; }
+        public int RemainAttackTimes { get; set; }
     }
 }

@@ -45,9 +45,9 @@ namespace MyHearthStoneV2.BLL
             return null;
         }
 
-        public string Register(string userName, string pwd, string mobile, string email, string invitationCode)
+        public string Register(string userName, string pwd, string mobile, string email, string invitationCode, string nickName, string headImg = "")
         {
-            if (userName.IsNullOrEmpty() || pwd.IsNullOrEmpty() || invitationCode.IsNullOrEmpty())
+            if (userName.IsNullOrEmpty() || pwd.IsNullOrEmpty() || invitationCode.IsNullOrEmpty() || nickName.IsNullOrEmpty())
             {
                 return OperateJsonRes.Error(OperateResCodeEnum.参数错误);
             }
@@ -64,7 +64,8 @@ namespace MyHearthStoneV2.BLL
                 return OperateJsonRes.Error(OperateResCodeEnum.邮箱重复);
             }
             string userCode = SignUtil.CreateSign(userName + invitationCode + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            if (HS_InvitationBll.Instance.GetInvitation(invitationCode, userCode) == null)
+            var invitation = HS_InvitationBll.Instance.GetInvitation(invitationCode, userCode);
+            if (invitation == null)
             {
                 return OperateJsonRes.Error(OperateResCodeEnum.参数错误);
             }
@@ -75,7 +76,14 @@ namespace MyHearthStoneV2.BLL
             user.Password = SignUtil.CreateSign(pwd);
             user.UserCode = userCode;
             user.UserName = userName;
+            user.NickName = nickName;
+            user.HeadImg = headImg.TryParseString();
+            user.SecretCode = SignUtil.CreateSign(user.UserName + user.UserCode + RandomUtil.CreateRandomStr(10) + DateTime.Now.Ticks);
             _repository.Insert(user);
+
+            invitation.ToUserCode = userCode;
+            invitation.Status = (int)InvitationStatus.已使用;
+            HS_InvitationBll.Instance.Update(invitation);
             return OperateJsonRes.SuccessResult();
         }
         public bool IsRepeat(string userName)

@@ -67,7 +67,8 @@
     <Compile Include="hs_gamerecord_BLL.cs" />
     <Compile Include="hs_game_BLL.cs" />
     <Compile Include="HS_InvitationBll.cs" />
-    <Compile Include="hs_usercardgroup_BLL.cs" />
+    <Compile Include="UserCardGroupDetailBll.cs" />
+    <Compile Include="UserCardGroupBll.cs" />
     <Compile Include="HS_UsersBll.cs" />
     <Compile Include="PageAttribute\DataVerifyAttribute.cs" />
     <Compile Include="PageAttribute\ExceptionAttribute.cs" />

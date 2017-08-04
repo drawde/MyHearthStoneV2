@@ -1,0 +1,32 @@
+﻿@using System.Configuration
+@using MyHearthStoneV2.Common.Util
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    
+}
+@section css{
+<link href="/Content/Table.css" rel="stylesheet" />
+}
+@section js{
+<script src="/Scripts/Table.js"></script>    
+}
+<script type="text/javascript">
+        var ISDEBUG = @(ConfigurationManager.AppSettings["IsDebug"].TryParseBool() ? "true" : "false");
+</script>
+<div class="Container">
+    <div class="TablePanel Left">
+        <ul class="Desk">
+            @{
+                for (int i = 0; i < 14; i++)
+                {
+                    <li class="Left"><div class="CardPanel" ServantCode="blank">aaaaa</div></li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="ChatPanel Left">
+        <ul>
+            <li>咯咯咯咯个</li>
+        </ul>
+    </div>
+</div>

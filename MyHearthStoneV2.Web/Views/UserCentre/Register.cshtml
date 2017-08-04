@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "用户注册";
+}
+@section css{
+    <link href="/Content/Register.css" rel="stylesheet" />
+}
+@section js{
+    <script src="/Scripts/Register.js"></script>
+}
+<div>
+    <ul class="regPannel">
+        <li><span class="regSpan TextRight regLeft">用户名：</span><span class="regSpan TextLeft"><input type="text" name="UserName" /></span><span class="regSpan Red" style="width:20px;">*</span></li>
+        @*<li><span class="regSpan TextRight">密码：</span><input type="password" name="Password" /><span class="Red">*</span></li>
+        <li><span class="regSpan TextRight">确认密码：</span><input type="password" name="RepeatPassword" /><span class="Red">*</span></li>*@
+    </ul>
+</div>

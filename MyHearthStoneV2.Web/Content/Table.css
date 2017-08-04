@@ -1,0 +1,39 @@
+﻿body {
+}
+.Container {
+    width:1500px;
+}
+.TablePanel {
+    background-color:antiquewhite;
+    width:80%;
+}
+.ChatPanel {
+    background-color:brown;
+    width:20%;
+}
+.ChatPanel ul{    
+    padding: 0;
+    margin: 0;
+    height:800px;
+}
+.Desk {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height:800px;
+}
+.Desk li{
+    width:140px;
+    height:250px;
+    margin-left:20px;
+    margin-bottom:100px;
+    background-color:cornflowerblue;
+}
+
+.CardPanel{
+    width:136px;
+    height:246px;
+}
+.Active {
+    border:2px chartreuse solid;
+}

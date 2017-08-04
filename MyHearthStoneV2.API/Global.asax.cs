@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyHearthStoneV2.CardLibrary;
+using MyHearthStoneV2.CardLibrary.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,6 +20,9 @@ namespace MyHearthStoneV2.API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            CardUtil.AddToRedis();
+
         }
     }
 }

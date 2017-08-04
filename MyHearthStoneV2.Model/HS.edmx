@@ -47,8 +47,19 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="GroupName" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="CardDetail" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AddTime" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="GroupCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HS_UserCardGroupDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GroupCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsGoldCard" Type="bit" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_Users">
           <Key>
@@ -61,26 +72,38 @@
           <Property Name="Mobile" Type="varchar" MaxLength="13" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="SecretCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HeadImg" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NickName" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityContainer Name="MyHearthStoneV2ModelStoreContainer">
           <EntitySet Name="HS_Game" EntityType="Self.HS_Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_GameRecord" EntityType="Self.HS_GameRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_Invitation" EntityType="Self.HS_Invitation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_UserCardGroup" EntityType="Self.HS_UserCardGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HS_UserCardGroupDetail" EntityType="Self.HS_UserCardGroupDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_Users" EntityType="Self.HS_Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyHearthStoneV2.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyHearthStoneV2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HS_Game" EntityType="MyHearthStoneV2.Model.HS_Game" />
+          <EntitySet Name="HS_GameRecord" EntityType="MyHearthStoneV2.Model.HS_GameRecord" />
+          <EntitySet Name="HS_Invitation" EntityType="MyHearthStoneV2.Model.HS_Invitation" />
+          <EntitySet Name="HS_UserCardGroupDetail" EntityType="MyHearthStoneV2.Model.HS_UserCardGroupDetail" />
+          <EntitySet Name="HS_UserCardGroup" EntityType="MyHearthStoneV2.Model.HS_UserCardGroup" />
+          <EntitySet Name="HS_Users" EntityType="MyHearthStoneV2.Model.HS_Users" />
+        </EntityContainer>
         <EntityType Name="HS_Game">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GameCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstUserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SecondUserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsFirstUserWin" Type="Boolean" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -89,11 +112,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GameCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstUserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SecondUserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsFirstUserRound" Type="Boolean" Nullable="false" />
-          <Property Name="Chessboard" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Chessboard" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="RoundIndex" Type="Int32" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -102,10 +125,21 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvitationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FromUserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ToUserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InvitationCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FromUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="HS_UserCardGroupDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GroupCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsGoldCard" Type="Boolean" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="HS_UserCardGroup">
@@ -113,18 +147,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="GroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CardDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AddTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GroupCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityContainer Name="MyHearthStoneV2Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="HS_Game" EntityType="Self.HS_Game" />
-          <EntitySet Name="HS_GameRecord" EntityType="Self.HS_GameRecord" />
-          <EntitySet Name="HS_Invitation" EntityType="Self.HS_Invitation" />
-          <EntitySet Name="HS_UserCardGroup" EntityType="Self.HS_UserCardGroup" />
-          <EntitySet Name="HS_Users" EntityType="MyHearthStoneV2.Model.HS_Users" />
-        </EntityContainer>
         <EntityType Name="HS_Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -136,6 +163,9 @@
           <Property Name="Mobile" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SecretCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HeadImg" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -146,55 +176,70 @@
           <EntitySetMapping Name="HS_Game">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_Game">
               <MappingFragment StoreEntitySet="HS_Game">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="GameCode" ColumnName="GameCode" />
-                <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
-                <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
-                <ScalarProperty Name="IsFirstUserWin" ColumnName="IsFirstUserWin" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsFirstUserWin" ColumnName="IsFirstUserWin" />
+                <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
+                <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
+                <ScalarProperty Name="GameCode" ColumnName="GameCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HS_GameRecord">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_GameRecord">
               <MappingFragment StoreEntitySet="HS_GameRecord">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="GameCode" ColumnName="GameCode" />
-                <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
-                <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
-                <ScalarProperty Name="IsFirstUserRound" ColumnName="IsFirstUserRound" />
-                <ScalarProperty Name="Chessboard" ColumnName="Chessboard" />
-                <ScalarProperty Name="RoundIndex" ColumnName="RoundIndex" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="RoundIndex" ColumnName="RoundIndex" />
+                <ScalarProperty Name="Chessboard" ColumnName="Chessboard" />
+                <ScalarProperty Name="IsFirstUserRound" ColumnName="IsFirstUserRound" />
+                <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
+                <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
+                <ScalarProperty Name="GameCode" ColumnName="GameCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HS_Invitation">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_Invitation">
               <MappingFragment StoreEntitySet="HS_Invitation">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="InvitationCode" ColumnName="InvitationCode" />
-                <ScalarProperty Name="FromUserCode" ColumnName="FromUserCode" />
-                <ScalarProperty Name="ToUserCode" ColumnName="ToUserCode" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ToUserCode" ColumnName="ToUserCode" />
+                <ScalarProperty Name="FromUserCode" ColumnName="FromUserCode" />
+                <ScalarProperty Name="InvitationCode" ColumnName="InvitationCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HS_UserCardGroupDetail">
+            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_UserCardGroupDetail">
+              <MappingFragment StoreEntitySet="HS_UserCardGroupDetail">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsGoldCard" ColumnName="IsGoldCard" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="CardCode" ColumnName="CardCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HS_UserCardGroup">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_UserCardGroup">
               <MappingFragment StoreEntitySet="HS_UserCardGroup">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="CardDetail" ColumnName="CardDetail" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HS_Users">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_Users">
               <MappingFragment StoreEntitySet="HS_Users">
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="HeadImg" ColumnName="HeadImg" />
+                <ScalarProperty Name="SecretCode" ColumnName="SecretCode" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />
