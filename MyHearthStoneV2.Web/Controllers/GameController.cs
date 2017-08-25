@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyHearthStoneV2.BLL.PageAttribute;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,7 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
 {
     public class GameController : Controller
     {
-        // GET: Game
+        [OAuth]
         public ActionResult Table()
         {
             return View();

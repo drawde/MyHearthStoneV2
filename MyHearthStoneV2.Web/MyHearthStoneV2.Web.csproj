@@ -52,13 +52,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="GeetestSDK, Version=3.1.6430.27732, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\GeetestSDK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -153,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserCentreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -165,19 +162,47 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Register.css" />
     <Content Include="Content\Table.css" />
+    <Content Include="css\build.min.css" />
+    <Content Include="css\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\background-data-microservice.jpg" />
+    <Content Include="img\build-20170730.min.js" />
+    <Content Include="img\lightbox\close.png" />
+    <Content Include="img\data-warehouse-analytics.jpg" />
+    <Content Include="img\data-warehouse-etl.jpg" />
+    <Content Include="img\developer-tools.jpg" />
+    <Content Include="img\header-icon.png" />
+    <Content Include="img\internet-of-things-iot.jpg" />
+    <Content Include="img\lightbox\loading.gif" />
+    <Content Include="img\lightbox\next.png" />
+    <Content Include="img\nodejs-logo.jpg" />
+    <Content Include="img\lightbox\prev.png" />
+    <Content Include="js\basic.js" />
+    <Content Include="js\build.min.js" />
+    <Content Include="js\chunk.js" />
+    <Content Include="js\index.js" />
+    <Content Include="js\login.js" />
+    <Content Include="js\main.js" />
+    <Content Include="js\Register.js" />
+    <Content Include="js\Table.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\3D-ASCII.flf" />
+    <None Include="css\css" />
+    <Content Include="fonts\et-line.woff" />
+    <Content Include="fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="fonts\themify.woff" />
+    <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\fetch.min.js" />
     <Content Include="Scripts\figlet.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookies.js" />
     <Content Include="Scripts\jquery.figlet.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
@@ -186,12 +211,43 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\Register.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\Table.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="static\css\default\bootstrap.min.css" />
+    <Content Include="static\css\default\img\bg.gif" />
+    <Content Include="static\css\default\img\login_bg.jpg" />
+    <Content Include="static\css\default\login.css" />
+    <Content Include="static\css\default\logo\Ghost-Transparent-for-DARK-BG-xs.png" />
+    <Content Include="static\css\default\logo\Ghost-Transparent-for-LIGHT-BG.png" />
+    <Content Include="static\css\jquery-confirm.css" />
+    <Content Include="static\css\style.css" />
+    <Content Include="static\css\v4\css\bootstrap-grid.css" />
+    <Content Include="static\css\v4\css\bootstrap-grid.min.css" />
+    <Content Include="static\css\v4\css\bootstrap-reboot.css" />
+    <Content Include="static\css\v4\css\bootstrap-reboot.min.css" />
+    <Content Include="static\css\v4\css\bootstrap.css" />
+    <Content Include="static\css\v4\css\bootstrap.min.css" />
+    <Content Include="static\css\v4\css\docs.min.css" />
+    <Content Include="static\css\v4\js\bootstrap.js" />
+    <Content Include="static\css\v4\js\bootstrap.min.js" />
+    <Content Include="static\img\portfolio4-1-585x480.jpg" />
+    <Content Include="static\js\app.js" />
+    <Content Include="static\js\aws.js" />
+    <Content Include="static\js\aw_template.js" />
+    <Content Include="static\css\default\common.css" />
+    <Content Include="static\js\compatibility.js" />
+    <Content Include="static\css\icon.css" />
+    <Content Include="static\js\gt.js" />
+    <Content Include="static\js\jquery-confirm.js" />
+    <Content Include="static\js\jquery.form.js" />
+    <Content Include="static\css\default\link.css" />
+    <Content Include="static\js\plug_module\plug-in_module.js" />
+    <Content Include="static\css\default\register.css" />
+    <Content Include="static\js\plug_module\style.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -204,10 +260,23 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Game\Table.cshtml" />
     <Content Include="Views\UserCentre\Register.cshtml" />
+    <Content Include="Views\UserCentre\DoRegister.cshtml" />
+    <Content Include="static\css\jquery-confirm.less" />
+    <Content Include="static\fonts\icomoon.ttf" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="static\fonts\icomoon.woff" />
+    <Content Include="Views\UserCentre\Login.cshtml" />
+    <Content Include="Views\Shared\_GameLayout.cshtml" />
+    <Content Include="static\css\v4\css\bootstrap-grid.css.map" />
+    <Content Include="static\css\v4\css\bootstrap-grid.min.css.map" />
+    <Content Include="static\css\v4\css\bootstrap-reboot.css.map" />
+    <Content Include="static\css\v4\css\bootstrap-reboot.min.css.map" />
+    <Content Include="static\css\v4\css\bootstrap.css.map" />
+    <Content Include="static\css\v4\css\bootstrap.min.css.map" />
+    <Content Include="Views\Shared\_LoginOrRegisterLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -233,6 +302,10 @@
     <ProjectReference Include="..\MyHearthStoneV2.Redis\MyHearthStoneV2.Redis.csproj">
       <Project>{1aa98bbb-2c51-466f-a3cf-5327a0a47ef2}</Project>
       <Name>MyHearthStoneV2.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.VerificationCode\MyHearthStoneV2.VerificationCode.csproj">
+      <Project>{9e74036f-4f48-4059-b6f8-640dd7191b40}</Project>
+      <Name>MyHearthStoneV2.VerificationCode</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

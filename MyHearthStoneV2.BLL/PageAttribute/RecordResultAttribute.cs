@@ -46,16 +46,15 @@ namespace MyHearthStoneV2.BLL.PageAttribute
         public override Task OnActionExecutedAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
         {
             HttpRequest request = HttpContext.Current.Request;
-            //DataExchange_REC exc = new DataExchange_REC();
-            //exc.AddTime = DateTime.Now;
-            //exc.QueryData = GetRequestValues(actionExecutedContext);
-            //exc.ResultData = GetResponseValues(actionExecutedContext);
-            //exc.URL = request.Url.AbsoluteUri;
-            //exc.IP = request.UserHostAddress;
-            //exc.Action = actionExecutedContext.ActionContext.ActionDescriptor.ActionName;
-            //exc.Controller = actionExecutedContext.ActionContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-            //DataExchange_REC_BLL bll = new DataExchange_REC_BLL();
-            //bll.Insert(exc);
+            HS_DataExchange exc = new HS_DataExchange();
+            exc.AddTime = DateTime.Now;
+            exc.QueryData = GetRequestValues(actionExecutedContext);
+            exc.ResultData = GetResponseValues(actionExecutedContext);
+            exc.URL = request.Url.AbsoluteUri;
+            exc.IP = request.UserHostAddress;
+            exc.Action = actionExecutedContext.ActionContext.ActionDescriptor.ActionName;
+            exc.Controller = actionExecutedContext.ActionContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            DataExchangeBll.Instance.Insert(exc);
             return base.OnActionExecutedAsync(actionExecutedContext, cancellationToken);
         }
 

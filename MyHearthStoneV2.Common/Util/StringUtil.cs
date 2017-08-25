@@ -9,6 +9,16 @@ namespace MyHearthStoneV2.Common.Util
 {
     public class StringUtil
     {
+        /// <summary>
+        /// 是否是英文字母或数字
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsNatural_Number(string str)
+        {
+            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
+            return reg.IsMatch(str);
+        }
         public static string GetIP()
         {
             string loginip = "";

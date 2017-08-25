@@ -73,14 +73,14 @@ namespace MyHearthStoneV2.GameControler
                     return res;
                 }
 
-                HS_Users firstUser = HS_UsersBll.Instance.GetUser(firstPlayerCode);
+                HS_Users firstUser = UsersBll.Instance.GetUserByAdmin(firstPlayerCode);
                 if (firstUser == null)
                 {
                     res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);
                     return res;
                 }
 
-                HS_Users secondUser = HS_UsersBll.Instance.GetUser(secondPlayerCode);
+                HS_Users secondUser = UsersBll.Instance.GetUserByAdmin(secondPlayerCode);
                 if (secondUser == null)
                 {
                     res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);

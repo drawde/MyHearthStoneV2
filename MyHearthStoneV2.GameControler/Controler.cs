@@ -45,7 +45,7 @@ namespace MyHearthStoneV2.GameControler
             List<Card> lstCardLib = new List<Card>();
             using (var redisClient = RedisManager.GetClient())
             {
-                lstCardLib = redisClient.Get<List<Card>>(ConfigEnum.CardsInstance.ToString());
+                lstCardLib = redisClient.Get<List<Card>>(RedisKeyEnum.CardsInstance.ToString());
             }
             firstCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
             {

@@ -21,17 +21,16 @@ namespace MyHearthStoneV2.BLL.PageAttribute
     {
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            //DataExchange_REC_BLL bll = new DataExchange_REC_BLL();            
-            //try
-            //{
-            //    ContentResult cr = (ContentResult)filterContext.Result;
-            //    string response = cr.Content;
-            //    bll.AsyncInsert((filterContext.RouteData.Values["action"]).ToString(), (filterContext.RouteData.Values["controller"]).ToString(), filterContext.Controller.TempData["fullData"].TryParseString(), response);
-            //}
-            //catch (Exception)
-            //{
-                
-            //}
+            try
+            {
+                ContentResult cr = (ContentResult)filterContext.Result;
+                string response = cr.Content;
+                DataExchangeBll.Instance.AsyncInsert((filterContext.RouteData.Values["action"]).ToString(), (filterContext.RouteData.Values["controller"]).ToString(), filterContext.Controller.TempData["fullData"].TryParseString(), response);
+            }
+            catch (Exception)
+            {
+
+            }
             base.OnResultExecuted(filterContext);
         }
     }

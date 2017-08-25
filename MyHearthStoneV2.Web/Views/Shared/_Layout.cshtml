@@ -1,24 +1,117 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@using MyHearthStoneV2.Common.Enum
+@using MyHearthStoneV2.BLL
+@{
+    ViewBag.cssAndJSVersion = "?v=" + SystemConfigBll.Instance.GetValueByCache(RedisKeyEnum.CSSAndJSVersion.ToString());
+}
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <title>石勒个智-@(ViewBag.Title)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    <link href="/Content/Basic.css" rel="stylesheet" />
+    <link href="/css/build.min.css@(ViewBag.cssAndJSVersion)" rel="stylesheet" type="text/css" media="all">
+    <link href="/css?family=Roboto:100,400,300,700,400italic,500%7CMontserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="/static/css/jquery-confirm.css" rel="stylesheet" />
     @RenderSection("css")
+
     <script src="/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="/Scripts/fetch.min.js"></script>
-    <script src="/Scripts/figlet.js"></script>
+    <script src="/Scripts/jquery.cookies.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/static/js/jquery-confirm.js"></script>
+    <script src="/js/basic.js@(ViewBag.cssAndJSVersion)"></script>
+    <script src="/Scripts/fetch.min.js@(ViewBag.cssAndJSVersion)"></script>
+    <script src="/Scripts/figlet.js@(ViewBag.cssAndJSVersion)"></script>
     @RenderSection("js")
 </head>
 <body>
+    <div class="nav-container">
+        <nav class="nav-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a href="/" class="home-link"><img alt="Logo" src="/img/header-icon.png" class="logo"></a>
+                        <ul class="menu">
+                            <li><a href="/recipes">Service Recipes</a></li>
+                            <li class="has-dropdown">
+                                <a href="#">Docs</a>
+                                <ul class="subnav">
+                                    <li><a href="/docs/getting-started-guide">Getting Started Guide</a></li>
+                                    <li><a href="/docs/user-guide">User Guide</a></li>
+                                    <li><a href="/docs/api-reference">REST API</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/pricing">Pricing</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                        <div class="text-right">
+                            <ul id="visitorLabel" class="social-links">                                
+                                <li><a href="/usercentre/register" target="_blank">注册</a></li>
+                                <li><a href="/usercentre/login" target="_blank">登录</a></li>
+                            </ul>
+                            <ul id="userLabel" class="social-links" style="display:none">
+                                <li><a href="/usercentre/register" target="_blank">欢迎回来，</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mobile-toggle">
+                <div class="bar-1"></div>
+                <div class="bar-2"></div>
+            </div>
+        </nav>
+    </div>
+
     @RenderBody()
+    <footer class="footer-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-3">
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/pricing">Pricing</a></li>
+                        <li><a href="https://app.eventn.com/signup" target="_blank">Sign Up</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-sm-3">
+                    <ul>
+                        <li><a href="/policy/tos">Terms of Service</a></li>
+                        <li><a href="/policy/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="https://twitter.com/eventn_cloud" target="_blank">Twitter</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-md-offset-4 col-sm-6">
+                    <p>Subscribe to our newsletter to receive news & updates.</p>
+                    <form data-success="Thanks, we'll be in touch shortly." data-error="Please enter a valid email address" class="form-newsletter">
+                        <input type="text" name="email" placeholder="Your Email Here" class="input-standard validate-required validate-email">
+                        <input type="submit">
+                        <i class="icon pe-7s-angle-right text-white"></i>
+                        <iframe srcdoc="" class="mail-list-form"></iframe>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="footer-lower">
+                        <span>© Copyright 2017 Event</span>
+                        <sup>n</sup>
+                        <sapn>- Made with<i class="icon pe-7s-like"></i>in San Francisco, California.</sapn>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
     <script type="text/javascript">
+        var APIURL = "@(System.Configuration.ConfigurationManager.AppSettings["APIURL"])";
         figlet.defaults({
             fontPath: '/fonts'
         });
-        figlet("hearthstone", {
+        figlet("hearth stone", {
             font: "3D-ASCII",
             horizontalLayout: "full",
             verticalLayout: "full"
@@ -31,6 +124,21 @@
             console.log(text);
             console.log("drawde@126.com     https://github.com/drawde/MyHearthStoneV2");
         });
+        $(function () {
+            if (!!getNickName()) {
+                $("#visitorLabel").fadeOut(500, function () {
+                    $("#userLabel").fadeIn();
+                    $("#userLabel li a").html("欢迎回来，" + getNickName());
+                });
+            }
+        });
     </script>
 </body>
+@*<script src="/js/build.min.js@(ViewBag.cssAndJSVersion)"></script>*@
 </html>
+
+
+
+
+
+

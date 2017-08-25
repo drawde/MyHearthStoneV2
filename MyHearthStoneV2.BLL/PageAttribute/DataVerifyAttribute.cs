@@ -23,10 +23,17 @@ namespace MyHearthStoneV2.BLL.PageAttribute
         /// <summary>
         /// 设置加载顺序
         /// </summary>
-        public DataVerifyAttribute()
+        public DataVerifyAttribute(bool isValidate = true)
         {
-            Order = 1;
+            IsValidate = isValidate;
+            Order = 2;
         }
+
+        /// <summary>
+        /// 是否需要验证签名
+        /// </summary>
+        public bool IsValidate { get; set; }
+
         public override void OnAuthorization(AuthorizationContext filterContext)
         {            
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
@@ -38,10 +45,13 @@ namespace MyHearthStoneV2.BLL.PageAttribute
                 string data = "";
                 if (Request.HttpMethod.ToLower() == "post")
                 {
-                    Stream s = System.Web.HttpContext.Current.Request.InputStream;
-                    byte[] b = new byte[s.Length];
-                    s.Read(b, 0, (int)s.Length);
-                    data = Encoding.UTF8.GetString(b);
+                    using (Stream s = System.Web.HttpContext.Current.Request.InputStream)
+                    {
+                        byte[] b = new byte[s.Length];
+                        s.Read(b, 0, (int)s.Length);
+                        data = Encoding.UTF8.GetString(b);
+                    };
+
                 }
                 else
                 {
@@ -61,42 +71,43 @@ namespace MyHearthStoneV2.BLL.PageAttribute
                 }
                 IMReciveData im = JsonConvert.DeserializeObject<IMReciveData>(data);
 
-                if (im.token.IsNullOrEmpty())
+                //if (IsValidate && im.token.IsNullOrEmpty())
+                //{
+                //    //签名验证
+                //    if (string.IsNullOrEmpty(im.appid))
+                //    {
+                //        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败, "");
+                //        filterContext.Result = contentResult;
+                //        return;
+                //    }
+                //    if (string.IsNullOrEmpty(im.apiname))
+                //    {
+                //        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败, "");
+                //        filterContext.Result = contentResult;
+                //        return;
+                //    }
+                //}
+                //else 
+                if(IsValidate)
                 {
-                    //签名验证
-                    if (string.IsNullOrEmpty(im.appid))
+                    var lt = LoginTokenBll.Instance.GetUserInfoByToken(im.token);
+                    if (lt == null)
                     {
-                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败, "");
+                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.登录失败, "");
                         filterContext.Result = contentResult;
                         return;
                     }
-                    if (string.IsNullOrEmpty(im.apiname))
+                    else if (lt.AddTime < DateTime.Now.AddDays(-1))
                     {
-                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败, "");
+                        LoginTokenBll.Instance.Delete(lt.ID);
+                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.登录失败, "");
                         filterContext.Result = contentResult;
                         return;
                     }
-                }
-                else
-                {
-                    //var lt = LoginToken_L_BLL.GetUserInfoByToken(im.token);
-                    //if (lt == null)
-                    //{
-                    //    contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.登录失败, "");
-                    //    filterContext.Result = contentResult;
-                    //    return;
-                    //}
-                    //else if (lt.AddTime < DateTime.Now.AddDays(-1))
-                    //{
-                    //    LoginToken_L_BLL.Delete(lt.ID);
-                    //    contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.登录失败, "");
-                    //    filterContext.Result = contentResult;
-                    //    return;
-                    //}
-                    //else
-                    //{
-                    //    filterContext.Controller.TempData["LoginToken"] = lt;
-                    //}
+                    else
+                    {
+                        filterContext.Controller.TempData["LoginToken"] = lt;
+                    }
                 }
                 filterContext.Controller.TempData["param"] = im.param.ToString();
                 filterContext.Controller.TempData["version"] = im.version.TryParseString();

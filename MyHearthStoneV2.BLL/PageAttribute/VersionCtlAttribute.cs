@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.BLL.PageAttribute
         /// </summary>
         public VersionCtlAttribute()
         {
-            Order = 2;
+            Order = 3;
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
         {

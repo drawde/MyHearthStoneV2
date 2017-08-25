@@ -32,5 +32,9 @@ namespace MyHearthStoneV2.DAL
         public virtual DbSet<HS_Users> hs_users { get; set; }
         public virtual DbSet<HS_Invitation> hs_invitation { get; set; }
         public virtual DbSet<HS_UserCardGroupDetail> hs_usercardgroupdetail { get; set; }
+        public virtual DbSet<HS_ErrRec> hs_errrec { get; set; }
+        public virtual DbSet<HS_DataExchange> hs_dataexchange { get; set; }
+        public virtual DbSet<HS_LoginToken> hs_logintoken { get; set; }
+        public virtual DbSet<HS_SystemConfig> hs_systemconfig { get; set; }
     }
 }

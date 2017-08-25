@@ -1,0 +1,23 @@
+﻿@using Newtonsoft.Json
+@using MyHearthStoneV2.Common.JsonModel
+@using MyHearthStoneV2.Common.Enum
+@{
+    ViewBag.Title = "注册结果";
+    Layout = "~/Views/Shared/_LoginOrRegisterLayout.cshtml";
+    var res = JsonConvert.DeserializeObject<IMResultBase>(ViewBag.res as string);
+}
+@section css{
+}
+@section js{
+}
+@{
+    if (res.code == (int)OperateResCodeEnum.成功)
+    {
+        <h2>注册成功！</h2>
+    }
+    else
+    {
+        <h2>@(res.msg)！</h2>
+    }
+}
+

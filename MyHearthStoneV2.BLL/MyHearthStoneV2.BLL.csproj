@@ -42,12 +42,33 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.5.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Common.4.5.12\lib\net45\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.4.5.12\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=4.5.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Redis.4.5.12\lib\net45\ServiceStack.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.5.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.4.5.12\lib\net45\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\System.Web.Http.dll</HintPath>
     </Reference>
@@ -64,12 +85,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBLL.cs" />
-    <Compile Include="hs_gamerecord_BLL.cs" />
-    <Compile Include="hs_game_BLL.cs" />
-    <Compile Include="HS_InvitationBll.cs" />
+    <Compile Include="DataExchangeBll.cs" />
+    <Compile Include="ErrRecBll.cs" />
+    <Compile Include="GameRecordBll.cs" />
+    <Compile Include="GameBll.cs" />
+    <Compile Include="InvitationBll.cs" />
+    <Compile Include="LoginTokenBll.cs" />
+    <Compile Include="PageAttribute\AllowOriginAttribute.cs" />
+    <Compile Include="PageAttribute\ActionAllowOriginAttribute.cs" />
+    <Compile Include="PageAttribute\ExceptionOrErrorFilter.cs" />
+    <Compile Include="PageAttribute\OAuthAttribute.cs" />
+    <Compile Include="SystemConfigBll.cs" />
     <Compile Include="UserCardGroupDetailBll.cs" />
     <Compile Include="UserCardGroupBll.cs" />
-    <Compile Include="HS_UsersBll.cs" />
+    <Compile Include="UsersBll.cs" />
     <Compile Include="PageAttribute\DataVerifyAttribute.cs" />
     <Compile Include="PageAttribute\ExceptionAttribute.cs" />
     <Compile Include="PageAttribute\JurisdictionAttribute.cs" />
@@ -94,6 +123,10 @@
     <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
       <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>
       <Name>MyHearthStoneV2.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Redis\MyHearthStoneV2.Redis.csproj">
+      <Project>{1aa98bbb-2c51-466f-a3cf-5327a0a47ef2}</Project>
+      <Name>MyHearthStoneV2.Redis</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

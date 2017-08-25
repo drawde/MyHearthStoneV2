@@ -10,7 +10,8 @@
     float:left;
 }
 .regPannel li {
-    line-height:35px;
+    line-height:45px;
+    height:45px;
     padding:2px 2px 2px 2px;
     margin-bottom:10px;
 }

@@ -57,8 +57,10 @@
     <Compile Include="JsonModel\IMTextResult.cs" />
     <Compile Include="LDMFilter.cs" />
     <Compile Include="LinqOrderByExtensions.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="PageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CookieHelper.cs" />
     <Compile Include="Util\ObjectExtension.cs" />
     <Compile Include="Util\RandomUtil.cs" />
     <Compile Include="Util\SignUtil.cs" />

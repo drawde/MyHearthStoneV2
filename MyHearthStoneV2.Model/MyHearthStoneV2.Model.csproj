@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="CustomModels\CUsers.cs" />
     <Compile Include="HS.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -62,6 +63,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HS.edmx</DependentUpon>
     </Compile>
+    <Compile Include="HS_DataExchange.cs">
+      <DependentUpon>HS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HS_ErrRec.cs">
+      <DependentUpon>HS.tt</DependentUpon>
+    </Compile>
     <Compile Include="HS_Game.cs">
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>
@@ -69,6 +76,12 @@
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>
     <Compile Include="HS_Invitation.cs">
+      <DependentUpon>HS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HS_LoginToken.cs">
+      <DependentUpon>HS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HS_SystemConfig.cs">
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>
     <Compile Include="HS_UserCardGroup.cs">
@@ -104,6 +117,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

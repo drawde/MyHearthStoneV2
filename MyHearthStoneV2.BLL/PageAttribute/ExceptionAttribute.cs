@@ -18,27 +18,24 @@ namespace MyHearthStoneV2.BLL.PageAttribute
     {
         public override void OnException(ExceptionContext filterContext)
         {
-            //ErrorMsg_REC ex = new ErrorMsg_REC();
+            HS_ErrRec ex = new HS_ErrRec();
             try
             {
                 ContentResult contentResult = new ContentResult();
                 contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
                 filterContext.Result = contentResult;
                 filterContext.ExceptionHandled = true;
-
-                //ErrorMsg_REC_BLL bll = new ErrorMsg_REC_BLL();
-                //ex.Action = (filterContext.RouteData.Values["action"]).ToString();
-                //ex.AddTime = DateTime.Now;
-                //ex.Controller = (filterContext.RouteData.Values["controller"]).ToString();
-                //ex.ErrorMsg = filterContext.Exception.Message;
-                //ex.IP = StringUtil.GetIP();
-                //ex.StackTrace = filterContext.Exception.StackTrace;
-                //var res = bll.AsyncInsert(ex);
                 
-                //DataExchange_REC_BLL exchangeBll = new DataExchange_REC_BLL();
+                ex.Action = (filterContext.RouteData.Values["action"]).ToString();
+                ex.AddTime = DateTime.Now;
+                ex.Controller = (filterContext.RouteData.Values["controller"]).ToString();
+                ex.ErrorMsg = filterContext.Exception.Message;
+                ex.IP = StringUtil.GetIP();
+                ex.StackTrace = filterContext.Exception.StackTrace;
+                var res = ErrRecBll.Instance.AsyncInsert(ex);
 
-                //var excRes = exchangeBll.AsyncInsert((filterContext.RouteData.Values["action"]).ToString(), (filterContext.RouteData.Values["controller"]).ToString(),
-                //    filterContext.Controller.TempData["fullData"].TryParseString(), contentResult.Content);
+                var excRes = DataExchangeBll.Instance.AsyncInsert((filterContext.RouteData.Values["action"]).ToString(), (filterContext.RouteData.Values["controller"]).ToString(),
+                    filterContext.Controller.TempData["fullData"].TryParseString(), contentResult.Content);
             }
             catch (Exception)
             {

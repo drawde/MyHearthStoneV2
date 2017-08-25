@@ -33,7 +33,7 @@ namespace MyHearthStoneV2.CardLibrary
             lstCard.ForEach(c => c.CardCode = SignUtil.CreateSign(c.Name + c.GetType().Name));
             using (var redisClient = RedisManager.GetClient())
             {
-                redisClient.Set<List<Card>>(ConfigEnum.CardsInstance.ToString(), lstCard);
+                redisClient.Set<List<Card>>(RedisKeyEnum.CardsInstance.ToString(), lstCard);
             }
         }
     }

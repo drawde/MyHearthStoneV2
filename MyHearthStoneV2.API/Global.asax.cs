@@ -1,5 +1,10 @@
-﻿using MyHearthStoneV2.CardLibrary;
+﻿using Microsoft.AspNet.SignalR;
+using MyHearthStoneV2.BLL;
+using MyHearthStoneV2.CardLibrary;
 using MyHearthStoneV2.CardLibrary.Base;
+using MyHearthStoneV2.Common.Enum;
+using MyHearthStoneV2.Model;
+using MyHearthStoneV2.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +20,8 @@ namespace MyHearthStoneV2.API
     {
         protected void Application_Start()
         {
+            var config = new HubConfiguration();
+            //config.EnableCrossDomain = true;
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -22,7 +29,13 @@ namespace MyHearthStoneV2.API
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             CardUtil.AddToRedis();
+            using (var redisClient = RedisManager.GetClient())
+            {
+                //设置超级管理员
+                redisClient.Set<string>(RedisKeyEnum.SuperAdminUserCode.ToString(), "58657C04BCADF3C6AA26F2B79D24994D");
 
+                redisClient.Set<List<HS_SystemConfig>>(RedisKeyEnum.CSSAndJSVersion.ToString(), SystemConfigBll.Instance.GetAll()); 
+            }
         }
     }
 }
