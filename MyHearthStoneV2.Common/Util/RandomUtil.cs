@@ -12,9 +12,18 @@ namespace MyHearthStoneV2.Common.Util
     /// </summary>
     public class RandomUtil
     {
-        private const string STR = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        /// <summary>
+        /// 随机字符字典
+        /// </summary>
+        internal const string RANDOMDICTIONARY = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private static string VERIFICATIONCODE = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
-
+        static int GetRandomSeed()
+        {
+            byte[] bytes = new byte[4];
+            System.Security.Cryptography.RNGCryptoServiceProvider rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            rng.GetBytes(bytes);
+            return BitConverter.ToInt32(bytes, 0);
+        }
         /// <summary>
         /// 生成验证码
         /// </summary>
@@ -39,10 +48,10 @@ namespace MyHearthStoneV2.Common.Util
         public static string CreateRandomStr(int Length)
         {
             string result = string.Empty;
-            List<int> lstIndex = CreateRandomInt(0, STR.Length - 1, Length, true);
+            List<int> lstIndex = CreateRandomInt(0, RANDOMDICTIONARY.Length - 1, Length, true);
             for (int i = 0; i < lstIndex.Count; i++)
             {
-                result += STR[lstIndex[i]];
+                result += RANDOMDICTIONARY[lstIndex[i]];
             }
             return result;
         }
@@ -57,7 +66,7 @@ namespace MyHearthStoneV2.Common.Util
         public static List<int> CreateRandomInt(int minVal, int maxVal, int count, bool isRepeat = false)
         {
             List<int> lst = new List<int>();
-            Random rm = new Random();
+            Random rm = new Random(GetRandomSeed());
             while(lst.Count() < count)
             {
                 int nValue = rm.Next(minVal, maxVal);

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MyHearthStoneV2.GameControler
 {
     /// <summary>
@@ -45,7 +46,7 @@ namespace MyHearthStoneV2.GameControler
             List<Card> lstCardLib = new List<Card>();
             using (var redisClient = RedisManager.GetClient())
             {
-                lstCardLib = redisClient.Get<List<Card>>(RedisKeyEnum.CardsInstance.ToString());
+                lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
             }
             firstCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
             {

@@ -1,7 +1,8 @@
 ﻿@using MyHearthStoneV2.Common.Enum
 @using MyHearthStoneV2.BLL
+@using MyHearthStoneV2.Redis
 @{
-    ViewBag.cssAndJSVersion = "?v=" + SystemConfigBll.Instance.GetValueByCache(RedisKeyEnum.CSSAndJSVersion.ToString());
+    ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
 }
 
 <!DOCTYPE html>
@@ -13,15 +14,16 @@
     <link href="/css/build.min.css@(ViewBag.cssAndJSVersion)" rel="stylesheet" type="text/css" media="all">
     <link href="/css?family=Roboto:100,400,300,700,400italic,500%7CMontserrat:400,700" rel="stylesheet" type="text/css">
     <link href="/static/css/jquery-confirm.css" rel="stylesheet" />
+    <link href="/css/loader.css" rel="stylesheet" />
     @RenderSection("css")
 
     <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/fetch.min.js@(ViewBag.cssAndJSVersion)"></script>
+    <script src="/Scripts/figlet.js@(ViewBag.cssAndJSVersion)"></script>
     <script src="/Scripts/jquery.cookies.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
     <script src="/static/js/jquery-confirm.js"></script>
     <script src="/js/basic.js@(ViewBag.cssAndJSVersion)"></script>
-    <script src="/Scripts/fetch.min.js@(ViewBag.cssAndJSVersion)"></script>
-    <script src="/Scripts/figlet.js@(ViewBag.cssAndJSVersion)"></script>
     @RenderSection("js")
 </head>
 <body>
@@ -107,32 +109,16 @@
 
     
     <script type="text/javascript">
-        var APIURL = "@(System.Configuration.ConfigurationManager.AppSettings["APIURL"])";
-        figlet.defaults({
-            fontPath: '/fonts'
-        });
-        figlet("hearth stone", {
-            font: "3D-ASCII",
-            horizontalLayout: "full",
-            verticalLayout: "full"
-        }, function (err, text) {
-            if (err) {
-                console.log('something went wrong...');
-                console.dir(err);
-                return;
-            }
-            console.log(text);
-            console.log("drawde@126.com     https://github.com/drawde/MyHearthStoneV2");
-        });
-        $(function () {
-            if (!!getNickName()) {
-                $("#visitorLabel").fadeOut(500, function () {
-                    $("#userLabel").fadeIn();
-                    $("#userLabel li a").html("欢迎回来，" + getNickName());
-                });
-            }
-        });
+        var APIURL = "@(System.Configuration.ConfigurationManager.AppSettings["APIURL"])";        
     </script>
+    <div class="progress-indicator" style="display: none;">
+        <div class="load-content align-center">
+            <div class="load-container load8">
+                <div class="loader"></div>
+                Proccessing
+            </div>
+        </div>
+    </div>
 </body>
 @*<script src="/js/build.min.js@(ViewBag.cssAndJSVersion)"></script>*@
 </html>

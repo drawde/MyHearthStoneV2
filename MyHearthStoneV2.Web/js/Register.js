@@ -53,14 +53,14 @@ function postRegister() {
         showMessage("用户名必须为英文字母或数字");
         return false;
     }
-    if (!emailreg.test($("#Email").val())) {
-        showMessage("邮箱格式错误");
-        return false;
-    }
-    if (!mobilereg.test($("#Mobile").val())) {
-        showMessage("手机号格式错误");
-        return false;
-    }
+    //if (!emailreg.test($("#Email").val())) {
+    //    showMessage("邮箱格式错误");
+    //    return false;
+    //}
+    //if (!mobilereg.test($("#Mobile").val())) {
+    //    showMessage("手机号格式错误");
+    //    return false;
+    //}
     if (!!$("#Password").val() == false) {
         showMessage("请填写密码");
         return false;
@@ -73,24 +73,26 @@ function postRegister() {
         showMessage("请填写邀请码");
         return false;
     }
-
-    $("#btnReg").removeClass("btn-blue").addClass("btn-gray").attr("disabled", "disabled");
+    showLoader();
+    //$("#btnReg").removeClass("btn-blue").addClass("btn-gray").attr("disabled", "disabled");
     $.post(url, {
         "UserName": $("#UserName").val(), "Password": $("#Password").val(), "NickName": $("#NickName").val(),
         "Mobile": $("#Mobile").val(), "Email": $("#Email").val(), "InvitationCode": $("#InvitationCode").val(),
         "geetest_challenge": $("input[name='geetest_challenge']").val(), "geetest_seccode": $("input[name='geetest_seccode']").val(), 
         "geetest_validate": $("input[name='geetest_validate']").val()
     }, function (r) {
-        var data = eval("(" + r + ")");
+        var data = JSON.parse(r);
         if (data.code == "100") {
-            showMessage(data.msg, function () { window.location = "/home/index" });
+            //hideLoader();
+            showMessage(data.msg, function () { hideLoader(); window.location = "/home/index" });
         }
         else {
+            hideLoader();
             showMessage(data.msg);
             $(".geetest_radar_tip_content").hide();
             $(".geetest_reset_tip_content").show();
         }
-        $("#btnReg").removeClass("btn-gray").addClass("btn-blue").removeAttr("disabled");
+        //$("#btnReg").removeClass("btn-gray").addClass("btn-blue").removeAttr("disabled");
     });
     return false;
 }
@@ -121,7 +123,7 @@ function verify_register_form(element) {
                         }
                         else {
                             var param = "{\"UserName\":\"" + $("#UserName").val() + "\"}";
-                            ajaxGetData("/Users/ValidateUserName", param, function (data) {                                
+                            ajaxGetData("/Users/ValidateUserName", param,"","","", function (data) {                                
                                 if (data.code != "100") {                                    
                                     _this.parent().find('.aw-reg-tips').detach();
                                     _this.parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' + data.msg + '</span>');

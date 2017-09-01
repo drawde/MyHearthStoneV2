@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MyHearthStoneV2.GameControler
 {
     public class ControllerCache
@@ -14,7 +15,7 @@ namespace MyHearthStoneV2.GameControler
         {
             using (var redisClient = RedisManager.GetClient())
             {
-                return redisClient.Get<List<Controler>>(RedisKeyEnum.GameControllers.ToString());
+                return redisClient.Get<List<Controler>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers));
             }
         }
 
@@ -22,7 +23,7 @@ namespace MyHearthStoneV2.GameControler
         {
             using (var redisClient = RedisManager.GetClient())
             {
-                redisClient.Set(RedisKeyEnum.GameControllers.ToString(), new List<Controler>());
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), new List<Controler>());
             }
         }
 
@@ -32,7 +33,7 @@ namespace MyHearthStoneV2.GameControler
             {
                 var lst = GetController();
                 lst.Add(ctl);
-                redisClient.Set(RedisKeyEnum.GameControllers.ToString(), lst);
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), lst);
             }
         }
     }

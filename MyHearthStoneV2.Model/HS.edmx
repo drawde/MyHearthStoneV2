@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="URL" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="QueryData" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ResultData" Type="nvarchar" MaxLength="1000" Nullable="false" />
@@ -143,9 +143,9 @@
           <EntitySet Name="HS_UserCardGroup" EntityType="MyHearthStoneV2.Model.HS_UserCardGroup" />
           <EntitySet Name="HS_Users" EntityType="MyHearthStoneV2.Model.HS_Users" />
           <EntitySet Name="HS_ErrRec" EntityType="MyHearthStoneV2.Model.HS_ErrRec" />
-          <EntitySet Name="HS_DataExchange" EntityType="MyHearthStoneV2.Model.HS_DataExchange" />
           <EntitySet Name="HS_LoginToken" EntityType="MyHearthStoneV2.Model.HS_LoginToken" />
           <EntitySet Name="HS_SystemConfig" EntityType="MyHearthStoneV2.Model.HS_SystemConfig" />
+          <EntitySet Name="HS_DataExchange" EntityType="MyHearthStoneV2.Model.HS_DataExchange" />
         </EntityContainer>
         <EntityType Name="HS_Game">
           <Key>
@@ -230,19 +230,6 @@
           <Property Name="StackTrace" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="HS_DataExchange">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="URL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="QueryData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ResultData" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Controller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="HS_LoginToken">
           <Key>
             <PropertyRef Name="ID" />
@@ -259,6 +246,19 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ConfigKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ConfigValue" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="HS_DataExchange">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="QueryData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResultData" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
@@ -357,20 +357,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HS_DataExchange">
-            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_DataExchange">
-              <MappingFragment StoreEntitySet="HS_DataExchange">
-                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="Controller" ColumnName="Controller" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
-                <ScalarProperty Name="ResultData" ColumnName="ResultData" />
-                <ScalarProperty Name="QueryData" ColumnName="QueryData" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HS_LoginToken">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_LoginToken">
               <MappingFragment StoreEntitySet="HS_LoginToken">
@@ -387,6 +373,20 @@
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
                 <ScalarProperty Name="ConfigKey" ColumnName="ConfigKey" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HS_DataExchange">
+            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_DataExchange">
+              <MappingFragment StoreEntitySet="HS_DataExchange">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="ResultData" ColumnName="ResultData" />
+                <ScalarProperty Name="QueryData" ColumnName="QueryData" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

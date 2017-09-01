@@ -59,10 +59,13 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
                 {
                     res = UsersBll.Instance.Register(Request["UserName"].TryParseString(), Request["Password"].TryParseString(), Request["Mobile"].TryParseString(),
                         Request["Email"].TryParseString(), Request["InvitationCode"].TryParseString(), Request["NickName"].TryParseString(), Request["HeadImg"].TryParseString());
-                    var objRes = JsonConvert.DeserializeObject<IMResultBase>(res);
+                    var objRes = JsonConvert.DeserializeObject<APIResultBase>(res);
                     if (objRes.code == (int)OperateResCodeEnum.成功)
                     {
-                        string user = JsonConvert.SerializeObject(UsersBll.Instance.GetUserByUserName(Request["UserName"].TryParseString()));
+                        string user = JsonConvert.SerializeObject(UsersBll.Instance.GetUserByUserName(Request["UserName"].TryParseString()), new JsonSerializerSettings
+                        {
+                            DateFormatString = "yyyy-MM-dd HH:mm:ss"
+                        });
                         CookieHelper.SetCookie("User", user, DateTime.Now.AddDays(30));
                     }
                 }
@@ -86,10 +89,12 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
                 if (GeetestValidate.Validate())
                 {
                     CUsers user = UsersBll.Instance.Login(Request["LoginName"].TryParseString(), Request["Password"].TryParseString());
-                    var objRes = JsonConvert.DeserializeObject<IMResultBase>(res);
                     if (user != null)
                     {
-                        string userJson = JsonConvert.SerializeObject(user);
+                        string userJson = JsonConvert.SerializeObject(user, new JsonSerializerSettings
+                        {
+                            DateFormatString = "yyyy-MM-dd HH:mm:ss"
+                        });
                         CookieHelper.SetCookie("User", userJson, DateTime.Now.AddDays(30));
                         res = OperateJsonRes.SuccessResult();
                     }

@@ -1,9 +1,10 @@
 ﻿@using MyHearthStoneV2.Common.Enum
 @using MyHearthStoneV2.BLL
+@using MyHearthStoneV2.Redis
 @{
     Layout = "/Views/Shared/_LoginOrRegisterLayout.cshtml";
     ViewBag.Title = "用户注册";
-    ViewBag.cssAndJSVersion = "?v=" + SystemConfigBll.Instance.GetValueByCache(RedisKeyEnum.CSSAndJSVersion.ToString());
+    ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
 }
 @section css{
     <link href="/static/css/default/register.css@(ViewBag.cssAndJSVersion)" rel="stylesheet" type="text/css" />
@@ -31,7 +32,7 @@
                 <li>
                     <input class="aw-register-name form-control" type="text" id="UserName" name="UserName" placeholder="用户名" tips="请输入一个 2-14 位的用户名" errortips="用户名长度不符合" value="" />
                 </li>
-                <li>
+                <li style="display:none">
                     <input class="aw-register-email form-control" type="text" placeholder="邮箱" id="Email" name="Email" tips="请输入你常用的电子邮箱作为你的账号" value="" errortips="邮箱格式不正确" />
                 </li>
                 <li>
@@ -40,7 +41,7 @@
                 <li>
                     <input class="aw-register-name form-control" type="text" id="NickName" name="NickName" placeholder="昵称" tips="请输入一个 1-10 位的昵称" errortips="昵称长度不符合" value="" />
                 </li>
-                <li>
+                <li style="display:none">
                     <input class="aw-register-name form-control" type="text" id="Mobile" name="Mobile" placeholder="手机号" tips="请输入一个 11 位的手机号" errortips="手机号格式错误" value="" />
                 </li>
                 <li>

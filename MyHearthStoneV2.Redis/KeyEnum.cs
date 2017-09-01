@@ -4,12 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.Common.Enum
+namespace MyHearthStoneV2.Redis
 {
     /// <summary>
-    /// Redis键
+    /// Redis应用程序键
     /// </summary>
-    public enum RedisKeyEnum
+    public enum RedisAppKeyEnum
+    {
+        /// <summary>
+        /// 第一个应用程序
+        /// </summary>
+        Alpha = 1,
+    }
+
+    /// <summary>
+    /// Redis分类键
+    /// </summary>
+    public enum RedisCategoryKeyEnum
     {
         /// <summary>
         /// 游戏控制器

@@ -29,7 +29,6 @@ function UnChosenServant() {
 
 $(function () {
     $("#chatlayer").fadeIn();
-    //$('.rte-zone').rte("css url", "http://batiste.dosimple.ch/blog/posts/2007-09-11-1/");
     $.connection.hub.url = APIURL + "/signalr";
     $.connection.hub.start({ xdomain: true });
     //添加对自动生成的Hub的引用

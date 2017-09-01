@@ -33,7 +33,7 @@ namespace MyHearthStoneV2.BLL.PageAttribute
                 ex.ErrorMsg = context.Exception.Message;
                 ex.IP = StringUtil.GetIP();
                 ex.StackTrace = context.Exception.StackTrace;
-                var res = ErrRecBll.Instance.AsyncInsert(ex);
+                ErrRecBll.Instance.AsyncInsert(ex);
 
                 //var excRes = DataExchangeBll.Instance.AsyncInsert((context.RequestContext.RouteData.Values["action"]).ToString(), (context.RequestContext.RouteData.Values["controller"]).ToString(),
                 //    context.RequestContext.Controller.TempData["fullData"].TryParseString(), context.RequestContext);

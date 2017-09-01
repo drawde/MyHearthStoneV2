@@ -57,9 +57,9 @@ namespace MyHearthStoneV2.BLL
         }
 
 
-        public async Task<int> AsyncInsert(T entity)
+        public void AsyncInsert(T entity)
         {
-            return await _repository.Insert(entity);
+            _repository.Insert(entity);
         }
     }
 }

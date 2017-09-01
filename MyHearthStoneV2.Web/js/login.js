@@ -36,8 +36,7 @@
     // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
 };
 
-function DoLogin() {
-    $("#login_submit").removeClass("btn-primary").addClass("btn-gray").attr("disabled", "disabled");
+function DoLogin() {    
     if (!!$("#aw-login-user-name").val() == false) {
         showMessage("请填写用户名");
         return false;
@@ -51,22 +50,26 @@ function DoLogin() {
         showMessage("请填写密码");
         return false;
     }
-
+    showLoader();
     $.post("/UserCentre/DoLogin", {
         "LoginName": $("#aw-login-user-name").val(), "Password": $("#aw-login-user-password").val(),
         "geetest_challenge": $("input[name='geetest_challenge']").val(), "geetest_seccode": $("input[name='geetest_seccode']").val(),
         "geetest_validate": $("input[name='geetest_validate']").val()
     }, function (r) {
-        var data = eval("(" + r + ")");
+        var data = JSON.parse(r);
         if (data.code == "100") {
-            showMessage(data.msg, function () { window.location = !!getUrlParam("returnUrl") ? getUrlParam("returnUrl") : "/home/index" });//window.location = "/home/index"
+            //hideLoader();
+            window.location = !!getUrlParam("returnUrl") ? getUrlParam("returnUrl") : "/home/index";
+            //showMessage(data.msg, function () { window.location = !!getUrlParam("returnUrl") ? getUrlParam("returnUrl") : "/home/index" });//window.location = "/home/index"
         }
         else {
             showMessage(data.msg);
             $(".geetest_radar_tip_content").hide();
             $(".geetest_reset_tip_content").show();
+            hideLoader();
         }
-        $("#login_submit").removeClass("btn-gray").addClass("btn-primary").removeAttr("disabled");
+        //$("#login_submit").removeClass("btn-gray").addClass("btn-primary").removeAttr("disabled");
+        
     });
     return false;
 }

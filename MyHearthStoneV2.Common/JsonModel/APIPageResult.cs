@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Common.JsonModel
 {
-    public class IMTextResult:IMResultBase
+    public class APIPageResult<T> : APIResultBase
     {
-        public string data { get; set; }
+        public IPagedItemsResult<T> data { get; set; }
     }
 }

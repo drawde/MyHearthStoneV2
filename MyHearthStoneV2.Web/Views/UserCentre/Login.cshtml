@@ -1,9 +1,9 @@
 ﻿@using MyHearthStoneV2.Common.Enum
 @using MyHearthStoneV2.BLL
 @{
-    ViewBag.Title = "登录";
+    ViewBag.Title = "登录";    
     Layout = "~/Views/Shared/_LoginOrRegisterLayout.cshtml";
-    string cssAndJSVersion = "?v=" + SystemConfigBll.Instance.GetValueByCache(RedisKeyEnum.CSSAndJSVersion.ToString());
+    string cssAndJSVersion = TempData["cssAndJSVersion"] as string;
 }
 @section css{
 <link href="/static/css/default/login.css@(cssAndJSVersion)" rel="stylesheet" />

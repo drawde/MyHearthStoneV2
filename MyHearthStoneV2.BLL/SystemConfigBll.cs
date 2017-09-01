@@ -28,13 +28,18 @@ namespace MyHearthStoneV2.BLL
             return _repository.Get().Result.Items.ToList();
         }
 
+        public string GetValueByKey(string key)
+        {
+            return _repository.Get(c => c.ConfigKey == key).Result.Items.First().ConfigValue;
+        }
+
         public string GetValueByCache(string key)
         {
             try
             {
                 using (var redisClient = RedisManager.GetClient())
                 {
-                    return redisClient.Get<List<HS_SystemConfig>>(key).First(c => c.ConfigKey == key).ConfigValue;
+                    return redisClient.Get<string>(key);
                 }
             }
             catch (Exception)

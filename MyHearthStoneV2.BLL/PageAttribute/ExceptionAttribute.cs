@@ -32,12 +32,12 @@ namespace MyHearthStoneV2.BLL.PageAttribute
                 ex.ErrorMsg = filterContext.Exception.Message;
                 ex.IP = StringUtil.GetIP();
                 ex.StackTrace = filterContext.Exception.StackTrace;
-                var res = ErrRecBll.Instance.AsyncInsert(ex);
+                ErrRecBll.Instance.AsyncInsert(ex);
 
-                var excRes = DataExchangeBll.Instance.AsyncInsert((filterContext.RouteData.Values["action"]).ToString(), (filterContext.RouteData.Values["controller"]).ToString(),
+                DataExchangeBll.Instance.AsyncInsert((filterContext.RouteData.Values["action"]).ToString(), (filterContext.RouteData.Values["controller"]).ToString(),
                     filterContext.Controller.TempData["fullData"].TryParseString(), contentResult.Content);
             }
-            catch (Exception)
+            catch (Exception ep)
             {
                 
             }

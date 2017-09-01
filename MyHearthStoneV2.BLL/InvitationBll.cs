@@ -11,6 +11,7 @@ using MyHearthStoneV2.Common.Common;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.Common.Enum;
 
+
 namespace MyHearthStoneV2.BLL
 {
     public class InvitationBll : BaseBLL<HS_Invitation>
@@ -32,7 +33,7 @@ namespace MyHearthStoneV2.BLL
             string superAdminUserCode = "";
             using (var redisClient = RedisManager.GetClient())
             {
-                superAdminUserCode = redisClient.Get<string>(RedisKeyEnum.SuperAdminUserCode.ToString());
+                superAdminUserCode = redisClient.Get<string>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SuperAdminUserCode));
             }
             if (userCode.IsNullOrEmpty() || superAdminUserCode != userCode)
             {

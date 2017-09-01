@@ -104,14 +104,14 @@ namespace MyHearthStoneV2.BLL
             {
                 return OperateJsonRes.Error(OperateResCodeEnum.用户名重复);
             }
-            if (!mobile.IsNullOrEmpty() && IsMobileRepeat(mobile))
-            {
-                return OperateJsonRes.Error(OperateResCodeEnum.手机号重复);
-            }
-            if (!email.IsNullOrEmpty() && IsEmailRepeat(email))
-            {
-                return OperateJsonRes.Error(OperateResCodeEnum.邮箱重复);
-            }
+            //if (!mobile.IsNullOrEmpty() && IsMobileRepeat(mobile))
+            //{
+            //    return OperateJsonRes.Error(OperateResCodeEnum.手机号重复);
+            //}
+            //if (!email.IsNullOrEmpty() && IsEmailRepeat(email))
+            //{
+            //    return OperateJsonRes.Error(OperateResCodeEnum.邮箱重复);
+            //}
             string userCode = SignUtil.CreateSign(userName + RandomUtil.CreateRandomStr(10) + invitationCode + DateTime.Now.ToString("yyyyMMddHHmmss"));
             var invitation = InvitationBll.Instance.GetInvitation(invitationCode, userCode);
             if (invitation == null)

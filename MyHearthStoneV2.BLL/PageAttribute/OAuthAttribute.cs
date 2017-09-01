@@ -11,6 +11,9 @@ using MyHearthStoneV2.Common;
 
 namespace MyHearthStoneV2.BLL.PageAttribute
 {
+    /// <summary>
+    /// 用户授权验证
+    /// </summary>
     public class OAuthAttribute : AuthorizeAttribute
     {
 
@@ -31,7 +34,16 @@ namespace MyHearthStoneV2.BLL.PageAttribute
             //Log.Default.Debug(userJson);
             if (!userJson.IsNullOrEmpty())
             {
-                CUsers user = JsonConvert.DeserializeObject<CUsers>(userJson);
+                CUsers user = null;
+                try
+                {
+                    user = JsonConvert.DeserializeObject<CUsers>(userJson);
+                    filterContext.Controller.ViewBag.User = UsersBll.Instance.GetUserByAdmin(user.UserCode);
+                }
+                catch (Exception ex)
+                {
+                    Log.Default.Error(ex);
+                }
                 if (user == null || UsersBll.Instance.IsUserCodeRepeat(user.UserCode) == false)
                 {
                     SetContextResult(filterContext, returnUrl);

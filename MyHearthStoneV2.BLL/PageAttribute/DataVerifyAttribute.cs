@@ -12,7 +12,7 @@ using MyHearthStoneV2.Common.Common;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.BLL;
-
+using MyHearthStoneV2.Model;
 
 namespace MyHearthStoneV2.BLL.PageAttribute
 {
@@ -69,7 +69,7 @@ namespace MyHearthStoneV2.BLL.PageAttribute
                     filterContext.Result = contentResult;
                     return;
                 }
-                IMReciveData im = JsonConvert.DeserializeObject<IMReciveData>(data);
+                APIReciveData im = JsonConvert.DeserializeObject<APIReciveData>(data);
 
                 //if (IsValidate && im.token.IsNullOrEmpty())
                 //{
@@ -90,26 +90,45 @@ namespace MyHearthStoneV2.BLL.PageAttribute
                 //else 
                 if(IsValidate)
                 {
-                    var lt = LoginTokenBll.Instance.GetUserInfoByToken(im.token);
-                    if (lt == null)
+                    if (im.sign.IsNullOrEmpty() || im.nonce_str.IsNullOrEmpty() || im.usercode.IsNullOrEmpty() || im.apitime.IsNullOrEmpty())
                     {
-                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.登录失败, "");
+                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败);
                         filterContext.Result = contentResult;
                         return;
                     }
-                    else if (lt.AddTime < DateTime.Now.AddDays(-1))
+                    HS_Users user = UsersBll.Instance.GetUserByAdmin(im.usercode);
+                    if (user == null)
                     {
-                        LoginTokenBll.Instance.Delete(lt.ID);
-                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.登录失败, "");
+                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败);
                         filterContext.Result = contentResult;
                         return;
                     }
-                    else
+                    if (im.sign != SignUtil.CreateSign(im.apitime + user.SecretCode + im.nonce_str))
                     {
-                        filterContext.Controller.TempData["LoginToken"] = lt;
+                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败);
+                        filterContext.Result = contentResult;
+                        return;
                     }
+                    //var lt = LoginTokenBll.Instance.GetUserInfoByToken(im.token);
+                    //if (lt == null)
+                    //{
+                    //    contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.登录失败, "");
+                    //    filterContext.Result = contentResult;
+                    //    return;
+                    //}
+                    //else if (lt.AddTime < DateTime.Now.AddDays(-1))
+                    //{
+                    //    LoginTokenBll.Instance.Delete(lt.ID);
+                    //    contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.登录失败, "");
+                    //    filterContext.Result = contentResult;
+                    //    return;
+                    //}
+                    //else
+                    //{
+                    //    filterContext.Controller.TempData["LoginToken"] = lt;
+                    //}
                 }
-                filterContext.Controller.TempData["param"] = im.param.ToString();
+                filterContext.Controller.TempData["param"] = im.param.TryParseString();
                 filterContext.Controller.TempData["version"] = im.version.TryParseString();
                 filterContext.Controller.TempData["fullData"] = JsonConvert.SerializeObject(im);
 

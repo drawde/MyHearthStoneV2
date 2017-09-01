@@ -25,14 +25,14 @@ namespace MyHearthStoneV2.Common.Common
         }
         public static string VerifyFail()
         {
-            IMResultBase result = new IMResultBase();
+            APIResultBase result = new APIResultBase();
             result.code = OperateResCodeEnum.内部错误.GetHashCode();
             result.msg = OperateResCodeEnum.内部错误.ToString();
             return JsonConvert.SerializeObject(result);
         }
         public static string Error(OperateResCodeEnum resCodeEnum, string ERR = "")
         {
-            IMResultBase result = new IMResultBase();
+            APIResultBase result = new APIResultBase();
             result.code = resCodeEnum.GetHashCode();
             result.msg = string.IsNullOrWhiteSpace(ERR) ? resCodeEnum.ToString() : ERR;
             return JsonConvert.SerializeObject(result);
@@ -44,7 +44,7 @@ namespace MyHearthStoneV2.Common.Common
         /// <returns></returns>
         public static string SuccessPageResult<T>(List<T> data, int totalCount)
         {
-            IMPageResult<T> jsonResult = new IMPageResult<T>();
+            APIPageResult<T> jsonResult = new APIPageResult<T>();
             PageResult<T> pr = new PageResult<T>();
             pr.Items = data;
             pr.TotalItemsCount = totalCount;
@@ -61,7 +61,7 @@ namespace MyHearthStoneV2.Common.Common
         /// <returns></returns>
         public static string SuccessPageResult<T>(IPagedItemsResult<T> data)
         {
-            IMPageResult<T> jsonResult = new IMPageResult<T>();
+            APIPageResult<T> jsonResult = new APIPageResult<T>();
             jsonResult.code = OperateResCodeEnum.成功.GetHashCode();
             jsonResult.msg = OperateResCodeEnum.成功.ToString();
             jsonResult.data = data;
@@ -70,7 +70,7 @@ namespace MyHearthStoneV2.Common.Common
 
         public static string SuccessResult(string data = "")
         {
-            IMTextResult textRes = new IMTextResult();
+            APITextResult textRes = new APITextResult();
             textRes.code = OperateResCodeEnum.成功.GetHashCode();
             textRes.msg = OperateResCodeEnum.成功.ToString();
             textRes.data = data;
@@ -78,7 +78,7 @@ namespace MyHearthStoneV2.Common.Common
         }
         public static string SuccessResult<T>(T model)
         {
-            IMSingleModelResult<T> textRes = new IMSingleModelResult<T>();
+            APISingleModelResult<T> textRes = new APISingleModelResult<T>();
             textRes.code = OperateResCodeEnum.成功.GetHashCode();
             textRes.msg = OperateResCodeEnum.成功.ToString();
             textRes.data = model;
@@ -86,7 +86,7 @@ namespace MyHearthStoneV2.Common.Common
         }
         public static string SerializeDataTableRes<T>(DataTable dt, int count)
         {
-            IMPageResult<T> res = new IMPageResult<T>();
+            APIPageResult<T> res = new APIPageResult<T>();
             try
             {
                 if (dt != null && dt.Rows != null && dt.Rows.Count > 0)

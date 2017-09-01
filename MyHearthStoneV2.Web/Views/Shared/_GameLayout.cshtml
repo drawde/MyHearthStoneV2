@@ -1,7 +1,8 @@
 ﻿@using MyHearthStoneV2.Common.Enum
 @using MyHearthStoneV2.BLL
+@using MyHearthStoneV2.Redis
 @{
-    ViewBag.cssAndJSVersion = "?v=" + SystemConfigBll.Instance.GetValueByCache(RedisKeyEnum.CSSAndJSVersion.ToString());
+    ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
 }
 <!DOCTYPE html>
 <html>
@@ -15,14 +16,17 @@
     <link href="/static/css/v4/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/static/css/v4/css/bootstrap-reboot.min.css" rel="stylesheet" />
     <link href="/static/css/v4/css/docs.min.css" rel="stylesheet" />
+    <link href="/static/css/jquery-confirm.css" rel="stylesheet" />
+    <link href="/css/loader.css" rel="stylesheet" />
     @RenderSection("css")
     <script src="/Scripts/jquery-1.10.2.min.js"></script>
-    @*<script src="/static/css/v4/js/bootstrap.min.js"></script>*@
-    <script src="/Scripts/jquery.cookies.js"></script>
-    <script src="/static/js/jquery-confirm.js"></script>
-    <script src="/js/basic.js@(ViewBag.cssAndJSVersion)"></script>
     <script src="/Scripts/fetch.min.js@(ViewBag.cssAndJSVersion)"></script>
     <script src="/Scripts/figlet.js@(ViewBag.cssAndJSVersion)"></script>
+    <script src="/Scripts/jquery.cookies.js"></script>
+    <script src="/static/js/jquery-confirm.js"></script>
+    <script src="/js/basic.js@(ViewBag.cssAndJSVersion)"></script>    
+    
+    <script src="/js/md5-min.js"></script>
     @RenderSection("js")
 </head>
 <body>
@@ -35,24 +39,18 @@
     @RenderBody()
     <script type="text/javascript">
         var APIURL = "@(System.Configuration.ConfigurationManager.AppSettings["APIURL"])";
-        figlet.defaults({
-            fontPath: '/fonts'
-        });
-        figlet("hearthstone", {
-            font: "3D-ASCII",
-            horizontalLayout: "full",
-            verticalLayout: "full"
-        }, function (err, text) {
-            if (err) {
-                console.log('something went wrong...');
-                console.dir(err);
-                return;
-            }
-            console.log(text);
-            console.log("drawde@126.com     https://github.com/drawde/MyHearthStoneV2");
-        });
+        
 
     </script>
+    <script src="/js/apisign.js@(ViewBag.cssAndJSVersion)"></script>
+    <div class="progress-indicator" style="display: none;">
+        <div class="load-content align-center">
+            <div class="load-container load8">
+                <div class="loader"></div>
+                Proccessing
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

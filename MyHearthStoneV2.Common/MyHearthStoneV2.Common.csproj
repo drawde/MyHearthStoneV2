@@ -47,14 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\OperateJsonRes.cs" />
-    <Compile Include="Enum\Config.cs" />
     <Compile Include="Enum\OperateResCodeEnum.cs" />
     <Compile Include="IPagedItemsResult.cs" />
-    <Compile Include="JsonModel\IMPageResult.cs" />
-    <Compile Include="JsonModel\IMReciveData.cs" />
-    <Compile Include="JsonModel\IMResultBase.cs" />
-    <Compile Include="JsonModel\IMSingleModelResult.cs" />
-    <Compile Include="JsonModel\IMTextResult.cs" />
+    <Compile Include="JsonModel\APIPageResult.cs" />
+    <Compile Include="JsonModel\APIReciveData.cs" />
+    <Compile Include="JsonModel\APIResultBase.cs" />
+    <Compile Include="JsonModel\APISingleModelResult.cs" />
+    <Compile Include="JsonModel\APITextResult.cs" />
     <Compile Include="LDMFilter.cs" />
     <Compile Include="LinqOrderByExtensions.cs" />
     <Compile Include="Log.cs" />

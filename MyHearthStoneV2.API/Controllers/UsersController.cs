@@ -36,5 +36,13 @@ namespace MyHearthStoneV2.API.Controllers
             res = UsersBll.Instance.IsRepeat(param["UserName"].TryParseString()) ? OperateJsonRes.Error(OperateResCodeEnum.用户名重复) : OperateJsonRes.SuccessResult();
             return Content(res);
         }
+
+        [DataVerify()]
+        public ActionResult TestSign()
+        {
+            string res = OperateJsonRes.SuccessResult();
+
+            return Content(res);
+        }
     }
 }

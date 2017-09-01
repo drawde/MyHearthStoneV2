@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Common.JsonModel
 {
-    public class IMResultBase
+    public class APIResultBase
     {
         /// <summary>
         /// 返回值

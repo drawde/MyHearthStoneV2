@@ -14,6 +14,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+
 namespace MyHearthStoneV2.API
 {
     public class WebApiApplication : System.Web.HttpApplication
@@ -23,7 +24,7 @@ namespace MyHearthStoneV2.API
             var config = new HubConfiguration();
             //config.EnableCrossDomain = true;
             AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            //GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -32,9 +33,9 @@ namespace MyHearthStoneV2.API
             using (var redisClient = RedisManager.GetClient())
             {
                 //设置超级管理员
-                redisClient.Set<string>(RedisKeyEnum.SuperAdminUserCode.ToString(), "58657C04BCADF3C6AA26F2B79D24994D");
+                redisClient.Set<string>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SuperAdminUserCode), "58657C04BCADF3C6AA26F2B79D24994D");
 
-                redisClient.Set<List<HS_SystemConfig>>(RedisKeyEnum.CSSAndJSVersion.ToString(), SystemConfigBll.Instance.GetAll()); 
+                redisClient.Set<string>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CSSAndJSVersion), SystemConfigBll.Instance.GetValueByKey(RedisCategoryKeyEnum.CSSAndJSVersion.ToString())); 
             }
         }
     }

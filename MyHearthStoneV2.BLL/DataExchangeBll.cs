@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.BLL
         }
         public static DataExchangeBll Instance = new DataExchangeBll();
 
-        public Task<int> AsyncInsert(string Action, string Controller, string QueryData, string ResultData)
+        public void AsyncInsert(string Action, string Controller, string QueryData, string ResultData)
         {
             HS_DataExchange rec = new HS_DataExchange();
             rec.Action = Action;
@@ -28,7 +28,8 @@ namespace MyHearthStoneV2.BLL
             rec.QueryData = QueryData;
             rec.ResultData = ResultData;
             rec.URL = "/" + rec.Controller + "/" + rec.Action;
-            return base.AsyncInsert(rec);
+            //var res = Insert(rec);
+            AsyncInsert(rec);
         }
     }
 }

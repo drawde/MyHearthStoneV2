@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Common.JsonModel
 {
-    public class IMReciveData
+    public class APIReciveData
     {
         public string appid { get; set; }
         public string apiname { get; set; }
@@ -14,6 +14,8 @@ namespace MyHearthStoneV2.Common.JsonModel
         public string version { get; set; }
         public string sign { get; set; }
         public string token { get; set; }
+        public string apitime { get; set; }
+        public string usercode { get; set; }
         public object param { get; set; }
     }
 }
