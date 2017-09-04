@@ -12,6 +12,9 @@ ajaxGetData("/Option/SyncTime", param, "", "", "", function (data) {
         intervalName = setInterval(function () { apiTime.setSeconds(apiTime.getSeconds() + 1); }, 1000);// console.log(apiTime.Format("yyyy-MM-dd hh:mm:ss"));        
     }
 });
+$("#apitest").click(function () {
+    apiTest();
+});
 
 function UnConfusionInt(confutionStr, offset) {
     var numStr = "";

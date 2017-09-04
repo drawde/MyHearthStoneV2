@@ -187,6 +187,7 @@
     <Content Include="img\nodejs-logo.jpg" />
     <Content Include="img\lightbox\prev.png" />
     <Content Include="js\apisign.js" />
+    <Content Include="js\apisign.release.js" />
     <Content Include="js\basic.js" />
     <Content Include="js\build.min.js" />
     <Content Include="js\chunk.js" />

@@ -16,6 +16,8 @@
             UnChosenServant();
         }
     });
+    
+    eval($("#dst").val());
 });
 
 function ChosenServant(servantPannel) {
