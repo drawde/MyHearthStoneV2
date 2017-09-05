@@ -114,5 +114,21 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
             }
             return Content(res);
         }
+
+
+        public ActionResult DoLogOut()
+        {
+            string res = OperateJsonRes.VerifyFail();
+            try
+            {
+                CookieHelper.RemoveCookie("User");
+                res = OperateJsonRes.SuccessResult();
+            }
+            catch (Exception ex)
+            {
+                res = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
+            }
+            return Content(res);
+        }
     }
 }

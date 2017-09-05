@@ -40,48 +40,47 @@ function ajaxGetData(method, params, nonce_str, sign, apitime, backfun) {
     });
 };
 
-function getToken() {
-    if (!!getCookie("token")) {
-        return getCookie("token");
-    }
-    return "";
-}
-//登录时将token的值保存到session里面
-function setToken(value) {
-    setCookie("token", value);
+function logout() {
+    delCookie("User");
+    showLoader();
+    $.post("/UserCentre/DoLogOut", {}, function (r) {
+        var data = JSON.parse(r);
+        if (data.code == "100") {
+            showMessage("已退出登录", function () {
+                $("#userLabel").fadeOut(1000, function () { $("#visitorLabel").fadeIn(1000) });
+                hideLoader();
+            });
+        }
+        else {
+            showMessage(data.msg);
+            hideLoader();
+        }
+    });
 }
 function delCookie(name) {
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval = getCookie(name);
-    if (cval != null)
-        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
-}
-function setCookie(name, value) {
-    var Days = 30;
-    var exp = new Date();
-    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-    document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
-}
-function getCookie(name) {
-    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-    if (arr = document.cookie.match(reg))
-        return unescape(arr[2]);
-    else
-        return null;
+    $.cookie(name, null, { path: "/" });
 }
 
 
 function getUserCode() {
-    return JSON.parse(getUser()).UserCode;
+    if (!!getUser()) {
+        return JSON.parse(getUser()).UserCode;
+    }
+    return "";
 }
 
 function getUserName() {
-    return JSON.parse(getUser()).UserName;
+    if (!!getUser()) {
+        return JSON.parse(getUser()).UserName;
+    }
+    return "";
 }
 
 function getNickName() {
-    return JSON.parse(getUser()).NickName;
+    if (!!getUser()) {
+        return JSON.parse(getUser()).NickName;
+    }
+    return "";
 }
 
 function setUser(User) {
@@ -101,7 +100,7 @@ function showMessage(text, backcall) {
         confirmButton: 'okay',
         confirmButtonClass: 'btn-success',
         closeIcon: true,
-        confirm: backcall,
+        onClose: backcall,
     });
 }
 function showConfirm(text, confirmbackcall, cancelbackcall) {
@@ -130,7 +129,7 @@ function checknum(value) {
     }
 }
 function showLoader() {
-    $('.progress-indicator').show().delay(400).fadeOut(500);
+    $('.progress-indicator').show().delay(400);
 }
 function hideLoader() {
     $('.progress-indicator').hide();
