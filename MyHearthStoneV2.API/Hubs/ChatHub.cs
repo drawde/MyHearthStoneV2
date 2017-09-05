@@ -5,7 +5,8 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
 using MyHearthStoneV2.API.Models;
-
+using MyHearthStoneV2.Common;
+using MyHearthStoneV2.Common.Util;
 namespace MyHearthStoneV2.API.Hubs
 {
     public class ChatHub:Hub, IChatHub
@@ -38,19 +39,19 @@ namespace MyHearthStoneV2.API.Hubs
             userInfo.count = 0;  //收到心跳，重置计数器
         }
 
-        public void SendLogin(string id,string name)
+        public void SendLogin(string id, string name)
         {
-            var userInfo = new UserChat() { ID = id, Name = name };
-            userInfo.action += () =>
+            if (!userList.Any(c => c.ID == id))
             {
-                //用户20s无心跳包应答，则视为掉线，会抛出事件，这里会接住，然后处理用户掉线动作。
-                SendLogoff(id, name);
-            };
-
-            var comparison = new ChatUserCompare();
-            if (!userList.Contains<UserChat>(userInfo, comparison))
+                var userInfo = new UserChat() { ID = id, Name = name };
+                userInfo.action += () =>
+                {
+                    //用户20s无心跳包应答，则视为掉线，会抛出事件，这里会接住，然后处理用户掉线动作。
+                    SendLogoff(id, name);
+                };
                 userList.Add(userInfo);
-            Clients.All.loginUser(userList);
+                Clients.All.loginUser(userList);
+            }
             SendChat(id, name, "<====用户 " + name + " 加入了讨论组====>");
         }
 

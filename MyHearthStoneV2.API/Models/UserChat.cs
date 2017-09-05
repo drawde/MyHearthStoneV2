@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Timers;
+using MyHearthStoneV2.Common;
 
 namespace MyHearthStoneV2.API.Models
 {
@@ -12,13 +13,15 @@ namespace MyHearthStoneV2.API.Models
         {
             count = 0;
             if (Timer == null) Timer = new Timer();
-            Timer.Interval = 1000;  //1s触发一次
+            Timer.Interval = 15000;  //15s触发一次
             Timer.Start();
             Timer.Elapsed += (sender, args) =>
             {
                 count++;
                 if (count >= 20)
+                {
                     action();  //该用户掉线了，抛出事件通知
+                }
             };
         }
 
