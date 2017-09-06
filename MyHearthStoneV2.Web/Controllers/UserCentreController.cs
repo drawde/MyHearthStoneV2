@@ -1,10 +1,13 @@
 ﻿using GeetestSDK;
 using MyHearthStoneV2.BLL;
+using MyHearthStoneV2.BLL.PageAttribute;
 using MyHearthStoneV2.Common.Common;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Util;
+using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Model.CustomModels;
+using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.VerificationCode;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -129,6 +132,20 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
                 res = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
             }
             return Content(res);
+        }
+
+        [OAuth]
+        public ActionResult MyCardGroups()
+        {
+            HS_Users user = ViewBag.User as HS_Users;
+            ViewBag.SecretCode = user.SecretCode;
+            ViewBag.lstCardGroup = UserCardGroupBll.Instance.GetCardGroups(user.UserCode);
+            ViewBag.lstCardGroupDetail = UserCardGroupDetailBll.Instance.GetCardGroupDetail(user.UserCode);
+            if (ViewBag.lstCardGroupDetail == null)
+            {
+                ViewBag.lstCardGroupDetail = new List<HS_UserCardGroupDetail>();
+            }
+            return View();
         }
     }
 }

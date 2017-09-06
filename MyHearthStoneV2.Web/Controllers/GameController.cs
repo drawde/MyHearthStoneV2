@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
         {
             HS_Users user = ViewBag.User as HS_Users;
             ViewBag.SecretCode = user.SecretCode;
-            ViewBag.lstCardGroup = UserCardGroupDetailBll.Instance.GetCardGroup(cardGroup, user.UserCode);
+            ViewBag.lstCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(cardGroup, user.UserCode);
             return View();
         }
 

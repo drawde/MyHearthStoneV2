@@ -34,7 +34,19 @@ namespace MyHearthStoneV2.CardLibrary
             lstCard.ForEach(c => c.CardCode = SignUtil.CreateSign(c.Name + c.GetType().Name));
             using (var redisClient = RedisManager.GetClient())
             {
-                redisClient.Set<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance), lstCard);
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance), lstCard);
+            }
+        }
+
+        /// <summary>
+        /// 从缓存中加载卡牌对象
+        /// </summary>
+        /// <returns></returns>
+        public static List<Card> GetCardInRedis()
+        {
+            using (var redisClient = RedisManager.GetClient())
+            {
+                return redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
             }
         }
     }

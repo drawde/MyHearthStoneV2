@@ -94,14 +94,14 @@ namespace MyHearthStoneV2.GameControler
                 //    return res;
                 //}
 
-                List<HS_UserCardGroupDetail> firstCardGroup = UserCardGroupDetailBll.Instance.GetCardGroup(fristCardGroupCode, firstPlayerCode);
+                List<HS_UserCardGroupDetail> firstCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(fristCardGroupCode, firstPlayerCode);
                 if (firstCardGroup == null || firstCardGroup.Count < 1)
                 {
                     res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);
                     return res;
                 }
 
-                List<HS_UserCardGroupDetail> secondCardGroup = UserCardGroupDetailBll.Instance.GetCardGroup(secondCardGroupCode, secondPlayerCode);
+                List<HS_UserCardGroupDetail> secondCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(secondCardGroupCode, secondPlayerCode);
                 if (secondCardGroup == null || secondCardGroup.Count < 1)
                 {
                     res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);

@@ -16,10 +16,10 @@ namespace MyHearthStoneV2.CardLibrary.Hero
         /// <summary>
         /// 护甲值
         /// </summary>
-        public int Ammo { get; set; }
+        public virtual int Ammo { get; set; }
 
-        public Profession profession { get; set; }
+        public virtual Profession profession { get; set; }
 
-        public int ProfessionSkillTimes { get; set; }
+        public virtual int ProfessionSkillTimes { get; set; }
     }
 }

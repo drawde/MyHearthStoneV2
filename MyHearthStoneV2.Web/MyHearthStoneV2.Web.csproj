@@ -86,6 +86,22 @@
       <HintPath>..\packages\PostSharp.4.3.22\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.5.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Common.4.5.12\lib\net45\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.4.5.12\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=4.5.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Redis.4.5.12\lib\net45\ServiceStack.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.5.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.4.5.12\lib\net45\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -283,6 +299,7 @@
     <Content Include="static\css\v4\css\bootstrap.css.map" />
     <Content Include="static\css\v4\css\bootstrap.min.css.map" />
     <Content Include="Views\Shared\_LoginOrRegisterLayout.cshtml" />
+    <Content Include="Views\UserCentre\MyCardGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -299,6 +316,10 @@
     <ProjectReference Include="..\MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj">
       <Project>{f69a8aeb-ab89-4f87-b2fd-af68d009e42e}</Project>
       <Name>MyHearthStoneV2.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj">
+      <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
+      <Name>MyHearthStoneV2.CardLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>

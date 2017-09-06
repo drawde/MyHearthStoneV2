@@ -13,13 +13,13 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
     [PropertyChangedNotification]
     public class Al_akir : BaseServant
     {
-        public int Damage = 3;
-        public int Life = 4;
-        public int Cost = 8;
-        public CardLocation CardLocation = CardLocation.牌库;
+        public override int Damage { get; set; } = 3;
+        public override int Life { get; set; } = 4;
+        public override int Cost { get; set; } = 8;
+        public override CardLocation CardLocation { get; set; }
 
-        public List<ISpecialEffect> LstBuff = new List<ISpecialEffect>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
-        public string Describe
+        public override List<ISpecialEffect> LstBuff { get; set; } = new List<ISpecialEffect>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
+        public override string Describe
         {
             get
             {
@@ -27,15 +27,15 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
             }
         }
 
-        public Rarity Rare
+        public override Rarity Rare
         {
             get
             {
                 return Rarity.传说;
             }
         }
-        
-        public string Name
+
+        public override string Name
         {
             get
             {

@@ -15,36 +15,36 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// <summary>
         /// 费用
         /// </summary>
-        public int Cost { get; set; }
+        public virtual int Cost { get; set; }
         /// <summary>
         /// 游戏ID
         /// </summary>
-        public string GameID { get; set; }
+        public virtual string GameID { get; set; }
 
         /// <summary>
         /// 卡牌持有者
         /// </summary>
-        public string UserCode { get; set; }
+        public virtual string UserCode { get; set; }
 
         /// <summary>
         /// 名称
         /// </summary>
-        public string Name { get; }
+        public virtual string Name { get; }
 
         /// <summary>
         /// 卡牌描述
         /// </summary>
-        public string Describe { get; }
+        public virtual string Describe { get; }
         /// <summary>
         /// 稀有程度
         /// </summary>
-        public Rarity Rare { get; }
+        public virtual Rarity Rare { get; }
 
-        public CardLocation CardLocation { get; set; }
+        public virtual CardLocation CardLocation { get; set; } = CardLocation.牌库;
 
         /// <summary>
         /// 卡牌编码
         /// </summary>
-        public string CardCode { get; set; }
+        public virtual string CardCode { get; set; }
     }
 }

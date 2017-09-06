@@ -12,9 +12,8 @@ namespace MyHearthStoneV2.CardLibrary.Spell.Classical
     [PropertyChangedNotification]
     public class LuckyCoin: ISpell
     {
-        public CardLocation CardLocation = CardLocation.牌库;
 
-        public Rarity Rare
+        public override Rarity Rare
         {
             get
             {
@@ -22,9 +21,9 @@ namespace MyHearthStoneV2.CardLibrary.Spell.Classical
             }
         }
 
-        public List<ISpecialEffect> LstBuff = new List<ISpecialEffect>() {  };
+        //public override List<ISpecialEffect> LstBuff { get; set; } = new List<ISpecialEffect>() { };
 
-        public string Name
+        public override string Name
         {
             get
             {

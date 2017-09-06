@@ -27,12 +27,20 @@ namespace MyHearthStoneV2.BLL
         /// <param name="groupCode"></param>
         /// <param name="userCode"></param>
         /// <returns></returns>
-        public List<HS_UserCardGroupDetail> GetCardGroup(string groupCode, string userCode)
+        public List<HS_UserCardGroupDetail> GetCardGroupDetail(string groupCode, string userCode)
         {
             var where = LDMFilter.True<HS_UserCardGroupDetail>();
-            where = where.And(c => c.GroupCode == groupCode && c.UserCode == userCode);
+            if (!groupCode.IsNullOrEmpty())
+            {
+                where = where.And(c => c.GroupCode == groupCode);
+            }
+            where = where.And(c => c.UserCode == userCode);
             var res = _repository.Get(where).Result;
             return res.Items.ToList();
+        }
+        public List<HS_UserCardGroupDetail> GetCardGroupDetail(string userCode)
+        {
+            return GetCardGroupDetail("", userCode);
         }
     }
 }

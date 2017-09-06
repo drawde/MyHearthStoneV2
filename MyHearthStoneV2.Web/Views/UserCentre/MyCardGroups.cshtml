@@ -1,0 +1,133 @@
+﻿@using MyHearthStoneV2.Model
+@using MyHearthStoneV2.Common
+@using MyHearthStoneV2.CardLibrary.Base
+@using MyHearthStoneV2.CardLibrary
+@{
+    ViewBag.Title = "我的卡组";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
+    IPagedItemsResult<HS_UserCardGroup> lstCardGroup = ViewBag.lstCardGroup as IPagedItemsResult<HS_UserCardGroup>;
+    List<HS_UserCardGroupDetail> lstCardGroupDetail = ViewBag.lstCardGroupDetail as List<HS_UserCardGroupDetail>;
+    List<Card> lstCards = CardUtil.GetCardInRedis();
+}
+@section css{
+}
+@section js{
+    <script type="text/javascript" src="/js/index.js@(ViewBag.cssAndJSVersion)"></script>
+}
+<div class="main-container">
+    <section class="article-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-3">
+                    <p>
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="/usercentre/MyCardGroups">我的卡组</a>
+                        </li>
+                        <li>
+                            <a href="/policy/privacy-policy">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="/policy/aup">Acceptable Use Policy</a>
+                        </li>
+                    </ul>
+                    <p>
+                    </p>
+                </div>
+                <div class="col-md-8 col-sm-9">
+                    @{
+                        if (lstCardGroup != null && lstCardGroup.TotalItemsCount > 0)
+                        {
+                            foreach (var model in lstCardGroup.Items)
+                            {
+                                <div class="article-single">
+                                    <div class="text-block">
+                                        <div class="detail-line"></div>
+                                        <h4>@(model.GroupName)</h4>
+                                        <h5>@(model.AddTime)</h5>
+                                    </div>
+                                    <h3 class="alt-font uppercase">
+                                        卡组明细
+                                    </h3>
+                                    @{
+                                        if (lstCardGroupDetail.Any(c => c.GroupCode == model.GroupCode))
+                                        {
+                                            foreach (var detail in lstCardGroupDetail)
+                                            {
+                                                <p>
+                                                    <strong>1.1</strong>@(lstCards.First(c=>c.CardCode==detail.CardCode).Name)
+                                                </p>
+                                            }
+                                        }
+                                    }
+
+                                </div>
+                            }
+                        }
+                    }
+                    
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-3">
+                    <ul>
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                        <li>
+                            <a href="/pricing">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="https://app.eventn.com/signup" target="_blank">Sign Up</a>
+                        </li>
+                        <li>
+                            <a href="/contact">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-sm-3">
+                    <ul>
+                        <li>
+                            <a href="/policy/tos">Terms of Service</a>
+                        </li>
+                        <li>
+                            <a href="/policy/privacy-policy">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/eventn_cloud" target="_blank">Twitter</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-md-offset-4 col-sm-6">
+                    <p>Subscribe to our newsletter to receive news &amp; updates.</p>
+                    <form data-success="Thanks, we'll be in touch shortly." data-error="Please enter a valid email address" class="form-newsletter">
+                        <input type="text" name="email" placeholder="Your Email Here" class="input-standard validate-required validate-email">
+                        <input type="submit">
+                        <i class="icon pe-7s-angle-right text-white"></i>
+                        <iframe srcdoc="" class="mail-list-form"></iframe>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="footer-lower">
+                        <span>© Copyright 2017 Event</span>
+                        <sup>n</sup>
+                        <sapn>
+                            - Made with
+                            <i class="icon pe-7s-like"></i>in San Francisco, California.
+                        </sapn>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+

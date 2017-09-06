@@ -11,12 +11,11 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
     [PropertyChangedNotification]
     public class XiaoZhiZhu : BaseServant
     {
-        public int Damage = 2;
-        public int Life = 1;
-        public int Cost = 1;
-        public CardLocation CardLocation = CardLocation.牌库;
-        
-        public string Describe
+        public override int Damage { get; set; } = 2;
+        public override int Life { get; set; } = 1;
+        public override int Cost { get; set; } = 1;
+
+        public override string Describe
         {
             get
             {
@@ -24,14 +23,14 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
             }
         }
 
-        public Rarity Rare
+        public override Rarity Rare
         {
             get
             {
                 return Rarity.普通;
             }
         }
-        public string Name
+        public override string Name
         {
             get
             {

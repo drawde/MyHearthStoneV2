@@ -13,11 +13,10 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
     [PropertyChangedNotification]
     public class GuiLingZhiZhu : BaseServant
     {
-        public int Damage = 2;
-        public int Life = 1;
-        public int Cost = 1;
-        public CardLocation CardLocation = CardLocation.牌库;
-        public string Describe
+        public override int Damage { get; set; } = 2;
+        public override int Life { get; set; } = 1;
+        public override int Cost { get; set; } = 1;
+        public override string Describe
         {
             get
             {
@@ -25,22 +24,22 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
             }
         }
 
-        public Rarity Rare
+        public override Rarity Rare
         {
             get
             {
                 return Rarity.精良;
             }
         }
-
-        public List<ISpecialEffect> LstBuff = new List<ISpecialEffect>() { new SE_GuiLingZhiZhu() };
         
-        public string Name
+        public override List<ISpecialEffect> LstBuff { get; set; } = new List<ISpecialEffect>() { new SE_GuiLingZhiZhu() };
+
+        public override string Name
         {
             get
             {
                 return "鬼灵蜘蛛";
             }
-        }        
+        }
     }
 }

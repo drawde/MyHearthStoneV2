@@ -17,6 +17,6 @@ namespace MyHearthStoneV2.CardLibrary.Servant
         /// <summary>
         /// 场上位置下标
         /// </summary>
-        public int ChessboardIndex { get; set; }
+        public virtual int ChessboardIndex { get; set; }
     }
 }

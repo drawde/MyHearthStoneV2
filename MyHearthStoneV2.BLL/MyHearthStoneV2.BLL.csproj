@@ -103,15 +103,14 @@
     <Compile Include="PageAttribute\ExceptionOrErrorFilter.cs" />
     <Compile Include="PageAttribute\OAuthAttribute.cs" />
     <Compile Include="PageAttribute\PageVariable.cs" />
+    <Compile Include="PageAttribute\WebException.cs" />
     <Compile Include="SystemConfigBll.cs" />
     <Compile Include="UserCardGroupDetailBll.cs" />
     <Compile Include="UserCardGroupBll.cs" />
     <Compile Include="UsersBll.cs" />
     <Compile Include="PageAttribute\DataVerifyAttribute.cs" />
     <Compile Include="PageAttribute\ExceptionAttribute.cs" />
-    <Compile Include="PageAttribute\JurisdictionAttribute.cs" />
     <Compile Include="PageAttribute\RecordDataExchangeAttribute.cs" />
-    <Compile Include="PageAttribute\VersionCtlAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

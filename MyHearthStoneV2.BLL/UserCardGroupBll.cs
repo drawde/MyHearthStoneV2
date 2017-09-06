@@ -34,5 +34,12 @@ namespace MyHearthStoneV2.BLL
             var res = _repository.Get(where).Result;
             return res.TotalItemsCount > 0 ? res.Items.First() : null;
         }
+
+        public IPagedItemsResult<HS_UserCardGroup> GetCardGroups(string userCode)
+        {
+            var where = LDMFilter.True<HS_UserCardGroup>();
+            where = where.And(c => c.UserCode == userCode);
+            return _repository.Get(where).Result;            
+        }
     }
 }

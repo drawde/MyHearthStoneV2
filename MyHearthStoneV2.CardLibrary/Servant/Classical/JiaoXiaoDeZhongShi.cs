@@ -13,12 +13,11 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
     [PropertyChangedNotification]
     public class JiaoXiaoDeZhongShi : BaseServant
     {
-        public int Damage = 2;
-        public int Life = 1;
-        public int Cost = 1;
-        public CardLocation CardLocation = CardLocation.牌库;
-        
-        public string Describe
+        public override int Damage { get; set; } = 2;
+        public override int Life { get; set; } = 1;
+        public override int Cost { get; set; } = 1;
+
+        public override string Describe
         {
             get
             {
@@ -26,7 +25,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
             }
         }
 
-        public Rarity Rare
+        public override Rarity Rare
         {
             get
             {
@@ -34,10 +33,10 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Classical
             }
         }
 
-        public List<ISpecialEffect> LstBuff = new List<ISpecialEffect>() { new SE_JiaoXiaoDeZhongShi() };
-        
+        public override List<ISpecialEffect> LstBuff { get; set; } = new List<ISpecialEffect>() { new SE_JiaoXiaoDeZhongShi() };
 
-        public string Name
+
+        public override string Name
         {
             get
             {

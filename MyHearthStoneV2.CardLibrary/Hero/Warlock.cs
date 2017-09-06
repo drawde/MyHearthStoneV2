@@ -10,7 +10,19 @@ namespace MyHearthStoneV2.CardLibrary.Hero
 {
     public class Warlock: BaseHero
     {
-        public string Name = "术士";
-        public Profession profession = Profession.术士;
+        public virtual new string Name
+        {
+            get
+            {
+                return "术士";
+            }
+        }
+        public virtual new Profession profession
+        {
+            get
+            {
+                return Profession.术士;
+            }
+        }
     }
 }

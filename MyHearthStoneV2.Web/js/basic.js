@@ -18,8 +18,7 @@ function getUrlParam(name) {
  */
 function ajaxGetData(method, params, nonce_str, sign, apitime, backfun) {
     methodurl = APIURL + method;
-    var token = getToken();
-    var data = "{\"token\":\"" + token + "\",\"param\":" + params + ",\"nonce_str\":\"" + nonce_str + "\",\"sign\":\"" + sign + "\",\"apitime\":\"" + apitime + "\",\"usercode\":\"" + getUserCode() + "\"}";
+    var data = "{\"param\":" + params + ",\"nonce_str\":\"" + nonce_str + "\",\"sign\":\"" + sign + "\",\"apitime\":\"" + apitime + "\",\"usercode\":\"" + getUserCode() + "\"}";
     //console.log(data);
     $.ajax({
         type: "post",
@@ -40,13 +39,13 @@ function ajaxGetData(method, params, nonce_str, sign, apitime, backfun) {
     });
 };
 
-function logout() {
-    delCookie("User");
+function logout() {    
     showLoader();
     $.post("/UserCentre/DoLogOut", {}, function (r) {
         var data = JSON.parse(r);
         if (data.code == "100") {
             showMessage("已退出登录", function () {
+                delCookie("User");
                 $("#userLabel").fadeOut(1000, function () { $("#visitorLabel").fadeIn(1000) });
                 hideLoader();
             });

@@ -15,22 +15,22 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// <summary>
         /// 生命值
         /// </summary>
-        public int Life { get; set; }
+        public virtual int Life { get; set; }
 
         /// <summary>
         /// 攻击力
         /// </summary>
-        public int Damage { get; set; }
+        public virtual int Damage { get; set; }
         /// <summary>
         /// 卡牌ID
         /// </summary>
-        public string CardID { get; set; }
+        public virtual string CardID { get; set; }
 
-        public List<ISpecialEffect> LstBuff { get; set; }
+        public virtual List<ISpecialEffect> LstBuff { get; set; }
 
         /// <summary>
         /// 当前回合剩余攻击次数
         /// </summary>
-        public int RemainAttackTimes { get; set; }
+        public virtual int RemainAttackTimes { get; set; }
     }
 }
