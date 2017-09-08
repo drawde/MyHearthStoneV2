@@ -6,14 +6,14 @@
         pickCard($(this));
     });
     if (!!groupCode) {
-        repick();
+        $("#grid").fadeOut(500, function () { $("#cards").fadeIn(500); classie.toggle(document.getElementById('cbp-spmenu-s2'), 'cbp-spmenu-open'); });
     }
     if (!ISDEBUG) {
         eval($("#dst").val());
     }
 });
 function repick() {
-    $("#grid").fadeOut(500, function () { $("#cards").fadeIn(500); classie.toggle(document.getElementById('cbp-spmenu-s2'), 'cbp-spmenu-open'); });
+    $("#cards").fadeOut(500, function () { $("#grid").fadeIn(500); classie.toggle(document.getElementById('cbp-spmenu-s2'), 'cbp-spmenu-open'); });
 }
 var cardCount = 0;
 function pickCard(a) {
