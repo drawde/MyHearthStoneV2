@@ -1,5 +1,5 @@
 ﻿using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Model;
 using System;
@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.BLL.PageAttribute
             try
             {
                 ContentResult contentResult = new ContentResult();
-                contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
+                contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.内部错误);
                 filterContext.Result = contentResult;
                 filterContext.ExceptionHandled = true;
                 

@@ -31,7 +31,7 @@ namespace MyHearthStoneV2.CardLibrary
             lstCard.Add(new XiaoZhiZhu());
             lstCard.Add(new LuckyCoin());
 
-            lstCard.ForEach(c => c.CardCode = SignUtil.CreateSign(c.Name + c.GetType().Name));
+            lstCard.ForEach(c => c.CardCode = SignUtil.CreateSign(c.GetType().Name));
             using (var redisClient = RedisManager.GetClient())
             {
                 redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance), lstCard);

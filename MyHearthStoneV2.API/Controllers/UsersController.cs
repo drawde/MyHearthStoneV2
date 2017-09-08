@@ -1,6 +1,6 @@
 ﻿using MyHearthStoneV2.BLL;
 using MyHearthStoneV2.BLL.PageAttribute;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.Util;
 using Newtonsoft.Json.Linq;
@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace MyHearthStoneV2.API.Controllers
 {
@@ -31,18 +32,31 @@ namespace MyHearthStoneV2.API.Controllers
         [DataVerify(false)]
         public ActionResult ValidateUserName()
         {
-            string res = OperateJsonRes.VerifyFail();
+            string res = JsonStringResult.VerifyFail();
             var param = JObject.Parse(TempData["param"].TryParseString());
-            res = UsersBll.Instance.IsRepeat(param["UserName"].TryParseString()) ? OperateJsonRes.Error(OperateResCodeEnum.用户名重复) : OperateJsonRes.SuccessResult();
+            res = UsersBll.Instance.IsRepeat(param["UserName"].TryParseString()) ? JsonStringResult.Error(OperateResCodeEnum.用户名重复) : JsonStringResult.SuccessResult();
             return Content(res);
         }
 
-        [DataVerify()]
+        [DataVerify]
         public ActionResult TestSign()
         {
-            string res = OperateJsonRes.SuccessResult();
+            string res = JsonStringResult.SuccessResult();
 
             return Content(res);
+        }
+
+        [DataVerify]
+        public ActionResult SaveCardGroup()
+        {
+            var param = JObject.Parse(TempData["param"].TryParseString());
+            string GroupName = param["GroupName"].TryParseString();
+            string Cards = param["Cards"].TryParseString();
+            string GroupCode = param["GroupCode"].TryParseString();
+            string Profession = param["Profession"].TryParseString();
+            string UserCode = param["UserCode"].TryParseString();
+            var resModel = UserCardGroupBll.Instance.AddOrUpdateCardGroup(UserCode, GroupCode, GroupName, Profession, Cards);
+            return Content(JsonConvert.SerializeObject(resModel));
         }
     }
 }

@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\OperateJsonRes.cs" />
+    <Compile Include="JsonModel\JsonModelResult.cs" />
+    <Compile Include="JsonModel\JsonStringResult.cs" />
     <Compile Include="Enum\OperateResCodeEnum.cs" />
     <Compile Include="IPagedItemsResult.cs" />
     <Compile Include="JsonModel\APIPageResult.cs" />

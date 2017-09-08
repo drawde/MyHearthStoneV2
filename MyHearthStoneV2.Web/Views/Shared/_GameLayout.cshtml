@@ -30,6 +30,9 @@
     <link href="/css/loader.css" rel="stylesheet" />
     @RenderSection("css")
     <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        var APIURL = "@(System.Configuration.ConfigurationManager.AppSettings["APIURL"])";
+    </script>
     <script src="/Scripts/fetch.min.js@(ViewBag.cssAndJSVersion)"></script>
     <script src="/Scripts/figlet.js@(ViewBag.cssAndJSVersion)"></script>
     <script src="/Scripts/jquery.cookies.js"></script>
@@ -40,12 +43,7 @@
     @RenderSection("js")
 </head>
 <body>
-
     @RenderBody()
-    <script type="text/javascript">
-        var APIURL = "@(System.Configuration.ConfigurationManager.AppSettings["APIURL"])";
-    </script>
-    
     <div class="progress-indicator" style="display: none;">
         <div class="load-content align-center">
             <div class="load-container load8">

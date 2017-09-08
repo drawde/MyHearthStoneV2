@@ -18,7 +18,9 @@ namespace MyHearthStoneV2.Model
         public string CardCode { get; set; }
         public string GroupCode { get; set; }
         public string UserCode { get; set; }
-        public bool IsGoldCard { get; set; }
+        public int CardBorder { get; set; }
         public System.DateTime AddTime { get; set; }
+        public int Cost { get; set; }
+        public string CardName { get; set; }
     }
 }

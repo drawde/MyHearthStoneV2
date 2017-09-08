@@ -184,14 +184,31 @@
     <Content Include="Content\Register.css" />
     <Content Include="Content\Table.css" />
     <Content Include="css\build.min.css" />
+    <Content Include="css\css3_3d.css" />
+    <Content Include="css\jq22.css" />
     <Content Include="css\loader.css" />
     <Content Include="css\main.css" />
+    <Content Include="css\reset.css" />
+    <Content Include="css\slide\component.css" />
+    <Content Include="css\slide\style.min.css" />
+    <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\bridge.jpg" />
+    <Content Include="images\cablecar.jpg" />
+    <Content Include="images\clouds.jpg" />
+    <Content Include="images\lanterns.jpg" />
+    <Content Include="images\londoneye.jpg" />
+    <Content Include="images\maiden.jpg" />
+    <Content Include="images\statue.jpg" />
+    <Content Include="images\statue2.jpg" />
+    <Content Include="images\tree.jpg" />
     <Content Include="img\background-data-microservice.jpg" />
     <Content Include="img\build-20170730.min.js" />
+    <Content Include="img\cd-category-icons.svg" />
+    <Content Include="img\cd-icon-close.svg" />
     <Content Include="img\lightbox\close.png" />
     <Content Include="img\data-warehouse-analytics.jpg" />
     <Content Include="img\data-warehouse-etl.jpg" />
@@ -206,12 +223,15 @@
     <Content Include="js\apisign.release.js" />
     <Content Include="js\basic.js" />
     <Content Include="js\build.min.js" />
+    <Content Include="js\cardgroup.js" />
     <Content Include="js\chunk.js" />
     <Content Include="js\index.js" />
     <Content Include="js\login.js" />
     <Content Include="js\main.js" />
     <Content Include="js\md5-min.js" />
+    <Content Include="js\modernizr.js" />
     <Content Include="js\Register.js" />
+    <Content Include="js\slide\classie.js" />
     <Content Include="js\Table.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -300,6 +320,7 @@
     <Content Include="static\css\v4\css\bootstrap.min.css.map" />
     <Content Include="Views\Shared\_LoginOrRegisterLayout.cshtml" />
     <Content Include="Views\UserCentre\MyCardGroups.cshtml" />
+    <Content Include="Views\UserCentre\CardGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

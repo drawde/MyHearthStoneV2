@@ -17,13 +17,17 @@
     <link href="/css/loader.css" rel="stylesheet" />
     @RenderSection("css")
 
-    <script src="/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="/Scripts/fetch.min.js@(ViewBag.cssAndJSVersion)"></script>
-    <script src="/Scripts/figlet.js@(ViewBag.cssAndJSVersion)"></script>
-    <script src="/Scripts/jquery.cookies.js"></script>
-    <script src="/Scripts/bootstrap.min.js"></script>
-    <script src="/static/js/jquery-confirm.js"></script>
-    <script src="/js/basic.js@(ViewBag.cssAndJSVersion)"></script>
+    <script src="/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var APIURL = "@(System.Configuration.ConfigurationManager.AppSettings["APIURL"])";
+    </script>
+    <script src="/Scripts/fetch.min.js@(ViewBag.cssAndJSVersion)" type="text/javascript"></script>
+    <script src="/Scripts/figlet.js@(ViewBag.cssAndJSVersion)" type="text/javascript"></script>
+    <script src="/Scripts/jquery.cookies.js" type="text/javascript"></script>
+    <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/js/jquery-confirm.js" type="text/javascript"></script>
+    <script src="/js/basic.js@(ViewBag.cssAndJSVersion)" type="text/javascript"></script>
+    <script src="/js/index.js@(ViewBag.cssAndJSVersion)" type="text/javascript"></script>
     @RenderSection("js")
 </head>
 <body>
@@ -53,7 +57,7 @@
                                 <li><a href="/usercentre/login" target="_blank">登录</a></li>
                             </ul>
                             <ul id="userLabel" class="social-links" style="display:none">
-                                <li><a href="/usercentre/register" target="_blank">欢迎回来，</a></li>
+                                <li><a href="/usercentre/MycardGroups" target="_blank">欢迎回来，</a></li>
                                 <li><a href="javascript:logout()" >退出登录</a></li>
                             </ul>
                         </div>
@@ -109,9 +113,7 @@
     </footer>
 
     
-    <script type="text/javascript">
-        var APIURL = "@(System.Configuration.ConfigurationManager.AppSettings["APIURL"])";        
-    </script>
+    
     <div class="progress-indicator" style="display: none;">
         <div class="load-content align-center">
             <div class="load-container load8">

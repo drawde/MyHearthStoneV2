@@ -46,5 +46,10 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// 卡牌编码
         /// </summary>
         public virtual string CardCode { get; set; }
+
+        /// <summary>
+        /// 是否是某张牌的衍生物（如鬼灵爬行者-鬼灵蜘蛛）
+        /// </summary>
+        public virtual bool IsDerivative { get; } = false;
     }
 }

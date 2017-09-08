@@ -7,7 +7,7 @@ using MyHearthStoneV2.DAL.Impl;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Common.Util;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Model.CustomModels;
 
@@ -94,15 +94,15 @@ namespace MyHearthStoneV2.BLL
         {
             if (userName.IsNullOrEmpty() || pwd.IsNullOrEmpty() || invitationCode.IsNullOrEmpty() || nickName.IsNullOrEmpty())
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.参数错误);
+                return JsonStringResult.Error(OperateResCodeEnum.参数错误);
             }
             if (!StringUtil.IsNatural_Number(userName))
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.参数错误);
+                return JsonStringResult.Error(OperateResCodeEnum.参数错误);
             }
             if (IsRepeat(userName))
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.用户名重复);
+                return JsonStringResult.Error(OperateResCodeEnum.用户名重复);
             }
             //if (!mobile.IsNullOrEmpty() && IsMobileRepeat(mobile))
             //{
@@ -116,7 +116,7 @@ namespace MyHearthStoneV2.BLL
             var invitation = InvitationBll.Instance.GetInvitation(invitationCode, userCode);
             if (invitation == null)
             {
-                return OperateJsonRes.Error(OperateResCodeEnum.邀请码错误);
+                return JsonStringResult.Error(OperateResCodeEnum.邀请码错误);
             }
             HS_Users user = new HS_Users();
             user.AddTime = DateTime.Now;
@@ -133,7 +133,7 @@ namespace MyHearthStoneV2.BLL
             invitation.ToUserCode = userCode;
             invitation.Status = (int)InvitationStatus.已使用;
             InvitationBll.Instance.Update(invitation);
-            return OperateJsonRes.SuccessResult(user.UserCode);
+            return JsonStringResult.SuccessResult(user.UserCode);
         }
         public bool IsRepeat(string userName)
         {

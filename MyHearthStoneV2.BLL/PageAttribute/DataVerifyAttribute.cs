@@ -8,7 +8,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using MyHearthStoneV2.Common.Util;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.BLL;
@@ -65,7 +65,7 @@ namespace MyHearthStoneV2.BLL.PageAttribute
                 
                 if (data.IsNullOrEmpty())
                 {                    
-                    contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败, "");
+                    contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.签名验证失败, "");
                     filterContext.Result = contentResult;
                     return;
                 }
@@ -92,20 +92,20 @@ namespace MyHearthStoneV2.BLL.PageAttribute
                 {
                     if (im.sign.IsNullOrEmpty() || im.nonce_str.IsNullOrEmpty() || im.usercode.IsNullOrEmpty() || im.apitime.IsNullOrEmpty())
                     {
-                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败);
+                        contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.签名验证失败);
                         filterContext.Result = contentResult;
                         return;
                     }
                     HS_Users user = UsersBll.Instance.GetUserByAdmin(im.usercode);
                     if (user == null)
                     {
-                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败);
+                        contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.签名验证失败);
                         filterContext.Result = contentResult;
                         return;
                     }
                     if (im.sign != SignUtil.CreateSign(im.apitime + user.SecretCode + im.nonce_str))
                     {
-                        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.签名验证失败);
+                        contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.签名验证失败);
                         filterContext.Result = contentResult;
                         return;
                     }
@@ -134,7 +134,7 @@ namespace MyHearthStoneV2.BLL.PageAttribute
 
             }
             catch (Exception ex) {
-                contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.内部错误, "内部错误");
+                contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.内部错误, "内部错误");
                 filterContext.Result = contentResult;
             }
             return;

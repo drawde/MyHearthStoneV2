@@ -15,6 +15,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
         public override int Life { get; set; } = 1;
         public override int Cost { get; set; } = 1;
 
+        public override bool IsDerivative { get; } = true;
         public override string Describe
         {
             get
@@ -34,7 +35,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.NAXX
         {
             get
             {
-                return "小蜘蛛";
+                return "鬼灵蜘蛛";
             }
         }        
     }

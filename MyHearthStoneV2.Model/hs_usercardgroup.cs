@@ -19,5 +19,6 @@ namespace MyHearthStoneV2.Model
         public string GroupName { get; set; }
         public string GroupCode { get; set; }
         public System.DateTime AddTime { get; set; }
+        public string Profession { get; set; }
     }
 }

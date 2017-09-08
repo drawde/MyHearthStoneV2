@@ -8,13 +8,13 @@
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_Game" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_GameRecord" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_Invitation" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_UserCardGroupDetail" Width="1.5" PointX="2.75" PointY="4.75" />
-        <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_UserCardGroup" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_Users" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_ErrRec" Width="1.5" PointX="0.75" PointY="7.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_LoginToken" Width="1.5" PointX="3.375" PointY="7.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_SystemConfig" Width="1.5" PointX="5.375" PointY="7.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_DataExchange" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_UserCardGroupDetail" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_UserCardGroup" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

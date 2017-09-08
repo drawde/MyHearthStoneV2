@@ -7,7 +7,7 @@ using MyHearthStoneV2.DAL.Impl;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Common.Util;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.Common.Enum;
 
@@ -39,11 +39,11 @@ namespace MyHearthStoneV2.BLL
             {
                 if (userCode.IsNullOrEmpty() || !UsersBll.Instance.IsUserCodeRepeat(userCode))
                 {
-                    return OperateJsonRes.Error(Common.Enum.OperateResCodeEnum.参数错误);
+                    return JsonStringResult.Error(Common.Enum.OperateResCodeEnum.参数错误);
                 }
                 if (GetInvitation(userCode) != null)
                 {
-                    return OperateJsonRes.Error(Common.Enum.OperateResCodeEnum.参数错误);
+                    return JsonStringResult.Error(Common.Enum.OperateResCodeEnum.参数错误);
                 }
             }
             string code = RandomUtil.CreateRandomStr(10);
@@ -59,7 +59,7 @@ namespace MyHearthStoneV2.BLL
             invitation.Status = (int)InvitationStatus.未使用;
             invitation.ToUserCode = "";
             _repository.Insert(invitation);
-            return OperateJsonRes.SuccessResult(code);
+            return JsonStringResult.SuccessResult(code);
         }
 
         /// <summary>

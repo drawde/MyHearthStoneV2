@@ -1,7 +1,7 @@
 ﻿using GeetestSDK;
 using MyHearthStoneV2.BLL;
 using MyHearthStoneV2.BLL.PageAttribute;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Util;
@@ -45,17 +45,17 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
 
         public ActionResult ValidateCode()
         {
-            string res = OperateJsonRes.Error(OperateResCodeEnum.验证码错误);
+            string res = JsonStringResult.Error(OperateResCodeEnum.验证码错误);
             if (GeetestValidate.Validate())
             {
-                res = OperateJsonRes.SuccessResult();
+                res = JsonStringResult.SuccessResult();
             }
             return Content(res);
         }
 
         public ActionResult DoRegister()
         {
-            string res = OperateJsonRes.VerifyFail();
+            string res = JsonStringResult.VerifyFail();
             try
             {
                 if (GeetestValidate.Validate())
@@ -74,19 +74,19 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
                 }
                 else
                 {
-                    res = OperateJsonRes.Error(OperateResCodeEnum.验证码错误);
+                    res = JsonStringResult.Error(OperateResCodeEnum.验证码错误);
                 }
             }
             catch (Exception ex)
             {
-                res = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
+                res = JsonStringResult.Error(OperateResCodeEnum.内部错误);
             }
             return Content(res);
         }
 
         public ActionResult DoLogin()
         {
-            string res = OperateJsonRes.VerifyFail();
+            string res = JsonStringResult.VerifyFail();
             try
             {
                 if (GeetestValidate.Validate())
@@ -99,21 +99,21 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
                             DateFormatString = "yyyy-MM-dd HH:mm:ss"
                         });
                         CookieHelper.SetCookie("User", userJson, DateTime.Now.AddDays(30));
-                        res = OperateJsonRes.SuccessResult();
+                        res = JsonStringResult.SuccessResult();
                     }
                     else
                     {
-                        res = OperateJsonRes.Error(OperateResCodeEnum.用户名或密码错误);
+                        res = JsonStringResult.Error(OperateResCodeEnum.用户名或密码错误);
                     }
                 }
                 else
                 {
-                    res = OperateJsonRes.Error(OperateResCodeEnum.验证码错误);
+                    res = JsonStringResult.Error(OperateResCodeEnum.验证码错误);
                 }
             }
             catch (Exception ex)
             {
-                res = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
+                res = JsonStringResult.Error(OperateResCodeEnum.内部错误);
             }
             return Content(res);
         }
@@ -121,15 +121,15 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
 
         public ActionResult DoLogOut()
         {
-            string res = OperateJsonRes.VerifyFail();
+            string res = JsonStringResult.VerifyFail();
             try
             {
                 CookieHelper.RemoveCookie("User");
-                res = OperateJsonRes.SuccessResult();
+                res = JsonStringResult.SuccessResult();
             }
             catch (Exception ex)
             {
-                res = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
+                res = JsonStringResult.Error(OperateResCodeEnum.内部错误);
             }
             return Content(res);
         }
@@ -138,13 +138,26 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
         public ActionResult MyCardGroups()
         {
             HS_Users user = ViewBag.User as HS_Users;
-            ViewBag.SecretCode = user.SecretCode;
             ViewBag.lstCardGroup = UserCardGroupBll.Instance.GetCardGroups(user.UserCode);
             ViewBag.lstCardGroupDetail = UserCardGroupDetailBll.Instance.GetCardGroupDetail(user.UserCode);
             if (ViewBag.lstCardGroupDetail == null)
             {
                 ViewBag.lstCardGroupDetail = new List<HS_UserCardGroupDetail>();
             }
+            return View();
+        }
+
+        [OAuth]
+        public ActionResult CardGroup(string GroupCode = "")
+        {
+            HS_Users user = ViewBag.User as HS_Users;
+            ViewBag.SecretCode = user.SecretCode;
+            if (!GroupCode.IsNullOrEmpty())
+            {
+                ViewBag.CardGroup = UserCardGroupBll.Instance.GetCardGroup(GroupCode, user.UserCode);
+                ViewBag.lstCardGroupDetail = UserCardGroupDetailBll.Instance.GetCardGroupDetail(GroupCode, user.UserCode);
+            }
+
             return View();
         }
     }

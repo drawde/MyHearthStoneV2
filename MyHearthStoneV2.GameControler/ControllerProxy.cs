@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Redis;
 
@@ -55,7 +55,7 @@ namespace MyHearthStoneV2.GameControler
         /// <returns>游戏ID</returns>
         public static string CreateGame(string firstPlayerCode, string secondPlayerCode, string fristCardGroupCode, string secondCardGroupCode)
         {
-            string res = OperateJsonRes.VerifyFail();
+            string res = JsonStringResult.VerifyFail();
             string gameID = "";
             try
             {
@@ -69,21 +69,21 @@ namespace MyHearthStoneV2.GameControler
                 }
                 if (firstPlayerCode.IsNullOrEmpty() || secondPlayerCode.IsNullOrEmpty() || fristCardGroupCode.IsNullOrEmpty() || secondCardGroupCode.IsNullOrEmpty())
                 {
-                    res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);
+                    res = JsonStringResult.Error(OperateResCodeEnum.参数错误);
                     return res;
                 }
 
                 HS_Users firstUser = UsersBll.Instance.GetUserByAdmin(firstPlayerCode);
                 if (firstUser == null)
                 {
-                    res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);
+                    res = JsonStringResult.Error(OperateResCodeEnum.参数错误);
                     return res;
                 }
 
                 HS_Users secondUser = UsersBll.Instance.GetUserByAdmin(secondPlayerCode);
                 if (secondUser == null)
                 {
-                    res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);
+                    res = JsonStringResult.Error(OperateResCodeEnum.参数错误);
                     return res;
                 }
                 //var lstCtl = ControllerCache.GetController();
@@ -97,14 +97,14 @@ namespace MyHearthStoneV2.GameControler
                 List<HS_UserCardGroupDetail> firstCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(fristCardGroupCode, firstPlayerCode);
                 if (firstCardGroup == null || firstCardGroup.Count < 1)
                 {
-                    res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);
+                    res = JsonStringResult.Error(OperateResCodeEnum.参数错误);
                     return res;
                 }
 
                 List<HS_UserCardGroupDetail> secondCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(secondCardGroupCode, secondPlayerCode);
                 if (secondCardGroup == null || secondCardGroup.Count < 1)
                 {
-                    res = OperateJsonRes.Error(OperateResCodeEnum.参数错误);
+                    res = JsonStringResult.Error(OperateResCodeEnum.参数错误);
                     return res;
                 }
 
@@ -118,10 +118,10 @@ namespace MyHearthStoneV2.GameControler
             }
             catch (Exception ex)
             {
-                res = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
+                res = JsonStringResult.Error(OperateResCodeEnum.内部错误);
                 return res;
             }
-            res = OperateJsonRes.SuccessResult(gameID);
+            res = JsonStringResult.SuccessResult(gameID);
             return res;
         }
 
@@ -137,21 +137,21 @@ namespace MyHearthStoneV2.GameControler
 
         public string SwitchCard(string gameID, string userCode, List<int> lstInitCardIndex)
         {
-            string res = OperateJsonRes.VerifyFail();
+            string res = JsonStringResult.VerifyFail();
             Controler ctl = null;
             if (!ControllerCache.GetController().Any(c => c.GameID == gameID) || !ControllerCache.GetController().Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
             {
-                res = OperateJsonRes.Error(OperateResCodeEnum.查询不到需要的数据);
+                res = JsonStringResult.Error(OperateResCodeEnum.查询不到需要的数据);
                 return res;
             }
             ctl = ControllerCache.GetController().First(c => c.GameID == gameID);
             if (ctl.roundIndex != 2)
             {
-                res = OperateJsonRes.Error(OperateResCodeEnum.查询不到需要的数据);
+                res = JsonStringResult.Error(OperateResCodeEnum.查询不到需要的数据);
                 return res;
             }
             ctl.SwitchCard(userCode, lstInitCardIndex);
-            res = OperateJsonRes.SuccessResult(ctl.chessboard.Players.First(c => c.User.UserCode == userCode).HandCards);
+            res = JsonStringResult.SuccessResult(ctl.chessboard.Players.First(c => c.User.UserCode == userCode).HandCards);
             return res;
         }
 

@@ -1,5 +1,5 @@
 ﻿using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Model;
 using System;
@@ -42,7 +42,7 @@ namespace MyHearthStoneV2.BLL.PageAttribute
             {
 
             }
-            context.Result = new ResponseMessageResult(context.Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = OperateJsonRes.Error(OperateResCodeEnum.内部错误) }));
+            context.Result = new ResponseMessageResult(context.Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = JsonStringResult.Error(OperateResCodeEnum.内部错误) }));
         }
         //public override void OnException(HttpActionExecutedContext  filterContext)
         //{

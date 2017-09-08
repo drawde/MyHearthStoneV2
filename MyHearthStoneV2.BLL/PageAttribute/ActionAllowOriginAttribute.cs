@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.Common.Common;
+﻿using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace MyHearthStoneV2.BLL.PageAttribute
             ContentResult contentResult = new ContentResult();
             if (res == false)
             {
-                contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.没有访问权限);
+                contentResult.Content = Common.JsonModel.JsonStringResult.Error(OperateResCodeEnum.没有访问权限);
                 filterContext.Result = contentResult;
                 return;
             }

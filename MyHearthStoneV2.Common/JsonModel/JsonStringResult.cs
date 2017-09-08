@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Text;
-using System.Net;
-using System.IO;
-using System.Globalization;
-using System.Web.Caching;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Data;
 using Newtonsoft.Json.Converters;
 using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.Common.JsonModel;
 
-namespace MyHearthStoneV2.Common.Common
+namespace MyHearthStoneV2.Common.JsonModel
 {
-    public class OperateJsonRes
+    public class JsonStringResult
     {
         public static string SerializeToJson(object data, string DateTimeFormats = "yyyy-MM-dd HH:mm:ss")
         {

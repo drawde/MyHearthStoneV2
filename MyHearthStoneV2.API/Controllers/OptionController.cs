@@ -1,5 +1,5 @@
 ﻿using MyHearthStoneV2.BLL.PageAttribute;
-using MyHearthStoneV2.Common.Common;
+using MyHearthStoneV2.Common.JsonModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.API.Controllers
         [DataVerify(false)]
         public ActionResult SyncTime()
         {
-            return Content(OperateJsonRes.SuccessResult(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+            return Content(JsonStringResult.SuccessResult(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
         }
     }
 }

@@ -6,6 +6,7 @@
         ChosenServant($(this));
     });
     if (!ISDEBUG) {
+        eval($("#dst").val());
         $("body").find("*").unbind("mousedown").bind("contextmenu", function (e) {
             e.preventDefault();
             return false;
@@ -17,7 +18,7 @@
         }
     });
     
-    eval($("#dst").val());
+    
 });
 
 function ChosenServant(servantPannel) {
