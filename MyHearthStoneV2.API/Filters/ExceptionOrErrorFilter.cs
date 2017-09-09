@@ -22,56 +22,28 @@ namespace MyHearthStoneV2.API.Filters
     /// </summary>
     public class ExceptionOrErrorFilter : ExceptionHandler
     {
-        public override async Task HandleAsync(ExceptionHandlerContext context, CancellationToken cancellationToken)
-        {
-            HS_ErrRec ex = new HS_ErrRec();
-            try
-            {
-                ex.Action = (context.RequestContext.RouteData.Values["action"]).ToString();
-                ex.AddTime = DateTime.Now;
-                ex.Controller = (context.RequestContext.RouteData.Values["controller"]).ToString();
-                ex.ErrorMsg = context.Exception.Message;
-                ex.IP = StringUtil.GetIP();
-                ex.StackTrace = context.Exception.StackTrace;
-                ErrRecBll.Instance.AsyncInsert(ex);
-
-                //var excRes = DataExchangeBll.Instance.AsyncInsert((context.RequestContext.RouteData.Values["action"]).ToString(), (context.RequestContext.RouteData.Values["controller"]).ToString(),
-                //    context.RequestContext.Controller.TempData["fullData"].TryParseString(), context.RequestContext);
-            }
-            catch (Exception)
-            {
-
-            }
-            context.Result = new ResponseMessageResult(context.Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = JsonStringResult.Error(OperateResCodeEnum.内部错误) }));
-        }
-        //public override void OnException(HttpActionExecutedContext  filterContext)
+        //public override Task HandleAsync(ExceptionHandlerContext context, CancellationToken cancellationToken)
         //{
         //    HS_ErrRec ex = new HS_ErrRec();
         //    try
         //    {
-        //        ContentResult contentResult = new ContentResult();
-        //        contentResult.Content = OperateJsonRes.Error(OperateResCodeEnum.内部错误);
-        //        filterContext.Result = contentResult;
-        //        filterContext.ExceptionHandled = true;
-
-        //        ex.Action = (filterContext.RouteData.Values["action"]).ToString();
+        //        ex.Action = (context.RequestContext.RouteData.Values["action"]).ToString();
         //        ex.AddTime = DateTime.Now;
-        //        ex.Controller = (filterContext.RouteData.Values["controller"]).ToString();
-        //        ex.ErrorMsg = filterContext.Exception.Message;
+        //        ex.Controller = (context.RequestContext.RouteData.Values["controller"]).ToString();
+        //        ex.ErrorMsg = context.Exception.Message;
         //        ex.IP = StringUtil.GetIP();
-        //        ex.StackTrace = filterContext.Exception.StackTrace;
-        //        var res = ErrRecBll.Instance.AsyncInsert(ex);
+        //        ex.StackTrace = context.Exception.StackTrace;
+        //        ErrRecBll.Instance.AsyncInsert(ex);
 
-        //        var excRes = DataExchangeBll.Instance.AsyncInsert((filterContext.RouteData.Values["action"]).ToString(), (filterContext.RouteData.Values["controller"]).ToString(),
-        //            filterContext.Controller.TempData["fullData"].TryParseString(), contentResult.Content);
+        //        //var excRes = DataExchangeBll.Instance.AsyncInsert((context.RequestContext.RouteData.Values["action"]).ToString(), (context.RequestContext.RouteData.Values["controller"]).ToString(),
+        //        //    context.RequestContext.Controller.TempData["fullData"].TryParseString(), context.RequestContext);
         //    }
         //    catch (Exception)
         //    {
 
         //    }
-        //    //filterContext.HttpContext.Response.Clear();
-        //    //filterContext.HttpContext.Response.StatusCode = 200;
-        //    //filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;       
+        //    context.Result = new ResponseMessageResult(context.Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = JsonStringResult.Error(OperateResCodeEnum.内部错误) }));
         //}
+        
     }
 }

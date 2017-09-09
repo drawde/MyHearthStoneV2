@@ -12,6 +12,6 @@ namespace MyHearthStoneV2.CardSpecialEffect.Other
     /// </summary>
     public class Charge: ISpecialEffect
     {
-        public CardEnum.BuffTimeLimit buffTime = CardEnum.BuffTimeLimit.无限制;
+        public override CardEnum.BuffTimeLimit buffTime { get; } = CardEnum.BuffTimeLimit.无限制;
     }
 }

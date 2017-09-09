@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.API
         {
             //跨域配置
             config.EnableCors(new EnableCorsAttribute(ConfigurationManager.AppSettings["AllowedOrigin"], "*", "*"));
-            config.Services.Replace(typeof(IExceptionHandler), new ExceptionOrErrorFilter());
+            //config.Services.Replace(typeof(IExceptionHandler), new ExceptionOrErrorFilter());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

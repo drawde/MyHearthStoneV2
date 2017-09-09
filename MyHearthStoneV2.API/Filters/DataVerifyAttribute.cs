@@ -10,7 +10,6 @@ using Newtonsoft.Json;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.BLL;
 using MyHearthStoneV2.Model;
 
