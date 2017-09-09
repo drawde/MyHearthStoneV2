@@ -1,6 +1,6 @@
 ﻿using GeetestSDK;
 using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.BLL.PageAttribute;
+using MyHearthStoneV2.Web.Filters;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;

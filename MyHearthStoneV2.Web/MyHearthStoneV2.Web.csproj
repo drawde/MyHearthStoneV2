@@ -172,6 +172,9 @@
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserCentreController.cs" />
+    <Compile Include="Filters\OAuthAttribute.cs" />
+    <Compile Include="Filters\PageVariable.cs" />
+    <Compile Include="Filters\WebException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

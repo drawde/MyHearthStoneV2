@@ -198,6 +198,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\OptionController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Filters\ActionAllowOriginAttribute.cs" />
+    <Compile Include="Filters\AllowOriginAttribute.cs" />
+    <Compile Include="Filters\DataVerifyAttribute.cs" />
+    <Compile Include="Filters\ExceptionAttribute.cs" />
+    <Compile Include="Filters\ExceptionOrErrorFilter.cs" />
+    <Compile Include="Filters\RecordDataExchangeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

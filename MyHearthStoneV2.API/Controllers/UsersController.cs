@@ -1,5 +1,5 @@
 ﻿using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.BLL.PageAttribute;
+using MyHearthStoneV2.API.Filters;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.Util;

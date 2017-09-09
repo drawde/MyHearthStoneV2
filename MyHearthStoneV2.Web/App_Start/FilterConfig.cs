@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.BLL.PageAttribute;
+﻿using MyHearthStoneV2.Web.Filters;
 using System.Web;
 using System.Web.Mvc;
 

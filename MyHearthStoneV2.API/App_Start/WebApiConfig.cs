@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Web.Http.Cors;
 using System.Configuration;
 using System.Web.Http.ExceptionHandling;
-using MyHearthStoneV2.BLL.PageAttribute;
+using MyHearthStoneV2.API.Filters;
 
 namespace MyHearthStoneV2.API
 {
