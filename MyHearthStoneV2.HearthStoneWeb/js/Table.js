@@ -17,8 +17,15 @@
             UnChosenServant();
         }
     });
-    
-    
+    var $el = $('#baraja-el'),
+        baraja = $el.baraja();
+    baraja.fan({
+        speed: 500,
+        easing: 'ease-out',
+        range: 15,
+        origin: { x: 0, y: 1000 },
+        center: true
+    });
 });
 
 function ChosenServant(servantPannel) {

@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <DontImportPostSharp>True</DontImportPostSharp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -186,6 +187,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Register.css" />
     <Content Include="Content\Table.css" />
+    <Content Include="css\baraja\baraja.css" />
+    <Content Include="css\baraja\custom.css" />
+    <Content Include="css\baraja\demo.css" />
     <Content Include="css\build.min.css" />
     <Content Include="css\css3_3d.css" />
     <Content Include="css\jq22.css" />
@@ -199,6 +203,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\baraja\1.jpg" />
+    <Content Include="images\baraja\10.jpg" />
+    <Content Include="images\baraja\11.jpg" />
+    <Content Include="images\baraja\12.jpg" />
+    <Content Include="images\baraja\2.jpg" />
+    <Content Include="images\baraja\3.jpg" />
+    <Content Include="images\baraja\4.jpg" />
+    <Content Include="images\baraja\5.jpg" />
+    <Content Include="images\baraja\6.jpg" />
+    <Content Include="images\baraja\7.jpg" />
+    <Content Include="images\baraja\8.jpg" />
+    <Content Include="images\baraja\9.jpg" />
+    <Content Include="images\baraja\bg.jpg" />
     <Content Include="images\bridge.jpg" />
     <Content Include="images\cablecar.jpg" />
     <Content Include="images\clouds.jpg" />
@@ -224,6 +241,8 @@
     <Content Include="img\lightbox\prev.png" />
     <Content Include="js\apisign.source.js" />
     <Content Include="js\apisign.release.js" />
+    <Content Include="js\baraja\jquery.baraja.js" />
+    <Content Include="js\baraja\modernizr.custom.79639.js" />
     <Content Include="js\basic.js" />
     <Content Include="js\build.min.js" />
     <Content Include="js\cardgroup.js" />
