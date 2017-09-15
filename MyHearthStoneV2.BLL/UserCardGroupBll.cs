@@ -91,7 +91,6 @@ namespace MyHearthStoneV2.BLL
                         return JsonModelResult.PackageFail(OperateResCodeEnum.²ÎÊý´íÎó);
                     }
                     context.hs_usercardgroupdetail.Where(c => c.GroupCode == GroupCode).Delete();
-                    //context.hs_usercardgroupdetail.Where(c => c.GroupCode == GroupCode).ToList().RemoveAll(c => true);
                     cardGroupModel.GroupName = GroupName;
                     cardGroupModel.Profession = Profession;
                 }
@@ -102,9 +101,12 @@ namespace MyHearthStoneV2.BLL
                     cardGroupModel.GroupName = GroupName;
                     cardGroupModel.Profession = Profession;
                     cardGroupModel.GroupCode = SignUtil.CreateSign(UserCode + DateTime.Now.ToString("yyyyMMddHHmmss") + RandomUtil.CreateRandomStr(5));
+                    cardGroupModel.PublicCode = "";
                     context.hs_usercardgroup.Add(cardGroupModel);
                 }
 
+                StringBuilder publicCode = new StringBuilder();
+                List<HS_UserCardGroupDetail> lstCardCodes = new List<HS_UserCardGroupDetail>();
                 foreach (var dic in dicCardGroup)
                 {
                     for (int i = 0; i < dic.Value; i++)
@@ -118,8 +120,12 @@ namespace MyHearthStoneV2.BLL
                         detail.GroupCode = cardGroupModel.GroupCode;
                         detail.UserCode = UserCode;
                         context.hs_usercardgroupdetail.Add(detail);
+                        lstCardCodes.Add(detail);
                     }
                 }
+                lstCardCodes.OrderBy(c => c.Cost).ToList().ForEach(c => publicCode.Append(c.CardCode));
+                cardGroupModel.PublicCode = SignUtil.CreateSign(publicCode.ToString());
+
                 context.SaveChanges();
             }
             return JsonModelResult.PackageSuccess();

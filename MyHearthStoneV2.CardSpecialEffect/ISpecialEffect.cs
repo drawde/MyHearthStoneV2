@@ -9,6 +9,6 @@ namespace MyHearthStoneV2.CardSpecialEffect
 {
     public abstract class ISpecialEffect
     {
-        public virtual BuffTimeLimit buffTime { get; }
+        public virtual BuffTimeLimit buffTime { get; } = BuffTimeLimit.无限制;
     }
 }

@@ -1,5 +1,5 @@
 ﻿using MyHearthStoneV2.CardEnum;
-using MyHearthStoneV2.CardSpecialEffect.WarCry;
+using MyHearthStoneV2.CardSpecialEffect.WarCry.AlterBody;
 using MyHearthStoneV2.CardMonitor;
 using System;
 using System.Collections.Generic;

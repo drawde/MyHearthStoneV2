@@ -92,8 +92,10 @@
     <Compile Include="ErrRecBll.cs" />
     <Compile Include="GameRecordBll.cs" />
     <Compile Include="GameBll.cs" />
+    <Compile Include="GameTableBll.cs" />
     <Compile Include="InvitationBll.cs" />
     <Compile Include="LoginTokenBll.cs" />
+    <Compile Include="SignJSTextBll.cs" />
     <Compile Include="SystemConfigBll.cs" />
     <Compile Include="UserCardGroupDetailBll.cs" />
     <Compile Include="UserCardGroupBll.cs" />

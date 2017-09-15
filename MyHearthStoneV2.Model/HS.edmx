@@ -54,6 +54,17 @@
           <Property Name="RoundIndex" Type="int" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="HS_GameTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TableName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateUserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlayerUserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="HS_Invitation">
           <Key>
             <PropertyRef Name="ID" />
@@ -93,6 +104,7 @@
           <Property Name="GroupCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
           <Property Name="Profession" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PublicCode" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_UserCardGroupDetail">
           <Key>
@@ -127,6 +139,7 @@
           <EntitySet Name="HS_ErrRec" EntityType="Self.HS_ErrRec" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_Game" EntityType="Self.HS_Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_GameRecord" EntityType="Self.HS_GameRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HS_GameTable" EntityType="Self.HS_GameTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_Invitation" EntityType="Self.HS_Invitation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_LoginToken" EntityType="Self.HS_LoginToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HS_SystemConfig" EntityType="Self.HS_SystemConfig" Schema="dbo" store:Type="Tables" />
@@ -148,6 +161,7 @@
           <EntitySet Name="HS_SystemConfig" EntityType="MyHearthStoneV2.Model.HS_SystemConfig" />
           <EntitySet Name="HS_DataExchange" EntityType="MyHearthStoneV2.Model.HS_DataExchange" />
           <EntitySet Name="HS_UserCardGroupDetail" EntityType="MyHearthStoneV2.Model.HS_UserCardGroupDetail" />
+          <EntitySet Name="HS_GameTable" EntityType="MyHearthStoneV2.Model.HS_GameTable" />
           <EntitySet Name="HS_UserCardGroup" EntityType="MyHearthStoneV2.Model.HS_UserCardGroup" />
         </EntityContainer>
         <EntityType Name="HS_Game">
@@ -256,6 +270,17 @@
           <Property Name="Cost" Type="Int32" Nullable="false" />
           <Property Name="CardName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <EntityType Name="HS_GameTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlayerUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="HS_UserCardGroup">
           <Key>
             <PropertyRef Name="ID" />
@@ -266,6 +291,7 @@
           <Property Name="GroupCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Profession" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PublicCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -388,9 +414,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HS_GameTable">
+            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_GameTable">
+              <MappingFragment StoreEntitySet="HS_GameTable">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PlayerUserCode" ColumnName="PlayerUserCode" />
+                <ScalarProperty Name="CreateUserCode" ColumnName="CreateUserCode" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HS_UserCardGroup">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_UserCardGroup">
               <MappingFragment StoreEntitySet="HS_UserCardGroup">
+                <ScalarProperty Name="PublicCode" ColumnName="PublicCode" />
                 <ScalarProperty Name="Profession" ColumnName="Profession" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />

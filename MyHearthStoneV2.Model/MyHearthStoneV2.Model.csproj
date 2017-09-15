@@ -75,6 +75,9 @@
     <Compile Include="HS_GameRecord.cs">
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>
+    <Compile Include="HS_GameTable.cs">
+      <DependentUpon>HS.tt</DependentUpon>
+    </Compile>
     <Compile Include="HS_Invitation.cs">
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>

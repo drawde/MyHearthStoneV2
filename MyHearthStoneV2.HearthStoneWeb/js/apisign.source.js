@@ -2,23 +2,19 @@
 var param = "{}";
 var intervalName;
 var confustionTime;
-$(function () {
-    if ($("#saveCardGroup")) {
-        $("#saveCardGroup").click(saveCardGroup);
-    }
-});
+
 //同步服务器时间
 ajaxGetData("/Option/SyncTime", param, "", "", "", function (data) {
     if (data.code == "100") {
         if (!!intervalName) {
             clearInterval(intervalName);
-        }
+        }        
         apiTime = new Date(data.data.replace("-", "/").replace("-", "/"));
+        console.log("---------");
+        console.log(apiTime);
+        console.log("---------");
         intervalName = setInterval(function () { apiTime.setSeconds(apiTime.getSeconds() + 1); }, 1000);// console.log(apiTime.Format("yyyy-MM-dd hh:mm:ss"));        
     }
-});
-$("#apitest").click(function () {
-    apiTest();
 });
 
 function UnConfusionInt(confutionStr, offset) {
@@ -124,15 +120,9 @@ function getSign() {
     }
     //console.log(trueSecretCode);
     var rndCode = randomWord(false, 15);
-    return new Sign(apiTime.Format("yyyy-MM-dd hh:mm:ss"), hex_md5(apiTime.Format("yyyy-MM-dd hh:mm:ss") + trueSecretCode + rndCode).toUpperCase(), rndCode);
-}
-
-function apiTest() {
-    var param = "";
-    var sign = getSign();
-    ajaxGetData("/Users/TestSign", param, sign.rndStr, sign.sign, sign.sendTime, function (data) {
-        showMessage(data.msg);
-    });
+    console.log(apiTime);
+    var at = apiTime.Format("yyyy-MM-dd hh:mm:ss");
+    return new Sign(at, hex_md5(at + trueSecretCode + rndCode).toUpperCase(), rndCode);
 }
 
 function addPreZero(num) {    
@@ -143,31 +133,3 @@ function addPreZero(num) {
     }
 }
 
-function saveCardGroup() {
-    if (cardCount != 30) {
-        showMessage("卡牌数量错误!"); return;
-    }
-    if (!!$("#cbp-spmenu-s2 h3 input").val() == false) {
-        showMessage("请输入卡组名称!"); return;
-    }
-    showLoader();
-    var sign = getSign();
-    var cards = "";
-    $("#cbp-spmenu-s2 [cardCode]").each(function () {
-        if (!!cards) {
-            cards = cards + ",";
-        }
-        var count = $(this).html();
-        count = count.substr(count.lastIndexOf("X") + 1);
-        cards = cards + $(this).attr("cardCode") + " X" + count;
-    });
-    var param = "{\"GroupName\":\"" + $("#cbp-spmenu-s2 h3 input").val() + "\",\"Cards\":\"" + cards + "\",\"UserCode\":\"" + getUserCode() + "\",\"GroupCode\":\"" + $("#GroupCode").val() + "\",\"Profession\":\"" + window.location.hash.substr(1) + "\"}";
-    ajaxGetData("/Users/SaveCardGroup", param, sign.rndStr, sign.sign, sign.sendTime, function (data) {
-        showMessage(data.msg, function () {
-            hideLoader();
-            if (data.code == 100) {
-                window.location = "/UserCentre/MyCardGroups";
-            }
-        });
-    });
-}

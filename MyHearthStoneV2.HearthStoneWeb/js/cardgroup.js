@@ -10,6 +10,7 @@
     }
     if (!ISDEBUG) {
         eval($("#dst").val());
+        eval($("#tsd").val());
     }
 });
 function repick() {

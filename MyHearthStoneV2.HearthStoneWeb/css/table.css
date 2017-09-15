@@ -1,0 +1,51 @@
+﻿.hide {
+    display:none
+}
+.tableCard {
+    width: 80%;
+    position: relative;
+    height: 180px;
+}
+
+    .tableCard ul {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        list-style-type: none;
+        transform: translate(-50%,-50%);
+        width: 80%;
+    }
+
+    .tableCard li {
+        display: inline;
+        margin-left: 40px;
+    }
+
+    .tableCard img {
+        width: 60px;
+        height: 95px;
+        object-fit: cover;
+        border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    }
+
+.newline {
+    text-align:right
+}
+    .newline a {
+        margin-right:20px;
+    }
+
+.activecard {
+
+}
+.arrow {
+    width:50px;
+    height:50px;    
+    background-image:url(/images/game/icon/arrow.png);
+    background-repeat:no-repeat; 
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position:absolute;
+    z-index:9999999999999;
+    cursor:none
+}

@@ -30,7 +30,7 @@ namespace MyHearthStoneV2.API.Hubs
 
         public void SendChat(string id, string name, string message)
         {
-            Clients.All.addNewMessageToPage(id, name + " " + DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss"), message);
+            Clients.All.addNewMessageToPage(id, name, message);
         }
 
         public void TriggerHeartbeat(string id, string name)
@@ -52,7 +52,7 @@ namespace MyHearthStoneV2.API.Hubs
                 userList.Add(userInfo);
                 Clients.All.loginUser(userList);
             }
-            SendChat(id, name, "<====用户 " + name + " 加入了讨论组====>");
+            SendChat(id, name, "用户 " + name + " 加入了讨论组");
         }
 
         public void SendLogoff(string id,string name)

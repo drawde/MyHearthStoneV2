@@ -24,19 +24,17 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
             return View();
         }
 
-        public ActionResult Test(string param)
+        //public ActionResult Test(string param)
+        //{
+        //    return Content(SignUtil.ConfusionString(param, DateTime.Now));
+        //}
+
+        [OAuth]
+        public ActionResult Saloon()
         {
-            return Content(SignUtil.ConfusionString(param, DateTime.Now));
-            //List<string> lst = SignUtil.ConfusionDateTime(DateTime.Now, DateTime.Now);
-            //List<string> lst = new List<string>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    lst.Add(RandomUtil.CreateRandomInt(4,10000).ToString());
-            //}
-            //return Content(string.Join(",", lst));
-            //byte[] array = new byte[1];
-            //array[0] = (byte)(60);            
-            //return Content(Encoding.ASCII.GetString(array));
+            HS_Users user = ViewBag.User as HS_Users;
+            ViewBag.SecretCode = user.SecretCode;
+            return View();
         }
     }
 }
