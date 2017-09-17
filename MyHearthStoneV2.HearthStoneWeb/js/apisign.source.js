@@ -6,13 +6,11 @@ var confustionTime;
 //同步服务器时间
 ajaxGetData("/Option/SyncTime", param, "", "", "", function (data) {
     if (data.code == "100") {
+        hideLoader();
         if (!!intervalName) {
             clearInterval(intervalName);
         }        
         apiTime = new Date(data.data.replace("-", "/").replace("-", "/"));
-        console.log("---------");
-        console.log(apiTime);
-        console.log("---------");
         intervalName = setInterval(function () { apiTime.setSeconds(apiTime.getSeconds() + 1); }, 1000);// console.log(apiTime.Format("yyyy-MM-dd hh:mm:ss"));        
     }
 });
@@ -120,7 +118,6 @@ function getSign() {
     }
     //console.log(trueSecretCode);
     var rndCode = randomWord(false, 15);
-    console.log(apiTime);
     var at = apiTime.Format("yyyy-MM-dd hh:mm:ss");
     return new Sign(at, hex_md5(at + trueSecretCode + rndCode).toUpperCase(), rndCode);
 }

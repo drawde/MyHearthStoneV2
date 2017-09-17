@@ -10,6 +10,7 @@ using MyHearthStoneV2.BLL;
 using Newtonsoft.Json;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Common;
+using MyHearthStoneV2.Common.JsonModel;
 
 namespace MyHearthStoneV2.API.Controllers
 {
@@ -40,8 +41,10 @@ namespace MyHearthStoneV2.API.Controllers
             int PageNo = param["PageNo"].TryParseInt();
 
             var where = LDMFilter.True<HS_GameTable>();
-            var resModel = GameTableBll.Instance.GetPage(where, " id desc", PageNo, PageSize, false);
-            return Content(JsonConvert.SerializeObject(resModel));
+            var resModel = GameTableBll.Instance.GetPage(where, "id", PageNo, PageSize, false);
+            return Content(JsonStringResult.SuccessPageResult(resModel));
         }
+
+        
     }
 }

@@ -17,8 +17,6 @@
     }
     List<Card> lstCards = CardUtil.GetCardInRedis();
     ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
-    DateTime now = DateTime.Now;
-    string SecretCode = ViewBag.SecretCode;
     List<HS_UserCardGroupDetail> lstCardDetail = ViewBag.lstCardGroupDetail as List<HS_UserCardGroupDetail>;
 }
 @section css{
@@ -35,45 +33,9 @@
     var ISDEBUG = @(ConfigurationManager.AppSettings["IsDebug"].TryParseBool() ? "true" : "false");
     var groupCode = "@(Request["GroupCode"])";
 </script>
-@{
-    if (ConfigurationManager.AppSettings["IsDebug"].TryParseBool() == false)
-    {
-        <script src="/js/apisign.release.js@(ViewBag.cssAndJSVersion)"></script>
-    }
-    else
-    {
-        <script src="/js/apisign.source.js"></script>
-        <script src="/js/CARDGROUP.source.js"></script>
-    }
+@(Html.Raw(SignUtil.ImportSignJsFile("/js/cardgroup.source.js")))
 }
-}
-@{
-    string confustionStr = "", confustionDateTime = "";
-    for (int i = 0; i < 32; i++)
-    {
-        confustionStr = SignUtil.ConfusionString(SecretCode[i], now);
-        confustionDateTime = "";
-        int num = now.Year;
-        switch (i)
-        {
-            case 1: num = now.Month; break;
-            case 2: num = now.Day; break;
-            case 3: num = now.Hour; break;
-            case 4: num = now.Minute; break;
-            case 5: num = now.Second; break;
-            case 6: num = now.Millisecond; break;
-        }
-        if (i > -1 && i < 7)
-        {
-            confustionDateTime = SignUtil.ConfusionInt(num, confustionStr[0]);
-        }
-        else
-        {
-            confustionDateTime = RandomUtil.CreateRandomStr(4);
-        }
-        <input type="hidden" secretCode="@(confustionStr)@(confustionDateTime)" />
-    }
-}
+@(Html.Raw(ViewBag.ConfusionStringToHTML))
 <input type="hidden" id="GroupCode" value="@(Request["GroupCode"])"/>
 <div id="container">
     <ul id="grid" class="group" style="@(Request["GroupCode"].IsNullOrEmpty()?"":"display:none")">
@@ -82,7 +44,7 @@
                 <h3>德鲁伊</h3>                
             </div>
             <a class="more" href="#Druid">
-                <img src="/images/lanterns.jpg">
+                <img src="/images/Druid.jpg">
             </a>
         </li>
         <li>
@@ -91,7 +53,7 @@
                 @*<a class="more" href="#info2">view details</a>*@
             </div>
             <a href="#Paladin">
-                <img src="/images/tree.jpg">
+                <img src="/images/Paladin.jpg">
             </a>
         </li>
         <li>
@@ -99,7 +61,7 @@
                 <h3>法师</h3>
             </div>
             <a href="#Mage">
-                <img src="/images/cablecar.jpg">
+                <img src="/images/Mage.jpg">
             </a>
         </li>
         <li>
@@ -107,7 +69,7 @@
                 <h3>术士</h3>
             </div>
             <a href="#Warlock">
-                <img src="/images/londoneye.jpg">
+                <img src="/images/Warlock.jpg">
             </a>
         </li>
         <li>
@@ -115,7 +77,7 @@
                 <h3>战士</h3>
             </div>
             <a href="#Warrior">
-                <img src="/images/statue.jpg">
+                <img src="/images/Warrior.jpg">
             </a>
         </li>
         <li>
@@ -123,7 +85,7 @@
                 <h3>盗贼</h3>
             </div>
             <a href="#Rogue">
-                <img src="/images/bridge.jpg">
+                <img src="/images/Rogue.jpg">
             </a>
         </li>
         <li>
@@ -131,7 +93,7 @@
                 <h3>牧师</h3>
             </div>
             <a href="#Priest">
-                <img src="/images/maiden.jpg">
+                <img src="/images/Priest.jpg">
             </a>
         </li>
         <li>
@@ -139,7 +101,7 @@
                 <h3>猎人</h3>
             </div>
             <a href="#Hunter">
-                <img src="/images/clouds.jpg">
+                <img src="/images/Hunter.jpg">
             </a>
         </li>
         <li>
@@ -147,7 +109,7 @@
                 <h3>萨满</h3>
             </div>
             <a href="#Shaman">
-                <img src="/images/statue2.jpg">
+                <img src="/images/Shaman.jpg">
             </a>
         </li>
     </ul>

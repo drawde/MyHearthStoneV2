@@ -34,17 +34,9 @@
     var ISDEBUG = @(ConfigurationManager.AppSettings["IsDebug"].TryParseBool() ? "true" : "false");
 
 </script>
-@{
-    if (ConfigurationManager.AppSettings["IsDebug"].TryParseBool() == false)
-    {
-        <script src="/js/apisign.release.js@(ViewBag.cssAndJSVersion)"></script>
-    }
-    else
-    {
-        <script src="/js/apisign.source.js"></script>
-    }
+@(Html.Raw(SignUtil.ImportSignJsFile("")))
 }
-}
+@(Html.Raw(ViewBag.ConfusionStringToHTML))
 <div class="arrow hide">
 </div>
 <div class="menu-wrap">
@@ -111,45 +103,7 @@
             <li zindex="1001" cardImg="/images/baraja/9.jpg" originalCardHTML='<img src="/images/baraja/9.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/9.jpg" /><h4>Cherry Country</h4><p>Sint vinyl Austin street art odd future id trust fund, terry richardson cray.</p></li>
             <li zindex="1000" cardImg="/images/baraja/10.jpg" originalCardHTML='<img src="/images/baraja/10.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/10.jpg" /><h4>Cherry Country</h4><p>Sint vinyl Austin street art odd future id trust fund, terry richardson cray.</p></li>
         </ul>
-    </div>
-    <div style="display:none" class="CardGroup">
-        @{
-            string confustionStr = "", confustionDateTime = "";
-            for (; myCardIndex < lstCardGroup.Count; myCardIndex++)
-            {
-                confustionStr = SignUtil.ConfusionString(SecretCode[myCardIndex], now);
-                confustionDateTime = "";
-                int num = now.Year;
-                switch (myCardIndex)
-                {
-                    case 1: num = now.Month; break;
-                    case 2: num = now.Day; break;
-                    case 3: num = now.Hour; break;
-                    case 4: num = now.Minute; break;
-                    case 5: num = now.Second; break;
-                    case 6: num = now.Millisecond; break;
-                }
-                if (myCardIndex > -1 && myCardIndex < 7)
-                {
-                    confustionDateTime = SignUtil.ConfusionInt(num, confustionStr[0]);
-                }
-                else
-                {
-                    confustionDateTime = RandomUtil.CreateRandomStr(4);
-                }
-                <div secretCode="@(confustionStr)@(confustionDateTime)">
-
-                </div>
-            }
-            for (; myCardIndex < SecretCode.Length; myCardIndex++)
-            {
-                <div style="display:none" secretCode="@(SignUtil.ConfusionString(SecretCode[myCardIndex],now)+RandomUtil.CreateRandomStr(4))">
-
-                </div>
-            }
-        }
-
-    </div>    
+    </div> 
 </div>
 
 

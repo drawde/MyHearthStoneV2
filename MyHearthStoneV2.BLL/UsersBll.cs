@@ -45,9 +45,15 @@ namespace MyHearthStoneV2.BLL
             return null;
         }
 
-        public HS_Users GetUserByAdmin(string userCode)
+        public HS_Users GetUserByAdmin(string userCode,string password = "")
         {
-            var res = _repository.Get(c => c.UserCode == userCode).Result;
+            var where = LDMFilter.True<HS_Users>();
+            where = where.And(c => c.UserCode == userCode);
+            if (!password.IsNullOrEmpty())
+            {
+                where = where.And(c => c.Password == password);
+            }
+            var res = _repository.Get(where).Result;
             if (res.TotalItemsCount > 0)
             {
                 return res.Items.First();

@@ -4,8 +4,6 @@
     ViewBag.Title = "大厅";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
-    DateTime now = DateTime.Now;
-    string SecretCode = ViewBag.SecretCode;
 }
 @section css{
 }
@@ -20,19 +18,9 @@
         }
     });
 </script>
-@{
-    if (ConfigurationManager.AppSettings["IsDebug"].TryParseBool() == false)
-    {
-        @*<script src="/js/apisign.release.js@(ViewBag.cssAndJSVersion)"></script>*@
-    }
-    else
-    {
-        <script src="/js/apisign.source.js"></script>
-        <script src="/js/saloon.source.js"></script>
-    }
+@(Html.Raw(SignUtil.ImportSignJsFile("/js/saloon.source.js")))
 }
-}
-
+@(Html.Raw(ViewBag.ConfusionStringToHTML))
 <section class="feature-lists">
     <div class="container">
         <div class="row">
@@ -53,7 +41,7 @@
             <div class="col-md-5 col-sm-12">
                 <form id="createsaloonFrom" data-success="Thanks for your enquiry, we'll be in touch shortly." data-error="Please complete all fields correctly." success-redirect="/" class="form-email">
                     <input type="text" name="name" placeholder="房间名" class="input-standard validate-required" style="width:25%">
-                    <input type="text" name="password" placeholder="密码（可选）" class="input-standard validate-required" style="width:25%;float:left">
+                    <input type="text" name="password" placeholder="密码（可选）" class="input-standard validate-required" style="width:25%;float:left;margin-left:20px">
                     @*<textarea name="message" placeholder="Your Message" rows="4" class="input-standard validate-required"></textarea>*@
                     <input type="submit" value="创建房间" class="btn btn-sm" id="createsaloon">
                 </form>
@@ -73,32 +61,6 @@
         </div>
     </div>
 </section>
-@{
-    string confustionStr = "", confustionDateTime = "";
-    for (int i = 0; i < 32; i++)
-    {
-        confustionStr = SignUtil.ConfusionString(SecretCode[i], now);
-        confustionDateTime = "";
-        int num = now.Year;
-        switch (i)
-        {
-            case 1: num = now.Month; break;
-            case 2: num = now.Day; break;
-            case 3: num = now.Hour; break;
-            case 4: num = now.Minute; break;
-            case 5: num = now.Second; break;
-            case 6: num = now.Millisecond; break;
-        }
-        if (i > -1 && i < 7)
-        {
-            confustionDateTime = SignUtil.ConfusionInt(num, confustionStr[0]);
-        }
-        else
-        {
-            confustionDateTime = RandomUtil.CreateRandomStr(4);
-        }
-        <input type="hidden" secretCode="@(confustionStr)@(confustionDateTime)" />
-    }
-}
+
 <input type="hidden" id="dst" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SINGJSTEXT)" />
 <input type="hidden" id="tsd" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SALOONJSTEXT)" />

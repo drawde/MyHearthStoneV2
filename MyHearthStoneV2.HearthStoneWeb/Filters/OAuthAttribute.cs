@@ -9,6 +9,7 @@ using MyHearthStoneV2.Model.CustomModels;
 using Newtonsoft.Json;
 using MyHearthStoneV2.Common;
 using MyHearthStoneV2.BLL;
+using MyHearthStoneV2.Model;
 
 namespace MyHearthStoneV2.HearthStoneWeb.Filters
 {
@@ -39,7 +40,11 @@ namespace MyHearthStoneV2.HearthStoneWeb.Filters
                 try
                 {
                     user = JsonConvert.DeserializeObject<CUsers>(userJson);
-                    filterContext.Controller.ViewBag.User = UsersBll.Instance.GetUserByAdmin(user.UserCode);
+                    HS_Users hs_user = UsersBll.Instance.GetUserByAdmin(user.UserCode);
+                    filterContext.Controller.ViewBag.User = hs_user;
+                    DateTime now = DateTime.Now;
+                    string SecretCode = hs_user.SecretCode;
+                    filterContext.Controller.ViewBag.ConfusionStringToHTML = SignUtil.CreateConfusionStringToHTML(SecretCode, now);
                 }
                 catch (Exception ex)
                 {

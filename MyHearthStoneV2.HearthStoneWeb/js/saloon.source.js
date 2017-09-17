@@ -1,5 +1,12 @@
 ﻿$(function () {
-    getSaloons();
+    showLoader();
+    var interval = setInterval(function () {
+        if (!!apiTime) {
+            getSaloons();
+            clearInterval(interval);
+        }
+    }, 100);
+    
     $("#createsaloonFrom").submit(function () {
         if (!!$("input[name='name']").val() == false) {
             showMessage("请输入房间名");
@@ -22,27 +29,29 @@
 });
 var PageNo = 1;
 function getSaloons() {
-    showLoader();
+    
     var sign = getSign();
     var param = "{\"PageSize\":\"10\",\"PageNo\":\"" + PageNo + "\"}";
     ajaxGetData("/Saloon/GetSaloons", param, sign.rndStr, sign.sign, sign.sendTime, function (data) {
         hideLoader();
         if (data.code == 100) {
-            $(".text-list").append("<div class=\"item\">"+
-                        "<div class=\"description\">"+
-                            "<h2><a href=\"/recipes/url-content-topic-extraction-microservice\">URL Topic Extraction</a></h2>"+
-                            "<p>Extract the content from a given web page and return topics using LDA.</p>"+
-                            "<div class=\"meta\">"+
-                                "<ul class=\"tag-list\">"+
-                                    "<li><a href=\"/recipes/category/etl\" class=\"btn btn-sm\">etl</a></li>"+
-                                    "<li><a href=\"/recipes/category/natural-language-processing\" class=\"btn btn-sm\">natural language-processing</a></li>"+
-                                "</ul>"+
-                            "</div>"+
-                        "</div>"+
-                        "<div class=\"action\">"+
-                            "<a href=\"/recipes/url-content-topic-extraction-microservice\" class=\"btn\">Read More</a>"+
-                        "</div>"+
+            //console.log(data.Items);
+            for (var i = 0; i < data.data.Items.length; i++) {
+                $(".text-list").append("<div class=\"item\">" +
+                    "<div class=\"description\">" +
+                    "<h2><a href=\"/Game/ChosenCardGroup?saloonid=" + data.data.Items[i].ID + "\">" + data.data.Items[i].TableName + "</a></h2>" +
+                    "<p></p>" +
+                    "<div class=\"meta\">" +
+                    "<ul class=\"tag-list\">" +
+                    "<li><a href=\"javascript:;\" class=\"btn btn-sm\">宝宝只想做个吃瓜群众</a></li>" +
+                    "</ul>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class=\"action\">" +
+                    "<a href=\"/Game/ChosenCardGroup?saloonid=" + data.data.Items[i].ID + "\" class=\"btn\">进入房间</a>" +
+                    "</div>" +
                     "</div>");
+            }
         }
     });
 }

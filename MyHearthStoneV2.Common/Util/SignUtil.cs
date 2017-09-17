@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -53,40 +54,6 @@ namespace MyHearthStoneV2.Common.Util
             int offset = GetConfusionOffset(now);
             int dateTimeAscii = GetDateTimeAscII(now);
             int newAscii = ascii + dateTimeAscii - offset;
-
-            //Log.Default.Debug("newAscii=ascii("+ ascii + ")+dateTimeAscii("+ dateTimeAscii + ")-offset("+ offset + ")" + newAscii);
-            //int min = 33, max = 126;
-            //int newAscii = ascii;
-            //int offset = GetConfusionOffset(now);
-            //if (newAscii + offset > max)
-            //{
-            //    if (newAscii - offset < min)
-            //    {
-            //        offset = offset % 10;
-            //        newAscii += offset;
-            //    }
-            //    else
-            //    {
-            //        newAscii -= offset;
-            //    }
-            //}
-            //else if (newAscii - offset < min)
-            //{
-            //    if (newAscii + offset > max)
-            //    {
-            //        offset = offset % 10;
-            //        newAscii -= offset;
-            //    }
-            //    else
-            //    {
-            //        newAscii += offset;
-            //    }
-            //}
-            //else
-            //{
-            //    newAscii += offset;
-            //}
-            //newAscii = newAscii == 60 ? newAscii + offset : newAscii;
             return newAscii;
         }
 
@@ -103,14 +70,6 @@ namespace MyHearthStoneV2.Common.Util
             {
                 offset += c.TryParseInt();
             }
-            //char[] strch = now.ToString("yyyyMMddHHmm").ToCharArray();
-            //int maxOffset = 0;
-            //if (offset == 0 || offset % 10 == 0)
-            //{
-            //    maxOffset = strch.Max().ToString().TryParseInt();
-            //}
-
-            //int newOffset = strch.Max(c => c < maxOffset).ToString().TryParseInt() + maxOffset + offset;
             return offset;
         }
 
@@ -209,19 +168,66 @@ namespace MyHearthStoneV2.Common.Util
         {            
             int ascii = Encoding.ASCII.GetBytes(c.ToString())[0];            
             int newAscii = GetConfusionAscii(ascii, now);
-            
-            //if (ascii >= 33 && ascii <= 79)
-            //{
-            //    ascii += 47;
-            //}
-            //else if (ascii >= 80 && ascii <= 126)
-            //{
-            //    ascii -= 47;
-            //}
-
             byte[] array = new byte[1];
             array[0] = (byte)(newAscii);
             return Encoding.ASCII.GetString(array);            
+        }
+
+        /// <summary>
+        /// 导入用于签名的js脚本文件
+        /// </summary>
+        /// <param name="appendJsFile"></param>
+        /// <returns></returns>
+        public static string ImportSignJsFile(string appendJsFile, string cssAndJSVersion = "")
+        {
+            if (ConfigurationManager.AppSettings["IsDebug"].TryParseBool() == false)
+            {
+                return "<script src=\"/js/apisign.release.js" + cssAndJSVersion + "\"></script>";
+            }
+            else
+            {
+                return "<script src=\"/js/apisign.source.js\"></script><script src=\"" + appendJsFile + "\"></script>";
+            }
+        }
+
+        /// <summary>
+        /// 生成混淆后的HTML控件
+        /// </summary>
+        /// <param name="SecretCode"></param>
+        /// <param name="now"></param>
+        /// <returns></returns>
+        public static string CreateConfusionStringToHTML(string SecretCode, DateTime now)
+        {
+            StringBuilder htmlContent = new StringBuilder();
+            string confustionStr = "", confustionDateTime = "";
+            for (int i = 0; i < 32; i++)
+            {
+                confustionStr = ConfusionString(SecretCode[i], now);
+                confustionDateTime = "";
+                int num = now.Year;
+                switch (i)
+                {
+                    case 1: num = now.Month; break;
+                    case 2: num = now.Day; break;
+                    case 3: num = now.Hour; break;
+                    case 4: num = now.Minute; break;
+                    case 5: num = now.Second; break;
+                    case 6: num = now.Millisecond; break;
+                }
+                if (i > -1 && i < 7)
+                {
+                    confustionDateTime = ConfusionInt(num, confustionStr[0]);
+                }
+                else
+                {
+                    confustionDateTime = RandomUtil.CreateRandomStr(4);
+                }
+                htmlContent.Append("<input type=\"hidden\" secretCode=\"");
+                htmlContent.Append(confustionStr);
+                htmlContent.Append(confustionDateTime);
+                htmlContent.Append("\" />");
+            }
+            return htmlContent.ToString();
         }
     }
 }

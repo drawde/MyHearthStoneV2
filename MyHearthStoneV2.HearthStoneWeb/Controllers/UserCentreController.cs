@@ -150,7 +150,6 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
         public ActionResult CardGroup(string GroupCode = "")
         {
             HS_Users user = ViewBag.User as HS_Users;
-            ViewBag.SecretCode = user.SecretCode;
             if (!GroupCode.IsNullOrEmpty())
             {
                 ViewBag.CardGroup = UserCardGroupBll.Instance.GetCardGroup(GroupCode, user.UserCode);

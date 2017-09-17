@@ -19,7 +19,6 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
         public ActionResult Table(string cardGroup)
         {
             HS_Users user = ViewBag.User as HS_Users;
-            ViewBag.SecretCode = user.SecretCode;
             ViewBag.lstCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(cardGroup, user.UserCode);
             return View();
         }
@@ -32,8 +31,12 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
         [OAuth]
         public ActionResult Saloon()
         {
-            HS_Users user = ViewBag.User as HS_Users;
-            ViewBag.SecretCode = user.SecretCode;
+            return View();
+        }
+
+        [OAuth]
+        public ActionResult ChosenCardGroup()
+        {
             return View();
         }
     }

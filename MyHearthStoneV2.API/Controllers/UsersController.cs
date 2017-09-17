@@ -12,6 +12,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using MyHearthStoneV2.Common;
+using MyHearthStoneV2.Model;
 
 namespace MyHearthStoneV2.API.Controllers
 {
@@ -57,6 +59,20 @@ namespace MyHearthStoneV2.API.Controllers
             string UserCode = param["UserCode"].TryParseString();
             var resModel = UserCardGroupBll.Instance.AddOrUpdateCardGroup(UserCode, GroupCode, GroupName, Profession, Cards);
             return Content(JsonConvert.SerializeObject(resModel));
+        }
+
+        [DataVerify]
+        public ActionResult GetCardGroups()
+        {
+            var param = JObject.Parse(TempData["param"].TryParseString());
+            int PageSize = param["PageSize"].TryParseInt();
+            int PageNo = param["PageNo"].TryParseInt();
+            string UserCode = param["UserCode"].TryParseString();
+
+            var where = LDMFilter.True<HS_UserCardGroup>();
+            where = where.And(c => c.UserCode == UserCode);
+            var resModel = UserCardGroupBll.Instance.GetPage(where, "id", PageNo, PageSize, false);
+            return Content(JsonStringResult.SuccessPageResult(resModel));
         }
     }
 }

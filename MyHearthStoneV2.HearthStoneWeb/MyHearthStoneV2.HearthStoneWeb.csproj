@@ -222,21 +222,21 @@
     <Content Include="images\baraja\8.jpg" />
     <Content Include="images\baraja\9.jpg" />
     <Content Include="images\baraja\bg.jpg" />
-    <Content Include="images\bridge.jpg" />
-    <Content Include="images\cablecar.jpg" />
+    <Content Include="images\Rogue.jpg" />
+    <Content Include="images\Mage.jpg" />
     <Content Include="images\cards\cardback\timg.jpg" />
     <Content Include="images\cards\empty.png" />
     <Content Include="images\cards\emptytablecard.png" />
-    <Content Include="images\clouds.jpg" />
+    <Content Include="images\Hunter.jpg" />
     <Content Include="images\game\icon\arrow.png" />
-    <Content Include="images\lanterns.jpg" />
-    <Content Include="images\londoneye.jpg" />
-    <Content Include="images\maiden.jpg" />
+    <Content Include="images\Druid.jpg" />
+    <Content Include="images\Warlock.jpg" />
+    <Content Include="images\Priest.jpg" />
     <Content Include="images\OFF-CANVAS\user1.png" />
-    <Content Include="images\statue.jpg" />
-    <Content Include="images\statue2.jpg" />
+    <Content Include="images\Warrior.jpg" />
+    <Content Include="images\Shaman.jpg" />
     <Content Include="images\tables\btn\btnend.png" />
-    <Content Include="images\tree.jpg" />
+    <Content Include="images\Paladin.jpg" />
     <Content Include="img\background-data-microservice.jpg" />
     <Content Include="img\build-20170730.min.js" />
     <Content Include="img\cd-category-icons.svg" />
@@ -259,6 +259,7 @@
     <Content Include="js\build.min.js" />
     <Content Include="js\cardgroup.js" />
     <Content Include="js\cardgroup.source.js" />
+    <Content Include="js\chosencardgroup.source.js" />
     <Content Include="js\chunk.js" />
     <Content Include="js\index.js" />
     <Content Include="js\login.js" />
@@ -368,6 +369,7 @@
     <Content Include="Views\UserCentre\MyCardGroups.cshtml" />
     <Content Include="Views\UserCentre\CardGroup.cshtml" />
     <Content Include="Views\Game\saloon.cshtml" />
+    <Content Include="Views\Game\chosencardgroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
