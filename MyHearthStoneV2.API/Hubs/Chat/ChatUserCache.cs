@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using MyHearthStoneV2.API.Models;
 
-namespace MyHearthStoneV2.API.Hubs
+namespace MyHearthStoneV2.API.Hubs.Chat
 {
     public static class ChatUserCache
     {
-        public static IList<UserChat> userList = new List<UserChat>();
+        public static IList<ChatUser> userList = new List<ChatUser>();
     }
 }

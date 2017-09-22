@@ -209,11 +209,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\ChatHub.cs" />
-    <Compile Include="Hubs\ChatUserCache.cs" />
-    <Compile Include="Hubs\ChatUserCompare.cs" />
-    <Compile Include="Hubs\IChatHub.cs" />
-    <Compile Include="Models\UserChat.cs" />
+    <Compile Include="Hubs\Chat\ChatHub.cs" />
+    <Compile Include="Hubs\Chat\ChatUser.cs" />
+    <Compile Include="Hubs\Chat\ChatUserCache.cs" />
+    <Compile Include="Hubs\Chat\ChatUserCompare.cs" />
+    <Compile Include="Hubs\Chat\IChatHub.cs" />
+    <Compile Include="Hubs\ChosenCardGroup\ChosenCardGroupHub.cs" />
+    <Compile Include="Hubs\ChosenCardGroup\ChosenCardGroupUserCache.cs" />
+    <Compile Include="Hubs\ChosenCardGroup\IChosenCardGroupHub.cs" />
+    <Compile Include="Hubs\Connection.cs" />
+    <Compile Include="Hubs\ConversationRoom.cs" />
+    <Compile Include="Hubs\IHub.cs" />
+    <Compile Include="Hubs\SignalRUser.cs" />
+    <Compile Include="Hubs\UserContext.cs" />
+    <Compile Include="Hubs\UserContextProxy.cs" />
+    <Compile Include="Models\SignalRUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +260,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyHearthStoneV2.APIMonitor\MyHearthStoneV2.APIMonitor.csproj">
+      <Project>{2c8ba1db-c965-406e-868f-654e70e58f05}</Project>
+      <Name>MyHearthStoneV2.APIMonitor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj">
       <Project>{f69a8aeb-ab89-4f87-b2fd-af68d009e42e}</Project>
       <Name>MyHearthStoneV2.BLL</Name>

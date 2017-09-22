@@ -6,6 +6,7 @@ var confustionTime;
 //同步服务器时间
 ajaxGetData("/Option/SyncTime", param, "", "", "", function (data) {
     if (data.code == "100") {
+        console.log("hided");
         hideLoader();
         if (!!intervalName) {
             clearInterval(intervalName);

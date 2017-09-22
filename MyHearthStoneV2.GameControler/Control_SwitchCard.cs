@@ -40,6 +40,7 @@ namespace MyHearthStoneV2.GameControler
             {
                 RoundEnd();
             }
+            ControllerCache.SetController(this);
         }
     }
 }

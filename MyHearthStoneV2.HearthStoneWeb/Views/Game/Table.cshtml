@@ -18,50 +18,24 @@
 <link href="/css/jquery-ui.css" rel="stylesheet" />
 <link href="/css/table.css" rel="stylesheet" />
 <link href="/css/OFF-CANVAS/normalize.css" rel="stylesheet" />
-@*<link href="/css/OFF-CANVAS/demo.css" rel="stylesheet" />*@
 <link href="/css/OFF-CANVAS/font-awesome.min.css" rel="stylesheet" />
 <link href="/css/OFF-CANVAS/menu_cornermorph.css" rel="stylesheet" />
 }
 @section js{
 <script src="/Scripts/jquery-ui.min.js"></script>
 <script src="/js/baraja/modernizr.custom.79639.js"></script>
-<script src="/Scripts/jquery.signalR-2.2.2.min.js"></script>
 <script src="/js/baraja/jquery.baraja.js"></script>
-
-<script src="/js/Table.js"></script>    
-<script src="@(ConfigurationManager.AppSettings["APIURL"]+"/signalr/hubs")" type="text/javascript"></script>
 <script type="text/javascript">
     var ISDEBUG = @(ConfigurationManager.AppSettings["IsDebug"].TryParseBool() ? "true" : "false");
 
 </script>
-@(Html.Raw(SignUtil.ImportSignJsFile("")))
+@(Html.Raw(SignUtil.ImportSignJsFile("/js/table.source.js")))
 }
 @(Html.Raw(ViewBag.ConfusionStringToHTML))
 <div class="arrow hide">
 </div>
-<div class="menu-wrap">
 
-    <nav class="menu">
 
-        <div class="profile"><img src="/images/OFF-CANVAS/user1.png" alt="Matthew Greenberg"><span id="MyClientName"></span></div>
-
-        <div class="link-list" id="messages">
-        </div>
-
-        <div class="icon-list">
-            <input type="text" id="message"/>
-            <a href="javascript:;" id="send"><i class="fa fa-fw fa-send"></i></a>
-
-            <a href="javascript:;"><i class="fa fa-fw fa-question-circle"></i></a>
-
-            <a href="javascript:;"><i class="fa fa-fw fa-power-off"></i></a>
-
-        </div>
-
-    </nav>
-
-</div>
-<button class="menu-button" id="open-button"><i class="fa fa-fw fa-weixin"></i><span>Open Menu</span></button>
 
 <div class="content-wrap">
     <div class="tableCard">
@@ -105,10 +79,9 @@
         </ul>
     </div> 
 </div>
-
+@Html.Partial("/Views/Addons/SignalRChatFrame.cshtml", null)
 
 <input type="hidden" id="dst" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SINGJSTEXT)" />
 @section endjs{
-<script src="/js/OFF-CANVAS/classie.js"></script>
-<script src="/js/OFF-CANVAS/main.js"></script>
+
 }

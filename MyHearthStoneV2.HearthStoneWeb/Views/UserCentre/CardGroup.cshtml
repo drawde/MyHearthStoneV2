@@ -120,7 +120,7 @@
                 <h3>重新选择</h3>
             </div>
             <a class="more" href="javascript:repick();">
-                <img src="/images/maiden.jpg">
+                <img src="/images/Druid.jpg">
             </a>
         </li>
         @{
@@ -133,7 +133,7 @@
                             <h3>@(card.Name)</h3>
                         </div>
                         <a class="more" href="javascript:;" cardCode="@(card.CardCode)" cardName="@(card.Name)">
-                            <img src="/images/statue.jpg">
+                            <img src="/images/Shaman.jpg">
                         </a>
                     </li>
                 }
@@ -173,3 +173,7 @@
 </nav>
 <input type="hidden" id="dst" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SINGJSTEXT)" />
 <input type="hidden" id="tsd" value="@(MyHearthStoneV2.BLL.SignJSTextBll.CARDGROUPJSTEXT)" />
+
+@section endjs{
+    
+}

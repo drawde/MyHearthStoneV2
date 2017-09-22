@@ -11,30 +11,34 @@ namespace MyHearthStoneV2.GameControler
 {
     public class ControllerCache
     {
-        public static List<Controler> GetController()
+        public static List<Controler> LstCtl
         {
-            using (var redisClient = RedisManager.GetClient())
+            get
             {
-                return redisClient.Get<List<Controler>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers));
+                using (var redisClient = RedisManager.GetClient())
+                {
+                    var lst = redisClient.Get<List<Controler>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers));
+                    if (lst == null)
+                    {
+                        lst = new List<Controler>();
+                        redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), lst);
+                    }
+                    return lst;
+                }
+            }
+            set
+            {
+                using (var redisClient = RedisManager.GetClient())
+                {
+                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), value);
+                }
             }
         }
 
-        public static void InitController()
-        {
-            using (var redisClient = RedisManager.GetClient())
-            {
-                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), new List<Controler>());
-            }
-        }
 
         public static void SetController(Controler ctl)
         {
-            using (var redisClient = RedisManager.GetClient())
-            {
-                var lst = GetController();
-                lst.Add(ctl);
-                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), lst);
-            }
+            LstCtl[LstCtl.FindIndex(c=>c.GameID == ctl.GameID)] = ctl;
         }
     }
 }

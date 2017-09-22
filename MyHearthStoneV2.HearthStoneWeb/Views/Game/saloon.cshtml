@@ -6,6 +6,7 @@
     ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
 }
 @section css{
+<link href="/css/notie/default.css" rel="stylesheet" />
 }
 @section js{
 <script src="/js/md5-min.js"></script>
@@ -64,3 +65,7 @@
 
 <input type="hidden" id="dst" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SINGJSTEXT)" />
 <input type="hidden" id="tsd" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SALOONJSTEXT)" />
+
+@section endjs{
+    <script src="/js/notie/notie.js"></script>
+}

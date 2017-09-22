@@ -37,7 +37,12 @@ function ajaxGetData(method, params, nonce_str, sign, apitime, backfun) {
             console.log(data);
         }
     });
-};
+}
+
+//拼接signalR接口的参数，如果不需要参数，param="{}"
+function appendParam(param, sign) {   
+    return param.substring(0, param.length - 1) + ",\"nonce_str\":\"" + sign.rndStr + "\",\"sign\":\"" + sign.sign + "\",\"apitime\":\"" + sign.sendTime + "\"}";
+}
 
 function logout() {    
     showLoader();
@@ -101,6 +106,22 @@ function showMessage(text, backcall) {
         closeIcon: true,
         onClose: backcall,
     });
+}
+
+function showSuccessMessage(msg) {
+    notie.alert(1, msg, 2);
+}
+function showErrorMessage(msg) {
+    notie.alert(3, msg, 2);
+}
+function showConfirmMessage(infoText, callBack) {
+    notie.confirm(infoText, 'Yes', 'Cancel', callBack);
+}
+function showInput(inputText,callBack) {
+    notie.input(inputText, 'Submit', 'Cancel', 'email', '', callBack);
+}
+function showInfoMessage(msg) {
+    notie.alert(4, msg, 2);
 }
 function showConfirm(text, confirmbackcall, cancelbackcall) {
     $.confirm({

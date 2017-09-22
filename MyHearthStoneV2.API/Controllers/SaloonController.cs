@@ -45,6 +45,16 @@ namespace MyHearthStoneV2.API.Controllers
             return Content(JsonStringResult.SuccessPageResult(resModel));
         }
 
-        
+        [DataVerify]
+        public ActionResult ZhanZuoEr()
+        {
+            var param = JObject.Parse(TempData["param"].TryParseString());
+            int tableID = param["TableID"].TryParseInt();
+            string UserCode = param["UserCode"].TryParseString();
+            string Password = param["Password"].TryParseString();
+
+            var resModel = GameTableBll.Instance.ZhanZuoEr(tableID, UserCode, Password);
+            return Content(JsonConvert.SerializeObject(resModel));
+        }
     }
 }

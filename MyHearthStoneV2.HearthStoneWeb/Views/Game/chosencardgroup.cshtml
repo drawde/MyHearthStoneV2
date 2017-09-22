@@ -15,10 +15,11 @@
     <link href="/css/jq22.css" rel="stylesheet" />
     <link href="/css/reset.css" rel="stylesheet" />
     <link href="/css/slide/component.css" rel="stylesheet" />
+    <link href="/css/notie/default.css" rel="stylesheet" />
 }
 @section js{
     <script src="/js/slide/classie.js"></script>
-    <script src="/js/md5-min.js"></script>
+    <script src="/js/md5-min.js"></script>    
     <script type="text/javascript">
     var ISDEBUG = @(ConfigurationManager.AppSettings["IsDebug"].TryParseBool() ? "true" : "false");
     </script>
@@ -26,9 +27,8 @@
 @(Html.Raw(SignUtil.ImportSignJsFile("/js/chosencardgroup.source.js")))
 }
 @(Html.Raw(ViewBag.ConfusionStringToHTML))
-<input type="hidden" id="GroupCode" value="@(Request["GroupCode"])" />
-<div id="container">
-    <ul id="grid" class="group" style="@(Request["GroupCode"].IsNullOrEmpty()?"":"display:none")">
+<div id="container" class="content-wrap">
+    <ul id="grid" class="group">
 
     </ul>
 
@@ -48,5 +48,10 @@
     </ul>
 </div>
 
+@Html.Partial("/Views/Addons/SignalRChatFrame.cshtml", null)
+
 <input type="hidden" id="dst" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SINGJSTEXT)" />
 <input type="hidden" id="tsd" value="@(MyHearthStoneV2.BLL.SignJSTextBll.CARDGROUPJSTEXT)" />
+@section endjs{
+    <script src="/js/notie/notie.js"></script>
+}

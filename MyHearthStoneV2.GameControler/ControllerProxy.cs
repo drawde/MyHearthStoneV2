@@ -63,10 +63,7 @@ namespace MyHearthStoneV2.GameControler
                 //{
                 //    lstCtl = new List<Controler>();
                 //}
-                if (ControllerCache.GetController() == null)
-                {
-                    ControllerCache.InitController();
-                }
+
                 if (firstPlayerCode.IsNullOrEmpty() || secondPlayerCode.IsNullOrEmpty() || fristCardGroupCode.IsNullOrEmpty() || secondCardGroupCode.IsNullOrEmpty())
                 {
                     res = JsonStringResult.Error(OperateResCodeEnum.参数错误);
@@ -86,7 +83,7 @@ namespace MyHearthStoneV2.GameControler
                     res = JsonStringResult.Error(OperateResCodeEnum.参数错误);
                     return res;
                 }
-                //var lstCtl = ControllerCache.GetController();
+                //var lstCtl = ControllerCache.Lstctl;
                 //if (lstCtl.Any(c => c.chessboard.Players.First(x => x.IsFirst).User.UserCode == firstPlayerCode || 
                 //c.chessboard.Players.First(x => x.IsFirst == false).User.UserCode == secondPlayerCode))
                 //{
@@ -110,11 +107,7 @@ namespace MyHearthStoneV2.GameControler
 
 
                 gameID = SignUtil.CreateSign(firstPlayerCode + secondPlayerCode + RandomUtil.CreateRandomStr(10) + DateTime.Now.Ticks);
-                Controler ctl = new Controler(gameID, firstUser, secondUser, firstCardGroup, secondCardGroup);
-
-                //ctl.chessboard = new Chessboard();
-
-                ControllerCache.SetController(ctl);
+                Controler ctl = new Controler(gameID, firstUser, secondUser, firstCardGroup, secondCardGroup);          
             }
             catch (Exception ex)
             {
@@ -139,12 +132,12 @@ namespace MyHearthStoneV2.GameControler
         {
             string res = JsonStringResult.VerifyFail();
             Controler ctl = null;
-            if (!ControllerCache.GetController().Any(c => c.GameID == gameID) || !ControllerCache.GetController().Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
+            if (!ControllerCache.LstCtl.Any(c => c.GameID == gameID) || !ControllerCache.LstCtl.Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
             {
                 res = JsonStringResult.Error(OperateResCodeEnum.查询不到需要的数据);
                 return res;
             }
-            ctl = ControllerCache.GetController().First(c => c.GameID == gameID);
+            ctl = ControllerCache.LstCtl.First(c => c.GameID == gameID);
             if (ctl.roundIndex != 2)
             {
                 res = JsonStringResult.Error(OperateResCodeEnum.查询不到需要的数据);

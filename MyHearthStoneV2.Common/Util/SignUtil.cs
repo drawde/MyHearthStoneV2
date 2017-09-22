@@ -178,7 +178,7 @@ namespace MyHearthStoneV2.Common.Util
         /// </summary>
         /// <param name="appendJsFile"></param>
         /// <returns></returns>
-        public static string ImportSignJsFile(string appendJsFile, string cssAndJSVersion = "")
+        public static string ImportSignJsFile(string appendJsFile, bool importSignJs = true, string cssAndJSVersion = "")
         {
             if (ConfigurationManager.AppSettings["IsDebug"].TryParseBool() == false)
             {
@@ -186,7 +186,14 @@ namespace MyHearthStoneV2.Common.Util
             }
             else
             {
-                return "<script src=\"/js/apisign.source.js\"></script><script src=\"" + appendJsFile + "\"></script>";
+                if (importSignJs)
+                {
+                    return "<script src=\"/js/apisign.source.js\"></script><script src=\"" + appendJsFile + "\"></script>";
+                }
+                else
+                {
+                    return "<script src=\"" + appendJsFile + "\"></script>";
+                }
             }
         }
 

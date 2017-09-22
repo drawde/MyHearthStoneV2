@@ -10,6 +10,7 @@ using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Model.CustomModels;
+using Newtonsoft.Json;
 
 namespace MyHearthStoneV2.BLL
 {
@@ -186,6 +187,39 @@ namespace MyHearthStoneV2.BLL
                 }).First();
             }
             return null;
+        }
+
+        /// <summary>
+        /// 接口用户签名认证
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool AuthenticationSign(string data)
+        {
+            return AuthenticationSign(JsonConvert.DeserializeObject<APIReciveData>(data));
+        }
+
+        /// <summary>
+        /// 接口用户签名认证
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool AuthenticationSign(APIReciveData im)
+        {
+            if (im.sign.IsNullOrEmpty() || im.nonce_str.IsNullOrEmpty() || im.usercode.IsNullOrEmpty() || im.apitime.IsNullOrEmpty())
+            {
+                return false;
+            }
+            HS_Users user = UsersBll.Instance.GetUserByAdmin(im.usercode);
+            if (user == null)
+            {
+                return false;
+            }
+            if (im.sign != SignUtil.CreateSign(im.apitime + user.SecretCode + im.nonce_str))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -89,25 +89,13 @@ namespace MyHearthStoneV2.API.Filters
                 //else 
                 if(IsValidate)
                 {
-                    if (im.sign.IsNullOrEmpty() || im.nonce_str.IsNullOrEmpty() || im.usercode.IsNullOrEmpty() || im.apitime.IsNullOrEmpty())
+                    if (!UsersBll.Instance.AuthenticationSign(im))
                     {
                         contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.签名验证失败);
                         filterContext.Result = contentResult;
                         return;
                     }
-                    HS_Users user = UsersBll.Instance.GetUserByAdmin(im.usercode);
-                    if (user == null)
-                    {
-                        contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.签名验证失败);
-                        filterContext.Result = contentResult;
-                        return;
-                    }
-                    if (im.sign != SignUtil.CreateSign(im.apitime + user.SecretCode + im.nonce_str))
-                    {
-                        contentResult.Content = JsonStringResult.Error(OperateResCodeEnum.签名验证失败);
-                        filterContext.Result = contentResult;
-                        return;
-                    }
+                    
                     //var lt = LoginTokenBll.Instance.GetUserInfoByToken(im.token);
                     //if (lt == null)
                     //{

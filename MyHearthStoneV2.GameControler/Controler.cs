@@ -100,8 +100,9 @@ namespace MyHearthStoneV2.GameControler
             List<Card> lstAll = new List<Card>();
             lstAll.AddRange(firstUser.AllCards);
             lstAll.AddRange(secondUser.AllCards);
-            chessboard.AllCard = lstAll;
+            chessboard.AllCard = lstAll;            
             SetCurrentRoundCode();
+            ControllerCache.SetController(this);
         }
 
         //System.Timers.Timer

@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.GameControler
 {
     public partial class Controler
     {
-        public void SetCurrentRoundCode()
+        internal void SetCurrentRoundCode()
         {
             currentRoundCode = SignUtil.CreateSign(GameID + RandomUtil.CreateRandomStr(10) + roundIndex);
         }

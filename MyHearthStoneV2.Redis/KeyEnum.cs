@@ -41,5 +41,15 @@ namespace MyHearthStoneV2.Redis
         /// CSS和JS文件版本号
         /// </summary>
         CSSAndJSVersion = 4,
+
+        /// <summary>
+        /// 游戏房间里的用户
+        /// </summary>
+        SignalRUser = 5,
+
+        /// <summary>
+        /// 游戏房间
+        /// </summary>
+        SignalRRoom = 6
     }
 }

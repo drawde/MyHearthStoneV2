@@ -26,22 +26,29 @@ namespace MyHearthStoneV2.BLL
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
-            if (_repository.Get(c => c.CreateUserCode == gameTable.CreateUserCode && gameTable.ID == 0).Result.TotalItemsCount > 0)
+            if (_repository.Get(c => (c.CreateUserCode == gameTable.CreateUserCode || c.PlayerUserCode == gameTable.CreateUserCode) && gameTable.ID < 1).Result.TotalItemsCount > 0)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.同时只能创建或占用一个游戏房间);
             }
             if (gameTable.ID > 0)
             {
-                gameTable.AddTime = _repository.GetByKey(gameTable.ID).Result.AddTime;
+                //gameTable.AddTime = _repository.GetByKey(gameTable.ID).Result.AddTime;
                 _repository.Update(gameTable);
+                return JsonModelResult.PackageSuccess(gameTable.ID.ToString());
             }
             else
             {
                 gameTable.PlayerUserCode = "";
                 gameTable.AddTime = DateTime.Now;
-                _repository.Insert(gameTable);
+                using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+                {
+                    context.hs_gametable.Add(gameTable);
+                    context.SaveChanges();
+
+                }
+                return JsonModelResult.PackageSuccess(gameTable.ID.ToString());
             }
-            return JsonModelResult.PackageSuccess();
+            
         }
 
         /// <summary>
@@ -50,27 +57,34 @@ namespace MyHearthStoneV2.BLL
         /// <param name="gameTableID"></param>
         /// <param name="userCode"></param>
         /// <returns></returns>
-        public APITextResult ZhanZuoer(int gameTableID, string userCode)
+        public APITextResult ZhanZuoEr(int gameTableID, string userCode, string password)
         {
             if (gameTableID < 1 || userCode.IsNullOrEmpty())
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
-            var gameTable = _repository.GetByKey(gameTableID).Result;
-            if (gameTable == null || gameTable.CreateUserCode == userCode)
+            var lstTables = _repository.GetList(c => c.ID == gameTableID && c.Password == password).Result;
+            
+            if (lstTables.TotalItemsCount < 1)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+            var gameTable = lstTables.Items.First();
+            if (_repository.Get(c => (c.PlayerUserCode == userCode || c.CreateUserCode == userCode) && c.ID != gameTableID).Result.TotalItemsCount > 0)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.同时只能创建或占用一个游戏房间);
             }
-            if (!gameTable.PlayerUserCode.IsNullOrEmpty())
+
+            if (!gameTable.PlayerUserCode.IsNullOrEmpty() && gameTable.PlayerUserCode != userCode && gameTable.CreateUserCode != userCode)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.这个房间已被其他玩家占用);
             }
-            if (_repository.Get(c => c.PlayerUserCode == userCode).Result.TotalItemsCount > 0)
+            if (gameTable.PlayerUserCode.IsNullOrEmpty() && gameTable.CreateUserCode != userCode)
             {
-                return JsonModelResult.PackageFail(OperateResCodeEnum.同时只能创建或占用一个游戏房间);
+                gameTable.PlayerUserCode = userCode;
+                return JsonModelResult.PackageSuccess(_repository.Update(gameTable).Result.ToString());
             }
-            gameTable.PlayerUserCode = userCode;            
-            return JsonModelResult.PackageSuccess(_repository.Update(gameTable).Result.ToString());
+            return JsonModelResult.PackageSuccess();
         }
     }
 }

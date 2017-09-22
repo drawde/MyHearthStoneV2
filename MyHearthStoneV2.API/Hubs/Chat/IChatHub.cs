@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MyHearthStoneV2.API.Hubs
+namespace MyHearthStoneV2.API.Hubs.Chat
 {
     interface IChatHub
     {

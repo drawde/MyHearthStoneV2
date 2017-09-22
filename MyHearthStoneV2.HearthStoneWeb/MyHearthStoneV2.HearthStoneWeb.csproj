@@ -196,11 +196,15 @@
     <Content Include="css\jquery-ui.css" />
     <Content Include="css\loader.css" />
     <Content Include="css\main.css" />
+    <Content Include="css\notie\default.css" />
     <Content Include="css\OFF-CANVAS\demo.css" />
     <Content Include="css\OFF-CANVAS\font-awesome.min.css" />
     <Content Include="css\OFF-CANVAS\menu_cornermorph.css" />
     <Content Include="css\OFF-CANVAS\normalize.css" />
     <Content Include="css\reset.css" />
+    <Content Include="css\shake\common.css" />
+    <Content Include="css\shake\default.css" />
+    <Content Include="css\shake\shake.css" />
     <Content Include="css\slide\component.css" />
     <Content Include="css\slide\style.min.css" />
     <Content Include="css\style.css" />
@@ -266,12 +270,14 @@
     <Content Include="js\main.js" />
     <Content Include="js\md5-min.js" />
     <Content Include="js\modernizr.js" />
+    <Content Include="js\notie\notie.js" />
     <Content Include="js\OFF-CANVAS\classie.js" />
     <Content Include="js\OFF-CANVAS\main.js" />
     <Content Include="js\Register.js" />
     <Content Include="js\saloon.source.js" />
+    <Content Include="js\signalR.basic.source.js" />
     <Content Include="js\slide\classie.js" />
-    <Content Include="js\Table.js" />
+    <Content Include="js\table.source.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\3D-ASCII.flf" />
@@ -370,6 +376,7 @@
     <Content Include="Views\UserCentre\CardGroup.cshtml" />
     <Content Include="Views\Game\saloon.cshtml" />
     <Content Include="Views\Game\chosencardgroup.cshtml" />
+    <Content Include="Views\Addons\SignalRChatFrame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

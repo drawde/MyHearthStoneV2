@@ -14,9 +14,9 @@ $(function () {
     $("#Placeholder").val(getNickName());
     $("#MyClientName").html(getNickName());
     
-    $(".CardPanel").click(function () {
-        ChosenServant($(this));
-    });
+    //$(".CardPanel").click(function () {
+    //    ChosenServant($(this));
+    //});
     if (!ISDEBUG) {
         eval($("#dst").val());
         $("body").find("*").unbind("mousedown").bind("contextmenu", function (e) {
@@ -26,7 +26,7 @@ $(function () {
     }
     $("body").find("*").unbind("mousedown").bind("mousedown", function (event) {
         if (event.which == 3) {
-            UnChosenServant();
+            //UnChosenServant();
         }
     });
 
@@ -178,41 +178,24 @@ function cardOut(card) {
     $(card).css("z-index", $(card).attr("zindex"));
 }
 
-function ChosenServant(servantPannel) {
-    if (!!servantPannel.attr("ServantCode") && servantPannel.attr("ServantCode") != "blank") {
-        servantPannel.addClass("Active");
-    }
-}
-function UnChosenServant() {
-    $(".CardPanel").removeClass("Active");
-}
-
 $(function () {
     //$("#chatlayer").fadeIn();
     $.connection.hub.url = APIURL + "/signalr";
     $.connection.hub.start({ xdomain: true });
     //添加对自动生成的Hub的引用
-    var chat = $.connection.chatHub;
+    var roomHub = $.connection.chatHub;
 
     //调用Hub的callback回调方法
 
-    //后端SendChat调用后，产生的addNewMessageToPage回调
-    chat.client.addNewMessageToPage = function (id, name, message) {
-        if (name == getNickName()) {
-            $('#messages').append('<a href="javascript:;"><span>' + htmlEncode(name) + '：' + htmlEncode(message) + '</span></a>')
-        }
-        else {
-            $('#messages').append('<a href="javascript:;" style="text-align:left"><span>' + htmlEncode(name) + '： ' + htmlEncode(message) + '</span></a>')
-        }
-    };
+    
 
     //后端SendLogin调用后，产生的loginUser回调
-    chat.client.loginUser = function (userlist) {
+    roomHub.client.loginUser = function (userlist) {
         reloadUser(userlist);
     };
 
     //后端SendLogoff调用后，产生的logoffUser回调
-    chat.client.logoffUser = function (userlist) {
+    roomHub.client.logoffUser = function (userlist) {
         reloadUser(userlist);
     };
 
@@ -225,24 +208,26 @@ $(function () {
         var username = getNickName();
 
         //发送上线信息
-        chat.server.sendLogin(userid, username);
+        roomHub.server.sendLogin(userid, username);
 
         //点击按钮，发送聊天内容
-        $('#send').click(function () {
-            var chatContent = $('#message').val();
-            chat.server.sendChat(userid, username, chatContent);
-        });
+        //$('#send').click(function () {
+        //    var chatContent = $('#message').val();
+        //    roomHub.server.sendChat(userid, username, chatContent);
+        //});
 
         //点击按钮，发送用户下线信息
         $('#close').click(function () {
-            chat.server.sendLogoff(userid, username);
+            roomHub.server.sendLogoff(userid, username);
             $("#send").css("display", "none");
         });
 
+        bindChatFunction();
+
         //每隔5秒，发送心跳包信息
-        setInterval(function () {
-            chat.server.triggerHeartbeat(userid, username);
-        }, 5000);
+        //setInterval(function () {
+        //    roomHub.server.triggerHeartbeat(userid, username);
+        //}, 5000);
     });
 
 });
