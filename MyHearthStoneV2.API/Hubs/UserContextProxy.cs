@@ -79,7 +79,8 @@ namespace MyHearthStoneV2.API.Hubs
 
         public static void SetRoom(ConversationRoom room)
         {
-            Rooms[Rooms.FindIndex(c => c.RoomName == room.RoomName)] = room;
+            Rooms.RemoveAt(Rooms.FindIndex(c => c.RoomName == room.RoomName));
+            Rooms.Add(room);
         }
 
         public static void RemoveRoom(ConversationRoom room)

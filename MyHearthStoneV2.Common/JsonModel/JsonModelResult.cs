@@ -30,5 +30,17 @@ namespace MyHearthStoneV2.Common.JsonModel
             textRes.data = data;
             return textRes;
         }
+
+        public static APIPageResult<T> PackageSuccess<T>(List<T> data, int totalCount = -1)
+        {
+            APIPageResult<T> jsonResult = new APIPageResult<T>();
+            PageResult<T> pr = new PageResult<T>();
+            pr.Items = data;
+            pr.TotalItemsCount = totalCount < 0 ? data.Count : totalCount;
+            jsonResult.code = OperateResCodeEnum.成功.GetHashCode();
+            jsonResult.msg = OperateResCodeEnum.成功.ToString();
+            jsonResult.data = pr;
+            return jsonResult;
+        }
     }
 }

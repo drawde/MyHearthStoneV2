@@ -15,6 +15,7 @@ namespace MyHearthStoneV2.GameControler
         /// </summary>
         /// <param name="userCode"></param>
         /// <param name="lstInitCardIndex"></param>
+        [ControlerMonitor]
         internal void SwitchCard(string userCode, List<int> lstInitCardIndex)
         {
             UserCards uc = null;
@@ -24,6 +25,8 @@ namespace MyHearthStoneV2.GameControler
                 foreach (int i in lstInitCardIndex)
                 {
                     uc = chessboard.Players.First(c => c.User.UserCode == userCode);
+
+                    //确保不会换到同一张牌
                     int ri = -1;
                     while (rndIndex == ri)
                     {
@@ -40,7 +43,6 @@ namespace MyHearthStoneV2.GameControler
             {
                 RoundEnd();
             }
-            ControllerCache.SetController(this);
         }
     }
 }

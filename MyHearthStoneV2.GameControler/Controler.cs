@@ -102,7 +102,6 @@ namespace MyHearthStoneV2.GameControler
             lstAll.AddRange(secondUser.AllCards);
             chessboard.AllCard = lstAll;            
             SetCurrentRoundCode();
-            ControllerCache.SetController(this);
         }
 
         //System.Timers.Timer
@@ -144,5 +143,6 @@ namespace MyHearthStoneV2.GameControler
         public void RoundStart()
         {
         }
+        
     }
 }

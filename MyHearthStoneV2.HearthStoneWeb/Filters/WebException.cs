@@ -33,6 +33,8 @@ namespace MyHearthStoneV2.HearthStoneWeb.Filters
                 ex.ErrorMsg = filterContext.Exception.Message;
                 ex.IP = StringUtil.GetIP();
                 ex.StackTrace = filterContext.Exception.StackTrace;
+                ex.Arguments = "";
+                ex.DataSource = (int)DataSourceEnum.Web;
                 ErrRecBll.Instance.AsyncInsert(ex);
             }
             catch (Exception ep)

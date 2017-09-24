@@ -9,9 +9,10 @@ namespace MyHearthStoneV2.GameControler
 {
     public partial class Controler
     {
+        [ControlerMonitor]
         internal void SetCurrentRoundCode()
         {
-            currentRoundCode = SignUtil.CreateSign(GameID + RandomUtil.CreateRandomStr(10) + roundIndex);
+            currentRoundCode = RandomUtil.CreateRandomStr(6);
         }
     }
 }

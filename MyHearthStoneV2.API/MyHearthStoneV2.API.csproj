@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <DontImportPostSharp>True</DontImportPostSharp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -221,7 +222,6 @@
     <Compile Include="Hubs\ConversationRoom.cs" />
     <Compile Include="Hubs\IHub.cs" />
     <Compile Include="Hubs\SignalRUser.cs" />
-    <Compile Include="Hubs\UserContext.cs" />
     <Compile Include="Hubs\UserContextProxy.cs" />
     <Compile Include="Models\SignalRUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

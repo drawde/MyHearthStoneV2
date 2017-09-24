@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.BLL
         }
         public static DataExchangeBll Instance = new DataExchangeBll();
 
-        public void AsyncInsert(string Action, string Controller, string QueryData, string ResultData)
+        public void AsyncInsert(string Action, string Controller, string QueryData, string ResultData, DataSourceEnum dataSource = DataSourceEnum.API)
         {
             HS_DataExchange rec = new HS_DataExchange();
             rec.Action = Action;
@@ -28,6 +28,7 @@ namespace MyHearthStoneV2.BLL
             rec.QueryData = QueryData;
             rec.ResultData = ResultData;
             rec.URL = "/" + rec.Controller + "/" + rec.Action;
+            rec.DataSource = (int)dataSource;
             //var res = Insert(rec);
             AsyncInsert(rec);
         }

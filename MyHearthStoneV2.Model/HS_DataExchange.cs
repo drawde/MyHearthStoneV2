@@ -22,5 +22,6 @@ namespace MyHearthStoneV2.Model
         public string Controller { get; set; }
         public string Action { get; set; }
         public System.DateTime AddTime { get; set; }
+        public int DataSource { get; set; }
     }
 }

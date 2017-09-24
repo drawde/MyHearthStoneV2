@@ -32,6 +32,8 @@ namespace MyHearthStoneV2.API.Filters
                 ex.ErrorMsg = filterContext.Exception.Message;
                 ex.IP = StringUtil.GetIP();
                 ex.StackTrace = filterContext.Exception.StackTrace;
+                ex.Arguments = "";
+                ex.DataSource = (int)DataSourceEnum.API;
                 ErrRecBll.Instance.AsyncInsert(ex);
 
                 DataExchangeBll.Instance.AsyncInsert((filterContext.RouteData.Values["action"]).ToString(), (filterContext.RouteData.Values["controller"]).ToString(),

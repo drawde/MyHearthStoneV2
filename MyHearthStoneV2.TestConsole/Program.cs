@@ -26,14 +26,8 @@ namespace MyHearthStoneV2.TestConsole
         static void Main(string[] args)
         {
             //ClassProxy.tc = new TestClass();
-            var noclass = new NoClass() { nnn = "mmp" };
-            var tc = ClassProxy.tc;
-            var lll = ClassProxy.tc.lstNoClass;
-            lll.Add(noclass);
-            tc.lstNoClass = lll;
-            ClassProxy.tc = tc;
-            ClassProxy.tc.lstNoClass.RemoveAt(0);
-            var ddd = ClassProxy.tc;
+            TestClass tt = new TestClass();
+            tt.ddada();
             Console.ReadKey();
         }
     }

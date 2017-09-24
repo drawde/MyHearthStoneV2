@@ -12,4 +12,13 @@ namespace MyHearthStoneV2.Model
         已使用 = 2,
         未使用 = 1
     }
+
+    public enum DataSourceEnum
+    {
+        API = 1,
+        SignalR = 2,
+        GameControler = 3,
+        Web = 4,
+        Admin = 5
+    }
 }

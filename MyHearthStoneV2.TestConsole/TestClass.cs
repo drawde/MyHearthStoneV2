@@ -14,5 +14,11 @@ namespace MyHearthStoneV2.TestConsole
     public class TestClass
     {
         public List<NoClass> lstNoClass { get; set; } = new List<NoClass>();
+
+        [TestMonitor]
+        public void ddada()
+        {
+
+        }
     }
 }

@@ -3,10 +3,7 @@ using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Model;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PostSharp.Aspects;
-using PostSharp.Extensibility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +11,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.APIMonitor
+namespace MyHearthStoneV2.GameControler
 {
     /// <summary>
-    /// SignalR接口方法的监控管理
+    /// 控制器监控器
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public class SignalRMethodAttribute: OnMethodBoundaryAspect
+    public class ControlerMonitor: OnMethodBoundaryAspect
     {
         string _methodName = "";
         string _className = "";
@@ -44,33 +41,24 @@ namespace MyHearthStoneV2.APIMonitor
             {
                 ex.Arguments = args.Arguments.ToJsonString();
             }
-            ex.DataSource = (int)DataSourceEnum.SignalR;
+            ex.DataSource = (int)DataSourceEnum.GameControler;
             ErrRecBll.Instance.AsyncInsert(ex);
-            args.ReturnValue = JsonStringResult.VerifyFail();
-            args.FlowBehavior = FlowBehavior.Return;
+            //args.ReturnValue = JsonModelResult.Package500();
+            args.FlowBehavior = FlowBehavior.ThrowException;
+        }
+
+        public override void OnEntry(MethodExecutionArgs args)
+        {
+            base.OnEntry(args);
         }
 
         public override void OnExit(MethodExecutionArgs eventArgs)
         {
             if (eventArgs.Arguments != null && eventArgs.Arguments.Count > 0)
             {
-                DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.TryParseString().ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.SignalR);
+                DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.GameControler);
             }
-            base.OnExit(eventArgs);
-        }
-
-        /// <summary>
-        /// 签名认证
-        /// </summary>
-        /// <param name="eventArgs"></param>
-        public override void OnEntry(MethodExecutionArgs eventArgs)
-        {
-            Arguments arguments = eventArgs.Arguments;
-            if (!UsersBll.Instance.AuthenticationSign(arguments[0].ToString()))
-            {
-                throw new Exception(JsonStringResult.Error(OperateResCodeEnum.签名验证失败));
-            }
-            
+            ControllerCache.SetController(eventArgs.Instance as Controler);
             base.OnEntry(eventArgs);
         }
     }

@@ -21,5 +21,7 @@ namespace MyHearthStoneV2.Model
         public string IP { get; set; }
         public string StackTrace { get; set; }
         public System.DateTime AddTime { get; set; }
+        public string Arguments { get; set; }
+        public int DataSource { get; set; }
     }
 }

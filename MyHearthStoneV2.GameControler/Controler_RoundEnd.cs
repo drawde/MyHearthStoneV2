@@ -11,6 +11,7 @@ namespace MyHearthStoneV2.GameControler
         /// <summary>
         /// 回合结束
         /// </summary>
+        [ControlerMonitor]
         internal void RoundEnd()
         {
             //if (roundIndex != 2 && !chessboard.Players.Any(c => c.HandCards.Count < 1))

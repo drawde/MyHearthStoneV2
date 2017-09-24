@@ -17,6 +17,7 @@
           <Property Name="Controller" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Action" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="DataSource" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_ErrRec">
           <Key>
@@ -29,6 +30,8 @@
           <Property Name="IP" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="StackTrace" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="Arguments" Type="nvarchar" MaxLength="1500" Nullable="false" />
+          <Property Name="DataSource" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_Game">
           <Key>
@@ -156,13 +159,13 @@
           <EntitySet Name="HS_GameRecord" EntityType="MyHearthStoneV2.Model.HS_GameRecord" />
           <EntitySet Name="HS_Invitation" EntityType="MyHearthStoneV2.Model.HS_Invitation" />
           <EntitySet Name="HS_Users" EntityType="MyHearthStoneV2.Model.HS_Users" />
-          <EntitySet Name="HS_ErrRec" EntityType="MyHearthStoneV2.Model.HS_ErrRec" />
           <EntitySet Name="HS_LoginToken" EntityType="MyHearthStoneV2.Model.HS_LoginToken" />
           <EntitySet Name="HS_SystemConfig" EntityType="MyHearthStoneV2.Model.HS_SystemConfig" />
-          <EntitySet Name="HS_DataExchange" EntityType="MyHearthStoneV2.Model.HS_DataExchange" />
           <EntitySet Name="HS_UserCardGroupDetail" EntityType="MyHearthStoneV2.Model.HS_UserCardGroupDetail" />
           <EntitySet Name="HS_GameTable" EntityType="MyHearthStoneV2.Model.HS_GameTable" />
           <EntitySet Name="HS_UserCardGroup" EntityType="MyHearthStoneV2.Model.HS_UserCardGroup" />
+          <EntitySet Name="HS_DataExchange" EntityType="MyHearthStoneV2.Model.HS_DataExchange" />
+          <EntitySet Name="HS_ErrRec" EntityType="MyHearthStoneV2.Model.HS_ErrRec" />
         </EntityContainer>
         <EntityType Name="HS_Game">
           <Key>
@@ -214,18 +217,6 @@
           <Property Name="HeadImg" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NickName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="HS_ErrRec">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Controller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ErrorMsg" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="StackTrace" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="HS_LoginToken">
           <Key>
             <PropertyRef Name="ID" />
@@ -242,19 +233,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ConfigKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ConfigValue" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="HS_DataExchange">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="URL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="QueryData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ResultData" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Controller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="HS_UserCardGroupDetail">
@@ -292,6 +270,34 @@
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Profession" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PublicCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="HS_DataExchange">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="QueryData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResultData" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataSource" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HS_ErrRec">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorMsg" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="StackTrace" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Arguments" Type="String" Nullable="false" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="DataSource" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -353,19 +359,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HS_ErrRec">
-            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_ErrRec">
-              <MappingFragment StoreEntitySet="HS_ErrRec">
-                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
-                <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
-                <ScalarProperty Name="Controller" ColumnName="Controller" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HS_LoginToken">
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_LoginToken">
               <MappingFragment StoreEntitySet="HS_LoginToken">
@@ -382,20 +375,6 @@
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
                 <ScalarProperty Name="ConfigKey" ColumnName="ConfigKey" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HS_DataExchange">
-            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_DataExchange">
-              <MappingFragment StoreEntitySet="HS_DataExchange">
-                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="Controller" ColumnName="Controller" />
-                <ScalarProperty Name="IP" ColumnName="IP" />
-                <ScalarProperty Name="ResultData" ColumnName="ResultData" />
-                <ScalarProperty Name="QueryData" ColumnName="QueryData" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -435,6 +414,36 @@
                 <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HS_DataExchange">
+            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_DataExchange">
+              <MappingFragment StoreEntitySet="HS_DataExchange">
+                <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="ResultData" ColumnName="ResultData" />
+                <ScalarProperty Name="QueryData" ColumnName="QueryData" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HS_ErrRec">
+            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_ErrRec">
+              <MappingFragment StoreEntitySet="HS_ErrRec">
+                <ScalarProperty Name="DataSource" ColumnName="DataSource" />
+                <ScalarProperty Name="Arguments" ColumnName="Arguments" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

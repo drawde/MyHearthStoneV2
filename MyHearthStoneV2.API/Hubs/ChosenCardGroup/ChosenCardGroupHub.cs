@@ -13,6 +13,7 @@ using MyHearthStoneV2.APIMonitor;
 using Newtonsoft.Json.Linq;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
+using MyHearthStoneV2.GameControler;
 
 namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
 {    
@@ -174,8 +175,10 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
         /// </summary>
         private void Go(ConversationRoom room)
         {
-
-            Clients.Group(room.RoomName, new string[0]).go();
+            int firstPlayerIndex = RandomUtil.CreateRandomInt(0, 1);
+            var res = ControllerProxy.CreateGame(room.Users[firstPlayerIndex].UserCode, room.Users[1].UserCode, 
+                room.Users[firstPlayerIndex].ChosenCardGroupCode, room.Users[1].ChosenCardGroupCode) as APITextResult;
+            Clients.Group(room.RoomName, new string[0]).go(res.data);
         }
 
         [SignalRMethod]
