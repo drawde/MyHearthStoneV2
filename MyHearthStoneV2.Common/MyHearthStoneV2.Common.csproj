@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\EnumUtil.cs" />
     <Compile Include="JsonModel\JsonModelResult.cs" />
     <Compile Include="JsonModel\JsonStringResult.cs" />
     <Compile Include="Enum\OperateResCodeEnum.cs" />

@@ -65,7 +65,7 @@ namespace MyHearthStoneV2.HearthStoneWeb.Filters
 
         public void SetContextResult(AuthorizationContext filterContext,string returnUrl)
         {
-            filterContext.Result = new RedirectResult("/UserCentre/Login?returnUrl=" + returnUrl);
+            filterContext.Result = new RedirectResult("/UserCentre/Login?returnUrl=" + System.Web.HttpUtility.UrlEncode(returnUrl));
         }
     }
 }

@@ -41,14 +41,6 @@ namespace MyHearthStoneV2.API.Controllers
         }
 
         [DataVerify]
-        public ActionResult TestSign()
-        {
-            string res = JsonStringResult.SuccessResult();
-
-            return Content(res);
-        }
-
-        [DataVerify]
         public ActionResult SaveCardGroup()
         {
             var param = JObject.Parse(TempData["param"].TryParseString());

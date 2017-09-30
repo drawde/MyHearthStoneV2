@@ -107,8 +107,22 @@ namespace MyHearthStoneV2.Redis
             }
         }
 
+        /// <summary>
+        /// 数据库索引
+        /// </summary>
+        [ConfigurationProperty("Database", IsRequired = false)]
+        public long database
+        {
+            get
+            {
+                return (long)base["Database"];
+            }
+            set
+            {
+                base["Database"] = value;
+            }
+        }
 
-        
         /// <summary>
         /// 本地缓存到期时间，单位:秒
         /// </summary>

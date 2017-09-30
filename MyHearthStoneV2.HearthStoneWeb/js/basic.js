@@ -5,9 +5,9 @@ var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-
 var mobilereg = /^1(3|4|5|7|8)\d{9}$/;
 //获取url中的参数
 function getUrlParam(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-    if (r != null) return unescape(r[2]); return null; //返回参数值
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
 }
 //jQuery.support.cors = true;//添加对IE8、9的跨域支持
 /**
@@ -117,8 +117,8 @@ function showErrorMessage(msg) {
 function showConfirmMessage(infoText, callBack) {
     notie.confirm(infoText, 'Yes', 'Cancel', callBack);
 }
-function showInput(inputText,callBack) {
-    notie.input(inputText, 'Submit', 'Cancel', 'email', '', callBack);
+function showInput(inputText, type, callBack) {
+    notie.input(inputText, 'Submit', 'Cancel', type, '', callBack);
 }
 function showInfoMessage(msg) {
     notie.alert(4, msg, 2);
@@ -193,3 +193,9 @@ figlet("hearthstone", {
     console.log(text);
     console.log("drawde@126.com     https://github.com/drawde/MyHearthStoneV2");
 });
+
+function GetRandomNum(Min, Max) {
+    var Range = Max - Min;
+    var Rand = Math.random();
+    return (Min + Math.round(Rand * Range));
+}

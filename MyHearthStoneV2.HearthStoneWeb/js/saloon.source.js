@@ -19,7 +19,7 @@
             showMessage(data.msg, function () {
                 hideLoader();
                 if (data.code == 100) {
-                    window.location = "/Game/ChosenCardGroup?saloonid=" + data.data;
+                    window.location = "/Game/ChosenCardGroup?saloonid=" + data.data + "&password=" + $("input[name='password']").val();
                 }
             });
         });
@@ -59,9 +59,9 @@ function getSaloons() {
     });
 }
 
-function zhanZuoEr(id, needPassword) {    
+function zhanZuoEr(id, needPassword) {
     if (needPassword) {
-        showInput("请输入你的密码", function (ipt) {
+        showInput("请输入你的密码", "text", function (ipt) {
             goRoom(id, ipt);
         });
     }

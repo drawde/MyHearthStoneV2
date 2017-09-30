@@ -8,86 +8,91 @@ namespace MyHearthStoneV2.API.Hubs
 {
     public class UserContextProxy
     {
-        public static List<SignalRUser> Users
+        public static List<SignalRUser> GetUsers()
         {
-            get
+            using (var redisClient = RedisManager.GetClient())
             {
-                using (var redisClient = RedisManager.GetClient())
-                {
-                    return redisClient.Get<List<SignalRUser>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRUser));
-                }
-            }
-            set
-            {
-                using (var redisClient = RedisManager.GetClient())
-                {
-                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRUser), value);
-                }
+                return redisClient.Get<List<SignalRUser>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRUser));
             }
         }
 
-        public static List<ConversationRoom> Rooms
+        public static List<ConversationRoom> GetRooms()
         {
-            get
+            using (var redisClient = RedisManager.GetClient())
             {
-                using (var redisClient = RedisManager.GetClient())
-                {
-                    return redisClient.Get<List<ConversationRoom>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRRoom));
-                }
-            }
-            set
-            {
-                using (var redisClient = RedisManager.GetClient())
-                {
-                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRRoom), value);
-                }
+                return redisClient.Get<List<ConversationRoom>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRRoom));
             }
         }
 
         public static void Init()
         {
-            Users = new List<SignalRUser>();
-            Rooms = new List<ConversationRoom>();
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRUser), new List<SignalRUser>());
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRRoom), new List<ConversationRoom>());
+            }
         }
 
 
         public static void AddUser(SignalRUser user)
         {
-            var _users = Users;
+            var _users = GetUsers();
             _users.Add(user);
-            Users = _users;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRUser), _users);
+            }
         }
 
         public static void SetUser(SignalRUser user)
         {
+            var Users = GetUsers();
             Users[Users.FindIndex(c => c.UserCode == user.UserCode)] = user;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRUser), Users);
+            }
         }
 
         public static void RemoveUser(SignalRUser user)
         {
-            var _users = Users;
-            _users.Remove(_users.First(c => c.UserCode == user.UserCode));
-            Users = _users;
+            var Users = GetUsers();
+            Users.Remove(Users.First(c => c.UserCode == user.UserCode));
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRUser), Users);
+            }
         }
 
         public static void AddRoom(ConversationRoom room)
         {
-            var _rooms = Rooms;
-            _rooms.Add(room);
-            Rooms = _rooms;
+            var Rooms = GetRooms();
+            Rooms.Add(room);
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRRoom), Rooms);
+            }
         }
 
         public static void SetRoom(ConversationRoom room)
         {
+            var Rooms = GetRooms();
             Rooms.RemoveAt(Rooms.FindIndex(c => c.RoomName == room.RoomName));
             Rooms.Add(room);
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRRoom), Rooms);
+            }
         }
 
         public static void RemoveRoom(ConversationRoom room)
         {
-            var _rooms = Rooms;
-            _rooms.Remove(_rooms.First(c => c.RoomName == room.RoomName));
-            Rooms = _rooms;
+            var Rooms = GetRooms();
+            Rooms.Remove(Rooms.First(c => c.RoomName == room.RoomName));
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SignalRRoom), Rooms);
+            }
         }
     }
 }
