@@ -1,25 +1,27 @@
-﻿var apiTime;
-var param = "{}";
+﻿var param = "{}";
 var intervalName;
 var confustionTime;
-
 //同步服务器时间
-ajaxGetData("/Option/SyncTime", param, "", "", "", function (data) {
+ajaxGetData("/Option/SyncTime", param, null, function (data) {
     if (data.code == "100") {
         console.log("hided");
         hideLoader();
         if (!!intervalName) {
             clearInterval(intervalName);
-        }        
+        }
         apiTime = new Date(data.data.replace("-", "/").replace("-", "/"));
-        intervalName = setInterval(function () { apiTime.setSeconds(apiTime.getSeconds() + 1); }, 1000);// console.log(apiTime.Format("yyyy-MM-dd hh:mm:ss"));        
+        intervalName = setInterval(function () { apiTime.setSeconds(apiTime.getSeconds() + 1); }, 1000);// console.log(apiTime.Format("yyyy-MM-dd hh:mm:ss"));  
+        if (apiTime) {
+            signObj = getSign();
+        }
+        setInterval(function () { signObj = getSign(); }, 10000);
     }
 });
 
 function UnConfusionInt(confutionStr, offset) {
     var numStr = "";
-    for (i = 0; i < confutionStr.length; i++) {
-        var ascii = confutionStr.charAt(i).charCodeAt();
+    for (var idx = 0; idx < confutionStr.length; idx++) {
+        var ascii = confutionStr.charAt(idx).charCodeAt();
         var newascii = ascii + 57 - offset.charCodeAt();
         numStr += String.fromCharCode(newascii);
     }
@@ -36,8 +38,8 @@ function randomWord(randomFlag, min, max) {
     if (randomFlag) {
         range = Math.round(Math.random() * (max - min)) + min;
     }
-    for (var i = 0; i < range; i++) {
-        pos = Math.round(Math.random() * (arr.length - 1));
+    for (var idx = 0; idx < range; idx++) {
+        var pos = Math.round(Math.random() * (arr.length - 1));
         str += arr[pos];
     }
     return str;
@@ -93,27 +95,27 @@ function Sign(sendTime, sign, rndStr) {
 //生成签名
 function getSign() {
     var secretcode = "";
-    var i = 0;
+    var idx = 0;
     confustionTime = "";
     $("[secretcode]").each(function () {
         secretcode += $(this).attr("secretcode").substring(0, 1);
-        if (i > 4 && i < 7) {
+        if (idx > 4 && idx < 7) {
             var confustionDateTime = $(this).attr("secretcode").substring(1, $(this).attr("secretcode").length);
             var unConfusionTime = addPreZero(UnConfusionInt(confustionDateTime, $(this).attr("secretcode").substring(0, 1)));
             confustionTime = confustionTime + unConfusionTime;
         }
-        i = i + 1;
+        idx = idx + 1;
     });
-    
+
     var offsetStr = confustionTime.substring(confustionTime.length - 6);
     var offset = 0;
     for (var x = 0; x < offsetStr.length; x++) {
         offset = offset + parseInt(offsetStr.charAt(x));
     }
     var trueSecretCode = "";
-    for (i = 0; i < secretcode.length; i++) {
-        var ascii = secretcode.charAt(i).charCodeAt();
-        var off = offset;        
+    for (idx = 0; idx < secretcode.length; idx++) {
+        var ascii = secretcode.charAt(idx).charCodeAt();
+        var off = offset;
         ascii = parseInt(ascii) + parseInt(offset) - parseInt((parseInt(offsetStr) % 10).toString().charCodeAt());
         trueSecretCode = trueSecretCode + String.fromCharCode(ascii);
     }
@@ -123,11 +125,10 @@ function getSign() {
     return new Sign(at, hex_md5(at + trueSecretCode + rndCode).toUpperCase(), rndCode);
 }
 
-function addPreZero(num) {    
+function addPreZero(num) {
     if (num < 10) {
         return '00' + num;
     } else {
         return num;
     }
 }
-

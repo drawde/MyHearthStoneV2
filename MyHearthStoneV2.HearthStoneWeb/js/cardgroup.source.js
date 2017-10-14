@@ -11,7 +11,6 @@ function saveCardGroup() {
         showMessage("请输入卡组名称!"); return;
     }
     showLoader();
-    var sign = getSign();
     var cards = "";
     $("#cbp-spmenu-s2 [cardCode]").each(function () {
         if (!!cards) {
@@ -22,7 +21,7 @@ function saveCardGroup() {
         cards = cards + $(this).attr("cardCode") + " X" + count;
     });
     var param = "{\"GroupName\":\"" + $("#cbp-spmenu-s2 h3 input").val() + "\",\"Cards\":\"" + cards + "\",\"UserCode\":\"" + getUserCode() + "\",\"GroupCode\":\"" + $("#GroupCode").val() + "\",\"Profession\":\"" + window.location.hash.substr(1) + "\"}";
-    ajaxGetData("/Users/SaveCardGroup", param, sign.rndStr, sign.sign, sign.sendTime, function (data) {
+    ajaxGetData("/Users/SaveCardGroup", param, signObj, function (data) {
         showMessage(data.msg, function () {
             hideLoader();
             if (data.code == 100) {

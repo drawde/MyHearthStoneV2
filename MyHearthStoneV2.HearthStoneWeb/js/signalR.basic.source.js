@@ -27,10 +27,10 @@
 
     $.connection.hub.start().done(function () {
         var interval = setInterval(function () {
-            if (!!apiTime) {
+            if (!!apiTime && !!signObj) {
                 clearInterval(interval);
                 var param = "{\"NickName\":\"" + getNickName() + "\",\"TableID\":\"" + getUrlParam("saloonid") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + getUrlParam("password") + "\"}";
-                roomHub.server.online(appendParam(param, getSign())).done(function (res) {
+                roomHub.server.online(appendParam(param, signObj)).done(function (res) {
                     res = JSON.parse(res);
                     hideLoader();
                     if (res.code == 100) {
@@ -70,5 +70,5 @@ function clearUnReadMessage() {
 
 window.onbeforeunload = function () {
     var param = "{\"TableID\":\"" + getUrlParam("saloonid") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
-    roomHub.server.leaveRoom(appendParam(param, getSign()));
+    roomHub.server.leaveRoom(appendParam(param, signObj));
 }

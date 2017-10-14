@@ -213,6 +213,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="gulpfile.js" />
     <Content Include="images\baraja\1.jpg" />
     <Content Include="images\baraja\10.jpg" />
     <Content Include="images\baraja\11.jpg" />
@@ -265,6 +266,7 @@
     <Content Include="js\cardgroup.source.js" />
     <Content Include="js\chosencardgroup.source.js" />
     <Content Include="js\chunk.js" />
+    <Content Include="js\dist\apisign.js" />
     <Content Include="js\index.js" />
     <Content Include="js\login.js" />
     <Content Include="js\main.js" />

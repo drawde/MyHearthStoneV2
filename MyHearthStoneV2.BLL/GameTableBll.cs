@@ -57,20 +57,20 @@ namespace MyHearthStoneV2.BLL
         /// <param name="gameTableID"></param>
         /// <param name="userCode"></param>
         /// <returns></returns>
-        public APITextResult ZhanZuoEr(int gameTableID, string userCode, string password)
+        public APITextResult ZhanZuoEr(string tableCode, string userCode, string password)
         {
-            if (gameTableID < 1 || userCode.IsNullOrEmpty())
+            if (tableCode.IsNullOrEmpty() || userCode.IsNullOrEmpty())
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
-            var lstTables = _repository.GetList(c => c.ID == gameTableID && c.Password == password).Result;
-            
+            var lstTables = _repository.GetList(c => c.TableCode == tableCode && c.Password == password).Result;
+
             if (lstTables.TotalItemsCount < 1)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
             var gameTable = lstTables.Items.First();
-            if (_repository.Get(c => (c.PlayerUserCode == userCode || c.CreateUserCode == userCode) && c.ID != gameTableID).Result.TotalItemsCount > 0)
+            if (_repository.Get(c => (c.PlayerUserCode == userCode || c.CreateUserCode == userCode) && c.TableCode != tableCode).Result.TotalItemsCount > 0)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.同时只能创建或占用一个游戏房间);
             }

@@ -13,9 +13,8 @@
             return false;
         }
         showLoader();
-        var sign = getSign();
         var param = "{\"Name\":\"" + $("input[name='name']").val() + "\",\"Password\":\"" + $("input[name='password']").val() + "\",\"UserCode\":\"" + getUserCode() + "\"}";
-        ajaxGetData("/Saloon/CreateOrUpdate", param, sign.rndStr, sign.sign, sign.sendTime, function (data) {
+        ajaxGetData("/Saloon/CreateOrUpdate", param, signObj, function (data) {
             showMessage(data.msg, function () {
                 hideLoader();
                 if (data.code == 100) {
@@ -29,9 +28,8 @@
 });
 var PageNo = 1;
 function getSaloons() {
-    var sign = getSign();
     var param = "{\"PageSize\":\"10\",\"PageNo\":\"" + PageNo + "\"}";
-    ajaxGetData("/Saloon/GetSaloons", param, sign.rndStr, sign.sign, sign.sendTime, function (data) {
+    ajaxGetData("/Saloon/GetSaloons", param, signObj, function (data) {
         hideLoader();
         if (data.code == 100) {
             //console.log(data.Items);
@@ -71,9 +69,8 @@ function zhanZuoEr(id, needPassword) {
 }
 function goRoom(id, ipt) {
     showLoader();
-    var sign = getSign();
     var param = "{\"TableID\":\"" + id + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + ipt + "\"}";
-    ajaxGetData("/Saloon/ZhanZuoEr", param, sign.rndStr, sign.sign, sign.sendTime, function (data) {
+    ajaxGetData("/Saloon/ZhanZuoEr", param, signObj, function (data) {
         hideLoader();
         if (data.code == 100) {
             window.location = "/Game/ChosenCardGroup?saloonid=" + id + "&password=" + ipt;

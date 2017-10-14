@@ -123,8 +123,8 @@ function verify_register_form(element) {
                         }
                         else {
                             var param = "{\"UserName\":\"" + $("#UserName").val() + "\"}";
-                            ajaxGetData("/Users/ValidateUserName", param,"","","", function (data) {                                
-                                if (data.code != "100") {                                    
+                            ajaxGetData("/Users/ValidateUserName", param, null, function (data) {
+                                if (data.code != "100") {
                                     _this.parent().find('.aw-reg-tips').detach();
                                     _this.parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' + data.msg + '</span>');
                                 }
@@ -132,7 +132,7 @@ function verify_register_form(element) {
                                     _this.parent().find('.aw-reg-tips').detach();
                                     _this.parent().append('<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>');
                                 }
-                            });                            
+                            });
                         }
                         return;
                     case 'NickName':

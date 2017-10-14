@@ -210,19 +210,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\Chat\ChatHub.cs" />
-    <Compile Include="Hubs\Chat\ChatUser.cs" />
-    <Compile Include="Hubs\Chat\ChatUserCache.cs" />
-    <Compile Include="Hubs\Chat\ChatUserCompare.cs" />
-    <Compile Include="Hubs\Chat\IChatHub.cs" />
     <Compile Include="Hubs\ChosenCardGroup\ChosenCardGroupHub.cs" />
-    <Compile Include="Hubs\ChosenCardGroup\ChosenCardGroupUserCache.cs" />
     <Compile Include="Hubs\ChosenCardGroup\IChosenCardGroupHub.cs" />
-    <Compile Include="Hubs\Connection.cs" />
-    <Compile Include="Hubs\ConversationRoom.cs" />
     <Compile Include="Hubs\IHub.cs" />
-    <Compile Include="Hubs\SignalRUser.cs" />
-    <Compile Include="Hubs\UserContextProxy.cs" />
     <Compile Include="Models\SignalRUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

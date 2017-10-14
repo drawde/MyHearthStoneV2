@@ -21,10 +21,6 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
     {
         public override Task OnConnected()
         {
-            if (UserContextProxy.Rooms == null)
-            {
-                UserContextProxy.Init();
-            }
             return base.OnConnected();
         }
         /// <summary>
@@ -40,63 +36,31 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
             string userCode = jobj["UserCode"].TryParseString();
             string userName = jobj["NickName"].TryParseString();
             string password = jobj["Password"].TryParseString();
-            int tableID = jobj["TableID"].Value<int>();
+            string tableCode = jobj["TableCode"].Value<string>();
 
-            var textRes = GameTableBll.Instance.ZhanZuoEr(tableID, userCode, password);
+            var textRes = GameTableBll.Instance.ZhanZuoEr(tableCode, userCode, password);
             if (textRes.code != (int)OperateResCodeEnum.成功)
             {
                 return JsonConvert.SerializeObject(textRes);
             }
 
-            HS_GameTable table = GameTableBll.Instance.GetById(tableID);
+            HS_GameTable table = GameTableBll.Instance.GetTable(tableCode);
             if (table != null)
             {
                 // 查询用户。
-                var user = UserContextProxy.Users.SingleOrDefault(u => u.UserCode == userCode);
-                if (user == null)
-                {
-                    user = new SignalRUser()
-                    {
-                        NickName = userName,
-                        UserCode = userCode,
-                    };
-                    UserContextProxy.AddUser(user);
-                }
-                else
-                {
-                    user.IsReady = false;
-                    user.ChosenCardGroupCode = "";
-                }
-                ConversationRoom room = UserContextProxy.Rooms.FirstOrDefault(c => c.RoomName == table.TableName + "-" + tableID);
-                if (room == null)
-                {
-                    room = new ConversationRoom();
-                    room.RoomName = table.TableName + "-" + tableID;
-                    room.TableID = tableID;
-                    room.Users.Add(user);
-                    UserContextProxy.AddRoom(room);
-                    //user.room = room;
-                    
-                }
-                else
-                {
-                    if (!room.Users.Any(c => c.UserCode == userCode))
-                    {
-                        room.Users.Add(user);
-                    }
-                    UserContextProxy.SetRoom(room);
-                }
-                //user.room = room;
-                Groups.Add(Context.ConnectionId, room.RoomName);
-                //UserContextProxy.SetUser(user);
-                
+                //var user = GameRecordBll.GetUser(userCode, table.TableCode);
+                //var record = ((APISingleModelResult<FF_GameRecord>)textRes).data;
 
-                SendOnlineNotice(userCode, room.RoomName, "用户：" + user.NickName + "进入房间");
+                Groups.Add(Context.ConnectionId, table.TableCode);
+                //UserContextProxy.SetUser(user);
+
+                var record = GameRecordBll.Instance.GetUser(userCode, tableCode);
+                SendOnlineNotice(record, table.TableCode, "用户：" + userName + "进入房间");
             }
             else
             {
                 return JsonStringResult.VerifyFail();
-            }            
+            }
             return JsonConvert.SerializeObject(textRes);
         }
 

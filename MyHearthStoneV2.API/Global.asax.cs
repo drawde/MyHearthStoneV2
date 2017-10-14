@@ -33,9 +33,9 @@ namespace MyHearthStoneV2.API
             using (var redisClient = RedisManager.GetClient())
             {
                 //设置超级管理员
-                redisClient.Set<string>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SuperAdminUserCode), "58657C04BCADF3C6AA26F2B79D24994D");
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.SuperAdminUserCode), "58657C04BCADF3C6AA26F2B79D24994D");
 
-                redisClient.Set<string>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CSSAndJSVersion), SystemConfigBll.Instance.GetValueByKey(RedisCategoryKeyEnum.CSSAndJSVersion.ToString())); 
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CSSAndJSVersion), SystemConfigBll.Instance.GetValueByKey(RedisCategoryKeyEnum.CSSAndJSVersion.ToString())); 
             }
         }
     }

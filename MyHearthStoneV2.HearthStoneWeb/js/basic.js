@@ -3,6 +3,8 @@ var PageIndex = 1;
 var TotalCount = 0;
 var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
 var mobilereg = /^1(3|4|5|7|8)\d{9}$/;
+var signObj;
+var apiTime;
 //获取url中的参数
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -16,10 +18,14 @@ function getUrlParam(name) {
  * @param params 请求参数
  * @param dealfun 对接口数据返回的处理方式
  */
-function ajaxGetData(method, params, nonce_str, sign, apitime, backfun) {
+function ajaxGetData(method, params, sign, backfun) {
     methodurl = APIURL + method;
-    var data = "{\"param\":" + params + ",\"nonce_str\":\"" + nonce_str + "\",\"sign\":\"" + sign + "\",\"apitime\":\"" + apitime + "\",\"usercode\":\"" + getUserCode() + "\"}";
-    //console.log(data);
+    var data = "{\"param\":" + params;
+    if (sign) {
+        data += ",\"nonce_str\":\"" + sign.nonce_str + "\",\"sign\":\"" + sign.sign + "\",\"apitime\":\"" + sign.apitime + "\",\"usercode\":\"" + getUserCode();
+    }
+    data += "}";
+    console.log(data);
     $.ajax({
         type: "post",
         url: methodurl,
