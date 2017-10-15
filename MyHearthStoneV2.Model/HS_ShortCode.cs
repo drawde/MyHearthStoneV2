@@ -12,15 +12,11 @@ namespace MyHearthStoneV2.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class HS_Game :BaseEntity
+    public partial class HS_ShortCode :BaseEntity
     {
         public long ID { get; set; }
-        public string GameCode { get; set; }
-        public string FirstUserCode { get; set; }
-        public string SecondUserCode { get; set; }
-        public bool IsFirstUserWin { get; set; }
+        public string Code { get; set; }
         public System.DateTime AddTime { get; set; }
-        public string CurrentRoundCode { get; set; }
-        public string NextRoundCode { get; set; }
+        public string Data { get; set; }
     }
 }

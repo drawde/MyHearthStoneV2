@@ -37,5 +37,6 @@ namespace MyHearthStoneV2.DAL
         public virtual DbSet<HS_LoginToken> hs_logintoken { get; set; }
         public virtual DbSet<HS_SystemConfig> hs_systemconfig { get; set; }
         public virtual DbSet<HS_GameTable> hs_gametable { get; set; }
+        public virtual DbSet<HS_ShortCode> hs_shortcode { get; set; }
     }
 }

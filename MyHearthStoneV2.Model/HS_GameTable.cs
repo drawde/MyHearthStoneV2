@@ -20,5 +20,6 @@ namespace MyHearthStoneV2.Model
         public string PlayerUserCode { get; set; }
         public string Password { get; set; }
         public System.DateTime AddTime { get; set; }
+        public string TableCode { get; set; }
     }
 }

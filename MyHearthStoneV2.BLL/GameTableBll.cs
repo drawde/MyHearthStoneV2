@@ -19,7 +19,10 @@ namespace MyHearthStoneV2.BLL
         {
         }
         public static GameTableBll Instance = new GameTableBll();
-
+        public HS_GameTable GetTable(string tableCode)
+        {
+            return _repository.Get(c => c.TableCode == tableCode).Result.Items.FirstOrDefault();
+        }
         public APITextResult AddOrUpdate(HS_GameTable gameTable)
         {
             if (gameTable.CreateUserCode.IsNullOrEmpty() || gameTable.TableName.IsNullOrEmpty())

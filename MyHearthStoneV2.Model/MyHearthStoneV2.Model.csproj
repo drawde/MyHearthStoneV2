@@ -84,6 +84,9 @@
     <Compile Include="HS_LoginToken.cs">
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>
+    <Compile Include="HS_ShortCode.cs">
+      <DependentUpon>HS.tt</DependentUpon>
+    </Compile>
     <Compile Include="HS_SystemConfig.cs">
       <DependentUpon>HS.tt</DependentUpon>
     </Compile>

@@ -49,11 +49,11 @@ namespace MyHearthStoneV2.API.Controllers
         public ActionResult ZhanZuoEr()
         {
             var param = JObject.Parse(TempData["param"].TryParseString());
-            int tableID = param["TableID"].TryParseInt();
+            string tableCode = param["TableCode"].TryParseString();
             string UserCode = param["UserCode"].TryParseString();
             string Password = param["Password"].TryParseString();
 
-            var resModel = GameTableBll.Instance.ZhanZuoEr(tableID, UserCode, Password);
+            var resModel = GameTableBll.Instance.ZhanZuoEr(tableCode, UserCode, Password);
             return Content(JsonConvert.SerializeObject(resModel));
         }
     }

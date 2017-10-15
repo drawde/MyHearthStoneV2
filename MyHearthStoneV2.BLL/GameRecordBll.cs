@@ -9,7 +9,8 @@ using MyHearthStoneV2.DAL.Impl;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Common.Util;
-
+using MyHearthStoneV2.Common.JsonModel;
+using MyHearthStoneV2.Common.Enum;
 
 namespace MyHearthStoneV2.BLL
 {
@@ -20,5 +21,6 @@ namespace MyHearthStoneV2.BLL
         {
         }
         public static GameRecordBll Instance = new GameRecordBll();
+        
     }
 }
