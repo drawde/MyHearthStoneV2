@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Verificatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.APIMonitor", "MyHearthStoneV2.APIMonitor\MyHearthStoneV2.APIMonitor.csproj", "{2C8BA1DB-C965-406E-868F-654E70E58F05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.ShortCodeService", "MyHearthStoneV2.ShortCodeService\MyHearthStoneV2.ShortCodeService.csproj", "{A8BF46BB-B5BE-4311-8027-D158443D077A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{2C8BA1DB-C965-406E-868F-654E70E58F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C8BA1DB-C965-406E-868F-654E70E58F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C8BA1DB-C965-406E-868F-654E70E58F05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8BF46BB-B5BE-4311-8027-D158443D077A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8BF46BB-B5BE-4311-8027-D158443D077A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8BF46BB-B5BE-4311-8027-D158443D077A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8BF46BB-B5BE-4311-8027-D158443D077A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

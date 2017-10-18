@@ -50,6 +50,16 @@ namespace MyHearthStoneV2.Redis
         /// <summary>
         /// 游戏房间
         /// </summary>
-        SignalRRoom = 6
+        SignalRRoom = 6,
+
+        /// <summary>
+        /// 短码
+        /// </summary>
+        ShortCodeKey = 7,
+
+        /// <summary>
+        /// 测试用
+        /// </summary>
+        Test = 8
     }
 }

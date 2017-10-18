@@ -18,5 +18,6 @@ namespace MyHearthStoneV2.Model
         public string Code { get; set; }
         public System.DateTime AddTime { get; set; }
         public string Data { get; set; }
+        public int CodeType { get; set; }
     }
 }

@@ -21,4 +21,18 @@ namespace MyHearthStoneV2.Model
         Web = 4,
         Admin = 5
     }
+
+    /// <summary>
+    /// 短码类别
+    /// </summary>
+    public enum ShortCodeTypeEnum
+    {
+        卡牌 = 1,
+        GameCode = 2,
+        GameRoundCode = 3,
+        TableCode = 4,
+        InvitationCode = 5,
+        CardGroupCode = 6,
+        CardGroupPublicCode = 7,
+    }
 }
