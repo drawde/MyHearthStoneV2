@@ -29,7 +29,7 @@
         var interval = setInterval(function () {
             if (!!apiTime && !!signObj) {
                 clearInterval(interval);
-                var param = "{\"NickName\":\"" + getNickName() + "\",\"TableID\":\"" + getUrlParam("saloonid") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + getUrlParam("password") + "\"}";
+                var param = "{\"NickName\":\"" + getNickName() + "\",\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + getUrlParam("password") + "\"}";
                 roomHub.server.online(appendParam(param, signObj)).done(function (res) {
                     res = JSON.parse(res);
                     hideLoader();
@@ -69,6 +69,6 @@ function clearUnReadMessage() {
 }
 
 window.onbeforeunload = function () {
-    var param = "{\"TableID\":\"" + getUrlParam("saloonid") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
+    var param = "{\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
     roomHub.server.leaveRoom(appendParam(param, signObj));
 }

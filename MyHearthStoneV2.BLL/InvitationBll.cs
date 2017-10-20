@@ -46,11 +46,7 @@ namespace MyHearthStoneV2.BLL
                     return JsonStringResult.Error(Common.Enum.OperateResCodeEnum.参数错误);
                 }
             }
-            string code = RandomUtil.CreateRandomStr(10);
-            while (IsRepeatCode(code))
-            {
-                code = RandomUtil.CreateRandomStr(10);
-            }
+            string code = ShortCodeBll.Instance.CreateCode(userCode, ShortCodeTypeEnum.InvitationCode);
 
             HS_Invitation invitation = new HS_Invitation();
             invitation.AddTime = DateTime.Now;

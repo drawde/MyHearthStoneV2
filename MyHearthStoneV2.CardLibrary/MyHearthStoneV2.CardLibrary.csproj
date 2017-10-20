@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Base\Card.cs" />
     <Compile Include="Base\IBiology.cs" />
-    <Compile Include="CardUtil.cs" />
     <Compile Include="Hero\BaseHero.cs" />
     <Compile Include="Hero\Druid.cs" />
     <Compile Include="Hero\Hunter.cs" />

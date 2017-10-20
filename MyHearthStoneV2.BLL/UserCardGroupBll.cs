@@ -100,13 +100,13 @@ namespace MyHearthStoneV2.BLL
                     cardGroupModel.UserCode = UserCode;
                     cardGroupModel.GroupName = GroupName;
                     cardGroupModel.Profession = Profession;
-                    cardGroupModel.GroupCode = SignUtil.CreateSign(UserCode + DateTime.Now.ToString("yyyyMMddHHmmss") + RandomUtil.CreateRandomStr(5));
-                    cardGroupModel.PublicCode = "";
+                    cardGroupModel.GroupCode = ShortCodeBll.Instance.CreateCode(cardGroupModel.GroupName, ShortCodeTypeEnum.CardGroupCode);
+                    cardGroupModel.PublicCode = ShortCodeBll.Instance.CreateCode(cardGroupModel.GroupName, ShortCodeTypeEnum.CardGroupPublicCode);
                     context.hs_usercardgroup.Add(cardGroupModel);
                 }
 
                 StringBuilder publicCode = new StringBuilder();
-                List<HS_UserCardGroupDetail> lstCardCodes = new List<HS_UserCardGroupDetail>();
+                //List<HS_UserCardGroupDetail> lstCardCodes = new List<HS_UserCardGroupDetail>();
                 foreach (var dic in dicCardGroup)
                 {
                     for (int i = 0; i < dic.Value; i++)
@@ -120,11 +120,11 @@ namespace MyHearthStoneV2.BLL
                         detail.GroupCode = cardGroupModel.GroupCode;
                         detail.UserCode = UserCode;
                         context.hs_usercardgroupdetail.Add(detail);
-                        lstCardCodes.Add(detail);
+                        //lstCardCodes.Add(detail);
                     }
                 }
-                lstCardCodes.OrderBy(c => c.Cost).ToList().ForEach(c => publicCode.Append(c.CardCode));
-                cardGroupModel.PublicCode = SignUtil.CreateSign(publicCode.ToString());
+                //lstCardCodes.OrderBy(c => c.Cost).ToList().ForEach(c => publicCode.Append(c.CardCode));
+                //cardGroupModel.PublicCode = SignUtil.CreateSign(publicCode.ToString());
 
                 context.SaveChanges();
             }

@@ -1,7 +1,7 @@
 ﻿$(function () {
     showLoader();
     var interval = setInterval(function () {
-        if (!!apiTime) {
+        if (!!apiTime && !!signObj) {
             getSaloons();
             clearInterval(interval);
         }
@@ -18,7 +18,7 @@
             showMessage(data.msg, function () {
                 hideLoader();
                 if (data.code == 100) {
-                    window.location = "/Game/ChosenCardGroup?saloonid=" + data.data + "&password=" + $("input[name='password']").val();
+                    window.location = "/Game/ChosenCardGroup?TableCode=" + data.data + "&password=" + $("input[name='password']").val();
                 }
             });
         });
@@ -49,7 +49,7 @@ function getSaloons() {
                     "</div>" +
                     "</div>" +
                     "<div class=\"action\">" +
-                    "<a href=\"javascript:zhanZuoEr(" + data.data.Items[i].ID + "," + needPassword + ");\" class=\"btn\">进入房间</a>" +
+                    "<a href=\"javascript:zhanZuoEr('" + data.data.Items[i].TableCode + "'," + needPassword + ");\" class=\"btn\">进入房间</a>" +
                     "</div>" +
                     "</div>");
             }
@@ -57,23 +57,23 @@ function getSaloons() {
     });
 }
 
-function zhanZuoEr(id, needPassword) {
+function zhanZuoEr(tableCode, needPassword) {
     if (needPassword) {
         showInput("请输入你的密码", "text", function (ipt) {
-            goRoom(id, ipt);
+            goRoom(tableCode, ipt);
         });
     }
     else {
-        goRoom(id, '');
+        goRoom(tableCode, '');
     }
 }
-function goRoom(id, ipt) {
+function goRoom(tableCode, ipt) {
     showLoader();
-    var param = "{\"TableID\":\"" + id + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + ipt + "\"}";
+    var param = "{\"TableCode\":\"" + tableCode + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + ipt + "\"}";
     ajaxGetData("/Saloon/ZhanZuoEr", param, signObj, function (data) {
         hideLoader();
         if (data.code == 100) {
-            window.location = "/Game/ChosenCardGroup?saloonid=" + id + "&password=" + ipt;
+            window.location = "/Game/ChosenCardGroup?TableCode=" + tableCode + "&password=" + ipt;
         }
         else {
             showErrorMessage(data.msg);

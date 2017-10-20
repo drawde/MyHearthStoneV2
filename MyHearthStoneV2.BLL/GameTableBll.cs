@@ -41,6 +41,7 @@ namespace MyHearthStoneV2.BLL
             }
             else
             {
+                gameTable.TableCode = ShortCodeBll.Instance.CreateCode(gameTable.TableName, ShortCodeTypeEnum.TableCode);
                 gameTable.PlayerUserCode = "";
                 gameTable.AddTime = DateTime.Now;
                 using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())

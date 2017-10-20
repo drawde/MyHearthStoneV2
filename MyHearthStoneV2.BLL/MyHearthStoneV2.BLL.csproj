@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBLL.cs" />
+    <Compile Include="CardUtil.cs" />
     <Compile Include="DataExchangeBll.cs" />
     <Compile Include="ErrRecBll.cs" />
     <Compile Include="GameRecordBll.cs" />

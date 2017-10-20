@@ -8,10 +8,6 @@
     if (!!groupCode) {
         $("#grid").fadeOut(500, function () { $("#cards").fadeIn(500); classie.toggle(document.getElementById('cbp-spmenu-s2'), 'cbp-spmenu-open'); });
     }
-    if (!ISDEBUG) {
-        eval($("#dst").val());
-        eval($("#tsd").val());
-    }
 });
 function repick() {
     $("#cards").fadeOut(500, function () { $("#grid").fadeIn(500); classie.toggle(document.getElementById('cbp-spmenu-s2'), 'cbp-spmenu-open'); });

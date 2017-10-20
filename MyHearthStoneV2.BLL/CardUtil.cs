@@ -5,6 +5,7 @@ using MyHearthStoneV2.CardLibrary.Servant.NAXX;
 using MyHearthStoneV2.CardLibrary.Spell.Classical;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.Util;
+using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Redis;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace MyHearthStoneV2.CardLibrary
+namespace MyHearthStoneV2.BLL
 {
     public class CardUtil
     {
@@ -31,7 +32,7 @@ namespace MyHearthStoneV2.CardLibrary
             lstCard.Add(new XiaoZhiZhu());
             lstCard.Add(new LuckyCoin());
 
-            lstCard.ForEach(c => c.CardCode = SignUtil.CreateSign(c.GetType().Name));
+            lstCard.ForEach(c => c.CardCode = ShortCodeBll.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);
             using (var redisClient = RedisManager.GetClient())
             {
                 redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance), lstCard);

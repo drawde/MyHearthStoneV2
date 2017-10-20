@@ -27,6 +27,7 @@ namespace MyHearthStoneV2.Model
     /// </summary>
     public enum ShortCodeTypeEnum
     {
+        无 = 0,
         卡牌 = 1,
         GameCode = 2,
         GameRoundCode = 3,

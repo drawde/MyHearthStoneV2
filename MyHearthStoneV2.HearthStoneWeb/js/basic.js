@@ -22,10 +22,10 @@ function ajaxGetData(method, params, sign, backfun) {
     methodurl = APIURL + method;
     var data = "{\"param\":" + params;
     if (sign) {
-        data += ",\"nonce_str\":\"" + sign.nonce_str + "\",\"sign\":\"" + sign.sign + "\",\"apitime\":\"" + sign.apitime + "\",\"usercode\":\"" + getUserCode();
+        data += ",\"nonce_str\":\"" + sign.nonce_str + "\",\"sign\":\"" + sign.sign + "\",\"apitime\":\"" + sign.apitime + "\",\"usercode\":\"" + getUserCode() + "\"";
     }
     data += "}";
-    console.log(data);
+    //console.log(data);
     $.ajax({
         type: "post",
         url: methodurl,
@@ -47,7 +47,7 @@ function ajaxGetData(method, params, sign, backfun) {
 
 //拼接signalR接口的参数，如果不需要参数，param="{}"
 function appendParam(param, sign) {   
-    return param.substring(0, param.length - 1) + ",\"nonce_str\":\"" + sign.rndStr + "\",\"sign\":\"" + sign.sign + "\",\"apitime\":\"" + sign.sendTime + "\"}";
+    return param.substring(0, param.length - 1) + ",\"nonce_str\":\"" + sign.nonce_str + "\",\"sign\":\"" + sign.sign + "\",\"apitime\":\"" + sign.apitime + "\"}";
 }
 
 function logout() {    

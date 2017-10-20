@@ -1,7 +1,7 @@
 ﻿@using MyHearthStoneV2.Common.Util
 @using MyHearthStoneV2.Model
 @using MyHearthStoneV2.CardLibrary.Base
-@using MyHearthStoneV2.CardLibrary
+@using MyHearthStoneV2.BLL
 @using MyHearthStoneV2.CardLibrary.Hero
 @using System.Configuration
 @{
@@ -20,11 +20,8 @@
 @section js{
     <script src="/js/slide/classie.js"></script>
     <script src="/js/md5-min.js"></script>    
-    <script type="text/javascript">
-    var ISDEBUG = @(ConfigurationManager.AppSettings["IsDebug"].TryParseBool() ? "true" : "false");
-    </script>
 
-@(Html.Raw(SignUtil.ImportSignJsFile("/js/chosencardgroup.source.js")))
+@(Html.Raw(SignUtil.ImportSignJsFile("/js/chosencardgroup.source.js", ViewBag.cssAndJSVersion)))
 }
 @(Html.Raw(ViewBag.ConfusionStringToHTML))
 <div id="container" class="content-wrap">
@@ -49,9 +46,6 @@
 </div>
 
 @Html.Partial("/Views/Addons/SignalRChatFrame.cshtml", null)
-
-<input type="hidden" id="dst" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SINGJSTEXT)" />
-<input type="hidden" id="tsd" value="@(MyHearthStoneV2.BLL.SignJSTextBll.CARDGROUPJSTEXT)" />
 @section endjs{
     <script src="/js/notie/notie.js"></script>
 }

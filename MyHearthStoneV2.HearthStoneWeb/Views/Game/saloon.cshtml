@@ -10,16 +10,7 @@
 }
 @section js{
 <script src="/js/md5-min.js"></script>
-<script type="text/javascript">
-    var ISDEBUG = @(ConfigurationManager.AppSettings["IsDebug"].TryParseBool() ? "true" : "false");
-    $(function(){
-        if (!ISDEBUG) {
-            eval($("#dst").val());
-            eval($("#tsd").val());
-        }
-    });
-</script>
-@(Html.Raw(SignUtil.ImportSignJsFile("/js/saloon.source.js")))
+@(Html.Raw(SignUtil.ImportSignJsFile("/js/saloon.source.js", ViewBag.cssAndJSVersion)))
 }
 @(Html.Raw(ViewBag.ConfusionStringToHTML))
 <section class="feature-lists">
@@ -62,10 +53,6 @@
         </div>
     </div>
 </section>
-
-<input type="hidden" id="dst" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SINGJSTEXT)" />
-<input type="hidden" id="tsd" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SALOONJSTEXT)" />
-
 @section endjs{
     <script src="/js/notie/notie.js"></script>
 }

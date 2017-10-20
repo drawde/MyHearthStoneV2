@@ -86,10 +86,10 @@ function getConfusionOffset(now) {
 }
 
 //签名参数实体
-function Sign(sendTime, sign, rndStr) {
+function Sign(apitime, sign, nonce_str) {
     this.sign = sign;
-    this.rndStr = rndStr;
-    this.sendTime = sendTime;
+    this.nonce_str = nonce_str;
+    this.apitime = apitime;
 }
 
 //生成签名

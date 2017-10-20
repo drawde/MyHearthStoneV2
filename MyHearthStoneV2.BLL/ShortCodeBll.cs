@@ -21,7 +21,7 @@ namespace MyHearthStoneV2.BLL
         public static ShortCodeBll Instance = new ShortCodeBll();
         private static object obj = new object();
 
-        public string GetValue(string key)
+        public List<HS_ShortCode> GetList(string code = "", string data = "", ShortCodeTypeEnum codeType = ShortCodeTypeEnum.无)
         {
             LinkedList<HS_ShortCode> ht = null;
             try
@@ -31,24 +31,119 @@ namespace MyHearthStoneV2.BLL
                     ht = redisClient.Get<LinkedList<HS_ShortCode>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey));
                     if (ht != null && ht.Count > 0)
                     {
-                        return ht.Last.Value.Code;
-                    }
-                    else
-                    {
-
+                        var where = LDMFilter.True<HS_ShortCode>();
+                        if (!code.IsNullOrEmpty())
+                        {
+                            where = where.And(c => c.Code == code);
+                        }
+                        if (!data.IsNullOrEmpty())
+                        {
+                            where = where.And(c => c.Data == data);
+                        }
+                        if (codeType != ShortCodeTypeEnum.无)
+                        {
+                            where = where.And(c => c.CodeType == (int)codeType);
+                        }
+                        return ht.AsQueryable().Where(where).ToList();
                     }
                 }
             }
             catch (Exception)
             {
-                return GetValueFromDB(key);
+                return GetListFromDB(code, data, codeType);
             }
-            return GetValueFromDB(key);
+            return GetListFromDB(code, data, codeType);
         }
 
-        public string GetValueFromDB(string key)
+        public HS_ShortCode GetModel(string code = "", string data = "", ShortCodeTypeEnum codeType = ShortCodeTypeEnum.无)
         {
-            return _repository.Get(c => c.Code == key, "ID", 1, 1).Result.Items.FirstOrDefault().Data;
+            LinkedList<HS_ShortCode> ht = null;
+            try
+            {
+                using (var redisClient = RedisManager.GetClient())
+                {
+                    ht = redisClient.Get<LinkedList<HS_ShortCode>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey));
+                    if (ht != null && ht.Count > 0)
+                    {
+                        var where = LDMFilter.True<HS_ShortCode>();
+                        if (!code.IsNullOrEmpty())
+                        {
+                            where = where.And(c => c.Code == code);
+                        }
+                        if (!data.IsNullOrEmpty())
+                        {
+                            where = where.And(c => c.Data == data);
+                        }
+                        if (codeType != ShortCodeTypeEnum.无)
+                        {
+                            where = where.And(c => c.CodeType == (int)codeType);
+                        }
+                        return ht.AsQueryable().FirstOrDefault(where);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return GetModelFromDB(code, data, codeType);
+            }
+            return GetModelFromDB(code, data, codeType);
+        }
+
+        public HS_ShortCode GetModelFromDB(string code = "", string data = "", ShortCodeTypeEnum codeType = ShortCodeTypeEnum.无)
+        {
+            var where = LDMFilter.True<HS_ShortCode>();
+            if (!code.IsNullOrEmpty())
+            {
+                where = where.And(c => c.Code == code);
+            }
+            if (!data.IsNullOrEmpty())
+            {
+                where = where.And(c => c.Data == data);
+            }
+            if (codeType != ShortCodeTypeEnum.无)
+            {
+                where = where.And(c => c.CodeType == (int)codeType);
+            }
+            var res = _repository.GetList(where).Result;
+            if (res.TotalItemsCount > 0)
+            {
+                return res.Items.FirstOrDefault();
+            }
+            return null;
+        }
+
+        public List<HS_ShortCode> GetListFromDB(string code = "", string data = "", ShortCodeTypeEnum codeType = ShortCodeTypeEnum.无)
+        {
+            var where = LDMFilter.True<HS_ShortCode>();
+            if (!code.IsNullOrEmpty())
+            {
+                where = where.And(c => c.Code == code);
+            }
+            if (!data.IsNullOrEmpty())
+            {
+                where = where.And(c => c.Data == data);
+            }
+            if (codeType != ShortCodeTypeEnum.无)
+            {
+                where = where.And(c => c.CodeType == (int)codeType);
+            }
+            var res = _repository.GetList(where).Result;
+            if (res.TotalItemsCount > 0)
+            {
+                return res.Items.ToList();
+            }
+            return null;
+        }
+
+        public HS_ShortCode GetOrCreate(string data, ShortCodeTypeEnum codeType)
+        {
+            HS_ShortCode code = GetModel("", data, codeType);
+            if (code == null)
+            {
+                string shortCode = CreateCode(data, codeType);
+                code = GetModel(shortCode);
+            }
+            return code;
         }
 
         /// <summary>
