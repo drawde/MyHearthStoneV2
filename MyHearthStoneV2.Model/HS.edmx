@@ -38,22 +38,22 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GameCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FirstUserCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SecondUserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GameCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstUserCode" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="SecondUserCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="IsFirstUserWin" Type="bit" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
-          <Property Name="CurrentRoundCode" Type="varchar" MaxLength="32" Nullable="false" />
-          <Property Name="NextRoundCode" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CurrentRoundCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="NextRoundCode" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_GameRecord">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GameCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FirstUserCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SecondUserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GameCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstUserCode" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="SecondUserCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="IsFirstUserRound" Type="bit" Nullable="false" />
           <Property Name="Chessboard" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="RoundIndex" Type="int" Nullable="false" />
@@ -65,20 +65,24 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TableName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreateUserCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PlayerUserCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateUserCode" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="PlayerUserCode" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
-          <Property Name="TableCode" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="TableCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CreateUserIsReady" Type="bit" Nullable="false" />
+          <Property Name="PlayerIsReady" Type="bit" Nullable="false" />
+          <Property Name="CreateUserCardGroup" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="PlayerUserCardGroup" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_Invitation">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="InvitationCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FromUserCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ToUserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InvitationCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="FromUserCode" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="ToUserCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -115,12 +119,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="GroupName" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="GroupCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GroupCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
           <Property Name="Profession" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PublicCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PublicCode" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_UserCardGroupDetail">
           <Key>
@@ -140,13 +144,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Mobile" Type="varchar" MaxLength="13" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
-          <Property Name="SecretCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecretCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="HeadImg" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
@@ -173,7 +177,6 @@
           <EntitySet Name="HS_ErrRec" EntityType="MyHearthStoneV2.Model.HS_ErrRec" />
           <EntitySet Name="HS_Game" EntityType="MyHearthStoneV2.Model.HS_Game" />
           <EntitySet Name="HS_GameRecord" EntityType="MyHearthStoneV2.Model.HS_GameRecord" />
-          <EntitySet Name="HS_GameTable" EntityType="MyHearthStoneV2.Model.HS_GameTable" />
           <EntitySet Name="HS_Invitation" EntityType="MyHearthStoneV2.Model.HS_Invitation" />
           <EntitySet Name="HS_LoginToken" EntityType="MyHearthStoneV2.Model.HS_LoginToken" />
           <EntitySet Name="HS_SystemConfig" EntityType="MyHearthStoneV2.Model.HS_SystemConfig" />
@@ -181,6 +184,7 @@
           <EntitySet Name="HS_UserCardGroupDetail" EntityType="MyHearthStoneV2.Model.HS_UserCardGroupDetail" />
           <EntitySet Name="HS_Users" EntityType="MyHearthStoneV2.Model.HS_Users" />
           <EntitySet Name="HS_ShortCode" EntityType="MyHearthStoneV2.Model.HS_ShortCode" />
+          <EntitySet Name="HS_GameTable" EntityType="MyHearthStoneV2.Model.HS_GameTable" />
         </EntityContainer>
         <EntityType Name="HS_DataExchange">
           <Key>
@@ -215,47 +219,35 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="IsFirstUserWin" Type="Boolean" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CurrentRoundCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="NextRoundCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentRoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NextRoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HS_GameRecord">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="IsFirstUserRound" Type="Boolean" Nullable="false" />
           <Property Name="Chessboard" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="RoundIndex" Type="Int32" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="HS_GameTable">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TableName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreateUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PlayerUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TableCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HS_Invitation">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvitationCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FromUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ToUserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InvitationCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FromUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ToUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -282,12 +274,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="GroupName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="GroupCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GroupCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Profession" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PublicCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PublicCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="HS_UserCardGroupDetail">
           <Key>
@@ -307,13 +299,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="Mobile" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SecretCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecretCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="HeadImg" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NickName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -326,6 +318,22 @@
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Data" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="CodeType" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HS_GameTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="PlayerUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TableCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUserIsReady" Type="Boolean" Nullable="false" />
+          <Property Name="PlayerIsReady" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserCardGroup" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PlayerUserCardGroup" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -387,19 +395,6 @@
                 <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
                 <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
                 <ScalarProperty Name="GameCode" ColumnName="GameCode" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HS_GameTable">
-            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_GameTable">
-              <MappingFragment StoreEntitySet="HS_GameTable">
-                <ScalarProperty Name="TableCode" ColumnName="TableCode" />
-                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="PlayerUserCode" ColumnName="PlayerUserCode" />
-                <ScalarProperty Name="CreateUserCode" ColumnName="CreateUserCode" />
-                <ScalarProperty Name="TableName" ColumnName="TableName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -486,6 +481,23 @@
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HS_GameTable">
+            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_GameTable">
+              <MappingFragment StoreEntitySet="HS_GameTable">
+                <ScalarProperty Name="PlayerUserCardGroup" ColumnName="PlayerUserCardGroup" />
+                <ScalarProperty Name="CreateUserCardGroup" ColumnName="CreateUserCardGroup" />
+                <ScalarProperty Name="PlayerIsReady" ColumnName="PlayerIsReady" />
+                <ScalarProperty Name="CreateUserIsReady" ColumnName="CreateUserIsReady" />
+                <ScalarProperty Name="TableCode" ColumnName="TableCode" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PlayerUserCode" ColumnName="PlayerUserCode" />
+                <ScalarProperty Name="CreateUserCode" ColumnName="CreateUserCode" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

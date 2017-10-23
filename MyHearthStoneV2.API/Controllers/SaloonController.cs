@@ -28,6 +28,10 @@ namespace MyHearthStoneV2.API.Controllers
             gt.CreateUserCode = UserCode;
             gt.Password = Password;
             gt.TableName = Name;
+            gt.CreateUserCardGroup = "";
+            gt.CreateUserIsReady = false;
+            gt.PlayerIsReady = false;
+            gt.PlayerUserCardGroup = "";
 
             var resModel = GameTableBll.Instance.AddOrUpdate(gt);
             return Content(JsonConvert.SerializeObject(resModel));

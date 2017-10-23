@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.GameControler;
+using MyHearthStoneV2.Model.CustomModels;
 
 namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
 {    
@@ -29,40 +30,40 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
         /// <param name="userCode"></param>
         /// <param name="userName"></param>
         /// <param name="tableID"></param>        
-        //[SignalRMethod]
-        //public string Online(string param)
-        //{
-        //    JObject jobj = JObject.Parse(param);
-        //    string userCode = jobj["UserCode"].TryParseString();
-        //    string userName = jobj["NickName"].TryParseString();
-        //    string password = jobj["Password"].TryParseString();
-        //    string tableCode = jobj["TableCode"].Value<string>();
+        [SignalRMethod]
+        public string Online(string param)
+        {
+            JObject jobj = JObject.Parse(param);
+            string userCode = jobj["UserCode"].TryParseString();
+            string userName = jobj["NickName"].TryParseString();
+            string password = jobj["Password"].TryParseString();
+            string tableCode = jobj["TableCode"].Value<string>();
 
-        //    var textRes = GameTableBll.Instance.ZhanZuoEr(tableCode, userCode, password);
-        //    if (textRes.code != (int)OperateResCodeEnum.成功)
-        //    {
-        //        return JsonConvert.SerializeObject(textRes);
-        //    }
+            var textRes = GameTableBll.Instance.ZhanZuoEr(tableCode, userCode, password);
+            if (textRes.code != (int)OperateResCodeEnum.成功)
+            {
+                return JsonConvert.SerializeObject(textRes);
+            }
 
-        //    HS_GameTable table = GameTableBll.Instance.GetTable(tableCode);
-        //    if (table != null)
-        //    {
-        //        // 查询用户。
-        //        //var user = GameRecordBll.GetUser(userCode, table.TableCode);
-        //        //var record = ((APISingleModelResult<FF_GameRecord>)textRes).data;
+            HS_GameTable table = GameTableBll.Instance.GetTable(tableCode);
+            if (table != null)
+            {
+                // 查询用户。
+                //var user = GameRecordBll.GetUser(userCode, table.TableCode);
+                //var record = ((APISingleModelResult<FF_GameRecord>)textRes).data;
 
-        //        Groups.Add(Context.ConnectionId, table.TableCode);
-        //        //UserContextProxy.SetUser(user);
+                Groups.Add(Context.ConnectionId, table.TableCode);
+                //UserContextProxy.SetUser(user);
 
-        //        var record = GameRecordBll.Instance.GetUser(userCode, tableCode);
-        //        SendOnlineNotice(record, table.TableCode, "用户：" + userName + "进入房间");
-        //    }
-        //    else
-        //    {
-        //        return JsonStringResult.VerifyFail();
-        //    }
-        //    return JsonConvert.SerializeObject(textRes);
-        //}
+                var user = UsersBll.Instance.GetUser(userCode);
+                SendOnlineNotice(user, table.TableCode, "用户：" + userName + "进入房间");
+            }
+            else
+            {
+                return JsonStringResult.VerifyFail();
+            }
+            return JsonConvert.SerializeObject(textRes);
+        }
 
         /// <summary>
         /// 重写Hub连接断开的事件
@@ -78,25 +79,35 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
         {
             JObject jobj = JObject.Parse(param);
             string userCode = jobj["UserCode"].TryParseString();
-            int tableID = jobj["TableID"].Value<int>();
+            string tableCode = jobj["TableCode"].TryParseString();
             string cardGroupCode = jobj["CardGroupCode"].TryParseString();
-            //查找房间是否存在
-            //    var room = UserContextProxy.Rooms.Find(a => a.TableID == tableID);
-            //    //存在则进入删除
-            //    if (room != null && room.Users.Any(c => c.UserCode == userCode))
-            //    {
-            //        SignalRUser user = UserContextProxy.Users.First(c => c.UserCode == userCode);
-            //        user.IsReady = true;
-            //        user.ChosenCardGroupCode = cardGroupCode;
-            //        UserContextProxy.SetUser(user);
-            //        //提示客户端                
-            //        SendReadyNotice(room.RoomName, "用户：" + room.Users.First(c => c.UserCode == userCode).NickName + "已经准备好了", userCode);
+            string nickName = jobj["NickName"].TryParseString();
 
-            //        if (room.Users.Any(c => c.UserCode != userCode && c.IsReady))
-            //        {
-            //            Go(room);
-            //        }
-            //    }
+            //查找房间是否存在
+            var gameTable = GameTableBll.Instance.GetTable(tableCode);
+            //存在则进入删除
+            if (gameTable != null)
+            {
+                if (gameTable.PlayerUserCode == userCode)
+                {
+                    gameTable.PlayerIsReady = true;
+                    gameTable.PlayerUserCardGroup = cardGroupCode;
+                }
+                else if (gameTable.CreateUserCode == userCode)
+                {
+                    gameTable.CreateUserIsReady = true;
+                    gameTable.CreateUserCardGroup = cardGroupCode;
+                }
+                GameTableBll.Instance.Update(gameTable);
+
+                //提示客户端                
+                SendReadyNotice(tableCode, "用户：" + nickName + "已经准备好了", userCode);
+
+                if (gameTable.CreateUserIsReady && gameTable.PlayerIsReady)
+                {
+                    Go(gameTable);
+                }
+            }
         }
 
         /// <summary>
@@ -109,9 +120,9 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
         {
             JObject jobj = JObject.Parse(param);
             string userCode = jobj["UserCode"].TryParseString();
-            int tableID = jobj["TableID"].Value<int>();
+            int TableCode = jobj["TableCode"].Value<int>();
             //查找房间是否存在
-            //var room = UserContextProxy.Rooms.Find(a => a.TableID == tableID);
+            //var room = UserContextProxy.Rooms.Find(a => a.TableCode == TableCode);
             ////存在则进入删除
             //if (room != null)
             //{
@@ -137,13 +148,29 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
         /// <summary>
         /// 双方都已选好卡组后，自动进入游戏
         /// </summary>
-        //private void Go(ConversationRoom room)
-        //{
-        //    int firstPlayerIndex = RandomUtil.CreateRandomInt(0, 1);
-        //    var res = ControllerProxy.CreateGame(room.Users[firstPlayerIndex].UserCode, room.Users[1].UserCode, 
-        //        room.Users[firstPlayerIndex].ChosenCardGroupCode, room.Users[1].ChosenCardGroupCode) as APITextResult;
-        //    Clients.Group(room.RoomName, new string[0]).go(res.data);
-        //}
+        private void Go(HS_GameTable gameTable)
+        {
+            int firstPlayerIndex = RandomUtil.CreateRandomInt(0, 1);
+            string firstPlayerCode = "", secontPlayerCode = "", firstPlayerCardGroup = "", secondPlayerCardGroup = "";
+            if (firstPlayerIndex == 0)
+            {
+                firstPlayerCode = gameTable.CreateUserCode;
+                firstPlayerCardGroup = gameTable.CreateUserCardGroup;
+
+                secontPlayerCode = gameTable.PlayerUserCode;
+                secondPlayerCardGroup = gameTable.PlayerUserCardGroup;
+            }
+            else
+            {
+                firstPlayerCode = gameTable.PlayerUserCode;
+                firstPlayerCardGroup = gameTable.PlayerUserCardGroup;
+
+                secontPlayerCode = gameTable.CreateUserCode;
+                secondPlayerCardGroup = gameTable.CreateUserCardGroup;
+            }
+            var res = ControllerProxy.CreateGame(firstPlayerCode, secontPlayerCode, firstPlayerCardGroup, secondPlayerCardGroup) as APITextResult;
+            Clients.Group(gameTable.TableCode, new string[0]).go(res.data);
+        }
 
         [SignalRMethod]
         public void Bordcast(string param)
@@ -151,23 +178,19 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
             
         }
 
-        //public void SendOnlineNotice(string userCode,string roomName, string chatContent)
-        //{
-        //    var user = UserContextProxy.Users.Where(a => a.UserCode == userCode).FirstOrDefault();
-        //    if (user != null)
-        //    {
-        //        Clients.Group(roomName, new string[0]).receiveOnlineNotice(user.NickName, chatContent);
-        //    }
-        //}
+        public void SendOnlineNotice(CUsers user, string tableCode, string chatContent)
+        {
+            Clients.Group(tableCode, new string[0]).receiveOnlineNotice(chatContent, JsonConvert.SerializeObject(user));
+        }
 
         private void SendBordcast(string roomName, string message,string senderUserCode)
         {
             Clients.Group(roomName, new string[0]).receiveBordcast(message, senderUserCode);
         }
 
-        private void SendReadyNotice(string roomName, string message, string senderUserCode)
+        private void SendReadyNotice(string tableCode, string message, string senderUserCode)
         {
-            Clients.Group(roomName, new string[0]).receiveReadyNotice(message, senderUserCode);
+            Clients.Group(tableCode, new string[0]).receiveReadyNotice(message, senderUserCode);
         }
 
         /// <summary>

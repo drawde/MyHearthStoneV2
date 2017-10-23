@@ -21,5 +21,9 @@ namespace MyHearthStoneV2.Model
         public string Password { get; set; }
         public System.DateTime AddTime { get; set; }
         public string TableCode { get; set; }
+        public bool CreateUserIsReady { get; set; }
+        public bool PlayerIsReady { get; set; }
+        public string CreateUserCardGroup { get; set; }
+        public string PlayerUserCardGroup { get; set; }
     }
 }

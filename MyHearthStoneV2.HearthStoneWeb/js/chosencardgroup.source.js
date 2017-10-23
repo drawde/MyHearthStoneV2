@@ -5,14 +5,17 @@ function ClientConnected() {
     GetCardGroups();    
 }
 function IAmReady(groupCode) {
-    var param = "{\"TableID\":\"" + getUrlParam("saloonid") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
+    var param = "{\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
     roomHub.server.iAmReady(appendParam(param, signObj));
 }
 function registCustomRoomFunction() {
-    roomHub.client.receiveOnlineNotice = function (name, message) {
-        if (name != getNickName()) {
-            showInfoMessage(message);
-        }
+    roomHub.client.receiveOnlineNotice = function (message, user) {
+        showInfoMessage(message);
+        user = JSON.parse(user);
+        if (user.UserCode != getUserCode()) {            
+            //classie.toggle(document.getElementById('cbp-spmenu-s2'), 'cbp-spmenu-open'); 
+            //$("#cbp-spmenu-s2").html("<h3>"+user.NickName+"</h3>");
+        }        
     };
     roomHub.client.receiveReadyNotice = function (message, senderUserCode) {
         if (senderUserCode != getUserCode()) {
