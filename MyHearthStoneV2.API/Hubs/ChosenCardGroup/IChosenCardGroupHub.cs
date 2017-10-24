@@ -7,6 +7,6 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
 {
     interface IChosenCardGroupHub: IHub
     {        
-        void IAmReady(string param);
+        string IAmReady(string param);
     }
 }

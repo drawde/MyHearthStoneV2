@@ -5,8 +5,11 @@ function ClientConnected() {
     GetCardGroups();    
 }
 function IAmReady(groupCode) {
-    var param = "{\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
-    roomHub.server.iAmReady(appendParam(param, signObj));
+    var param = "{\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"CardGroupCode\":\"" + groupCode + "\",\"NickName\":\"" + getNickName() + "\"}";
+    roomHub.server.iAmReady(appendParam(param, signObj)).done(function (res) {
+        res = JSON.parse(res);
+
+    });;
 }
 function registCustomRoomFunction() {
     roomHub.client.receiveOnlineNotice = function (message, user) {

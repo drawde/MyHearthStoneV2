@@ -237,22 +237,34 @@ namespace MyHearthStoneV2.BLL
             int saveCount = 0;
             using (var redisClient = RedisManager.GetClient())
             {
-                LinkedList<HS_ShortCode> ll = redisClient.Get<LinkedList<HS_ShortCode>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey));
-                if (ll != null && ll.Count > 0)
+                try
                 {
-                    saveCount = ll.Count;
-                    using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+                    redisClient.Watch(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey));
+                    LinkedList<HS_ShortCode> ll = redisClient.Get<LinkedList<HS_ShortCode>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey));
+                    if (ll != null && ll.Count > 0)
                     {
-                        LinkedListNode<HS_ShortCode> node = ll.First;
-                        while (node != null)
+                        saveCount = ll.Count;
+                        using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
                         {
-                            context.hs_shortcode.Add(node.Value);
-                            node = node.Next;
+                            LinkedListNode<HS_ShortCode> node = ll.First;
+                            while (node != null)
+                            {
+                                context.hs_shortcode.Add(node.Value);
+                                node = node.Next;
+                            }
+                            context.SaveChanges();
                         }
-                        context.SaveChanges();
+                        ll.Clear();
+                        redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey), ll);
                     }
-                    ll.Clear();
-                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey), ll);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {                    
+                    redisClient.UnWatch();
                 }
             }
             return saveCount;

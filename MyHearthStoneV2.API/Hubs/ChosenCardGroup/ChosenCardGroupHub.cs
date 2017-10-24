@@ -75,7 +75,7 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
         }
 
         [SignalRMethod]
-        public void IAmReady(string param)
+        public string IAmReady(string param)
         {
             JObject jobj = JObject.Parse(param);
             string userCode = jobj["UserCode"].TryParseString();
@@ -107,7 +107,9 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
                 {
                     Go(gameTable);
                 }
+                return JsonStringResult.SuccessResult();
             }
+            return JsonStringResult.VerifyFail();
         }
 
         /// <summary>

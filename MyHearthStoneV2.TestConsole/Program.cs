@@ -32,8 +32,9 @@ namespace MyHearthStoneV2.TestConsole
             //Console.WriteLine(typeof(GuiLingZhiZhu).FullName);
 
             //CardUtil.AddToRedis();
+            string code = ShortCodeBll.Instance.CreateCode("test", ShortCodeTypeEnum.CardGroupCode);
             //ShortCodeBll.Instance.SaveToDB();
-            //ShortCodeBll.Instance.CreateCode("test", ShortCodeTypeEnum.CardGroupCode);
+            
             //CardUtil.AddToRedis();
             using (var redisClient = RedisManager.GetClient())
             {
