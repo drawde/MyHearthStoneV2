@@ -50,8 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chessboard.cs" />
+    <Compile Include="BaseUserCards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ChessboardOutput.cs" />
     <Compile Include="UserCards.cs" />
+    <Compile Include="UserCardsOutput.cs" />
+    <Compile Include="UserCardsSimpleOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj">

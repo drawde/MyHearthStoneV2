@@ -1,8 +1,10 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
+﻿using MyHearthStoneV2.BLL;
+using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Game;
 using MyHearthStoneV2.Model;
+using MyHearthStoneV2.Model.CustomModels;
 using MyHearthStoneV2.Redis;
 using Newtonsoft.Json;
 using System;
@@ -22,22 +24,35 @@ namespace MyHearthStoneV2.GameControler
         /// <summary>
         /// 游戏ID
         /// </summary>
-        public string GameID { get; set; }
+        public string GameCode { get; set; }
+
+        public Chessboard chessboard { get; set; }
+
+        public ChessboardOutput chessboardOutput { get; set; }
 
         /// <summary>
-        /// 初始化控制器
+        /// 当前回合剩余秒数
         /// </summary>
-        /// <param name="gameID"></param>
-        /// <param name="_firstPlayer"></param>
-        /// <param name="_secondPlayer"></param>
-        /// <param name="firstCardGroup"></param>
-        /// <param name="secondCardGroup"></param>
-        public Controler(string gameID, HS_Users _firstPlayer, HS_Users _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup)
-        {
-            #region 加载玩家卡组
-            GameID = gameID;
-            
+        public int currentRoundRemainingSecond { get; set; }
 
+        /// <summary>
+        /// 进行完的回合数
+        /// </summary>
+        public int roundIndex { get; set; }
+
+        /// <summary>
+        /// 当前回合编码
+        /// </summary>
+        public string currentRoundCode { get; set; }
+        
+        [ControlerMonitor]                    
+        public void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup)
+        {            
+            GameCode = game.GameCode;
+            currentRoundCode = game.CurrentRoundCode;
+
+            #region 加载玩家卡组
+            chessboardOutput = new ChessboardOutput();
             UserCards firstUser = new UserCards();
             firstUser.User = _firstPlayer;
             firstUser.IsActivation = true;
@@ -90,7 +105,7 @@ namespace MyHearthStoneV2.GameControler
             firstUser.DeskCards = new List<Card>();
             firstUser.HandCards = new List<Card>();
             firstUser.StockCards = new List<Card>();
-            
+
             secondUser.InitCards = lstSecondPickUpCard;
             secondUser.DeskCards = new List<Card>();
             secondUser.HandCards = new List<Card>();
@@ -100,35 +115,8 @@ namespace MyHearthStoneV2.GameControler
             List<Card> lstAll = new List<Card>();
             lstAll.AddRange(firstUser.AllCards);
             lstAll.AddRange(secondUser.AllCards);
-            chessboard.AllCard = lstAll;            
-            SetCurrentRoundCode();
-        }
-
-        //System.Timers.Timer
-
-        public Chessboard chessboard { get; set; }
-
-        //internal HS_Users firstPlayer;
-        //internal HS_Users secondPlayer;
-
-
-        /// <summary>
-        /// 当前回合剩余秒数
-        /// </summary>
-        public int currentRoundRemainingSecond { get; set; }
-
-        /// <summary>
-        /// 进行完的回合数
-        /// </summary>
-        public int roundIndex { get; set; }
-
-        /// <summary>
-        /// 当前回合编码
-        /// </summary>
-        public string currentRoundCode { get; set; }
-
-        public void GameStart()
-        {
+            chessboard.AllCard = lstAll;
+            //SetCurrentRoundCode();
         }
 
 

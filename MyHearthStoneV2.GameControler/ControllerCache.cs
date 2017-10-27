@@ -38,7 +38,7 @@ namespace MyHearthStoneV2.GameControler
 
         public static void SetController(Controler ctl)
         {
-            LstCtl[LstCtl.FindIndex(c=>c.GameID == ctl.GameID)] = ctl;
+            LstCtl[LstCtl.FindIndex(c=>c.GameCode == ctl.GameCode)] = ctl;
         }
     }
 }

@@ -6,8 +6,8 @@
     if (window.location.pathname.toLowerCase() == "/game/chosencardgroup") {
         roomHub = $.connection.chosenCardGroupHub;
     }
-    else if (window.location.pathname.toLowerCase() == "/game/table") {
-        roomHub = $.connection.chosenCardGroupHub;
+    else if (window.location.pathname.toLowerCase() == "/game/battle") {
+        roomHub = $.connection.battleHub;
     }
     //后端SendChat调用后，产生的addNewMessageToPage回调
     roomHub.client.addNewMessageToPage = function (name, message) {
@@ -35,10 +35,10 @@
                     hideLoader();
                     if (res.code == 100) {
                         showSuccessMessage("连接房间成功");
-                        ClientConnected();
+                        ClientConnected(res);
                         $('#send').click(function () {
                             var chatContent = $('#message').val();
-                            roomHub.server.sendChat(getUserCode(),chatContent);
+                            roomHub.server.sendChat(getUserCode(), chatContent, getUrlParam("TableCode"));
                         });
                     }
                     else {

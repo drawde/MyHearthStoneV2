@@ -279,7 +279,7 @@
     <Content Include="js\saloon.source.js" />
     <Content Include="js\signalR.basic.source.js" />
     <Content Include="js\slide\classie.js" />
-    <Content Include="js\table.source.js" />
+    <Content Include="js\battle.source.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\3D-ASCII.flf" />
@@ -358,7 +358,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Game\Table.cshtml" />
+    <Content Include="Views\Game\battle.cshtml" />
     <Content Include="Views\UserCentre\Register.cshtml" />
     <Content Include="Views\UserCentre\DoRegister.cshtml" />
     <Content Include="static\css\jquery-confirm.less" />

@@ -22,5 +22,7 @@ namespace MyHearthStoneV2.Model
         public System.DateTime AddTime { get; set; }
         public string CurrentRoundCode { get; set; }
         public string NextRoundCode { get; set; }
+        public string FirstUserCardGroupCode { get; set; }
+        public string SecondUserCardGroupCode { get; set; }
     }
 }

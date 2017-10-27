@@ -12,6 +12,7 @@ using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.CardLibrary.Base;
+using MyHearthStoneV2.Model.CustomModels;
 
 namespace MyHearthStoneV2.GameControler
 {
@@ -30,19 +31,18 @@ namespace MyHearthStoneV2.GameControler
         /// <returns>游戏ID</returns>
         public static APIResultBase CreateGame(string firstPlayerCode, string secondPlayerCode, string fristCardGroupCode, string secondCardGroupCode)
         {
-            string gameID = "";
             if (firstPlayerCode.IsNullOrEmpty() || secondPlayerCode.IsNullOrEmpty() || fristCardGroupCode.IsNullOrEmpty() || secondCardGroupCode.IsNullOrEmpty())
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
 
-            HS_Users firstUser = UsersBll.Instance.GetUserByAdmin(firstPlayerCode);
+            CUsers firstUser = UsersBll.Instance.GetUser(firstPlayerCode);
             if (firstUser == null)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
 
-            HS_Users secondUser = UsersBll.Instance.GetUserByAdmin(secondPlayerCode);
+            CUsers secondUser = UsersBll.Instance.GetUser(secondPlayerCode);
             if (secondUser == null)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
@@ -67,15 +67,10 @@ namespace MyHearthStoneV2.GameControler
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
 
-
-            gameID = SignUtil.CreateSign(firstPlayerCode + secondPlayerCode + RandomUtil.CreateRandomStr(10) + DateTime.Now.Ticks);
-            Controler ctl = new Controler(gameID, firstUser, secondUser, firstCardGroup, secondCardGroup);
-            return JsonModelResult.PackageSuccess(gameID);
-        }
-
-        public void GameStart()
-        {
-            throw new NotImplementedException();
+            var game = GameBll.Instance.CreateGame(firstPlayerCode, secondPlayerCode, fristCardGroupCode, secondCardGroupCode);
+            Controler ctl = new Controler();
+            ctl.GameStart(game, firstUser, secondUser, firstCardGroup, secondCardGroup);
+            return JsonModelResult.PackageSuccess(ctl.chessboardOutput);
         }
 
         public void RoundEnd()
@@ -94,11 +89,11 @@ namespace MyHearthStoneV2.GameControler
         {
             string res = JsonStringResult.VerifyFail();
             Controler ctl = null;
-            if (!ControllerCache.LstCtl.Any(c => c.GameID == gameID) || !ControllerCache.LstCtl.Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
+            if (!ControllerCache.LstCtl.Any(c => c.GameCode == gameID) || !ControllerCache.LstCtl.Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            ctl = ControllerCache.LstCtl.First(c => c.GameID == gameID);
+            ctl = ControllerCache.LstCtl.First(c => c.GameCode == gameID);
             if (ctl.roundIndex != 2)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);

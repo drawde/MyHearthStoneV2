@@ -180,14 +180,26 @@ namespace MyHearthStoneV2.Common.Util
         /// <returns></returns>
         public static string ImportSignJsFile(string appendJsFile, string cssAndJSVersion = "")
         {
+            StringBuilder sb = new StringBuilder();
             if (ConfigurationManager.AppSettings["IsDebug"].TryParseBool() == false)
             {
-                return "<script src=\"/js/dist/apisign.js" + cssAndJSVersion + "\"></script><script src=\"" + appendJsFile + cssAndJSVersion + "\"></script>";
+                sb.Append("<script src=\"/js/dist/apisign.js");
+                sb.Append(cssAndJSVersion);
+                sb.Append("\"></script><script src=\"");
+                sb.Append(appendJsFile.Replace(".source.", "."));
+                sb.Append(cssAndJSVersion);
+                sb.Append("\"></script>");
+                //return "<script src=\"/js/dist/apisign.js" + cssAndJSVersion + "\"></script><script src=\"" + appendJsFile.Replace(".source.", ".") + cssAndJSVersion + "\"></script>";
             }
             else
             {
-                return "<script src=\"/js/apisign.source.js\"></script><script src=\"" + appendJsFile + cssAndJSVersion + "\"></script>";
+                sb.Append("<script src=\"/js/apisign.source.js\"></script><script src=\"");
+                sb.Append(appendJsFile);
+                sb.Append(cssAndJSVersion);
+                sb.Append("\"></script>");
+                //return "<script src=\"/js/apisign.source.js\"></script><script src=\"" + appendJsFile + cssAndJSVersion + "\"></script>";
             }
+            return sb.ToString();
         }
 
         /// <summary>

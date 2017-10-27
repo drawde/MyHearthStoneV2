@@ -4,14 +4,12 @@
 @{
     Layout = "/Views/Shared/_GameLayout.cshtml";
     ViewBag.Title = "对战";
-    int cardIndex = 0;
     string SecretCode = ViewBag.SecretCode;
     List<HS_UserCardGroupDetail> lstCardGroup = ViewBag.lstCardGroup as List<HS_UserCardGroupDetail>;
     if (lstCardGroup == null)
     {
         lstCardGroup = new List<HS_UserCardGroupDetail>();
     }
-    int myCardIndex = 0;
     DateTime now = DateTime.Now;
 }
 @section css{
@@ -20,23 +18,17 @@
 <link href="/css/OFF-CANVAS/normalize.css" rel="stylesheet" />
 <link href="/css/OFF-CANVAS/font-awesome.min.css" rel="stylesheet" />
 <link href="/css/OFF-CANVAS/menu_cornermorph.css" rel="stylesheet" />
+<link href="/css/notie/default.css" rel="stylesheet" />
 }
 @section js{
 <script src="/Scripts/jquery-ui.min.js"></script>
 <script src="/js/baraja/modernizr.custom.79639.js"></script>
 <script src="/js/baraja/jquery.baraja.js"></script>
-<script type="text/javascript">
-    var ISDEBUG = @(ConfigurationManager.AppSettings["IsDebug"].TryParseBool() ? "true" : "false");
-
-</script>
-@(Html.Raw(SignUtil.ImportSignJsFile("/js/table.source.js")))
+@(Html.Raw(SignUtil.ImportSignJsFile("/js/battle.source.js", ViewBag.cssAndJSVersion)))
 }
 @(Html.Raw(ViewBag.ConfusionStringToHTML))
 <div class="arrow hide">
 </div>
-
-
-
 <div class="content-wrap">
     <div class="tableCard">
         <ul id="otherTableCard" style="margin-top:42px;">
@@ -80,8 +72,6 @@
     </div> 
 </div>
 @Html.Partial("/Views/Addons/SignalRChatFrame.cshtml", null)
-
-<input type="hidden" id="dst" value="@(MyHearthStoneV2.BLL.SignJSTextBll.SINGJSTEXT)" />
 @section endjs{
-
+    <script src="/js/notie/notie.js"></script>
 }

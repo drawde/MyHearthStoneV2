@@ -22,5 +22,6 @@ namespace MyHearthStoneV2.Model
         public string Chessboard { get; set; }
         public int RoundIndex { get; set; }
         public System.DateTime AddTime { get; set; }
+        public string RoundCode { get; set; }
     }
 }

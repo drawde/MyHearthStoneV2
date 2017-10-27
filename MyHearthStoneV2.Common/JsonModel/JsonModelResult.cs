@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.Common.Enum;
+using MyHearthStoneV2.Common.JsonModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,15 @@ namespace MyHearthStoneV2.Common.JsonModel
             jsonResult.msg = OperateResCodeEnum.成功.ToString();
             jsonResult.data = pr;
             return jsonResult;
+        }
+
+        public static APISingleModelResult<T> PackageSuccess<T>(T model)
+        {
+            APISingleModelResult<T> textRes = new APISingleModelResult<T>();
+            textRes.code = OperateResCodeEnum.成功.GetHashCode();
+            textRes.msg = OperateResCodeEnum.成功.ToString();
+            textRes.data = model;
+            return textRes;
         }
     }
 }

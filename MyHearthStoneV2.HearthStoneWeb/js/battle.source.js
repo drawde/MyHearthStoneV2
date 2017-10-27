@@ -10,6 +10,10 @@
     [-35, -20, -5, 10, 25, 40, 55, 70, 85],
     [-40, -25, -10, 5, 20, 35, 50, 65, 80, 95],
 ];
+function registCustomRoomFunction() {
+}
+function ClientConnected(res) {
+}
 $(function () {
     $("#Placeholder").val(getNickName());
     $("#MyClientName").html(getNickName());
@@ -17,13 +21,13 @@ $(function () {
     //$(".CardPanel").click(function () {
     //    ChosenServant($(this));
     //});
-    if (!ISDEBUG) {
-        eval($("#dst").val());
-        $("body").find("*").unbind("mousedown").bind("contextmenu", function (e) {
-            e.preventDefault();
-            return false;
-        });
-    }
+    //if (!ISDEBUG) {
+    //    eval($("#dst").val());
+    //    $("body").find("*").unbind("mousedown").bind("contextmenu", function (e) {
+    //        e.preventDefault();
+    //        return false;
+    //    });
+    //}
     $("body").find("*").unbind("mousedown").bind("mousedown", function (event) {
         if (event.which == 3) {
             //UnChosenServant();
@@ -177,84 +181,3 @@ function cardOut(card) {
     $(card).css("left", "0px");
     $(card).css("z-index", $(card).attr("zindex"));
 }
-
-$(function () {
-    //$("#chatlayer").fadeIn();
-    $.connection.hub.url = APIURL + "/signalr";
-    $.connection.hub.start({ xdomain: true });
-    //添加对自动生成的Hub的引用
-    var roomHub = $.connection.chatHub;
-
-    //调用Hub的callback回调方法
-
-    
-
-    //后端SendLogin调用后，产生的loginUser回调
-    roomHub.client.loginUser = function (userlist) {
-        reloadUser(userlist);
-    };
-
-    //后端SendLogoff调用后，产生的logoffUser回调
-    roomHub.client.logoffUser = function (userlist) {
-        reloadUser(userlist);
-    };
-
-    $('#displayname').val(getNickName());
-
-    //启动链接
-    $.connection.hub.start().done(function () {
-
-        var userid = getUserCode();//guid();
-        var username = getNickName();
-
-        //发送上线信息
-        roomHub.server.sendLogin(userid, username);
-
-        //点击按钮，发送聊天内容
-        //$('#send').click(function () {
-        //    var chatContent = $('#message').val();
-        //    roomHub.server.sendChat(userid, username, chatContent);
-        //});
-
-        //点击按钮，发送用户下线信息
-        $('#close').click(function () {
-            roomHub.server.sendLogoff(userid, username);
-            $("#send").css("display", "none");
-        });
-
-        bindChatFunction();
-
-        //每隔5秒，发送心跳包信息
-        //setInterval(function () {
-        //    roomHub.server.triggerHeartbeat(userid, username);
-        //}, 5000);
-    });
-
-});
-
-//重新加载用户列表
-var reloadUser = function (userlist) {
-    $("#userList").children("li").remove();
-    for (i = 0; i < userlist.length; i++) {
-        $("#userList").append("<li>" + userlist[i].Name + "</li>");
-    }
-}
-
-//div内容html化
-var htmlEncode = function (value) {
-    var encodedValue = $('<div />').html(value).html();
-    return encodedValue;
-}
-
-//guid序号生成
-var guid = (function () {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-                   .toString(16)
-                   .substring(1);
-    }
-    return function () {
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-               s4() + '-' + s4() + s4() + s4();
-    };
-})();

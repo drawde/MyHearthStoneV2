@@ -45,6 +45,8 @@
           <Property Name="AddTime" Type="datetime" Nullable="false" />
           <Property Name="CurrentRoundCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="NextRoundCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="FirstUserCardGroupCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="SecondUserCardGroupCode" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_GameRecord">
           <Key>
@@ -58,6 +60,7 @@
           <Property Name="Chessboard" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="RoundIndex" Type="int" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="RoundCode" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_GameTable">
           <Key>
@@ -175,8 +178,6 @@
         <EntityContainer Name="MyHearthStoneV2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="HS_DataExchange" EntityType="MyHearthStoneV2.Model.HS_DataExchange" />
           <EntitySet Name="HS_ErrRec" EntityType="MyHearthStoneV2.Model.HS_ErrRec" />
-          <EntitySet Name="HS_Game" EntityType="MyHearthStoneV2.Model.HS_Game" />
-          <EntitySet Name="HS_GameRecord" EntityType="MyHearthStoneV2.Model.HS_GameRecord" />
           <EntitySet Name="HS_Invitation" EntityType="MyHearthStoneV2.Model.HS_Invitation" />
           <EntitySet Name="HS_LoginToken" EntityType="MyHearthStoneV2.Model.HS_LoginToken" />
           <EntitySet Name="HS_SystemConfig" EntityType="MyHearthStoneV2.Model.HS_SystemConfig" />
@@ -184,6 +185,8 @@
           <EntitySet Name="HS_UserCardGroupDetail" EntityType="MyHearthStoneV2.Model.HS_UserCardGroupDetail" />
           <EntitySet Name="HS_Users" EntityType="MyHearthStoneV2.Model.HS_Users" />
           <EntitySet Name="HS_ShortCode" EntityType="MyHearthStoneV2.Model.HS_ShortCode" />
+          <EntitySet Name="HS_GameRecord" EntityType="MyHearthStoneV2.Model.HS_GameRecord" />
+          <EntitySet Name="HS_Game" EntityType="MyHearthStoneV2.Model.HS_Game" />
           <EntitySet Name="HS_GameTable" EntityType="MyHearthStoneV2.Model.HS_GameTable" />
         </EntityContainer>
         <EntityType Name="HS_DataExchange">
@@ -213,32 +216,6 @@
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Arguments" Type="String" Nullable="false" MaxLength="1500" FixedLength="false" Unicode="true" />
           <Property Name="DataSource" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="HS_Game">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="IsFirstUserWin" Type="Boolean" Nullable="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CurrentRoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="NextRoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="HS_GameRecord">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="IsFirstUserRound" Type="Boolean" Nullable="false" />
-          <Property Name="Chessboard" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Name="RoundIndex" Type="Int32" Nullable="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="HS_Invitation">
           <Key>
@@ -319,6 +296,35 @@
           <Property Name="Data" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="CodeType" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="HS_GameRecord">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="IsFirstUserRound" Type="Boolean" Nullable="false" />
+          <Property Name="Chessboard" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="RoundIndex" Type="Int32" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="HS_Game">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="IsFirstUserWin" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CurrentRoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NextRoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FirstUserCardGroupCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SecondUserCardGroupCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="HS_GameTable">
           <Key>
             <PropertyRef Name="ID" />
@@ -367,34 +373,6 @@
                 <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
                 <ScalarProperty Name="Controller" ColumnName="Controller" />
                 <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HS_Game">
-            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_Game">
-              <MappingFragment StoreEntitySet="HS_Game">
-                <ScalarProperty Name="NextRoundCode" ColumnName="NextRoundCode" />
-                <ScalarProperty Name="CurrentRoundCode" ColumnName="CurrentRoundCode" />
-                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="IsFirstUserWin" ColumnName="IsFirstUserWin" />
-                <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
-                <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
-                <ScalarProperty Name="GameCode" ColumnName="GameCode" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HS_GameRecord">
-            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_GameRecord">
-              <MappingFragment StoreEntitySet="HS_GameRecord">
-                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="RoundIndex" ColumnName="RoundIndex" />
-                <ScalarProperty Name="Chessboard" ColumnName="Chessboard" />
-                <ScalarProperty Name="IsFirstUserRound" ColumnName="IsFirstUserRound" />
-                <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
-                <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
-                <ScalarProperty Name="GameCode" ColumnName="GameCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -481,6 +459,37 @@
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HS_GameRecord">
+            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_GameRecord">
+              <MappingFragment StoreEntitySet="HS_GameRecord">
+                <ScalarProperty Name="RoundCode" ColumnName="RoundCode" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="RoundIndex" ColumnName="RoundIndex" />
+                <ScalarProperty Name="Chessboard" ColumnName="Chessboard" />
+                <ScalarProperty Name="IsFirstUserRound" ColumnName="IsFirstUserRound" />
+                <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
+                <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
+                <ScalarProperty Name="GameCode" ColumnName="GameCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HS_Game">
+            <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_Game">
+              <MappingFragment StoreEntitySet="HS_Game">
+                <ScalarProperty Name="SecondUserCardGroupCode" ColumnName="SecondUserCardGroupCode" />
+                <ScalarProperty Name="FirstUserCardGroupCode" ColumnName="FirstUserCardGroupCode" />
+                <ScalarProperty Name="NextRoundCode" ColumnName="NextRoundCode" />
+                <ScalarProperty Name="CurrentRoundCode" ColumnName="CurrentRoundCode" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsFirstUserWin" ColumnName="IsFirstUserWin" />
+                <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
+                <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
+                <ScalarProperty Name="GameCode" ColumnName="GameCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

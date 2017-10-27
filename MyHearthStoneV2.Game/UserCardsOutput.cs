@@ -1,5 +1,4 @@
 ﻿using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Model.CustomModels;
 using System;
 using System.Collections.Generic;
@@ -10,19 +9,10 @@ using System.Threading.Tasks;
 namespace MyHearthStoneV2.Game
 {
     /// <summary>
-    /// 当前用户的牌
+    /// 用户所有的牌（用于输出）
     /// </summary>
-    public class UserCards: BaseUserCards
-    {
-        
-
-        public CUsers User { get; set; }
-
-        /// <summary>
-        /// 玩家所有的牌
-        /// </summary>
-        public List<Card> AllCards { get; set; }
-
+    public class UserCardsOutput: BaseUserCards
+    {        
         /// <summary>
         /// 玩家的手牌
         /// </summary>
@@ -31,7 +21,7 @@ namespace MyHearthStoneV2.Game
         /// <summary>
         /// 玩家牌库的牌
         /// </summary>
-        public List<Card> StockCards { get; set; }
+        public int StockCards { get; set; }
 
         /// <summary>
         /// 玩家场上的牌
@@ -41,8 +31,6 @@ namespace MyHearthStoneV2.Game
         /// <summary>
         /// 玩家开场摸的牌
         /// </summary>
-        public List<Card> InitCards { get; set; }
-
-        
+        public List<Card> InitCards { get; set; }        
     }
 }

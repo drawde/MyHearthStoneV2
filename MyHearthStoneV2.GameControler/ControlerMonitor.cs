@@ -2,6 +2,7 @@
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Util;
+using MyHearthStoneV2.Game;
 using MyHearthStoneV2.Model;
 using PostSharp.Aspects;
 using System;
@@ -58,7 +59,45 @@ namespace MyHearthStoneV2.GameControler
             {
                 DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.GameControler);
             }
-            ControllerCache.SetController(eventArgs.Instance as Controler);
+            Controler ctl = eventArgs.Instance as Controler;
+            ControllerCache.SetController(ctl);
+
+            #region 封装输出
+            ctl.chessboardOutput = new ChessboardOutput();
+            ctl.chessboardOutput.Players = new List<BaseUserCards>();
+            foreach (var cd in ctl.chessboard.Players)
+            {
+                if (cd.IsActivation)
+                {
+                    ctl.chessboardOutput.Players.Add(new UserCardsOutput()
+                    {
+                        DeskCards = cd.DeskCards,
+                        HandCards = cd.HandCards,
+                        InitCards = cd.InitCards,
+                        IsActivation = cd.IsActivation,
+                        IsFirst = cd.IsFirst,
+                        Power = cd.Power,
+                        StockCards = cd.StockCards.Count,
+                        SwitchDone = cd.SwitchDone
+                    });
+                }
+                else
+                {
+                    ctl.chessboardOutput.Players.Add(new UserCardsSimpleOutput()
+                    {
+                        DeskCards = cd.DeskCards,
+                        HandCards = cd.HandCards.Count,
+                        InitCards = cd.InitCards.Count,
+                        IsActivation = cd.IsActivation,
+                        IsFirst = cd.IsFirst,
+                        Power = cd.Power,
+                        StockCards = cd.StockCards.Count,
+                        SwitchDone = cd.SwitchDone
+                    });
+                }
+            }
+            #endregion
+
             base.OnEntry(eventArgs);
         }
     }

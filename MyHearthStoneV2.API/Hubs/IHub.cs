@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.API.Hubs
         /// <param name="userCode"></param>
         /// <param name="userName"></param>
         /// <param name="chatContent"></param>
-        void SendChat(string userCode, string chatContent);
+        void SendChat(string userCode, string chatContent, string roomCode);
 
         /// <summary>
         /// 发送广播消息

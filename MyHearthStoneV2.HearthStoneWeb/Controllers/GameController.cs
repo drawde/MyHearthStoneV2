@@ -16,10 +16,8 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
     public class GameController : Controller
     {
         [OAuth]
-        public ActionResult Table(string cardGroup)
+        public ActionResult Battle()
         {
-            HS_Users user = ViewBag.User as HS_Users;
-            ViewBag.lstCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(cardGroup, user.UserCode);
             return View();
         }
 

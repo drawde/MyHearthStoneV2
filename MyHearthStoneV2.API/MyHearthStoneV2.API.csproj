@@ -210,6 +210,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\BattleHub.cs" />
     <Compile Include="Hubs\ChosenCardGroup\ChosenCardGroupHub.cs" />
     <Compile Include="Hubs\ChosenCardGroup\IChosenCardGroupHub.cs" />
     <Compile Include="Hubs\IHub.cs" />

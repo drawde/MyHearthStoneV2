@@ -20,5 +20,36 @@ namespace MyHearthStoneV2.BLL
         {
         }
         public static GameBll Instance = new GameBll();
+
+        public HS_Game CreateGame(string firstUserCode, string secondUserCode,string firstUserCardGroupCode,string secondUserCardGroupCode)
+        {
+            HS_Game game = new HS_Game();
+            using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+            {                
+                game.GameCode = ShortCodeBll.Instance.CreateCode("", ShortCodeTypeEnum.GameCode);
+                game.AddTime = DateTime.Now;
+                game.CurrentRoundCode = ShortCodeBll.Instance.CreateCode("", ShortCodeTypeEnum.GameRoundCode);
+                game.FirstUserCode = firstUserCode;
+                game.IsFirstUserWin = false;
+                game.NextRoundCode = ShortCodeBll.Instance.CreateCode("", ShortCodeTypeEnum.GameRoundCode);
+                game.SecondUserCode = secondUserCode;
+                game.FirstUserCardGroupCode = firstUserCardGroupCode;
+                game.SecondUserCardGroupCode = secondUserCardGroupCode;
+                context.hs_game.Add(game);                
+
+                HS_GameRecord record = new HS_GameRecord();
+                record.AddTime = game.AddTime;
+                record.Chessboard = "";
+                record.FirstUserCode = firstUserCode;
+                record.GameCode = game.GameCode;
+                record.IsFirstUserRound = true;
+                record.RoundIndex = 0;
+                record.SecondUserCode = secondUserCode;
+                record.RoundCode = game.CurrentRoundCode;
+                context.hs_gamerecord.Add(record);
+                context.SaveChanges();
+            }
+            return game;
+        }
     }
 }
