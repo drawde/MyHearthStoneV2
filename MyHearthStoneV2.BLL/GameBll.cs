@@ -51,5 +51,10 @@ namespace MyHearthStoneV2.BLL
             }
             return game;
         }
+
+        public HS_Game GetGame(string gameCode)
+        {
+            return _repository.GetList(c => c.GameCode == gameCode).Result.Items.First();
+        }
     }
 }

@@ -65,6 +65,7 @@ namespace MyHearthStoneV2.GameControler
             #region 封装输出
             ctl.chessboardOutput = new ChessboardOutput();
             ctl.chessboardOutput.Players = new List<BaseUserCards>();
+            ctl.chessboardOutput.GameCode = ctl.GameCode;
             foreach (var cd in ctl.chessboard.Players)
             {
                 if (cd.IsActivation)

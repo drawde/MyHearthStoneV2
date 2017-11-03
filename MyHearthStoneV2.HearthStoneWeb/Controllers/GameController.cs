@@ -21,11 +21,6 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
             return View();
         }
 
-        //public ActionResult Test(string param)
-        //{
-        //    return Content(SignUtil.ConfusionString(param, DateTime.Now));
-        //}
-
         [OAuth]
         public ActionResult Saloon()
         {

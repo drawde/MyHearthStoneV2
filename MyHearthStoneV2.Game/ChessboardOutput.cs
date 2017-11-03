@@ -11,6 +11,7 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public class ChessboardOutput
     {
+        public string GameCode { get; set; }
         /// <summary>
         /// 本局中对战的玩家
         /// </summary>

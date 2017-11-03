@@ -49,7 +49,9 @@ function IAmReady(groupCode) {
     roomHub.server.iAmReady(appendParam(param, signObj)).done(function (res) {
         res = JSON.parse(res);
         if (res.code == 100) {
-            ShowWaitFrame(res.data);
+            if (res.data) {
+                ShowWaitFrame(res.data);
+            }
         }
     });
 }
@@ -68,9 +70,13 @@ function registCustomRoomFunction() {
         }
     };
 
-    roomHub.client.go = function (message, senderUserCode) {
-        if (senderUserCode != getUserCode()) {
-            showInfoMessage(message);
+    roomHub.client.go = function (gameData) {
+        gameData = JSON.parse(gameData);
+        if (gameData.data == 100) {
+            showSuccessMessage("即将为你打开通往战场的传送门...");
+        }
+        else {
+            showErrorMessage("传送门开启失败，请重新施法");
         }
     };
 }

@@ -107,7 +107,7 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
                 {
                     Go(gameTable);
                 }
-                if (gameTable.CreateUserIsReady == false)
+                else if (gameTable.CreateUserIsReady == false)
                 {
                     var user = UsersBll.Instance.GetUser(gameTable.CreateUserCode);
                     return JsonStringResult.SuccessResult(user.NickName);
@@ -123,6 +123,11 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
             return JsonStringResult.VerifyFail();
         }
 
+        /// <summary>
+        /// 重新选择卡组
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         [SignalRMethod]
         public string Repick(string param)
         {
@@ -184,7 +189,7 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
         }
 
         /// <summary>
-        /// 双方都已选好卡组后，自动进入游戏
+        /// 双方都已选好卡组后，进入游戏
         /// </summary>
         private void Go(HS_GameTable gameTable)
         {

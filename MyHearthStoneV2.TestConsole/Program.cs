@@ -32,14 +32,16 @@ namespace MyHearthStoneV2.TestConsole
             //Console.WriteLine(typeof(GuiLingZhiZhu).FullName);
 
             //CardUtil.AddToRedis();
-            string code = ShortCodeBll.Instance.CreateCode("test", ShortCodeTypeEnum.CardGroupCode);
+            //string code = ShortCodeBll.Instance.CreateCode("test", ShortCodeTypeEnum.CardGroupCode);
             //ShortCodeBll.Instance.SaveToDB();
-            
+
+            var user = UsersBll.Instance.GetById(1);
+
             //CardUtil.AddToRedis();
-            using (var redisClient = RedisManager.GetClient())
-            {
-                LinkedList<HS_ShortCode> ll = redisClient.Get<LinkedList<HS_ShortCode>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey));
-            }
+            //using (var redisClient = RedisManager.GetClient())
+            //{
+            //    LinkedList<HS_ShortCode> ll = redisClient.Get<LinkedList<HS_ShortCode>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey));
+            //}
             Console.ReadKey();
         }
     }
