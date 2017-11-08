@@ -21,7 +21,7 @@ namespace MyHearthStoneV2.BLL
         }
         public static GameBll Instance = new GameBll();
 
-        public HS_Game CreateGame(string firstUserCode, string secondUserCode,string firstUserCardGroupCode,string secondUserCardGroupCode)
+        public HS_Game CreateGame(string tableCode, string firstUserCode, string secondUserCode,string firstUserCardGroupCode,string secondUserCardGroupCode)
         {
             HS_Game game = new HS_Game();
             using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
@@ -35,6 +35,7 @@ namespace MyHearthStoneV2.BLL
                 game.SecondUserCode = secondUserCode;
                 game.FirstUserCardGroupCode = firstUserCardGroupCode;
                 game.SecondUserCardGroupCode = secondUserCardGroupCode;
+                game.TableCode = tableCode;
                 context.hs_game.Add(game);                
 
                 HS_GameRecord record = new HS_GameRecord();
@@ -54,7 +55,15 @@ namespace MyHearthStoneV2.BLL
 
         public HS_Game GetGame(string gameCode)
         {
-            return _repository.GetList(c => c.GameCode == gameCode).Result.Items.First();
+            return _repository.GetList(c => c.GameCode == gameCode).Result.Items.ToList().First();
+        }
+
+        public HS_Game GetGameByTableCode(string tableCode)
+        {
+            using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+            {
+                return context.hs_game.AsNoTracking().First(c => c.TableCode == tableCode);
+            }                
         }
     }
 }

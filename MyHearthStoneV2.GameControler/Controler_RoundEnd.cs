@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.GameControler
 {
-    public partial class Controler
+    internal partial class Controler
     {
         /// <summary>
         /// 回合结束

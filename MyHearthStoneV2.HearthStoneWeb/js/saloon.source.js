@@ -43,9 +43,9 @@ function getSaloons() {
                     "<h2><a href=\"javascript:zhanZuoEr(" + data.data.Items[i].ID + "," + needPassword + ");\">" + data.data.Items[i].TableName + "</a></h2>" +
                     "<p></p>" +
                     "<div class=\"meta\">" +
-                    "<ul class=\"tag-list\">" +
-                    "<li><a href=\"javascript:;\" class=\"btn btn-sm\">宝宝只想做个吃瓜群众</a></li>" +
-                    "</ul>" +
+                    //"<ul class=\"tag-list\">" +
+                    //"<li><a href=\"javascript:;\" class=\"btn btn-sm\">宝宝只想做个吃瓜群众</a></li>" +
+                    //"</ul>" +
                     "</div>" +
                     "</div>" +
                     "<div class=\"action\">" +

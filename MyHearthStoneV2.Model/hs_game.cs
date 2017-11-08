@@ -24,5 +24,6 @@ namespace MyHearthStoneV2.Model
         public string NextRoundCode { get; set; }
         public string FirstUserCardGroupCode { get; set; }
         public string SecondUserCardGroupCode { get; set; }
+        public string TableCode { get; set; }
     }
 }

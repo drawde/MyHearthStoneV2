@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.GameControler
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public class ControlerMonitor: OnMethodBoundaryAspect
+    internal class ControlerMonitor: OnMethodBoundaryAspect
     {
         string _methodName = "";
         string _className = "";
@@ -60,7 +60,7 @@ namespace MyHearthStoneV2.GameControler
                 DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.GameControler);
             }
             Controler ctl = eventArgs.Instance as Controler;
-            ControllerCache.SetController(ctl);
+            
 
             #region 封装输出
             ctl.chessboardOutput = new ChessboardOutput();
@@ -98,7 +98,7 @@ namespace MyHearthStoneV2.GameControler
                 }
             }
             #endregion
-
+            ControllerCache.SetController(ctl);
             base.OnEntry(eventArgs);
         }
     }

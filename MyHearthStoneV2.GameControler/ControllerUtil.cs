@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.GameControler
 {
-    public partial class Controler
+    internal partial class Controler
     {
         internal void SetCurrentRoundCode(HS_Game game)
         {

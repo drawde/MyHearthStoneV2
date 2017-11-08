@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
+using MyHearthStoneV2.Model.CustomModels;
+using MyHearthStoneV2.Common;
 
 namespace MyHearthStoneV2.BLL
 {
@@ -19,9 +21,62 @@ namespace MyHearthStoneV2.BLL
         {
         }
         public static GameTableBll Instance = new GameTableBll();
-        public HS_GameTable GetTable(string tableCode)
+        public HS_GameTable GetTable(string tableCode, string password = "")
         {
-            return _repository.Get(c => c.TableCode == tableCode).Result.Items.FirstOrDefault();
+            var where = LDMFilter.True<HS_GameTable>();
+            where = where.And(c => c.TableCode == tableCode);
+            if (password.IsNullOrEmpty() == false)
+            {
+                where = where.And(c => c.Password == password);
+            }
+            using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+            {
+                return context.hs_gametable.AsNoTracking().First(where);
+            }                
+        }
+
+        public HS_GameTable LeaveRoom(string userCode, string tableCode)
+        {
+            using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+            {
+                var gameTable = context.hs_gametable.AsNoTracking().FirstOrDefault(c => c.TableCode == tableCode);
+                if (gameTable != null)
+                {
+                    if (gameTable.PlayerUserCode == userCode && gameTable.PlayerUserCardGroup.IsNullOrEmpty() == false)
+                    {
+                        gameTable.PlayerUserCode = "";
+                        gameTable.PlayerIsReady = false;
+                        gameTable.PlayerUserCardGroup = "";
+                        context.SaveChanges();
+                    }
+                }
+                return gameTable;
+            }
+        }
+
+        public HS_GameTable IAmReady(string tableCode, string userCode, string cardGroupCode)
+        {
+            using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+            {
+                var gameTable = context.hs_gametable.FirstOrDefault(c => c.TableCode == tableCode);
+                if (gameTable != null)
+                {
+                    if (gameTable.PlayerUserCode == userCode && gameTable.PlayerIsReady == false)
+                    {
+                        gameTable.PlayerIsReady = true;
+                        gameTable.PlayerUserCardGroup = cardGroupCode;
+                        context.SaveChanges();
+                    }
+                    else if (gameTable.CreateUserCode == userCode && gameTable.CreateUserIsReady == false)
+                    {
+                        gameTable.CreateUserIsReady = true;
+                        gameTable.CreateUserCardGroup = cardGroupCode;
+                        context.SaveChanges();
+                    }                    
+                    return gameTable;
+                }
+            }
+            return null;
         }
         public APITextResult AddOrUpdate(HS_GameTable gameTable)
         {
@@ -67,13 +122,13 @@ namespace MyHearthStoneV2.BLL
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
-            var lstTables = _repository.GetList(c => c.TableCode == tableCode && c.Password == password).Result;
+            var gameTable = GetTable(tableCode, password);
 
-            if (lstTables.TotalItemsCount < 1)
+            if (gameTable == null)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
-            var gameTable = lstTables.Items.First();
+            
             if (_repository.Get(c => (c.PlayerUserCode == userCode || c.CreateUserCode == userCode) && c.TableCode != tableCode).Result.TotalItemsCount > 0)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.同时只能创建或占用一个游戏房间);

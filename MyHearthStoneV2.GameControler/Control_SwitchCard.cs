@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using MyHearthStoneV2.CardEnum;
 namespace MyHearthStoneV2.GameControler
 {
-    public partial class Controler
+    internal partial class Controler
     {
         /// <summary>
         /// 开局换牌

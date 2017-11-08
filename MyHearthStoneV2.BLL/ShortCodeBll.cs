@@ -78,13 +78,21 @@ namespace MyHearthStoneV2.BLL
                         {
                             where = where.And(c => c.CodeType == (int)codeType);
                         }
-                        return ht.AsQueryable().FirstOrDefault(where);
+                        var query = ht.AsQueryable();
+                        if (query.Any(where))
+                        {
+                            return ht.AsQueryable().FirstOrDefault(where);
+                        }
+                        else
+                        {
+                            return GetModelFromDB(code, data, codeType);
+                        }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return GetModelFromDB(code, data, codeType);
+                Log.Default.Error(ex);
             }
             return GetModelFromDB(code, data, codeType);
         }
@@ -140,6 +148,7 @@ namespace MyHearthStoneV2.BLL
             HS_ShortCode code = GetModel("", data, codeType);
             if (code == null)
             {
+                Log.Default.Debug("GetOrCreate:data=" + data + ";codeType=" + codeType);
                 string shortCode = CreateCode(data, codeType);
                 code = GetModel(shortCode);
             }

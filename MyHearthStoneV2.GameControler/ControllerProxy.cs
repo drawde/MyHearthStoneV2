@@ -29,7 +29,7 @@ namespace MyHearthStoneV2.GameControler
         /// <param name="fristCardGroupCode">先手玩家卡组</param>
         /// <param name="secondCardGroupCode">后手玩家卡组</param>
         /// <returns>游戏ID</returns>
-        public static APIResultBase CreateGame(string firstPlayerCode, string secondPlayerCode, string fristCardGroupCode, string secondCardGroupCode)
+        public static APIResultBase CreateGame(string tableCode, string firstPlayerCode, string secondPlayerCode, string fristCardGroupCode, string secondCardGroupCode)
         {
             if (firstPlayerCode.IsNullOrEmpty() || secondPlayerCode.IsNullOrEmpty() || fristCardGroupCode.IsNullOrEmpty() || secondCardGroupCode.IsNullOrEmpty())
             {
@@ -67,10 +67,19 @@ namespace MyHearthStoneV2.GameControler
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
 
-            var game = GameBll.Instance.CreateGame(firstPlayerCode, secondPlayerCode, fristCardGroupCode, secondCardGroupCode);
+            ControllerCache.Init();
+            var game = GameBll.Instance.CreateGame(tableCode, firstPlayerCode, secondPlayerCode, fristCardGroupCode, secondCardGroupCode);
             Controler ctl = new Controler();
-            ctl.GameStart(game, firstUser, secondUser, firstCardGroup, secondCardGroup);
-            return JsonModelResult.PackageSuccess(ctl.chessboardOutput);
+            ctl.GameStart(game, firstUser, secondUser, firstCardGroup, secondCardGroup);            
+            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).chessboardOutput);
+        }
+
+        public static APIResultBase GetGame(string gameCode)
+        {
+            var ctl = ControllerCache.GetControler(gameCode);
+            if (ctl != null)
+                return JsonModelResult.PackageSuccess(ControllerCache.GetControler(gameCode).chessboardOutput);
+            return null;
         }
 
         public void RoundEnd()
@@ -89,11 +98,12 @@ namespace MyHearthStoneV2.GameControler
         {
             string res = JsonStringResult.VerifyFail();
             Controler ctl = null;
-            if (!ControllerCache.LstCtl.Any(c => c.GameCode == gameID) || !ControllerCache.LstCtl.Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
+            var lstCtls = ControllerCache.GetControls();
+            if (!lstCtls.Any(c => c.GameCode == gameID) || !lstCtls.Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            ctl = ControllerCache.LstCtl.First(c => c.GameCode == gameID);
+            ctl = lstCtls.First(c => c.GameCode == gameID);
             if (ctl.roundIndex != 2)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);

@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.GameControler
     /// <summary>
     /// 游戏控制器
     /// </summary>
-    public partial class Controler
+    internal partial class Controler
     {
         /// <summary>
         /// 游戏ID
@@ -63,10 +63,17 @@ namespace MyHearthStoneV2.GameControler
             {
                 lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
             }
-            firstCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
+
+            foreach (var cg in firstCardGroup)
             {
-                firstUser.AllCards.Add(lstCardLib.First(c => c.CardCode == detail.CardCode));
-            });
+                var card = lstCardLib.First(c => c.CardCode == cg.CardCode);
+                firstUser.AllCards.Add(card);
+            }
+
+            //firstCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
+            //{
+            //    firstUser.AllCards.Add(lstCardLib.First(c => c.CardCode == detail.CardCode));
+            //});
             firstUser.StockCards = firstUser.AllCards;
 
             UserCards secondUser = new UserCards();
