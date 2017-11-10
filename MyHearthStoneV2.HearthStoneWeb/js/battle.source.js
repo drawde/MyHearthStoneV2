@@ -10,9 +10,85 @@
     [-35, -20, -5, 10, 25, 40, 55, 70, 85],
     [-40, -25, -10, 5, 20, 35, 50, 65, 80, 95],
 ];
+var switchCardIndexs = [];
 function registCustomRoomFunction() {
 }
 function ClientConnected(res) {
+    if (res.code == 100) {        
+        var initCards = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+        if (initCards.InitCards && initCards.InitCards.length > 0) {
+            ShowSwitchPanel(initCards.InitCards);
+        }
+    }
+}
+
+//初始化开局选牌面板
+function ShowSwitchPanel(initCards) {
+    var idx = 0;
+    var html = "<div class=\"container\"><div class=\"switchpanel\">";
+    Enumerable.From(initCards).ForEach(function (value, index) {
+        //$(".switchpanel").children().eq(index).children("img").attr("src", "/images/SwitchCardPanel/teacher0" + (index + 1) + "1.jpg");
+        //idx = index;
+        //$(".switchpanel").children().eq(index).find("h2").eq(0).html(value.Name);
+        //$(".switchpanel").children().eq(index).find("p").eq(0).html("");
+        //$(".switchpanel").children().eq(index).find("p").eq(1).html(dialogues[Math.round(Math.random() * (dialogues.length - 1))]);
+        
+        html += "<a href=\"javascript:ChoseSwitchCard(" + index + ");\" class=\"main_img\">" +
+            "<img src=\"/images/SwitchCardPanel/teacher0" + (index + 1) + "1.jpg\">" +
+            "<div class=\"main_info\">" +
+                "<div class=\"info\">" +
+                    "<h2>" + value.Name + "</h2>" +
+                    "<p></p>" +
+                "</div>" +
+                "<div class=\"info_more\">" +
+                    "<p>" + dialogues[Math.round(Math.random() * (dialogues.length - 1))] + "</p>" +
+                "</div>" +
+            "</div>" +
+        "</a>";
+    });
+    html += "</div></div>";
+    $(".arrow").before(html);
+    //while (idx < 5) {        
+    //    idx++;
+    //    $(".switchpanel").children().eq(idx).hide();        
+    //}
+    var $img = $(".switchpanel>.main_img");
+    var speed = 300;
+
+    $img.hover(function () {
+        $(this).find(".main_info").stop().animate({ "top": "0px" }, speed)
+              .find(".info_more>p").fadeIn(500);
+    }, function () {
+        $(this).find(".main_info").stop().animate({ "top": "285px" }, speed)
+              .find(".info_more>p").fadeOut(500);
+    });
+    $(".container").show();
+}
+
+//选择一张开局要换的牌
+function ChoseSwitchCard(switchCardIndex) {
+    if (Enumerable.From(switchCardIndexs).Any(c=>c == switchCardIndex)) {
+        switchCardIndexs = switchCardIndexs.splice(switchCardIndex, 1);
+        $(".switchpanel a").eq(switchCardIndex).css("width", "196px");
+        $(".switchpanel a").eq(switchCardIndex).css("height", "400px");
+        $(".switchpanel a").eq(switchCardIndex).hover(function () {
+            $(this).find(".main_info").stop().animate({ "top": "0px" }, 300)
+                  .find(".info_more>p").fadeIn(500);
+        }, function () {
+            $(this).find(".main_info").stop().animate({ "top": "285px" }, 300)
+                  .find(".info_more>p").fadeOut(500);
+        });
+        //console.log("da");
+    }
+    else {
+        switchCardIndexs.push(switchCardIndex);        
+        $(".switchpanel a").eq(switchCardIndex).css("width", "185px");
+        $(".switchpanel a").eq(switchCardIndex).css("height", "380px");
+        $(".switchpanel a").eq(switchCardIndex).unbind();
+        //console.log("xiao");
+    }
+    switchCardIndexs.sort();
+    //console.log(switchCardIndexs);
 }
 $(function () {
     $("#Placeholder").val(getNickName());

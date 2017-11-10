@@ -37,6 +37,12 @@ namespace MyHearthStoneV2.TestConsole
 
             var user = UsersBll.Instance.GetById(1);
 
+            List<string> lst = new List<string>() { "1", "2", "3", "2" };
+            var idxGroup = lst.GroupBy(c => c);
+            foreach (var i in idxGroup)
+            {
+                var g = i.Count();
+            }
             //CardUtil.AddToRedis();
             //using (var redisClient = RedisManager.GetClient())
             //{

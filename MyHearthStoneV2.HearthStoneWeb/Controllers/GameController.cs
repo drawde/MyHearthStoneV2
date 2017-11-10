@@ -16,7 +16,7 @@ namespace MyHearthStoneV2.HearthStoneWeb.Controllers
     public class GameController : Controller
     {
         [OAuth]
-        public ActionResult Battle()
+        public ActionResult Battle(string gameCode)
         {
             return View();
         }

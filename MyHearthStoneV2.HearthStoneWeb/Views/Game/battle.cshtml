@@ -19,14 +19,71 @@
 <link href="/css/OFF-CANVAS/font-awesome.min.css" rel="stylesheet" />
 <link href="/css/OFF-CANVAS/menu_cornermorph.css" rel="stylesheet" />
 <link href="/css/notie/default.css" rel="stylesheet" />
+<link href="/css/SwitchCardPanel/main.css" rel="stylesheet" />
 }
 @section js{
 <script src="/Scripts/jquery-ui.min.js"></script>
 <script src="/js/baraja/modernizr.custom.79639.js"></script>
 <script src="/js/baraja/jquery.baraja.js"></script>
+<script src="/Scripts/linq.min.js"></script>
 @(Html.Raw(SignUtil.ImportSignJsFile("/js/battle.source.js", ViewBag.cssAndJSVersion)))
 }
 @(Html.Raw(ViewBag.ConfusionStringToHTML))
+
+@*<div class="container">
+    <div class="switchpanel">
+        <a href="#" class="main_img">
+            <img src="/images/SwitchCardPanel/teacher011.jpg">
+            <div class="main_info">
+                <div class="info">
+                    <h2>jQuery插件库</h2>
+                    <p>事件的定义和用法:当按键被松开时触发keyup事件。</p>
+                </div>
+                <div class="info_more">
+                    <p>限制文本输入数量并且提示剩余字数代码实例:比较人性化的文本框一般都有这样的功能，输入文本的时候能够实时的显示还有剩余多少字数可以输入，下面就简单介绍一下如何实现此效果。代码如下:蚂蚁部落 还剩余20个字可以输入 以上代码实现了我们自己的要求，当输入内容的时候可以实时提醒还剩余多少文字可以输入</p>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="main_img">
+            <img src="/images/SwitchCardPanel/teacher021.jpg">
+            <div class="main_info">
+                <div class="info">
+                    <h2>jQuery插件库</h2>
+                    <p>事件的定义和用法:当按键被松开时触发keyup事件。</p>
+                </div>
+                <div class="info_more">
+                    <p>限制文本输入数量并且提示剩余字数代码实例:比较人性化的文本框一般都有这样的功能，输入文本的时候能够实时的显示还有剩余多少字数可以输入，下面就简单介绍一下如何实现此效果。代码如下:蚂蚁部落 还剩余20个字可以输入 以上代码实现了我们自己的要求，当输入内容的时候可以实时提醒还剩余多少文字可以输入</p>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="main_img">
+            <img src="/images/SwitchCardPanel/teacher031.jpg">
+            <div class="main_info">
+                <div class="info">
+                    <h2>jQuery插件库</h2>
+                    <p>事件的定义和用法:当按键被松开时触发keyup事件。</p>
+                </div>
+                <div class="info_more">
+                    <p>限制文本输入数量并且提示剩余字数代码实例:比较人性化的文本框一般都有这样的功能，输入文本的时候能够实时的显示还有剩余多少字数可以输入，下面就简单介绍一下如何实现此效果。代码如下:蚂蚁部落 还剩余20个字可以输入 以上代码实现了我们自己的要求，当输入内容的时候可以实时提醒还剩余多少文字可以输入</p>
+                </div>
+            </div>
+        </a>
+        <a href="#" class="main_img">
+            <img src="/images/SwitchCardPanel/teacher041.jpg">
+            <div class="main_info">
+                <div class="info">
+                    <h2>jQuery插件库</h2>
+                    <p>事件的定义和用法:当按键被松开时触发keyup事件。</p>
+                </div>
+                <div class="info_more">
+                    <p>限制文本输入数量并且提示剩余字数代码实例:比较人性化的文本框一般都有这样的功能，输入文本的时候能够实时的显示还有剩余多少字数可以输入，下面就简单介绍一下如何实现此效果。代码如下:蚂蚁部落 还剩余20个字可以输入 以上代码实现了我们自己的要求，当输入内容的时候可以实时提醒还剩余多少文字可以输入</p>
+                </div>
+            </div>
+        </a>
+        
+    </div>
+</div>*@
+
 <div class="arrow hide">
 </div>
 <div class="content-wrap">

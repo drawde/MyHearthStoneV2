@@ -235,6 +235,11 @@
     <Content Include="images\Hunter.jpg" />
     <Content Include="images\game\icon\arrow.png" />
     <Content Include="images\Druid.jpg" />
+    <Content Include="images\SwitchCardPanel\teacher011.jpg" />
+    <Content Include="images\SwitchCardPanel\teacher021.jpg" />
+    <Content Include="images\SwitchCardPanel\teacher031.jpg" />
+    <Content Include="images\SwitchCardPanel\teacher041.jpg" />
+    <Content Include="images\SwitchCardPanel\teacher051.jpg" />
     <Content Include="images\Warlock.jpg" />
     <Content Include="images\Priest.jpg" />
     <Content Include="images\OFF-CANVAS\user1.png" />
@@ -291,6 +296,7 @@
     <Content Include="css\fonts\fontawesome-webfont.ttf" />
     <Content Include="css\fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="css\SwitchCardPanel\main.css" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\fetch.min.js" />
@@ -310,6 +316,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="Scripts\linq-vsdoc.js" />
+    <Content Include="Scripts\linq.js" />
+    <Content Include="Scripts\linq.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />

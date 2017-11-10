@@ -46,7 +46,7 @@ namespace MyHearthStoneV2.BLL
                     return JsonStringResult.Error(Common.Enum.OperateResCodeEnum.参数错误);
                 }
             }
-            string code = ShortCodeBll.Instance.CreateCode(userCode, ShortCodeTypeEnum.InvitationCode);
+            string code = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.InvitationCode, userCode);
 
             HS_Invitation invitation = new HS_Invitation();
             invitation.AddTime = DateTime.Now;

@@ -189,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Game\" />
     <Folder Include="Views\Option\" />
     <Folder Include="Views\Saloon\" />
   </ItemGroup>
@@ -274,6 +275,10 @@
     <ProjectReference Include="..\MyHearthStoneV2.GameControler\MyHearthStoneV2.GameControler.csproj">
       <Project>{c63d9b8d-118d-4dc1-a9bd-8b36bb3225d3}</Project>
       <Name>MyHearthStoneV2.GameControler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj">
+      <Project>{b9d8f912-6398-4807-892f-88f169f6bc02}</Project>
+      <Name>MyHearthStoneV2.Game</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
       <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>

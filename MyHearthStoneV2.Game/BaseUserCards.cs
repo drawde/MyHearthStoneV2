@@ -8,6 +8,7 @@ namespace MyHearthStoneV2.Game
 {
     public abstract class BaseUserCards
     {
+        public string UserCode { get; set; }
         /// <summary>
         /// 当前回合的费用
         /// </summary>

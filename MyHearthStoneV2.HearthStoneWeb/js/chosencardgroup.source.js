@@ -84,7 +84,7 @@ function registCustomRoomFunction() {
         gameData = JSON.parse(gameData);
         //console.log(gameData);
         if (gameData.code == 100) {
-            OpenPortal(gameData.data.GameCode);
+            OpenPortal(gameData.data);
         }
         else {
             showErrorMessage("传送门开启失败，请重新施法");
@@ -104,7 +104,7 @@ function OpenPortal(gameCode) {
         $("#cards .details h3").html("传送门开启完毕倒计时" + pointCount + "秒...");
         if (pointCount <= 0) {
             clearInterval(intervalNickName);
-            window.location = "/game/battle?gameCode=" + gameCode;
+            window.location = "/game/battle?GameCode=" + gameCode;
         }
     }, 1000);
 }

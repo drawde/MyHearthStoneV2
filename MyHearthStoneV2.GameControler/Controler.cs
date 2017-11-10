@@ -28,6 +28,9 @@ namespace MyHearthStoneV2.GameControler
 
         public Chessboard chessboard { get; set; }
 
+        /// <summary>
+        /// 游戏输出模型
+        /// </summary>
         public ChessboardOutput chessboardOutput { get; set; }
 
         /// <summary>
@@ -44,16 +47,23 @@ namespace MyHearthStoneV2.GameControler
         /// 当前回合编码
         /// </summary>
         public string currentRoundCode { get; set; }
-        
+
+        /// <summary>
+        /// 下个回合编码
+        /// </summary>
+        public string nextRoundCode { get; set; }
+
         [ControlerMonitor]                    
         public void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup)
         {            
             GameCode = game.GameCode;
             currentRoundCode = game.CurrentRoundCode;
+            nextRoundCode = game.NextRoundCode;
 
             #region 加载玩家卡组
             chessboardOutput = new ChessboardOutput();
             UserCards firstUser = new UserCards();
+            firstUser.UserCode = _firstPlayer.UserCode;
             firstUser.User = _firstPlayer;
             firstUser.IsActivation = true;
             firstUser.IsFirst = true;
@@ -77,6 +87,7 @@ namespace MyHearthStoneV2.GameControler
             firstUser.StockCards = firstUser.AllCards;
 
             UserCards secondUser = new UserCards();
+            secondUser.UserCode = _secondPlayer.UserCode;
             secondUser.User = _secondPlayer;
             secondUser.IsActivation = true;
             secondUser.IsFirst = false;

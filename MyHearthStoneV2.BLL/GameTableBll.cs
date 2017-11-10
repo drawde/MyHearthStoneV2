@@ -54,6 +54,30 @@ namespace MyHearthStoneV2.BLL
             }
         }
 
+        public bool Repick(string tableCode, string userCode)
+        {
+            using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+            {
+                var gameTable = context.hs_gametable.FirstOrDefault(c => c.TableCode == tableCode);
+                if (gameTable != null)
+                {
+                    if (gameTable.PlayerUserCode == userCode)
+                    {
+                        gameTable.PlayerIsReady = false;
+                        gameTable.PlayerUserCardGroup = "";
+                    }
+                    else if (gameTable.CreateUserCode == userCode)
+                    {
+                        gameTable.CreateUserIsReady = false;
+                        gameTable.CreateUserCardGroup = "";
+                    }
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public HS_GameTable IAmReady(string tableCode, string userCode, string cardGroupCode)
         {
             using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
@@ -96,7 +120,7 @@ namespace MyHearthStoneV2.BLL
             }
             else
             {
-                gameTable.TableCode = ShortCodeBll.Instance.CreateCode(gameTable.TableName, ShortCodeTypeEnum.TableCode);
+                gameTable.TableCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.TableCode, gameTable.TableName);
                 gameTable.PlayerUserCode = "";
                 gameTable.AddTime = DateTime.Now;
                 using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())

@@ -26,16 +26,18 @@ namespace MyHearthStoneV2.BLL
             HS_Game game = new HS_Game();
             using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
             {                
-                game.GameCode = ShortCodeBll.Instance.CreateCode("", ShortCodeTypeEnum.GameCode);
+                game.GameCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.GameCode);
                 game.AddTime = DateTime.Now;
-                game.CurrentRoundCode = ShortCodeBll.Instance.CreateCode("", ShortCodeTypeEnum.GameRoundCode);
+                game.CurrentRoundCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode);
                 game.FirstUserCode = firstUserCode;
                 game.IsFirstUserWin = false;
-                game.NextRoundCode = ShortCodeBll.Instance.CreateCode("", ShortCodeTypeEnum.GameRoundCode);
+                game.NextRoundCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode);
                 game.SecondUserCode = secondUserCode;
                 game.FirstUserCardGroupCode = firstUserCardGroupCode;
                 game.SecondUserCardGroupCode = secondUserCardGroupCode;
                 game.TableCode = tableCode;
+                game.FirstUserIsOnline = true;
+                game.SecondUserIsOnline = true;
                 context.hs_game.Add(game);                
 
                 HS_GameRecord record = new HS_GameRecord();
@@ -62,7 +64,7 @@ namespace MyHearthStoneV2.BLL
         {
             using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
             {
-                return context.hs_game.AsNoTracking().First(c => c.TableCode == tableCode);
+                return context.hs_game.AsNoTracking().FirstOrDefault(c => c.TableCode == tableCode);
             }                
         }
     }

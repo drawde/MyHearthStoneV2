@@ -18,6 +18,7 @@ namespace MyHearthStoneV2.GameControler
         [ControlerMonitor]
         internal void SwitchCard(string userCode, List<int> lstInitCardIndex)
         {
+            nextRoundCode = BLL.ShortCodeBll.Instance.CreateCode(Model.ShortCodeTypeEnum.GameRoundCode);
             UserCards uc = null;
             if (lstInitCardIndex != null && lstInitCardIndex.Count > 0)
             {
@@ -37,7 +38,7 @@ namespace MyHearthStoneV2.GameControler
                 }
                 uc.HandCards = uc.InitCards;
                 uc.HandCards.ForEach(c => { c.CardLocation = CardLocation.手牌; });
-                uc.SwitchDone = true;
+                //uc.SwitchDone = true;
             }
             if (chessboard.Players.First(c => c.User.UserCode != userCode).SwitchDone)
             {

@@ -13,6 +13,8 @@ using Newtonsoft.Json.Linq;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.GameControler;
 using MyHearthStoneV2.Model.CustomModels;
+using MyHearthStoneV2.Game;
+
 namespace MyHearthStoneV2.API.Hubs
 {
     public class BattleHub : Hub, IHub
@@ -22,9 +24,44 @@ namespace MyHearthStoneV2.API.Hubs
         {
             JObject jobj = JObject.Parse(param);
             string userCode = jobj["UserCode"].TryParseString();
+            string userName = jobj["NickName"].TryParseString();
             string gameCode = jobj["GameCode"].TryParseString();
+            var res = ControllerProxy.GetGame(gameCode, userCode);
+            if (res.code == (int)OperateResCodeEnum.成功)
+            {
+                ChessboardOutput chessBoard = ((APISingleModelResult<ChessboardOutput>)res).data;
+                if (chessBoard != null && chessBoard.Players.Any(c => c.UserCode == userCode))
+                {
+                    return JsonStringResult.SuccessResult(chessBoard);
+                }
+            }
+            return JsonStringResult.Error(OperateResCodeEnum.参数错误);
+        }
 
-            return JsonStringResult.SuccessResult();
+        /// <summary>
+        /// 开局换牌
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        [SignalRMethod]
+        public string SwitchCard(string param)
+        {
+            JObject jobj = JObject.Parse(param);
+            string userCode = jobj["UserCode"].TryParseString();
+            string gameCode = jobj["GameCode"].TryParseString();
+            string switchCards = jobj["SwitchCards"].TryParseString();
+
+            var res = ControllerProxy.GetGame(gameCode, userCode);
+            if (res.code == (int)OperateResCodeEnum.成功)
+            {
+                res = ControllerProxy.SwitchCard(gameCode, userCode, switchCards.Split(",").ToList());
+                ChessboardOutput chessBoard = ((APISingleModelResult<ChessboardOutput>)res).data;
+                if (chessBoard != null && chessBoard.Players.Any(c => c.UserCode == userCode))
+                {
+                    return JsonStringResult.SuccessResult(chessBoard);
+                }
+            }
+            return JsonStringResult.Error(OperateResCodeEnum.参数错误);
         }
         public void Bordcast(string param)
         {

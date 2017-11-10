@@ -25,5 +25,7 @@ namespace MyHearthStoneV2.Model
         public string FirstUserCardGroupCode { get; set; }
         public string SecondUserCardGroupCode { get; set; }
         public string TableCode { get; set; }
+        public bool FirstUserIsOnline { get; set; }
+        public bool SecondUserIsOnline { get; set; }
     }
 }

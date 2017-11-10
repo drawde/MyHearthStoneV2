@@ -100,8 +100,8 @@ namespace MyHearthStoneV2.BLL
                     cardGroupModel.UserCode = UserCode;
                     cardGroupModel.GroupName = GroupName;
                     cardGroupModel.Profession = Profession;
-                    cardGroupModel.GroupCode = ShortCodeBll.Instance.CreateCode(cardGroupModel.GroupName, ShortCodeTypeEnum.CardGroupCode);
-                    cardGroupModel.PublicCode = ShortCodeBll.Instance.CreateCode(cardGroupModel.GroupName, ShortCodeTypeEnum.CardGroupPublicCode);
+                    cardGroupModel.GroupCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.CardGroupCode, cardGroupModel.GroupName);
+                    cardGroupModel.PublicCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.CardGroupPublicCode, cardGroupModel.GroupName);
                     context.hs_usercardgroup.Add(cardGroupModel);
                 }
 

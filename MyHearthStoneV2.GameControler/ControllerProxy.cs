@@ -74,12 +74,67 @@ namespace MyHearthStoneV2.GameControler
             return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).chessboardOutput);
         }
 
-        public static APIResultBase GetGame(string gameCode)
+        /// <summary>
+        /// 获取游戏的输出模型
+        /// </summary>
+        /// <param name="gameCode"></param>
+        /// <returns></returns>
+        public static APIResultBase GetGame(string gameCode, string userCode = "")
         {
             var ctl = ControllerCache.GetControler(gameCode);
             if (ctl != null)
-                return JsonModelResult.PackageSuccess(ControllerCache.GetControler(gameCode).chessboardOutput);
-            return null;
+                return JsonModelResult.PackageSuccess(GetChessboardOutputByUser(ctl, userCode));
+            return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+        }
+
+        /// <summary>
+        /// 根据玩家返回对应的游戏输出模型
+        /// </summary>
+        /// <param name="ctl"></param>
+        /// <param name="userCode"></param>
+        /// <returns></returns>
+        private static ChessboardOutput GetChessboardOutputByUser(Controler ctl, string userCode)
+        {
+            ChessboardOutput output = new ChessboardOutput
+            {
+                GameCode = ctl.GameCode,
+                Players = new List<BaseUserCards>()
+            };
+
+            foreach (UserCards cd in ctl.chessboard.Players)
+            {
+                if (cd.UserCode == userCode)
+                {
+                    output.Players.Add(new UserCardsOutput()
+                    {
+                        DeskCards = cd.DeskCards,
+                        HandCards = cd.HandCards,
+                        InitCards = cd.InitCards,
+                        IsActivation = cd.IsActivation,
+                        IsFirst = cd.IsFirst,
+                        Power = cd.Power,
+                        StockCards = cd.StockCards.Count,
+                        SwitchDone = cd.SwitchDone,
+                        UserCode = cd.UserCode
+                    });
+                }
+                else
+                {
+                    output.Players.Add(new UserCardsSimpleOutput()
+                    {
+                        DeskCards = cd.DeskCards,
+                        HandCards = cd.HandCards.Count,
+                        InitCards = cd.InitCards.Count,
+                        IsActivation = cd.IsActivation,
+                        IsFirst = cd.IsFirst,
+                        Power = cd.Power,
+                        StockCards = cd.StockCards.Count,
+                        SwitchDone = cd.SwitchDone,
+                        UserCode = cd.UserCode
+                    });
+                }
+            }
+            return output;
         }
 
         public void RoundEnd()
@@ -90,26 +145,44 @@ namespace MyHearthStoneV2.GameControler
         /// <summary>
         /// 开场换牌
         /// </summary>
-        /// <param name="gameID"></param>
+        /// <param name="gameCode"></param>
         /// <param name="userCode"></param>
         /// <param name="lstInitCardIndex"></param>
         /// <returns></returns>
-        public static APIResultBase SwitchCard(string gameID, string userCode, List<int> lstInitCardIndex)
+        public static APIResultBase SwitchCard(string gameCode, string userCode, List<string> lstInitCardIndex)
         {
             string res = JsonStringResult.VerifyFail();
             Controler ctl = null;
             var lstCtls = ControllerCache.GetControls();
-            if (!lstCtls.Any(c => c.GameCode == gameID) || !lstCtls.Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
+            if (!lstCtls.Any(c => c.GameCode == gameCode) || !lstCtls.Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            ctl = lstCtls.First(c => c.GameCode == gameID);
+            ctl = lstCtls.First(c => c.GameCode == gameCode);
             if (ctl.roundIndex != 2)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            ctl.SwitchCard(userCode, lstInitCardIndex);
-            return JsonModelResult.PackageSuccess(ctl.chessboard.Players.First(c => c.User.UserCode == userCode).HandCards);
+            if (ctl.chessboard.Players.Any(c => c.UserCode == userCode && c.SwitchDone == false) == false)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+            List<int> initCardIndex = new List<int>();
+            foreach (string idx in lstInitCardIndex)
+            {
+                initCardIndex.Add(idx.TryParseInt());
+            }
+            if (initCardIndex.Any(c => c < 0 || c > 3) || initCardIndex.Any(c => c >= ctl.chessboard.Players.First(x => x.UserCode == userCode).InitCards.Count))
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+            var idxGroup = initCardIndex.GroupBy(c => c);
+            if (idxGroup.Any(c => c.Count() > 1))
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+            ctl.SwitchCard(userCode, initCardIndex);
+            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).chessboardOutput.Players.First(c => c.UserCode == userCode));
         }
 
         public void PickUpACard(string userCode)

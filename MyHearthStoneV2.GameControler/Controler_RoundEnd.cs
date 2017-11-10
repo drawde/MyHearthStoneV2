@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyHearthStoneV2.BLL;
+using MyHearthStoneV2.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +16,10 @@ namespace MyHearthStoneV2.GameControler
         [ControlerMonitor]
         internal void RoundEnd()
         {
-            //if (roundIndex != 2 && !chessboard.Players.Any(c => c.HandCards.Count < 1))
-            //{
-
-            //}
             roundIndex++;
             currentRoundRemainingSecond = 60;
+            currentRoundCode = nextRoundCode;
+            nextRoundCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode);
         }
     }
 }

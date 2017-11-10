@@ -29,7 +29,13 @@
         var interval = setInterval(function () {
             if (!!apiTime && !!signObj) {
                 clearInterval(interval);
-                var param = "{\"NickName\":\"" + getNickName() + "\",\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + getUrlParam("password") + "\"}";
+                var param = "";
+                if (window.location.pathname.toLowerCase() == "/game/chosencardgroup") {
+                    param = "{\"NickName\":\"" + getNickName() + "\",\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + getUrlParam("password") + "\"}";
+                }
+                else if (window.location.pathname.toLowerCase() == "/game/battle") {
+                    param = "{\"NickName\":\"" + getNickName() + "\",\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
+                }
                 roomHub.server.online(appendParam(param, signObj)).done(function (res) {
                     res = JSON.parse(res);
                     hideLoader();

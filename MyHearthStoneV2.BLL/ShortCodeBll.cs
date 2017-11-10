@@ -149,7 +149,7 @@ namespace MyHearthStoneV2.BLL
             if (code == null)
             {
                 Log.Default.Debug("GetOrCreate:data=" + data + ";codeType=" + codeType);
-                string shortCode = CreateCode(data, codeType);
+                string shortCode = CreateCode(codeType, data);
                 code = GetModel(shortCode);
             }
             return code;
@@ -192,7 +192,7 @@ namespace MyHearthStoneV2.BLL
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public string CreateCode(string data, ShortCodeTypeEnum codeType)
+        public string CreateCode(ShortCodeTypeEnum codeType, string data = "")
         {
             string newCode = "";
             HS_ShortCode sc = null;

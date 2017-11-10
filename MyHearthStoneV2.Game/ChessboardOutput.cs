@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MyHearthStoneV2.Game
 {
     /// <summary>
-    /// 棋盘对象（用于输出）
+    /// 游戏棋盘对象（用于输出）
     /// </summary>
     public class ChessboardOutput
     {

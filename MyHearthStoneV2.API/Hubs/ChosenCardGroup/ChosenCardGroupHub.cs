@@ -15,6 +15,7 @@ using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.GameControler;
 using MyHearthStoneV2.Model.CustomModels;
+using MyHearthStoneV2.Game;
 
 namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
 {    
@@ -47,15 +48,18 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
 
             HS_GameTable table = GameTableBll.Instance.GetTable(tableCode);
             if (table != null)
-            {
+            {                
                 Groups.Add(Context.ConnectionId, table.TableCode);
 
                 var user = UsersBll.Instance.GetUser(userCode);
                 SendOnlineNotice(user, table.TableCode, "用户：" + userName + "进入房间");
                 if (table.CreateUserIsReady && table.PlayerIsReady)
                 {
-                    var res = ControllerProxy.GetGame(GameBll.Instance.GetGameByTableCode(tableCode).GameCode);
-                    Clients.Group(tableCode, new string[0]).go(JsonConvert.SerializeObject(res));
+                    var game = GameBll.Instance.GetGameByTableCode(tableCode);
+                    if (game != null)
+                    {
+                        Clients.Group(tableCode, new string[0]).go(JsonStringResult.SuccessResult(game.GameCode));
+                    }
                 }
             }
             else
@@ -124,23 +128,9 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
             string tableCode = jobj["TableCode"].TryParseString();
             string nickName = jobj["NickName"].TryParseString();
 
-            //查找房间是否存在
-            var gameTable = GameTableBll.Instance.GetTable(tableCode);
-            //存在则进入删除
-            if (gameTable != null)
+            bool isSuccess = GameTableBll.Instance.Repick(tableCode, userCode);
+            if (isSuccess)
             {
-                if (gameTable.PlayerUserCode == userCode)
-                {
-                    gameTable.PlayerIsReady = false;
-                    gameTable.PlayerUserCardGroup = "";
-                }
-                else if (gameTable.CreateUserCode == userCode)
-                {
-                    gameTable.CreateUserIsReady = false;
-                    gameTable.CreateUserCardGroup = "";
-                }
-                GameTableBll.Instance.Update(gameTable);
-
                 //提示客户端                
                 SendReadyNotice(tableCode, "用户：" + nickName + "开始重新选择卡组", userCode);                                
                 return JsonStringResult.SuccessResult();
@@ -195,12 +185,28 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
                 secontPlayerCode = gameTable.CreateUserCode;
                 secondPlayerCardGroup = gameTable.CreateUserCardGroup;
             }
-            
-            if (ControllerProxy.GetGame(GameBll.Instance.GetGameByTableCode(gameTable.TableCode).GameCode) != null)
+            var game = GameBll.Instance.GetGameByTableCode(gameTable.TableCode);
+            string gameCode = "";
+
+            //如果游戏记录为空，则创建游戏
+            if (game == null || ControllerProxy.GetGame(game.GameCode) == null)
             {
                 var res = ControllerProxy.CreateGame(gameTable.TableCode, firstPlayerCode, secontPlayerCode, firstPlayerCardGroup, secondPlayerCardGroup);
-                Clients.Group(gameTable.TableCode, new string[0]).go(JsonConvert.SerializeObject(res));
+                if (res.code == (int)OperateResCodeEnum.成功)
+                {
+                    ChessboardOutput chessBoard = ((APISingleModelResult<ChessboardOutput>)res).data;
+                    gameCode = chessBoard.GameCode;
+                }
+                else
+                {
+                    Clients.Group(gameTable.TableCode, new string[0]).go(JsonStringResult.Error(OperateResCodeEnum.参数错误));
+                }
             }
+            else
+            {
+                gameCode = game.GameCode;
+            }
+            Clients.Group(gameTable.TableCode, new string[0]).go(JsonStringResult.SuccessResult(gameCode));
         }
 
         [SignalRMethod]

@@ -79,7 +79,8 @@ namespace MyHearthStoneV2.GameControler
                         IsFirst = cd.IsFirst,
                         Power = cd.Power,
                         StockCards = cd.StockCards.Count,
-                        SwitchDone = cd.SwitchDone
+                        SwitchDone = cd.SwitchDone,
+                        UserCode = cd.UserCode
                     });
                 }
                 else
@@ -93,7 +94,8 @@ namespace MyHearthStoneV2.GameControler
                         IsFirst = cd.IsFirst,
                         Power = cd.Power,
                         StockCards = cd.StockCards.Count,
-                        SwitchDone = cd.SwitchDone
+                        SwitchDone = cd.SwitchDone,
+                        UserCode = cd.UserCode
                     });
                 }
             }

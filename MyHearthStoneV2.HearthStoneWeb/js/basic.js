@@ -154,8 +154,7 @@ function checknum(value) {
         return false;
     }
 }
-function showLoader() {
-    var dialogueText = dialogues[Math.round(Math.random() * (dialogues.length - 1))];
+function showLoader() {    
     $('.progress-indicator').show().delay(400);
 }
 function hideLoader() {
