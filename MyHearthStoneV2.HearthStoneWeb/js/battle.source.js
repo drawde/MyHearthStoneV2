@@ -27,12 +27,6 @@ function ShowSwitchPanel(initCards) {
     var idx = 0;
     var html = "<div class=\"container\"><div class=\"switchpanel\">";
     Enumerable.From(initCards).ForEach(function (value, index) {
-        //$(".switchpanel").children().eq(index).children("img").attr("src", "/images/SwitchCardPanel/teacher0" + (index + 1) + "1.jpg");
-        //idx = index;
-        //$(".switchpanel").children().eq(index).find("h2").eq(0).html(value.Name);
-        //$(".switchpanel").children().eq(index).find("p").eq(0).html("");
-        //$(".switchpanel").children().eq(index).find("p").eq(1).html(dialogues[Math.round(Math.random() * (dialogues.length - 1))]);
-        
         html += "<a href=\"javascript:ChoseSwitchCard(" + index + ");\" class=\"main_img\">" +
             "<img src=\"/images/SwitchCardPanel/teacher0" + (index + 1) + "1.jpg\">" +
             "<div class=\"main_info\">" +
@@ -46,7 +40,7 @@ function ShowSwitchPanel(initCards) {
             "</div>" +
         "</a>";
     });
-    html += "</div></div>";
+    html += "</div><div class=\"switchdone\"><a href=\"javascript:switchDone();\">asdasdasd</a></div></div>";
     $(".arrow").before(html);
     //while (idx < 5) {        
     //    idx++;
@@ -65,6 +59,16 @@ function ShowSwitchPanel(initCards) {
     $(".container").show();
 }
 
+function switchDone(){
+    var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"SwitchCards\":\"" + switchCardIndexs.toString() + "\"}";
+    roomHub.server.switchCard(appendParam(param, signObj)).done(function (res) {
+        res = JSON.parse(res);
+        console.log(res);
+        if (res.code == 100) {
+            
+        }
+    });
+}
 //选择一张开局要换的牌
 function ChoseSwitchCard(switchCardIndex) {
     if (Enumerable.From(switchCardIndexs).Any(c=>c == switchCardIndex)) {

@@ -37,9 +37,9 @@ namespace MyHearthStoneV2.GameControler
                     ri = rndIndex;
                 }
                 uc.HandCards = uc.InitCards;
-                uc.HandCards.ForEach(c => { c.CardLocation = CardLocation.手牌; });
-                //uc.SwitchDone = true;
+                uc.HandCards.ForEach(c => { c.CardLocation = CardLocation.手牌; });                
             }
+            //uc.SwitchDone = true;
             if (chessboard.Players.First(c => c.User.UserCode != userCode).SwitchDone)
             {
                 RoundEnd();

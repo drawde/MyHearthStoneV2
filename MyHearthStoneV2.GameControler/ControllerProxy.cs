@@ -159,10 +159,10 @@ namespace MyHearthStoneV2.GameControler
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
             ctl = lstCtls.First(c => c.GameCode == gameCode);
-            if (ctl.roundIndex != 2)
-            {
-                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
-            }
+            //if (ctl.roundIndex != 2)
+            //{
+            //    return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            //}
             if (ctl.chessboard.Players.Any(c => c.UserCode == userCode && c.SwitchDone == false) == false)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);

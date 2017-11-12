@@ -55,10 +55,10 @@ namespace MyHearthStoneV2.API.Hubs
             if (res.code == (int)OperateResCodeEnum.成功)
             {
                 res = ControllerProxy.SwitchCard(gameCode, userCode, switchCards.Split(",").ToList());
-                ChessboardOutput chessBoard = ((APISingleModelResult<ChessboardOutput>)res).data;
-                if (chessBoard != null && chessBoard.Players.Any(c => c.UserCode == userCode))
+                var userCard = ((APISingleModelResult<BaseUserCards>)res).data;
+                if (userCard != null)
                 {
-                    return JsonStringResult.SuccessResult(chessBoard);
+                    return JsonStringResult.SuccessResult(userCard);
                 }
             }
             return JsonStringResult.Error(OperateResCodeEnum.参数错误);
