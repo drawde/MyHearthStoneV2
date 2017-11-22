@@ -85,16 +85,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="TestMonitor.cs" />
+    <Compile Include="TestMonitorTwo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyHearthStoneV2.APIMonitor\MyHearthStoneV2.APIMonitor.csproj">
-      <Project>{2c8ba1db-c965-406e-868f-654e70e58f05}</Project>
-      <Name>MyHearthStoneV2.APIMonitor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj">
       <Project>{f69a8aeb-ab89-4f87-b2fd-af68d009e42e}</Project>
       <Name>MyHearthStoneV2.BLL</Name>
@@ -111,21 +108,9 @@
       <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
       <Name>MyHearthStoneV2.CardLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.CardMonitor\MyHearthStoneV2.CardMonitor.csproj">
-      <Project>{90a54fcc-2e14-4bea-af70-8bd47d9cff72}</Project>
-      <Name>MyHearthStoneV2.CardMonitor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.GameControler\MyHearthStoneV2.GameControler.csproj">
-      <Project>{c63d9b8d-118d-4dc1-a9bd-8b36bb3225d3}</Project>
-      <Name>MyHearthStoneV2.GameControler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj">
-      <Project>{b9d8f912-6398-4807-892f-88f169f6bc02}</Project>
-      <Name>MyHearthStoneV2.Game</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
       <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>

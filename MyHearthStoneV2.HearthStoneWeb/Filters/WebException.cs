@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MyHearthStoneV2.BLL;
+using MyHearthStoneV2.Log;
 
 namespace MyHearthStoneV2.HearthStoneWeb.Filters
 {

@@ -26,6 +26,7 @@ namespace MyHearthStoneV2.TestConsole
         /// <param name="eventArgs"></param>
         public override void OnExit(MethodExecutionArgs eventArgs)
         {
+            Console.WriteLine("1");
             base.OnEntry(eventArgs);
             //eventArgs.Instance.GetType().GetMethod("Save").Invoke(eventArgs.Instance, null);
         }

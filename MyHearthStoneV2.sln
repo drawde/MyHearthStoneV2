@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.HearthStoneWeb", "MyHearthStoneV2.HearthStoneWeb\MyHearthStoneV2.HearthStoneWeb.csproj", "{82C9E741-CB6A-42DF-890A-4F43FA76C8F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardLibrary", "MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj", "{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Game", "MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj", "{B9D8F912-6398-4807-892F-88F169F6BC02}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.GameControler", "MyHearthStoneV2.GameControler\MyHearthStoneV2.GameControler.csproj", "{C63D9B8D-118D-4DC1-A9BD-8B36BB3225D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.DAL", "MyHearthStoneV2.DAL\MyHearthStoneV2.DAL.csproj", "{80486935-FD89-47A1-87BE-5E079FCD40B4}"
 EndProject
@@ -18,8 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.TestConsole", "MyHearthStoneV2.TestConsole\MyHearthStoneV2.TestConsole.csproj", "{7047871D-A6FC-4008-8104-33EF8B69B4E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardEnum", "MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj", "{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardMonitor", "MyHearthStoneV2.CardMonitor\MyHearthStoneV2.CardMonitor.csproj", "{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardAction", "MyHearthStoneV2.CardAction\MyHearthStoneV2.CardAction.csproj", "{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}"
 EndProject
@@ -37,9 +31,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Redis", "My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.VerificationCode", "MyHearthStoneV2.VerificationCode\MyHearthStoneV2.VerificationCode.csproj", "{9E74036F-4F48-4059-B6F8-640DD7191B40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.APIMonitor", "MyHearthStoneV2.APIMonitor\MyHearthStoneV2.APIMonitor.csproj", "{2C8BA1DB-C965-406E-868F-654E70E58F05}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.ShortCodeService", "MyHearthStoneV2.ShortCodeService\MyHearthStoneV2.ShortCodeService.csproj", "{A8BF46BB-B5BE-4311-8027-D158443D077A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.ShortCodeBll", "MyHearthStoneV2.ShortCodeBll\MyHearthStoneV2.ShortCodeBll.csproj", "{D9336DC1-E780-48AD-B220-71336BBF23F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Log", "MyHearthStoneV2.Log\MyHearthStoneV2.Log.csproj", "{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.GameControlerProxy", "MyHearthStoneV2.GameControlerProxy\MyHearthStoneV2.GameControlerProxy.csproj", "{DF88F649-41C7-459C-A219-390C398BE64A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,14 +53,6 @@ Global
 		{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9D8F912-6398-4807-892F-88F169F6BC02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9D8F912-6398-4807-892F-88F169F6BC02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9D8F912-6398-4807-892F-88F169F6BC02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9D8F912-6398-4807-892F-88F169F6BC02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C63D9B8D-118D-4DC1-A9BD-8B36BB3225D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C63D9B8D-118D-4DC1-A9BD-8B36BB3225D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C63D9B8D-118D-4DC1-A9BD-8B36BB3225D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C63D9B8D-118D-4DC1-A9BD-8B36BB3225D3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{80486935-FD89-47A1-87BE-5E079FCD40B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{80486935-FD89-47A1-87BE-5E079FCD40B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80486935-FD89-47A1-87BE-5E079FCD40B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,10 +69,6 @@ Global
 		{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07EDBA98-A0DE-406A-8145-7BDBA71E06D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90A54FCC-2E14-4BEA-AF70-8BD47D9CFF72}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C4ECAA-B24C-4507-89E4-CA95F7FFBAF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -115,16 +101,27 @@ Global
 		{9E74036F-4F48-4059-B6F8-640DD7191B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E74036F-4F48-4059-B6F8-640DD7191B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E74036F-4F48-4059-B6F8-640DD7191B40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C8BA1DB-C965-406E-868F-654E70E58F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C8BA1DB-C965-406E-868F-654E70E58F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C8BA1DB-C965-406E-868F-654E70E58F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C8BA1DB-C965-406E-868F-654E70E58F05}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8BF46BB-B5BE-4311-8027-D158443D077A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A8BF46BB-B5BE-4311-8027-D158443D077A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8BF46BB-B5BE-4311-8027-D158443D077A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8BF46BB-B5BE-4311-8027-D158443D077A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9336DC1-E780-48AD-B220-71336BBF23F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9336DC1-E780-48AD-B220-71336BBF23F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9336DC1-E780-48AD-B220-71336BBF23F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9336DC1-E780-48AD-B220-71336BBF23F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF88F649-41C7-459C-A219-390C398BE64A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF88F649-41C7-459C-A219-390C398BE64A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF88F649-41C7-459C-A219-390C398BE64A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF88F649-41C7-459C-A219-390C398BE64A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9B999A0-A806-49AE-95B7-0A3A1044BA2A}
 	EndGlobalSection
 EndGlobal

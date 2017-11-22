@@ -1,7 +1,7 @@
 ﻿using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary.Hero;
 using MyHearthStoneV2.CardLibrary.Servant;
-using MyHearthStoneV2.CardLibrary.Servant.NAXX;
+using MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.CardAction.Servant.NAXX
             _entity = entity;
         }
 
-        public void Attack(IBiology target)
+        public void Attack(BaseBiology target)
         {
             if (typeof(BaseHero).IsAssignableFrom(target.GetType()))
             {

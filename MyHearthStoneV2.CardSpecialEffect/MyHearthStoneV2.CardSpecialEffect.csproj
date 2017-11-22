@@ -40,13 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aura\SE_VioletTeacher.cs" />
     <Compile Include="Deathwhisper\SE_GuiLingZhiZhu.cs" />
-    <Compile Include="ISpecialEffect.cs" />
+    <Compile Include="BaseSpecialEffect.cs" />
     <Compile Include="Other\Charge.cs" />
     <Compile Include="Other\HolyShield.cs" />
     <Compile Include="Other\Taunt.cs" />
     <Compile Include="Other\Windfury.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WarCry\AlterBody\SE_DefenderOfArgus.cs" />
     <Compile Include="WarCry\AlterBody\SE_JiaoXiaoDeZhongShi.cs" />
   </ItemGroup>
   <ItemGroup>

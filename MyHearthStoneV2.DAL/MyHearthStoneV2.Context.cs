@@ -19,6 +19,7 @@ namespace MyHearthStoneV2.DAL
         public MyHearthStoneV2Context()
             : base("name=MyHearthStoneV2Entities")
         {
+            this.Database.Initialize(false);
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

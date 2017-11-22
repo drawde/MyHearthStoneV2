@@ -216,6 +216,7 @@
     <Compile Include="Hubs\ChosenCardGroup\IChosenCardGroupHub.cs" />
     <Compile Include="Hubs\IHub.cs" />
     <Compile Include="Models\SignalRUser.cs" />
+    <Compile Include="Monitor\SignalRMethodAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -252,10 +253,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyHearthStoneV2.APIMonitor\MyHearthStoneV2.APIMonitor.csproj">
-      <Project>{2c8ba1db-c965-406e-868f-654e70e58f05}</Project>
-      <Name>MyHearthStoneV2.APIMonitor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.BLL\MyHearthStoneV2.BLL.csproj">
       <Project>{f69a8aeb-ab89-4f87-b2fd-af68d009e42e}</Project>
       <Name>MyHearthStoneV2.BLL</Name>
@@ -272,13 +269,13 @@
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.GameControler\MyHearthStoneV2.GameControler.csproj">
-      <Project>{c63d9b8d-118d-4dc1-a9bd-8b36bb3225d3}</Project>
-      <Name>MyHearthStoneV2.GameControler</Name>
+    <ProjectReference Include="..\MyHearthStoneV2.GameControlerProxy\MyHearthStoneV2.GameControlerProxy.csproj">
+      <Project>{df88f649-41c7-459c-a219-390c398be64a}</Project>
+      <Name>MyHearthStoneV2.GameControlerProxy</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj">
-      <Project>{b9d8f912-6398-4807-892f-88f169f6bc02}</Project>
-      <Name>MyHearthStoneV2.Game</Name>
+    <ProjectReference Include="..\MyHearthStoneV2.Log\MyHearthStoneV2.Log.csproj">
+      <Project>{5195f93d-8ff6-48c3-8e0b-4d04a50ae024}</Project>
+      <Name>MyHearthStoneV2.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
       <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>
@@ -287,6 +284,10 @@
     <ProjectReference Include="..\MyHearthStoneV2.Redis\MyHearthStoneV2.Redis.csproj">
       <Project>{1aa98bbb-2c51-466f-a3cf-5327a0a47ef2}</Project>
       <Name>MyHearthStoneV2.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.ShortCodeBll\MyHearthStoneV2.ShortCodeBll.csproj">
+      <Project>{d9336dc1-e780-48ad-b220-71336bbf23f7}</Project>
+      <Name>MyHearthStoneV2.ShortCodeBll</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

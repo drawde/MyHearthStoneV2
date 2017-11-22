@@ -16,15 +16,11 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// 费用
         /// </summary>
         public virtual int Cost { get; set; }
-        /// <summary>
-        /// 游戏ID
-        /// </summary>
-        public virtual string GameID { get; set; }
 
         /// <summary>
-        /// 卡牌持有者
+        /// 卡牌在一局游戏中的编号
         /// </summary>
-        public virtual string UserCode { get; set; }
+        public virtual string CardInGameCode { get; set; }
 
         /// <summary>
         /// 名称
@@ -48,8 +44,10 @@ namespace MyHearthStoneV2.CardLibrary.Base
         public virtual string CardCode { get; set; }
 
         /// <summary>
-        /// 是否是某张牌的衍生物（如鬼灵爬行者-鬼灵蜘蛛）
+        /// 是否是某张牌的衍生物（如鬼灵爬行者 => 鬼灵蜘蛛）
         /// </summary>
         public virtual bool IsDerivative { get; } = false;
+
+        public virtual CastStyle CastStyle { get; } = CastStyle.无;
     }
 }

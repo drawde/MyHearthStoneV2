@@ -26,12 +26,12 @@ namespace MyHearthStoneV2.GameControler
         /// </summary>
         public string GameCode { get; set; }
 
-        public Chessboard chessboard { get; set; }
+        public GameContext gameContext { get; set; }
 
         /// <summary>
         /// 游戏输出模型
         /// </summary>
-        public ChessboardOutput chessboardOutput { get; set; }
+        public GameContextOutput gameContextOutput { get; set; }
 
         /// <summary>
         /// 当前回合剩余秒数
@@ -53,7 +53,12 @@ namespace MyHearthStoneV2.GameControler
         /// </summary>
         public string nextRoundCode { get; set; }
 
-        [ControlerMonitor]                    
+        /// <summary>
+        /// 在游戏中的卡牌编码链表
+        /// </summary>
+        internal LinkedList<string> cardInGameCodes = new LinkedList<string>();
+
+        [ControlerMonitor, PlayerActionMonitor]
         public void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup)
         {            
             GameCode = game.GameCode;
@@ -61,7 +66,7 @@ namespace MyHearthStoneV2.GameControler
             nextRoundCode = game.NextRoundCode;
 
             #region 加载玩家卡组
-            chessboardOutput = new ChessboardOutput();
+            gameContextOutput = new GameContextOutput();
             UserCards firstUser = new UserCards();
             firstUser.UserCode = _firstPlayer.UserCode;
             firstUser.User = _firstPlayer;
@@ -74,10 +79,15 @@ namespace MyHearthStoneV2.GameControler
                 lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
             }
 
+            //初始化游戏中的卡牌编码链表
+            int cardInGameIndex = 0;
             foreach (var cg in firstCardGroup)
             {
                 var card = lstCardLib.First(c => c.CardCode == cg.CardCode);
+                card.CardInGameCode = cardInGameIndex.ToString();
                 firstUser.AllCards.Add(card);
+                cardInGameCodes.AddLast(card.CardInGameCode);
+                cardInGameIndex++;
             }
 
             //firstCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
@@ -86,23 +96,31 @@ namespace MyHearthStoneV2.GameControler
             //});
             firstUser.StockCards = firstUser.AllCards;
 
-            UserCards secondUser = new UserCards();
-            secondUser.UserCode = _secondPlayer.UserCode;
-            secondUser.User = _secondPlayer;
-            secondUser.IsActivation = true;
-            secondUser.IsFirst = false;
-            secondUser.AllCards = new List<Card>();
+            UserCards secondUser = new UserCards
+            {
+                UserCode = _secondPlayer.UserCode,
+                User = _secondPlayer,
+                IsActivation = true,
+                IsFirst = false,
+                AllCards = new List<Card>()
+            };
             secondCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
             {
-                secondUser.AllCards.Add(lstCardLib.First(c => c.CardCode == detail.CardCode));
+                var card = lstCardLib.First(c => c.CardCode == detail.CardCode);
+                card.CardInGameCode = cardInGameIndex.ToString();
+                secondUser.AllCards.Add(card);
+                cardInGameCodes.AddLast(card.CardInGameCode);
+                cardInGameIndex++;
             });
 
             secondUser.StockCards = secondUser.AllCards;
 
-            chessboard = new Chessboard();
-            chessboard.Players = new List<UserCards>();
-            chessboard.Players.Add(firstUser);
-            chessboard.Players.Add(secondUser);
+            gameContext = new GameContext
+            {
+                Players = new List<UserCards>()
+            };
+            gameContext.Players.Add(firstUser);
+            gameContext.Players.Add(secondUser);
             #endregion
 
             #region 初始化开场选牌
@@ -110,30 +128,30 @@ namespace MyHearthStoneV2.GameControler
             List<Card> lstFirstPickUpCard = new List<Card>();
             List<Card> lstSecondPickUpCard = new List<Card>();
 
-            List<int> lstRndIndex = RandomUtil.CreateRandomInt(0, chessboard.Players.First(c => c.IsFirst).AllCards.Count - 1, firstPickUpCount);
+            List<int> lstRndIndex = RandomUtil.CreateRandomInt(0, gameContext.Players.First(c => c.IsFirst).AllCards.Count - 1, firstPickUpCount);
             for (int i = 0; i < lstRndIndex.Count; i++)
             {
                 if (i < lstRndIndex.Count - 1)
                 {
-                    lstFirstPickUpCard.Add(chessboard.Players.First(c => c.IsFirst).AllCards[lstRndIndex[i]]);
+                    lstFirstPickUpCard.Add(gameContext.Players.First(c => c.IsFirst).AllCards[lstRndIndex[i]]);
                 }
-                lstSecondPickUpCard.Add(chessboard.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]]);
+                lstSecondPickUpCard.Add(gameContext.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]]);
             }
             firstUser.InitCards = lstFirstPickUpCard;
-            firstUser.DeskCards = new List<Card>();
+            firstUser.DeskCards = new List<Card>() { null, null, null, null, null, null, null };
             firstUser.HandCards = new List<Card>();
-            firstUser.StockCards = new List<Card>();
+            //firstUser.StockCards = new List<Card>();
 
             secondUser.InitCards = lstSecondPickUpCard;
-            secondUser.DeskCards = new List<Card>();
+            secondUser.DeskCards = new List<Card>() { null, null, null, null, null, null, null };
             secondUser.HandCards = new List<Card>();
-            secondUser.StockCards = new List<Card>();
+            //secondUser.StockCards = new List<Card>();
             #endregion
 
             List<Card> lstAll = new List<Card>();
             lstAll.AddRange(firstUser.AllCards);
             lstAll.AddRange(secondUser.AllCards);
-            chessboard.AllCard = lstAll;
+            gameContext.AllCard = lstAll;
             //SetCurrentRoundCode();
         }
 

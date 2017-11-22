@@ -1,6 +1,8 @@
 ﻿@using System.Configuration
 @using MyHearthStoneV2.Common.Util
+@using MyHearthStoneV2.Common.Enum
 @using MyHearthStoneV2.Model
+@using MyHearthStoneV2.CardEnum
 @{
     Layout = "/Views/Shared/_GameLayout.cshtml";
     ViewBag.Title = "对战";
@@ -26,6 +28,9 @@
 <script src="/js/baraja/modernizr.custom.79639.js"></script>
 <script src="/js/baraja/jquery.baraja.js"></script>
 <script src="/Scripts/linq.min.js"></script>
+<script type="text/javascript">
+        @(EnumUtil.GetJsonEnum(typeof(MyHearthStoneV2.CardEnum.CastStyle)));
+</script>
 @(Html.Raw(SignUtil.ImportSignJsFile("/js/battle.source.js", ViewBag.cssAndJSVersion)))
 }
 @(Html.Raw(ViewBag.ConfusionStringToHTML))
@@ -45,7 +50,7 @@
         </ul>
     </div>
     <div class="newline">
-        <a href="javascript:;"><img src="/images/tables/btn/btnend.png" /></a>
+        <a href="javascript:;"><img style="width:129px;height:62.3px;" src="/images/tables/btn/roundEnd.png" /></a>
     </div>
     <div class="tableCard">
         <ul id="myTableCard"  style="margin-top:-42px;">
@@ -61,16 +66,7 @@
 
     <div class="baraja-demo">
         <ul id="baraja-el" class="baraja-container">
-            <li zindex="1009" cardImg="/images/baraja/1.jpg" originalCardHTML='<img src="/images/baraja/1.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/1.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p></li>
-            <li zindex="1008" cardImg="/images/baraja/2.jpg" originalCardHTML='<img src="/images/baraja/2.jpg" /><h4>Vermouth Land</h4><p>Velit chambray fugiat, enim aesthetic esse ullamco typewriter.</p>'><img src="/images/baraja/2.jpg" /><h4>Vermouth Land</h4><p>Velit chambray fugiat, enim aesthetic esse ullamco typewriter.</p></li>
-            <li zindex="1007" cardImg="/images/baraja/3.jpg" originalCardHTML='<img src="/images/baraja/3.jpg" /><h4>Electrodynamics</h4><p>Before they sold out PBR magna jean shorts non seitan ea. Dolor wolf pop-up.</p>'><img src="/images/baraja/3.jpg" /><h4>Electrodynamics</h4><p>Before they sold out PBR magna jean shorts non seitan ea. Dolor wolf pop-up.</p></li>
-            <li zindex="1006" cardImg="/images/baraja/4.jpg" originalCardHTML='<img src="/images/baraja/4.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/4.jpg" /><h4>Retinal Bliss</h4><p>Locavore vero ad, before they sold out food truck bushwick helvetica.</p></li>
-            <li zindex="1005" cardImg="/images/baraja/5.jpg" originalCardHTML='<img src="/images/baraja/5.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/5.jpg" /><h4>Disco Fever</h4><p>Cillum laboris consequat, qui elit retro next level skateboard freegan hella.</p></li>
-            <li zindex="1004" cardImg="/images/baraja/6.jpg" originalCardHTML='<img src="/images/baraja/6.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/6.jpg" /><h4>Serenity</h4><p>Truffaut wes anderson hoodie 3 wolf moon labore, fugiat lomo iphone eiusmod vegan.</p></li>
-            <li zindex="1003" cardImg="/images/baraja/7.jpg" originalCardHTML='<img src="/images/baraja/7.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/7.jpg" /><h4>Dark Honor</h4><p>Chillwave mustache pinterest, marfa seitan umami id farm-to-table iphone.</p></li>
-            <li zindex="1002" cardImg="/images/baraja/8.jpg" originalCardHTML='<img src="/images/baraja/8.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/8.jpg" /><h4>Nested Happiness</h4><p>Minim post-ironic banksy american apparel iphone wayfarers.</p></li>
-            <li zindex="1001" cardImg="/images/baraja/9.jpg" originalCardHTML='<img src="/images/baraja/9.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/9.jpg" /><h4>Cherry Country</h4><p>Sint vinyl Austin street art odd future id trust fund, terry richardson cray.</p></li>
-            <li zindex="1000" cardImg="/images/baraja/10.jpg" originalCardHTML='<img src="/images/baraja/10.jpg" /><h4>Coco Loko</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'><img src="/images/baraja/10.jpg" /><h4>Cherry Country</h4><p>Sint vinyl Austin street art odd future id trust fund, terry richardson cray.</p></li>
+
         </ul>
     </div> 
 </div>

@@ -13,6 +13,6 @@ namespace MyHearthStoneV2.CardAction
     /// </summary>
     public interface IAction
     {
-        void Attack(IBiology target);
+        void Attack(BaseBiology target);
     }
 }

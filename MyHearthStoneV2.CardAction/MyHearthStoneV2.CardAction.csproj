@@ -58,10 +58,6 @@
       <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
       <Name>MyHearthStoneV2.CardLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.CardMonitor\MyHearthStoneV2.CardMonitor.csproj">
-      <Project>{90a54fcc-2e14-4bea-af70-8bd47d9cff72}</Project>
-      <Name>MyHearthStoneV2.CardMonitor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.CardSpecialEffect\MyHearthStoneV2.CardSpecialEffect.csproj">
       <Project>{925ac619-6170-415a-9140-86629ec3d672}</Project>
       <Name>MyHearthStoneV2.CardSpecialEffect</Name>
@@ -69,10 +65,6 @@
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.GameControler\MyHearthStoneV2.GameControler.csproj">
-      <Project>{c63d9b8d-118d-4dc1-a9bd-8b36bb3225d3}</Project>
-      <Name>MyHearthStoneV2.GameControler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

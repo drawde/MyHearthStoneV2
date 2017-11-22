@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using MyHearthStoneV2.Common.Util;
-
+using MyHearthStoneV2.Log;
 
 namespace MyHearthStoneV2.API.Filters
 {

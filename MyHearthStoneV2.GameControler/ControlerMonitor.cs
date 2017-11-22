@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace MyHearthStoneV2.GameControler
 {
     /// <summary>
-    /// 控制器监控器
+    /// 控制器监控器（保存游戏控制器对象、封装游戏对象的输出）
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
@@ -53,6 +53,10 @@ namespace MyHearthStoneV2.GameControler
             base.OnEntry(args);
         }
 
+        /// <summary>
+        /// 游戏控制器方法结束前，封装游戏对象的输出
+        /// </summary>
+        /// <param name="eventArgs"></param>
         public override void OnExit(MethodExecutionArgs eventArgs)
         {
             if (eventArgs.Arguments != null && eventArgs.Arguments.Count > 0)
@@ -63,14 +67,15 @@ namespace MyHearthStoneV2.GameControler
             
 
             #region 封装输出
-            ctl.chessboardOutput = new ChessboardOutput();
-            ctl.chessboardOutput.Players = new List<BaseUserCards>();
-            ctl.chessboardOutput.GameCode = ctl.GameCode;
-            foreach (var cd in ctl.chessboard.Players)
+            ctl.gameContextOutput = new GameContextOutput();
+            ctl.gameContextOutput.Players = new List<BaseUserCards>();
+            ctl.gameContextOutput.GameCode = ctl.GameCode;
+            ctl.gameContextOutput.RoundIndex = ctl.roundIndex;
+            foreach (var cd in ctl.gameContext.Players)
             {
                 if (cd.IsActivation)
                 {
-                    ctl.chessboardOutput.Players.Add(new UserCardsOutput()
+                    ctl.gameContextOutput.Players.Add(new UserCardsOutput()
                     {
                         DeskCards = cd.DeskCards,
                         HandCards = cd.HandCards,
@@ -80,12 +85,13 @@ namespace MyHearthStoneV2.GameControler
                         Power = cd.Power,
                         StockCards = cd.StockCards.Count,
                         SwitchDone = cd.SwitchDone,
-                        UserCode = cd.UserCode
+                        UserCode = cd.UserCode,
+                        RoundIndex = ctl.roundIndex
                     });
                 }
                 else
                 {
-                    ctl.chessboardOutput.Players.Add(new UserCardsSimpleOutput()
+                    ctl.gameContextOutput.Players.Add(new UserCardsSimpleOutput()
                     {
                         DeskCards = cd.DeskCards,
                         HandCards = cd.HandCards.Count,
@@ -95,7 +101,8 @@ namespace MyHearthStoneV2.GameControler
                         Power = cd.Power,
                         StockCards = cd.StockCards.Count,
                         SwitchDone = cd.SwitchDone,
-                        UserCode = cd.UserCode
+                        UserCode = cd.UserCode,
+                        RoundIndex = ctl.roundIndex
                     });
                 }
             }

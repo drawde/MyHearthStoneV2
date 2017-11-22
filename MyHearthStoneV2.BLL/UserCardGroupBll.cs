@@ -13,6 +13,8 @@ using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary;
 using MyHearthStoneV2.CardLibrary.Hero;
 using EntityFramework.Extensions;
+using MyHearthStoneV2.ShortCodeBll;
+
 namespace MyHearthStoneV2.BLL
 {
     public class UserCardGroupBll : BaseBLL<HS_UserCardGroup>
@@ -100,8 +102,8 @@ namespace MyHearthStoneV2.BLL
                     cardGroupModel.UserCode = UserCode;
                     cardGroupModel.GroupName = GroupName;
                     cardGroupModel.Profession = Profession;
-                    cardGroupModel.GroupCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.CardGroupCode, cardGroupModel.GroupName);
-                    cardGroupModel.PublicCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.CardGroupPublicCode, cardGroupModel.GroupName);
+                    cardGroupModel.GroupCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.CardGroupCode, cardGroupModel.GroupName);
+                    cardGroupModel.PublicCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.CardGroupPublicCode, cardGroupModel.GroupName);
                     context.hs_usercardgroup.Add(cardGroupModel);
                 }
 

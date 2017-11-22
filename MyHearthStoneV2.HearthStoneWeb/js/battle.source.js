@@ -12,12 +12,30 @@
 ];
 var switchCardIndexs = [];
 function registCustomRoomFunction() {
+    roomHub.client.queryMyCards = queryMyCards;
 }
 function ClientConnected(res) {
+    console.log(res);
     if (res.code == 100) {        
         var initCards = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
-        if (initCards.InitCards && initCards.InitCards.length > 0) {
+        if (res.data.RoundIndex == 0) {
             ShowSwitchPanel(initCards.InitCards);
+        }
+        else {
+            var currentPlayer = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            resetHandCards(currentPlayer);
+            $("#myTableCard li").mouseover(function () {
+                bindTableCardOver(this);
+            });
+            $("#myTableCard li").mouseout(function () {
+                bindTableCardOunt(this);
+            });
+            $(document).bind("mousemove", function (e) {
+                $(".arrow").css("left", e.pageX - 25).css("top", e.pageY - 25);
+            });
+            if (currentPlayer.IsActivation) {                
+                
+            }
         }
     }
 }
@@ -40,7 +58,7 @@ function ShowSwitchPanel(initCards) {
             "</div>" +
         "</a>";
     });
-    html += "</div><div class=\"switchdone\"><a href=\"javascript:switchDone();\">asdasdasd</a></div></div>";
+    html += "</div><div class=\"switchdone\"><a href=\"javascript:switchDone();\"><img src=\"/images/tables/btn/switchCard.png\" style=\"width:144px;height:70px;margin-top:10px;\" /></a></div></div>";
     $(".arrow").before(html);
     //while (idx < 5) {        
     //    idx++;
@@ -55,18 +73,38 @@ function ShowSwitchPanel(initCards) {
     }, function () {
         $(this).find(".main_info").stop().animate({ "top": "285px" }, speed)
               .find(".info_more>p").fadeOut(500);
-    });
-    $(".container").show();
+    });
+
+    $(".container").fadeIn(500);
 }
 
-function switchDone(){
+function switchDone() {
+    showLoader();
     var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"SwitchCards\":\"" + switchCardIndexs.toString() + "\"}";
     roomHub.server.switchCard(appendParam(param, signObj)).done(function (res) {
-        res = JSON.parse(res);
-        console.log(res);
+        res = JSON.parse(res);        
         if (res.code == 100) {
-            
+            Enumerable.From(res.data.HandCards).ForEach(function (value, index) {
+                $(".switchpanel h2").eq(index).html(value.Name);
+                $(".switchpanel a").eq(index).find(".info_more p").html(dialogues[Math.round(Math.random() * (dialogues.length - 1))]);
+                $(".switchpanel a").eq(index).css("width", "196px");
+                $(".switchpanel a").eq(index).css("height", "400px");
+                $(".switchpanel a").eq(index).hover(function () {
+                    $(this).find(".main_info").stop().animate({ "top": "0px" }, 300)
+                          .find(".info_more>p").fadeIn(500);
+                }, function () {
+                    $(this).find(".main_info").stop().animate({ "top": "285px" }, 300)
+                          .find(".info_more>p").fadeOut(500);
+                });
+            });
+            $(".switchdone").fadeOut(500);
+            //resetHandCards(res.data);
+            switchCardIndexs = [];
         }
+        else {
+            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+        }
+        hideLoader();
     });
 }
 //选择一张开局要换的牌
@@ -94,6 +132,40 @@ function ChoseSwitchCard(switchCardIndex) {
     switchCardIndexs.sort();
     //console.log(switchCardIndexs);
 }
+
+//获取当前游戏最新信息
+function queryMyCards() {
+    showLoader();
+    var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
+    roomHub.server.getMyCards(appendParam(param, signObj)).done(function (res) {
+        res = JSON.parse(res);        
+        //console.log(res);
+        if (res.code == 100) {
+            $(".container").fadeOut(500);
+            $(".switchdone").fadeOut(500);
+            var currentPlayer = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            resetHandCards(currentPlayer);
+
+            //如果是刚开局换完牌，初始化棋盘对象事件
+            if (res.data.RoundIndex == 1) {
+                switchCardIndexs = [];
+                $("#myTableCard li").mouseover(function () {
+                    bindTableCardOver(this);
+                });
+                $("#myTableCard li").mouseout(function () {
+                    bindTableCardOunt(this);
+                });
+                $(document).bind("mousemove", function (e) {
+                    $(".arrow").css("left", e.pageX - 25).css("top", e.pageY - 25);
+                });
+            }
+        }
+        else {
+            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+        }
+        hideLoader();
+    });
+}
 $(function () {
     $("#Placeholder").val(getNickName());
     $("#MyClientName").html(getNickName());
@@ -114,29 +186,7 @@ $(function () {
         }
     });
 
-    resetHandCardStyle();
-
-    $("#baraja-el li").mouseover(function () {
-        cardOver(this);
-    });
-    $("#baraja-el li").mouseout(function () {
-        cardOut(this);
-    });
-    //$("#baraja-el").shapeshift();
-
-    bindDragCardEvent();
-
-    bindCastCardEvent();
-
-    $("#myTableCard li").mouseover(function () {
-        bindTableCardOver(this);
-    });
-    $("#myTableCard li").mouseout(function () {        
-        bindTableCardOunt(this);
-    });
-    $(document).bind("mousemove", function (e) {
-        $(".arrow").css("left", e.pageX - 25).css("top", e.pageY - 25);
-    });
+    
 });
 
 //显示箭头图片
@@ -155,7 +205,14 @@ function castDirectivitySpecialEffect(sourceCard) {
     sourceCard.hide();
 }
 
-function resetHandCardStyle() {
+function resetHandCards(UserCards) {
+    $("#baraja-el").html("");
+    Enumerable.From(UserCards.HandCards).ForEach(function (value, index) {
+        $("#baraja-el").append("<li zindex=\"1009\" cardImg=\"/images/baraja/" + (index + 1) + ".jpg\" originalCardHTML='<img src=\"/images/baraja/" + (index + 1) + ".jpg\" />" +
+            "<h4>" + value.Name + "</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'>" +
+            "<img src=\"/images/baraja/" + (index + 1) + ".jpg\" /><h4>" + value.Name + "</h4>" +
+            "<p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p></li>");
+    });
     var $el = $('#baraja-el'),
         baraja = $el.baraja();
     baraja.fan({
@@ -165,6 +222,17 @@ function resetHandCardStyle() {
         origin: { x: 40, y: $("#baraja-el li").length * 130 },//1300
         center: true
     });
+    $("#baraja-el li").mouseover(function () {
+        cardOver(this);
+    });
+    $("#baraja-el li").mouseout(function () {
+        cardOut(this);
+    });
+    if (UserCards.IsActivation) {        
+        //$("#baraja-el").shapeshift();
+        bindDragCardEvent();
+        bindCastCardEvent();
+    }
 }
 
 //绑定出牌事件

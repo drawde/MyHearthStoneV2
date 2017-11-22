@@ -30,6 +30,7 @@
             if (!!apiTime && !!signObj) {
                 clearInterval(interval);
                 var param = "";
+                showLoader();
                 if (window.location.pathname.toLowerCase() == "/game/chosencardgroup") {
                     param = "{\"NickName\":\"" + getNickName() + "\",\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + getUrlParam("password") + "\"}";
                 }

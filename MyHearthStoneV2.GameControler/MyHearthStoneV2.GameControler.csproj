@@ -73,7 +73,9 @@
     <Compile Include="ControllerCache.cs" />
     <Compile Include="ControllerProxy.cs" />
     <Compile Include="ControllerUtil.cs" />
+    <Compile Include="Control_Servant.cs" />
     <Compile Include="Control_SwitchCard.cs" />
+    <Compile Include="PlayerActionMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,10 +94,6 @@
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj">
-      <Project>{b9d8f912-6398-4807-892f-88f169f6bc02}</Project>
-      <Name>MyHearthStoneV2.Game</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
       <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>

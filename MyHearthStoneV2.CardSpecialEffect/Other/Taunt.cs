@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.CardSpecialEffect.Other
     /// <summary>
     /// 嘲讽
     /// </summary>
-    public class Taunt : ISpecialEffect
+    public class Taunt : BaseSpecialEffect
     {
         //public override CardEnum.BuffTimeLimit buffTime { get; } = CardEnum.BuffTimeLimit.无限制;
     }

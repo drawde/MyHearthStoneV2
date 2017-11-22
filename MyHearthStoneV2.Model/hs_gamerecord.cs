@@ -19,9 +19,10 @@ namespace MyHearthStoneV2.Model
         public string FirstUserCode { get; set; }
         public string SecondUserCode { get; set; }
         public bool IsFirstUserRound { get; set; }
-        public string Chessboard { get; set; }
+        public string GameContext { get; set; }
         public int RoundIndex { get; set; }
         public System.DateTime AddTime { get; set; }
         public string RoundCode { get; set; }
+        public string FunctionName { get; set; }
     }
 }

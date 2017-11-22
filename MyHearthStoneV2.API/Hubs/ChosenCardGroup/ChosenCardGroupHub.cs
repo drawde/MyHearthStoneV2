@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR;
+﻿using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
-using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Common.Util;
 using Newtonsoft.Json;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.APIMonitor;
 using Newtonsoft.Json.Linq;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
-using MyHearthStoneV2.GameControler;
 using MyHearthStoneV2.Model.CustomModels;
-using MyHearthStoneV2.Game;
+using MyHearthStoneV2.API.Monitor;
+using MyHearthStoneV2.GameControlerProxy;
+using MyHearthStoneV2.CardLibrary.Context;
 
 namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
-{    
+{
     public class ChosenCardGroupHub : Hub, IChosenCardGroupHub
     {
         public override Task OnConnected()
@@ -194,7 +189,7 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
                 var res = ControllerProxy.CreateGame(gameTable.TableCode, firstPlayerCode, secontPlayerCode, firstPlayerCardGroup, secondPlayerCardGroup);
                 if (res.code == (int)OperateResCodeEnum.成功)
                 {
-                    ChessboardOutput chessBoard = ((APISingleModelResult<ChessboardOutput>)res).data;
+                    GameContextOutput chessBoard = ((APISingleModelResult<GameContextOutput>)res).data;
                     gameCode = chessBoard.GameCode;
                 }
                 else

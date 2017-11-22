@@ -25,6 +25,9 @@ namespace MyHearthStoneV2.CardEnum
         传说 = 4,
     }
 
+    /// <summary>
+    /// BUFF持续时间
+    /// </summary>
     public enum BuffTimeLimit
     {
         己方回合开始 = 1,
@@ -38,6 +41,11 @@ namespace MyHearthStoneV2.CardEnum
         循环己方回合结束 = 7,
         循环对方回合开始 = 8,
         循环对方回合结束 = 9,
+    }
+
+    public enum SpecialEffectTrigger
+    {
+        随从攻击时
     }
 
     /// <summary>
@@ -54,7 +62,17 @@ namespace MyHearthStoneV2.CardEnum
         盗贼 = 7,
         圣骑士 = 8,
         牧师 = 9
+    }
 
-
+    /// <summary>
+    /// 卡牌异能的施放方式（火球术、冰锥术、黑翼腐蚀者、扭曲虚空）
+    /// </summary>
+    public enum CastStyle
+    {
+        无 = 0,
+        己方随从 = 1,
+        己方随从或英雄 = 2,
+        敌方随从 = 3,
+        敌方随从或英雄 = 4,
     }
 }

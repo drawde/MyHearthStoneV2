@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.CardLibrary.Hero
     /// <summary>
     /// 英雄牌基类
     /// </summary>
-    public abstract class BaseHero: IBiology
+    public abstract class BaseHero: BaseBiology
     {
         /// <summary>
         /// 护甲值

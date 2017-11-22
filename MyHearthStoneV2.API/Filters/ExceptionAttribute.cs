@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MyHearthStoneV2.Common.Util;
+using MyHearthStoneV2.Log;
+
 namespace MyHearthStoneV2.API.Filters
 {
     /// <summary>

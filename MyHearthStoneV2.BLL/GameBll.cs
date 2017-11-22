@@ -1,15 +1,11 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using MyHearthStoneV2.DAL;
 using MyHearthStoneV2.DAL.Impl;
 using MyHearthStoneV2.Model;
-using MyHearthStoneV2.Common;
-using MyHearthStoneV2.Common.Util;
-
+using MyHearthStoneV2.ShortCodeBll;
 
 namespace MyHearthStoneV2.BLL
 {
@@ -23,32 +19,38 @@ namespace MyHearthStoneV2.BLL
 
         public HS_Game CreateGame(string tableCode, string firstUserCode, string secondUserCode,string firstUserCardGroupCode,string secondUserCardGroupCode)
         {
-            HS_Game game = new HS_Game();
+            HS_Game game = null;
             using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
-            {                
-                game.GameCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.GameCode);
-                game.AddTime = DateTime.Now;
-                game.CurrentRoundCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode);
-                game.FirstUserCode = firstUserCode;
-                game.IsFirstUserWin = false;
-                game.NextRoundCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode);
-                game.SecondUserCode = secondUserCode;
-                game.FirstUserCardGroupCode = firstUserCardGroupCode;
-                game.SecondUserCardGroupCode = secondUserCardGroupCode;
-                game.TableCode = tableCode;
-                game.FirstUserIsOnline = true;
-                game.SecondUserIsOnline = true;
-                context.hs_game.Add(game);                
+            {
+                game = new HS_Game
+                {
+                    GameCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameCode),
+                    AddTime = DateTime.Now,
+                    CurrentRoundCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode),
+                    FirstUserCode = firstUserCode,
+                    IsFirstUserWin = false,
+                    NextRoundCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode),
+                    SecondUserCode = secondUserCode,
+                    FirstUserCardGroupCode = firstUserCardGroupCode,
+                    SecondUserCardGroupCode = secondUserCardGroupCode,
+                    TableCode = tableCode,
+                    FirstUserIsOnline = true,
+                    SecondUserIsOnline = true
+                };
+                context.hs_game.Add(game);
 
-                HS_GameRecord record = new HS_GameRecord();
-                record.AddTime = game.AddTime;
-                record.Chessboard = "";
-                record.FirstUserCode = firstUserCode;
-                record.GameCode = game.GameCode;
-                record.IsFirstUserRound = true;
-                record.RoundIndex = 0;
-                record.SecondUserCode = secondUserCode;
-                record.RoundCode = game.CurrentRoundCode;
+                HS_GameRecord record = new HS_GameRecord
+                {
+                    AddTime = game.AddTime,
+                    GameContext = "",
+                    FirstUserCode = firstUserCode,
+                    GameCode = game.GameCode,
+                    IsFirstUserRound = true,
+                    RoundIndex = 0,
+                    SecondUserCode = secondUserCode,
+                    RoundCode = game.CurrentRoundCode,
+                    FunctionName = "CreateGame"
+                };
                 context.hs_gamerecord.Add(record);
                 context.SaveChanges();
             }

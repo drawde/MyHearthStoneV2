@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.CardSpecialEffect.Other
     /// <summary>
     /// 风怒
     /// </summary>
-    public class Windfury : ISpecialEffect
+    public class Windfury : BaseSpecialEffect
     {
         public override CardEnum.BuffTimeLimit buffTime { get; } = CardEnum.BuffTimeLimit.无限制;
     }

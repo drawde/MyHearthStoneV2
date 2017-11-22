@@ -1,19 +1,13 @@
 ﻿using Microsoft.AspNet.SignalR;
-using MyHearthStoneV2.APIMonitor;
 using MyHearthStoneV2.Common.JsonModel;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MyHearthStoneV2.Common.Util;
-using Newtonsoft.Json;
-using MyHearthStoneV2.Model;
-using MyHearthStoneV2.BLL;
 using Newtonsoft.Json.Linq;
 using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.GameControler;
-using MyHearthStoneV2.Model.CustomModels;
-using MyHearthStoneV2.Game;
+using MyHearthStoneV2.API.Monitor;
+using MyHearthStoneV2.CardLibrary.Context;
+using MyHearthStoneV2.GameControlerProxy;
 
 namespace MyHearthStoneV2.API.Hubs
 {
@@ -29,9 +23,10 @@ namespace MyHearthStoneV2.API.Hubs
             var res = ControllerProxy.GetGame(gameCode, userCode);
             if (res.code == (int)OperateResCodeEnum.成功)
             {
-                ChessboardOutput chessBoard = ((APISingleModelResult<ChessboardOutput>)res).data;
+                GameContextOutput chessBoard = ((APISingleModelResult<GameContextOutput>)res).data;
                 if (chessBoard != null && chessBoard.Players.Any(c => c.UserCode == userCode))
                 {
+                    Groups.Add(Context.ConnectionId, gameCode);
                     return JsonStringResult.SuccessResult(chessBoard);
                 }
             }
@@ -55,14 +50,39 @@ namespace MyHearthStoneV2.API.Hubs
             if (res.code == (int)OperateResCodeEnum.成功)
             {
                 res = ControllerProxy.SwitchCard(gameCode, userCode, switchCards.Split(",").ToList());
-                var userCard = ((APISingleModelResult<BaseUserCards>)res).data;
-                if (userCard != null)
+                if (res.code == (int)OperateResCodeEnum.成功)
                 {
-                    return JsonStringResult.SuccessResult(userCard);
+                    var userCard = ((APISingleModelResult<BaseUserCards>)res).data;
+                    if (userCard != null)
+                    {
+                        //如果双方都已经换完牌，则初始化手牌、游戏环境变量，之后通知玩家去获取游戏信息
+                        if (userCard.RoundIndex > 0)
+                        {
+                            Clients.Group(gameCode, new string[0]).queryMyCards("aaaaa");
+                        }
+                        return JsonStringResult.SuccessResult(userCard);
+                    }
                 }
             }
             return JsonStringResult.Error(OperateResCodeEnum.参数错误);
         }
+
+        [SignalRMethod]
+        public string GetMyCards(string param)
+        {
+            JObject jobj = JObject.Parse(param);
+            string userCode = jobj["UserCode"].TryParseString();
+            string gameCode = jobj["GameCode"].TryParseString();
+
+            var res = ControllerProxy.GetGame(gameCode, userCode);
+            if (res.code == (int)OperateResCodeEnum.成功)
+            {
+                var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
+                return JsonStringResult.SuccessResult(gameContextOutput);
+            }
+            return JsonStringResult.Error(OperateResCodeEnum.参数错误);
+        }
+
         public void Bordcast(string param)
         {
             throw new NotImplementedException();
@@ -70,7 +90,7 @@ namespace MyHearthStoneV2.API.Hubs
 
         public void LeaveRoom(string param)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void SendChat(string userCode, string chatContent, string roomCode)

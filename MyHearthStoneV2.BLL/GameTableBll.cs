@@ -2,15 +2,12 @@
 using MyHearthStoneV2.DAL.Impl;
 using MyHearthStoneV2.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.Model.CustomModels;
 using MyHearthStoneV2.Common;
+using MyHearthStoneV2.ShortCodeBll;
 
 namespace MyHearthStoneV2.BLL
 {
@@ -120,7 +117,7 @@ namespace MyHearthStoneV2.BLL
             }
             else
             {
-                gameTable.TableCode = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.TableCode, gameTable.TableName);
+                gameTable.TableCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.TableCode, gameTable.TableName);
                 gameTable.PlayerUserCode = "";
                 gameTable.AddTime = DateTime.Now;
                 using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())

@@ -240,6 +240,9 @@
     <Content Include="images\SwitchCardPanel\teacher031.jpg" />
     <Content Include="images\SwitchCardPanel\teacher041.jpg" />
     <Content Include="images\SwitchCardPanel\teacher051.jpg" />
+    <Content Include="images\tables\btn\roundEnd.png" />
+    <Content Include="images\tables\btn\roundEndOK.png" />
+    <Content Include="images\tables\btn\switchCard.png" />
     <Content Include="images\Warlock.jpg" />
     <Content Include="images\Priest.jpg" />
     <Content Include="images\OFF-CANVAS\user1.png" />
@@ -414,6 +417,10 @@
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Log\MyHearthStoneV2.Log.csproj">
+      <Project>{5195f93d-8ff6-48c3-8e0b-4d04a50ae024}</Project>
+      <Name>MyHearthStoneV2.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
       <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>

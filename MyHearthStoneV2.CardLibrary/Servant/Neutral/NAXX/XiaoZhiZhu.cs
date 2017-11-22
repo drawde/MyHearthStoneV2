@@ -1,0 +1,37 @@
+﻿using MyHearthStoneV2.CardEnum;
+using MyHearthStoneV2.CardLibrary.Monitor;
+
+namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX
+{
+    [PropertyChangedNotification]
+    public class XiaoZhiZhu : BaseServant
+    {
+        public override int Damage { get; set; } = 1;
+        public override int Life { get; set; } = 1;
+        public override int Cost { get; set; } = 1;
+
+        public override bool IsDerivative { get; } = true;
+        public override string Describe
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public override Rarity Rare
+        {
+            get
+            {
+                return Rarity.普通;
+            }
+        }
+        public override string Name
+        {
+            get
+            {
+                return "鬼灵蜘蛛";
+            }
+        }        
+    }
+}

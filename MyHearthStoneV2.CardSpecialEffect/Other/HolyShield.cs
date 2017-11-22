@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.CardSpecialEffect.Other
     /// <summary>
     /// 圣盾
     /// </summary>
-    public class HolyShield : ISpecialEffect
+    public class HolyShield : BaseSpecialEffect
     {
         //public override CardEnum.BuffTimeLimit buffTime { get; } = CardEnum.BuffTimeLimit.无限制;
     }

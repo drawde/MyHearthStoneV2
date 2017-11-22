@@ -1,6 +1,7 @@
 ﻿using MyHearthStoneV2.BLL;
 using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Redis;
+using MyHearthStoneV2.ShortCodeBll;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,13 +25,13 @@ namespace MyHearthStoneV2.ShortCodeService
         {
             try
             {
-                Log.Default.Debug("ShortCodeService启动...");
-                int saveCount = ShortCodeBll.Instance.SaveToDB();
-                Log.Default.Debug("ShortCodeService执行完毕...更新了（" + saveCount + "）条数据");
+                MyHearthStoneV2.Common.Log.Default.Debug("ShortCodeService启动...");
+                int saveCount = ShortCodeBusiness.Instance.SaveToDB();
+                MyHearthStoneV2.Common.Log.Default.Debug("ShortCodeService执行完毕...更新了（" + saveCount + "）条数据");
             }
             catch (Exception ex)
             {
-                Log.Default.Error(ex);
+                MyHearthStoneV2.Common.Log.Default.Error(ex);
             }
         }
 

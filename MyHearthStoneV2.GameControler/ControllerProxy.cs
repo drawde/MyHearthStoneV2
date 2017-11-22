@@ -13,6 +13,7 @@ using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.Model.CustomModels;
+using MyHearthStoneV2.CardLibrary.Servant;
 
 namespace MyHearthStoneV2.GameControler
 {
@@ -71,7 +72,7 @@ namespace MyHearthStoneV2.GameControler
             var game = GameBll.Instance.CreateGame(tableCode, firstPlayerCode, secondPlayerCode, fristCardGroupCode, secondCardGroupCode);
             Controler ctl = new Controler();
             ctl.GameStart(game, firstUser, secondUser, firstCardGroup, secondCardGroup);            
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).chessboardOutput);
+            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput);
         }
 
         /// <summary>
@@ -93,15 +94,16 @@ namespace MyHearthStoneV2.GameControler
         /// <param name="ctl"></param>
         /// <param name="userCode"></param>
         /// <returns></returns>
-        private static ChessboardOutput GetChessboardOutputByUser(Controler ctl, string userCode)
+        private static GameContextOutput GetChessboardOutputByUser(Controler ctl, string userCode)
         {
-            ChessboardOutput output = new ChessboardOutput
+            GameContextOutput output = new GameContextOutput
             {
                 GameCode = ctl.GameCode,
+                RoundIndex = ctl.roundIndex,
                 Players = new List<BaseUserCards>()
             };
 
-            foreach (UserCards cd in ctl.chessboard.Players)
+            foreach (UserCards cd in ctl.gameContext.Players)
             {
                 if (cd.UserCode == userCode)
                 {
@@ -115,7 +117,8 @@ namespace MyHearthStoneV2.GameControler
                         Power = cd.Power,
                         StockCards = cd.StockCards.Count,
                         SwitchDone = cd.SwitchDone,
-                        UserCode = cd.UserCode
+                        UserCode = cd.UserCode,
+                        RoundIndex = cd.RoundIndex
                     });
                 }
                 else
@@ -130,7 +133,8 @@ namespace MyHearthStoneV2.GameControler
                         Power = cd.Power,
                         StockCards = cd.StockCards.Count,
                         SwitchDone = cd.SwitchDone,
-                        UserCode = cd.UserCode
+                        UserCode = cd.UserCode,
+                        RoundIndex = cd.RoundIndex
                     });
                 }
             }
@@ -152,18 +156,16 @@ namespace MyHearthStoneV2.GameControler
         public static APIResultBase SwitchCard(string gameCode, string userCode, List<string> lstInitCardIndex)
         {
             string res = JsonStringResult.VerifyFail();
-            Controler ctl = null;
-            var lstCtls = ControllerCache.GetControls();
-            if (!lstCtls.Any(c => c.GameCode == gameCode) || !lstCtls.Any(c => c.chessboard.Players.Any(x => x.User.UserCode == userCode)))
+            Controler ctl = Validate(gameCode, userCode);
+            if (ctl == null)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            ctl = lstCtls.First(c => c.GameCode == gameCode);
             //if (ctl.roundIndex != 2)
             //{
             //    return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             //}
-            if (ctl.chessboard.Players.Any(c => c.UserCode == userCode && c.SwitchDone == false) == false)
+            if (ctl.gameContext.Players.Any(c => c.UserCode == userCode && c.SwitchDone == false) == false)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
@@ -172,7 +174,7 @@ namespace MyHearthStoneV2.GameControler
             {
                 initCardIndex.Add(idx.TryParseInt());
             }
-            if (initCardIndex.Any(c => c < 0 || c > 3) || initCardIndex.Any(c => c >= ctl.chessboard.Players.First(x => x.UserCode == userCode).InitCards.Count))
+            if (initCardIndex.Any(c => c < 0 || c > 3) || initCardIndex.Any(c => c >= ctl.gameContext.Players.First(x => x.UserCode == userCode).InitCards.Count))
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
@@ -182,17 +184,74 @@ namespace MyHearthStoneV2.GameControler
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
             ctl.SwitchCard(userCode, initCardIndex);
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).chessboardOutput.Players.First(c => c.UserCode == userCode));
+            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput.Players.First(c => c.UserCode == userCode));
         }
 
-        public void PickUpACard(string userCode)
+        /// <summary>
+        /// 将一名随从从手牌中移到场上
+        /// </summary>
+        /// <param name="gameCode"></param>
+        /// <param name="userCode"></param>
+        /// <param name="cardInGameCode"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public static APIResultBase CastServant(string gameCode, string userCode, string cardInGameCode, int location)
         {
-            throw new NotImplementedException();
+            string res = JsonStringResult.VerifyFail();
+            Controler ctl = Validate(gameCode, userCode);
+            if (ctl == null)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            var player = ctl.GetCurrentRoundUserCards();
+            if (player == null || player.UserCode != userCode)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            if (player.HandCards.Any(c => c.CardInGameCode == cardInGameCode) == false)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            if (location < 0 || location > 6)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            if (player.DeskCards[location] != null)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.位置已被占用);
+            }
+            Card card = player.HandCards.First(c => c.CardInGameCode == cardInGameCode);
+            
+            if (player.Power < card.Cost)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.没有足够的法力值);
+            }
+            ctl.CastServant(player, (BaseServant)card, location);
+            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput.Players.First(c => c.UserCode == userCode));
         }
 
-        public void RoundStart()
+        private static Controler Validate(string gameCode, string userCode)
         {
-            throw new NotImplementedException();
+            Controler ctl = null;
+            var lstCtls = ControllerCache.GetControls();
+            if (!lstCtls.Any(c => c.GameCode == gameCode) || !lstCtls.Any(c => c.gameContext.Players.Any(x => x.User.UserCode == userCode)))
+            {
+                return null;
+            }
+            ctl = lstCtls.First(c => c.GameCode == gameCode);
+            if (ctl.gameContext.Players.Any(c => c.UserCode == userCode) == false)
+            {
+                return null;
+            }
+            return ctl;
         }
+
+        /// <summary>
+        /// 验证参数的有效性
+        /// </summary>
+        /// <param name="gameCode"></param>
+        /// <param name="userCode"></param>
+        /// <returns></returns>
+        public static bool ValidateControler(string gameCode, string userCode) => Validate(gameCode, userCode) != null;
     }
 }

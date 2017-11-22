@@ -10,7 +10,7 @@ using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.Common.Enum;
-
+using MyHearthStoneV2.ShortCodeBll;
 
 namespace MyHearthStoneV2.BLL
 {
@@ -46,7 +46,7 @@ namespace MyHearthStoneV2.BLL
                     return JsonStringResult.Error(Common.Enum.OperateResCodeEnum.参数错误);
                 }
             }
-            string code = ShortCodeBll.Instance.CreateCode(ShortCodeTypeEnum.InvitationCode, userCode);
+            string code = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.InvitationCode, userCode);
 
             HS_Invitation invitation = new HS_Invitation();
             invitation.AddTime = DateTime.Now;

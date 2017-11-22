@@ -89,14 +89,10 @@
   <ItemGroup>
     <Compile Include="BaseBLL.cs" />
     <Compile Include="CardUtil.cs" />
-    <Compile Include="DataExchangeBll.cs" />
-    <Compile Include="ErrRecBll.cs" />
-    <Compile Include="GameRecordBll.cs" />
     <Compile Include="GameBll.cs" />
     <Compile Include="GameTableBll.cs" />
     <Compile Include="InvitationBll.cs" />
     <Compile Include="LoginTokenBll.cs" />
-    <Compile Include="ShortCodeBll.cs" />
     <Compile Include="SignJSTextBll.cs" />
     <Compile Include="SystemConfigBll.cs" />
     <Compile Include="UserCardGroupDetailBll.cs" />
@@ -128,6 +124,10 @@
     <ProjectReference Include="..\MyHearthStoneV2.Redis\MyHearthStoneV2.Redis.csproj">
       <Project>{1aa98bbb-2c51-466f-a3cf-5327a0a47ef2}</Project>
       <Name>MyHearthStoneV2.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.ShortCodeBll\MyHearthStoneV2.ShortCodeBll.csproj">
+      <Project>{d9336dc1-e780-48ad-b220-71336bbf23f7}</Project>
+      <Name>MyHearthStoneV2.ShortCodeBll</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

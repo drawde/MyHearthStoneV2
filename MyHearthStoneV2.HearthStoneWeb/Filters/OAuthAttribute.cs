@@ -48,7 +48,7 @@ namespace MyHearthStoneV2.HearthStoneWeb.Filters
                 }
                 catch (Exception ex)
                 {
-                    Log.Default.Error(ex);
+                    MyHearthStoneV2.Common.Log.Default.Error(ex);
                 }
                 if (user == null || UsersBll.Instance.IsUserCodeRepeat(user.UserCode) == false)
                 {

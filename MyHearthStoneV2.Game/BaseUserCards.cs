@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyHearthStoneV2.CardLibrary.Hero;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,11 @@ namespace MyHearthStoneV2.Game
 {
     public abstract class BaseUserCards
     {
+        /// <summary>
+        /// 选择的英雄
+        /// </summary>
+        public BaseHero hero { get; set; }
+
         public string UserCode { get; set; }
         /// <summary>
         /// 当前回合的费用
@@ -20,7 +26,7 @@ namespace MyHearthStoneV2.Game
         public bool IsFirst { get; set; }
 
         /// <summary>
-        /// 是否是当前回合
+        /// 是否是这名玩家的回合
         /// </summary>
         public bool IsActivation { get; set; }
 
@@ -28,5 +34,10 @@ namespace MyHearthStoneV2.Game
         /// 开局时是否换了牌
         /// </summary>
         public bool SwitchDone { get; set; }
+
+        /// <summary>
+        /// 进行完的回合数
+        /// </summary>
+        public int RoundIndex { get; set; }
     }
 }

@@ -1,17 +1,13 @@
 ﻿using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary.Hero;
-using MyHearthStoneV2.CardLibrary.Servant.Classical;
-using MyHearthStoneV2.CardLibrary.Servant.NAXX;
-using MyHearthStoneV2.CardLibrary.Spell.Classical;
-using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.Common.Util;
+using MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical;
+using MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX;
+using MyHearthStoneV2.CardLibrary.Servant.Shaman.Classical;
+using MyHearthStoneV2.CardLibrary.Spell.Neutral.Classical;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Redis;
-using System;
+using MyHearthStoneV2.ShortCodeBll;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MyHearthStoneV2.BLL
@@ -23,16 +19,21 @@ namespace MyHearthStoneV2.BLL
         /// </summary>
         public static void AddToRedis()
         {
-            List<Card> lstCard = new List<Card>();
-            lstCard.Add(new Hunter());
-            lstCard.Add(new Warlock());
-            lstCard.Add(new Al_akir());
-            lstCard.Add(new JiaoXiaoDeZhongShi());
-            lstCard.Add(new GuiLingZhiZhu());
-            lstCard.Add(new XiaoZhiZhu());
-            lstCard.Add(new LuckyCoin());
+            List<Card> lstCard = new List<Card>
+            {
+                new Hunter(),
+                new Warlock(),
+                new Al_akir(),
+                new JiaoXiaoDeZhongShi(),
+                new GuiLingZhiZhu(),
+                new XiaoZhiZhu(),
+                new LuckyCoin(),
+                new DefenderOfArgus(),
+                new VioletTeacher(),
+                new VioletStudent(),
+            };
 
-            lstCard.ForEach(c => c.CardCode = ShortCodeBll.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);
+            lstCard.ForEach(c => c.CardCode = ShortCodeBusiness.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);
             using (var redisClient = RedisManager.GetClient())
             {
                 redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance), lstCard);

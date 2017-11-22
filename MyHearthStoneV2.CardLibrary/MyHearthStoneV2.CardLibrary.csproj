@@ -33,6 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PostSharp, Version=4.3.22.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.4.3.22\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
@@ -54,6 +63,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,7 +74,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Card.cs" />
-    <Compile Include="Base\IBiology.cs" />
+    <Compile Include="Base\BaseBiology.cs" />
+    <Compile Include="Context\BaseUserCards.cs" />
+    <Compile Include="Context\GameContext.cs" />
+    <Compile Include="Context\GameContextOutput.cs" />
+    <Compile Include="Context\UserCards.cs" />
+    <Compile Include="Context\UserCardsOutput.cs" />
+    <Compile Include="Context\UserCardsSimpleOutput.cs" />
+    <Compile Include="Controler\Controler_Base.cs" />
+    <Compile Include="Controler\Controler_RoundEnd.cs" />
+    <Compile Include="Controler\ControllerCache.cs" />
+    <Compile Include="Controler\ControllerUtil.cs" />
+    <Compile Include="Controler\Control_Servant.cs" />
+    <Compile Include="Controler\Control_SwitchCard.cs" />
     <Compile Include="Hero\BaseHero.cs" />
     <Compile Include="Hero\Druid.cs" />
     <Compile Include="Hero\Hunter.cs" />
@@ -75,29 +97,58 @@
     <Compile Include="Hero\Shaman.cs" />
     <Compile Include="Hero\Warlock.cs" />
     <Compile Include="Hero\Warrior.cs" />
+    <Compile Include="Monitor\ControlerMonitor.cs" />
+    <Compile Include="Monitor\PlayerActionMonitor.cs" />
+    <Compile Include="Monitor\PropertyChangedNotificationAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servant\BaseServant.cs" />
-    <Compile Include="Servant\Classical\Al’akir.cs" />
-    <Compile Include="Servant\Classical\JiaoXiaoDeZhongShi.cs" />
-    <Compile Include="Servant\NAXX\GuiLingZhiZhu.cs" />
-    <Compile Include="Servant\NAXX\XiaoZhiZhu.cs" />
-    <Compile Include="Spell\Classical\LuckyCoin.cs" />
-    <Compile Include="Spell\ISpell.cs" />
+    <Compile Include="Servant\Shaman\Classical\Al’akir.cs" />
+    <Compile Include="Servant\Neutral\Classical\DefenderOfArgus.cs" />
+    <Compile Include="Servant\Neutral\Classical\JiaoXiaoDeZhongShi.cs" />
+    <Compile Include="Servant\Neutral\Classical\VioletStudent.cs" />
+    <Compile Include="Servant\Neutral\Classical\VioletTeacher.cs" />
+    <Compile Include="Servant\Neutral\NAXX\GuiLingZhiZhu.cs" />
+    <Compile Include="Servant\Neutral\NAXX\XiaoZhiZhu.cs" />
+    <Compile Include="Spell\Neutral\Classical\LuckyCoin.cs" />
+    <Compile Include="Spell\BaseSpell.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Weapon\" />
+    <Folder Include="Servant\Druid\" />
+    <Folder Include="Servant\Hunter\" />
+    <Folder Include="Servant\Mage\" />
+    <Folder Include="Servant\Paladin\" />
+    <Folder Include="Servant\Priest\" />
+    <Folder Include="Servant\Rogue\" />
+    <Folder Include="Servant\Warlock\" />
+    <Folder Include="Servant\Warrior\" />
+    <Folder Include="Spell\Druid\" />
+    <Folder Include="Spell\Hunter\" />
+    <Folder Include="Spell\Mage\" />
+    <Folder Include="Spell\Paladin\" />
+    <Folder Include="Spell\Priest\" />
+    <Folder Include="Spell\Rogue\" />
+    <Folder Include="Spell\Shaman\Classical\" />
+    <Folder Include="Spell\Warlock\" />
+    <Folder Include="Spell\Warrior\" />
+    <Folder Include="Weapon\Druid\" />
+    <Folder Include="Weapon\Hunter\" />
+    <Folder Include="Weapon\Mage\" />
+    <Folder Include="Weapon\Neutral\Classical\" />
+    <Folder Include="Weapon\Paladin\" />
+    <Folder Include="Weapon\Priest\" />
+    <Folder Include="Weapon\Rogue\" />
+    <Folder Include="Weapon\Shaman\Classical\" />
+    <Folder Include="Weapon\Warlock\" />
+    <Folder Include="Weapon\Warrior\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj">
       <Project>{07edba98-a0de-406a-8145-7bdba71e06d4}</Project>
       <Name>MyHearthStoneV2.CardEnum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.CardMonitor\MyHearthStoneV2.CardMonitor.csproj">
-      <Project>{90a54fcc-2e14-4bea-af70-8bd47d9cff72}</Project>
-      <Name>MyHearthStoneV2.CardMonitor</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.CardSpecialEffect\MyHearthStoneV2.CardSpecialEffect.csproj">
       <Project>{925ac619-6170-415a-9140-86629ec3d672}</Project>
@@ -107,9 +158,21 @@
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Log\MyHearthStoneV2.Log.csproj">
+      <Project>{5195f93d-8ff6-48c3-8e0b-4d04a50ae024}</Project>
+      <Name>MyHearthStoneV2.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Model\MyHearthStoneV2.Model.csproj">
+      <Project>{e20a5218-63ca-4c40-bf0e-2835b7e4260d}</Project>
+      <Name>MyHearthStoneV2.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Redis\MyHearthStoneV2.Redis.csproj">
       <Project>{1aa98bbb-2c51-466f-a3cf-5327a0a47ef2}</Project>
       <Name>MyHearthStoneV2.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.ShortCodeBll\MyHearthStoneV2.ShortCodeBll.csproj">
+      <Project>{d9336dc1-e780-48ad-b220-71336bbf23f7}</Project>
+      <Name>MyHearthStoneV2.ShortCodeBll</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

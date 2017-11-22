@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.CardSpecialEffect.Other
     /// <summary>
     /// 冲锋
     /// </summary>
-    public class Charge: ISpecialEffect
+    public class Charge: BaseSpecialEffect
     {
         //public override CardEnum.BuffTimeLimit buffTime { get; } = CardEnum.BuffTimeLimit.无限制;
     }
