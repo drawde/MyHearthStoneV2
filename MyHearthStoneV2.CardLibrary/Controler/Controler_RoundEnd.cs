@@ -9,14 +9,14 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         /// 回合结束
         /// </summary>        
         [ControlerMonitor, PlayerActionMonitor]
-        public void RoundEnd()
+        public void TurnEnd()
         {            
             #region 调整玩家对象
-            UserCards uc = null, next_uc = null;
-            if (roundIndex > 0)
+            UserContext uc = null, next_uc = null;
+            if (TurnIndex > 0)
             {
-                uc = GetCurrentRoundUserCards();
-                next_uc = GetNextRoundUserCards();
+                uc = GetCurrentTurnUserCards();
+                next_uc = GetNextTurnUserCards();
                 uc.IsActivation = false;
                 next_uc.IsActivation = true;
                 if (next_uc.Power < 11)
@@ -34,10 +34,10 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             #endregion
 
             #region 调整游戏环境对象
-            currentRoundRemainingSecond = 60;
-            currentRoundCode = nextRoundCode;
-            nextRoundCode = MyHearthStoneV2.ShortCodeBll.ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode);
-            roundIndex++;
+            currentTurnRemainingSecond = 60;
+            currentTurnCode = nextTurnCode;
+            nextTurnCode = MyHearthStoneV2.ShortCodeBll.ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameTurnCode);
+            TurnIndex++;
             
             #endregion
         }

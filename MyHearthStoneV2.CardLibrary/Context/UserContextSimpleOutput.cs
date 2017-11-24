@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Context
 {
-    public class UserCardsSimpleOutput: BaseUserCards
+    public class UserContextSimpleOutput: BaseUserContext
     {
         /// <summary>
-        /// 玩家的手牌
+        /// 玩家的手牌（用于输出对手的上下文）
         /// </summary>
         public int HandCards { get; set; }
 

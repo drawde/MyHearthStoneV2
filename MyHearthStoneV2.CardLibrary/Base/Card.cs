@@ -46,8 +46,6 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// <summary>
         /// 是否是某张牌的衍生物（如鬼灵爬行者 => 鬼灵蜘蛛）
         /// </summary>
-        public virtual bool IsDerivative { get; } = false;
-
-        public virtual CastStyle CastStyle { get; } = CastStyle.无;
+        public virtual bool IsDerivative { get; } = false;        
     }
 }

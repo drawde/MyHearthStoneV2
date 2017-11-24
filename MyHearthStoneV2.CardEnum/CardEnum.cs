@@ -65,7 +65,7 @@ namespace MyHearthStoneV2.CardEnum
     }
 
     /// <summary>
-    /// 卡牌异能的施放方式（火球术、冰锥术、黑翼腐蚀者、扭曲虚空）
+    /// 卡牌异能的施放目标（火球术、冰锥术、黑翼腐蚀者、扭曲虚空）
     /// </summary>
     public enum CastStyle
     {
@@ -74,5 +74,33 @@ namespace MyHearthStoneV2.CardEnum
         己方随从或英雄 = 2,
         敌方随从 = 3,
         敌方随从或英雄 = 4,
+        随从 = 5,
+        己方英雄 = 7,
+        敌方英雄 = 8,
+        英雄 = 9
+    }
+
+    /// <summary>
+    /// 卡牌施放准心样式
+    /// </summary>
+    public enum CastCrosshairStyle
+    {
+        无 = 0,
+        单个 = 1,
+        范围 = 2,
+    }
+
+    /// <summary>
+    /// 卡牌技能施放时机
+    /// </summary>
+    public enum SpellCardAbilityTime
+    {
+        无 = 0,
+        入场 = 1,
+        坟场 = 2,
+        攻击 = 3,
+        受到伤害 = 4,
+        受到攻击 = 5,
+
     }
 }

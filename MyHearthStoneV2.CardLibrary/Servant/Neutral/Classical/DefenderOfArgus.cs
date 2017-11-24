@@ -1,11 +1,7 @@
 ﻿using MyHearthStoneV2.CardEnum;
-using MyHearthStoneV2.CardSpecialEffect;
-using MyHearthStoneV2.CardSpecialEffect.WarCry.AlterBody;
-using System;
+using MyHearthStoneV2.CardLibrary.CardAbility;
+using MyHearthStoneV2.CardLibrary.CardAbility.WarCry.AlterBody;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical
 {

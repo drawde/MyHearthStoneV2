@@ -15,9 +15,9 @@
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_Users" Width="1.5" PointX="0.75" PointY="8.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_ShortCode" Width="1.5" PointX="3.375" PointY="8.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_GameTable" Width="1.5" PointX="9.375" PointY="4.75" />
-        <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_Game" Width="1.5" PointX="9.375" PointY="8.75" />
+        <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_Game" Width="1.5" PointX="9.75" PointY="8.75" />
         <EntityTypeShape EntityType="MyHearthStoneV2.Model.HS_GameRecord" Width="1.5" PointX="0.75" PointY="4.75" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -1,8 +1,8 @@
 ﻿using MyHearthStoneV2.CardEnum;
 using System.Collections.Generic;
-using MyHearthStoneV2.CardSpecialEffect.Other;
-using MyHearthStoneV2.CardSpecialEffect;
 using MyHearthStoneV2.CardLibrary.Monitor;
+using MyHearthStoneV2.CardLibrary.CardAbility;
+using MyHearthStoneV2.CardLibrary.CardAbility.Other;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Shaman.Classical
 {

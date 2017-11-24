@@ -43,8 +43,8 @@
           <Property Name="SecondUserCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="IsFirstUserWin" Type="bit" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
-          <Property Name="CurrentRoundCode" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="NextRoundCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CurrentTurnCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="NextTurnCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="FirstUserCardGroupCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="SecondUserCardGroupCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="TableCode" Type="varchar" MaxLength="5" Nullable="false" />
@@ -59,11 +59,11 @@
           <Property Name="GameCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="FirstUserCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="SecondUserCode" Type="varchar" MaxLength="32" Nullable="false" />
-          <Property Name="IsFirstUserRound" Type="bit" Nullable="false" />
+          <Property Name="IsFirstUserTurn" Type="bit" Nullable="false" />
           <Property Name="GameContext" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="RoundIndex" Type="int" Nullable="false" />
+          <Property Name="TurnIndex" Type="int" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
-          <Property Name="RoundCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="TurnCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="FunctionName" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="HS_GameTable">
@@ -192,7 +192,7 @@
           <EntitySet Name="HS_GameTable" EntityType="MyHearthStoneV2.Model.HS_GameTable" />
           <EntitySet Name="HS_Game" EntityType="MyHearthStoneV2.Model.HS_Game" />
           <EntitySet Name="HS_GameRecord" EntityType="MyHearthStoneV2.Model.HS_GameRecord" />
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="HS_DataExchange">
           <Key>
             <PropertyRef Name="ID" />
@@ -326,8 +326,8 @@
           <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="IsFirstUserWin" Type="Boolean" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CurrentRoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="NextRoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentTurnCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NextTurnCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="FirstUserCardGroupCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="SecondUserCardGroupCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="TableCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
@@ -342,11 +342,11 @@
           <Property Name="GameCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="FirstUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="SecondUserCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="IsFirstUserRound" Type="Boolean" Nullable="false" />
+          <Property Name="IsFirstUserTurn" Type="Boolean" Nullable="false" />
           <Property Name="GameContext" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RoundIndex" Type="Int32" Nullable="false" />
+          <Property Name="TurnIndex" Type="Int32" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RoundCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TurnCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="FunctionName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
@@ -496,8 +496,8 @@
                 <ScalarProperty Name="TableCode" ColumnName="TableCode" />
                 <ScalarProperty Name="SecondUserCardGroupCode" ColumnName="SecondUserCardGroupCode" />
                 <ScalarProperty Name="FirstUserCardGroupCode" ColumnName="FirstUserCardGroupCode" />
-                <ScalarProperty Name="NextRoundCode" ColumnName="NextRoundCode" />
-                <ScalarProperty Name="CurrentRoundCode" ColumnName="CurrentRoundCode" />
+                <ScalarProperty Name="NextTurnCode" ColumnName="NextTurnCode" />
+                <ScalarProperty Name="CurrentTurnCode" ColumnName="CurrentTurnCode" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="IsFirstUserWin" ColumnName="IsFirstUserWin" />
                 <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
@@ -511,11 +511,11 @@
             <EntityTypeMapping TypeName="MyHearthStoneV2.Model.HS_GameRecord">
               <MappingFragment StoreEntitySet="HS_GameRecord">
                 <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
-                <ScalarProperty Name="RoundCode" ColumnName="RoundCode" />
+                <ScalarProperty Name="TurnCode" ColumnName="TurnCode" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="RoundIndex" ColumnName="RoundIndex" />
+                <ScalarProperty Name="TurnIndex" ColumnName="TurnIndex" />
                 <ScalarProperty Name="GameContext" ColumnName="GameContext" />
-                <ScalarProperty Name="IsFirstUserRound" ColumnName="IsFirstUserRound" />
+                <ScalarProperty Name="IsFirstUserTurn" ColumnName="IsFirstUserTurn" />
                 <ScalarProperty Name="SecondUserCode" ColumnName="SecondUserCode" />
                 <ScalarProperty Name="FirstUserCode" ColumnName="FirstUserCode" />
                 <ScalarProperty Name="GameCode" ColumnName="GameCode" />

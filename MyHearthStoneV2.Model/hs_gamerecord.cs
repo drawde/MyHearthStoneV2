@@ -18,11 +18,11 @@ namespace MyHearthStoneV2.Model
         public string GameCode { get; set; }
         public string FirstUserCode { get; set; }
         public string SecondUserCode { get; set; }
-        public bool IsFirstUserRound { get; set; }
+        public bool IsFirstUserTurn { get; set; }
         public string GameContext { get; set; }
-        public int RoundIndex { get; set; }
+        public int TurnIndex { get; set; }
         public System.DateTime AddTime { get; set; }
-        public string RoundCode { get; set; }
+        public string TurnCode { get; set; }
         public string FunctionName { get; set; }
     }
 }

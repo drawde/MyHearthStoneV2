@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Context
 {
-    public abstract class BaseUserCards
+    public abstract class BaseUserContext
     {
         /// <summary>
         /// 选择的英雄
@@ -38,6 +38,6 @@ namespace MyHearthStoneV2.CardLibrary.Context
         /// <summary>
         /// 进行完的回合数
         /// </summary>
-        public int RoundIndex { get; set; }
+        public int TurnIndex { get; set; }
     }
 }

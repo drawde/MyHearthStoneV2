@@ -75,12 +75,21 @@
   <ItemGroup>
     <Compile Include="Base\Card.cs" />
     <Compile Include="Base\BaseBiology.cs" />
-    <Compile Include="Context\BaseUserCards.cs" />
+    <Compile Include="CardAbility\Aura\SE_VioletTeacher.cs" />
+    <Compile Include="CardAbility\BaseSpecialEffect.cs" />
+    <Compile Include="CardAbility\Deathwhisper\SE_GuiLingZhiZhu.cs" />
+    <Compile Include="CardAbility\Other\Charge.cs" />
+    <Compile Include="CardAbility\Other\HolyShield.cs" />
+    <Compile Include="CardAbility\Other\Taunt.cs" />
+    <Compile Include="CardAbility\Other\Windfury.cs" />
+    <Compile Include="CardAbility\WarCry\AlterBody\SE_DefenderOfArgus.cs" />
+    <Compile Include="CardAbility\WarCry\AlterBody\SE_JiaoXiaoDeZhongShi.cs" />
+    <Compile Include="Context\BaseUserContext.cs" />
     <Compile Include="Context\GameContext.cs" />
     <Compile Include="Context\GameContextOutput.cs" />
-    <Compile Include="Context\UserCards.cs" />
-    <Compile Include="Context\UserCardsOutput.cs" />
-    <Compile Include="Context\UserCardsSimpleOutput.cs" />
+    <Compile Include="Context\UserContext.cs" />
+    <Compile Include="Context\UserContextOutput.cs" />
+    <Compile Include="Context\UserContextSimpleOutput.cs" />
     <Compile Include="Controler\Controler_Base.cs" />
     <Compile Include="Controler\Controler_RoundEnd.cs" />
     <Compile Include="Controler\ControllerCache.cs" />
@@ -149,10 +158,6 @@
     <ProjectReference Include="..\MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj">
       <Project>{07edba98-a0de-406a-8145-7bdba71e06d4}</Project>
       <Name>MyHearthStoneV2.CardEnum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.CardSpecialEffect\MyHearthStoneV2.CardSpecialEffect.csproj">
-      <Project>{925ac619-6170-415a-9140-86629ec3d672}</Project>
-      <Name>MyHearthStoneV2.CardSpecialEffect</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace MyHearthStoneV2.CardLibrary.Context
 {
     /// <summary>
-    /// 用户所有的牌（用于输出）
+    /// 用户上下文（用于输出）
     /// </summary>
-    public class UserCardsOutput: BaseUserCards
+    public class UserContextOutput: BaseUserContext
     {        
         /// <summary>
         /// 玩家的手牌

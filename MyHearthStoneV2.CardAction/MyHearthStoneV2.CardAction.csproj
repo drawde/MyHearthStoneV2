@@ -58,10 +58,6 @@
       <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
       <Name>MyHearthStoneV2.CardLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.CardSpecialEffect\MyHearthStoneV2.CardSpecialEffect.csproj">
-      <Project>{925ac619-6170-415a-9140-86629ec3d672}</Project>
-      <Name>MyHearthStoneV2.CardSpecialEffect</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>

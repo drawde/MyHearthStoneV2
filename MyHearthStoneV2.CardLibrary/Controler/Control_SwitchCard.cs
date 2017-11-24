@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         [ControlerMonitor, PlayerActionMonitor]
         public void SwitchCard(string userCode, List<int> lstInitCardIndex)
         {
-            UserCards uc = gameContext.Players.First(c => c.User.UserCode == userCode);
+            UserContext uc = gameContext.Players.First(c => c.User.UserCode == userCode);
             uc.HandCards = uc.InitCards;
             if (lstInitCardIndex != null && lstInitCardIndex.Count > 0)
             {                
@@ -78,10 +78,13 @@ namespace MyHearthStoneV2.CardLibrary.Controler
                     lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
                     cardCode = lstCardLib.First(c => c.GetType() == typeof(LuckyCoin)).CardCode;
                 }
-                secondUser.HandCards.Add(new LuckyCoin() { CardCode = cardCode });
+                var luckyCoin = new LuckyCoin() { CardCode = cardCode, CardInGameCode = gameContext.AllCard.Count.ToString() };
+                secondUser.HandCards.Add(luckyCoin);
+                secondUser.AllCards.Add(luckyCoin);
+                gameContext.AllCard.Add(luckyCoin);
                 secondUser.IsActivation = false;
 
-                RoundEnd();
+                TurnEnd();
             }
         }
     }

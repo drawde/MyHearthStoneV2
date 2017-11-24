@@ -20,8 +20,8 @@ namespace MyHearthStoneV2.Model
         public string SecondUserCode { get; set; }
         public bool IsFirstUserWin { get; set; }
         public System.DateTime AddTime { get; set; }
-        public string CurrentRoundCode { get; set; }
-        public string NextRoundCode { get; set; }
+        public string CurrentTurnCode { get; set; }
+        public string NextTurnCode { get; set; }
         public string FirstUserCardGroupCode { get; set; }
         public string SecondUserCardGroupCode { get; set; }
         public string TableCode { get; set; }

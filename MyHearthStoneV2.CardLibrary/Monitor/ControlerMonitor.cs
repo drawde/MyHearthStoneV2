@@ -64,14 +64,14 @@ namespace MyHearthStoneV2.CardLibrary.Monitor
 
             #region 封装输出
             ctl.gameContextOutput = new GameContextOutput();
-            ctl.gameContextOutput.Players = new List<BaseUserCards>();
+            ctl.gameContextOutput.Players = new List<BaseUserContext>();
             ctl.gameContextOutput.GameCode = ctl.GameCode;
-            ctl.gameContextOutput.RoundIndex = ctl.roundIndex;
+            ctl.gameContextOutput.TurnIndex = ctl.TurnIndex;
             foreach (var cd in ctl.gameContext.Players)
             {
                 if (cd.IsActivation)
                 {
-                    ctl.gameContextOutput.Players.Add(new UserCardsOutput()
+                    ctl.gameContextOutput.Players.Add(new UserContextOutput()
                     {
                         DeskCards = cd.DeskCards,
                         HandCards = cd.HandCards,
@@ -82,12 +82,12 @@ namespace MyHearthStoneV2.CardLibrary.Monitor
                         StockCards = cd.StockCards.Count,
                         SwitchDone = cd.SwitchDone,
                         UserCode = cd.UserCode,
-                        RoundIndex = ctl.roundIndex
+                        TurnIndex = ctl.TurnIndex
                     });
                 }
                 else
                 {
-                    ctl.gameContextOutput.Players.Add(new UserCardsSimpleOutput()
+                    ctl.gameContextOutput.Players.Add(new UserContextSimpleOutput()
                     {
                         DeskCards = cd.DeskCards,
                         HandCards = cd.HandCards.Count,
@@ -98,7 +98,7 @@ namespace MyHearthStoneV2.CardLibrary.Monitor
                         StockCards = cd.StockCards.Count,
                         SwitchDone = cd.SwitchDone,
                         UserCode = cd.UserCode,
-                        RoundIndex = ctl.roundIndex
+                        TurnIndex = ctl.TurnIndex
                     });
                 }
             }

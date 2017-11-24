@@ -18,7 +18,7 @@ function ClientConnected(res) {
     console.log(res);
     if (res.code == 100) {        
         var initCards = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
-        if (res.data.RoundIndex == 0) {
+        if (res.data.TurnIndex == 0) {
             ShowSwitchPanel(initCards.InitCards);
         }
         else {
@@ -147,7 +147,7 @@ function queryMyCards() {
             resetHandCards(currentPlayer);
 
             //如果是刚开局换完牌，初始化棋盘对象事件
-            if (res.data.RoundIndex == 1) {
+            if (res.data.TurnIndex == 1) {
                 switchCardIndexs = [];
                 $("#myTableCard li").mouseover(function () {
                     bindTableCardOver(this);

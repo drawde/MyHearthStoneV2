@@ -96,15 +96,15 @@ namespace MyHearthStoneV2.GameControlerProxy
             GameContextOutput output = new GameContextOutput
             {
                 GameCode = ctl.GameCode,
-                RoundIndex = ctl.roundIndex,
-                Players = new List<BaseUserCards>()
+                TurnIndex = ctl.TurnIndex,
+                Players = new List<BaseUserContext>()
             };
 
-            foreach (UserCards cd in ctl.gameContext.Players)
+            foreach (UserContext cd in ctl.gameContext.Players)
             {
                 if (cd.UserCode == userCode)
                 {
-                    output.Players.Add(new UserCardsOutput()
+                    output.Players.Add(new UserContextOutput()
                     {
                         DeskCards = cd.DeskCards,
                         HandCards = cd.HandCards,
@@ -115,12 +115,12 @@ namespace MyHearthStoneV2.GameControlerProxy
                         StockCards = cd.StockCards.Count,
                         SwitchDone = cd.SwitchDone,
                         UserCode = cd.UserCode,
-                        RoundIndex = cd.RoundIndex
+                        TurnIndex = cd.TurnIndex
                     });
                 }
                 else
                 {
-                    output.Players.Add(new UserCardsSimpleOutput()
+                    output.Players.Add(new UserContextSimpleOutput()
                     {
                         DeskCards = cd.DeskCards,
                         HandCards = cd.HandCards.Count,
@@ -131,14 +131,14 @@ namespace MyHearthStoneV2.GameControlerProxy
                         StockCards = cd.StockCards.Count,
                         SwitchDone = cd.SwitchDone,
                         UserCode = cd.UserCode,
-                        RoundIndex = cd.RoundIndex
+                        TurnIndex = cd.TurnIndex
                     });
                 }
             }
             return output;
         }
 
-        public void RoundEnd()
+        public void TurnEnd()
         {
             throw new NotImplementedException();
         }
@@ -158,7 +158,7 @@ namespace MyHearthStoneV2.GameControlerProxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            //if (ctl.roundIndex != 2)
+            //if (ctl.TurnIndex != 2)
             //{
             //    return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             //}
@@ -200,7 +200,7 @@ namespace MyHearthStoneV2.GameControlerProxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            var player = ctl.GetCurrentRoundUserCards();
+            var player = ctl.GetCurrentTurnUserCards();
             if (player == null || player.UserCode != userCode)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);

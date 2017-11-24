@@ -1,6 +1,4 @@
-﻿using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.CardAction.Servant.NAXX;
-using MyHearthStoneV2.CardEnum;
+﻿using MyHearthStoneV2.BLL;using MyHearthStoneV2.CardEnum;
 using MyHearthStoneV2.CardLibrary;
 using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical;
@@ -23,8 +21,7 @@ using System.Threading.Tasks;
 namespace MyHearthStoneV2.TestConsole
 {
     class Program
-    {
-        [TestMonitor, TestMonitorTwo]
+    {        
         static void Main(string[] args)
         {
             //var t = new GuiLingZhiZhu().GetType();
@@ -37,12 +34,8 @@ namespace MyHearthStoneV2.TestConsole
 
             var user = UsersBll.Instance.GetById(1);
 
-            List<string> lst = new List<string>() { "1", "2", "3", "2" };
-            var idxGroup = lst.GroupBy(c => c);
-            foreach (var i in idxGroup)
-            {
-                var g = i.Count();
-            }
+            List<int> lll = new List<int>();
+            lll.Any();
             //CardUtil.AddToRedis();
             //using (var redisClient = RedisManager.GetClient())
             //{

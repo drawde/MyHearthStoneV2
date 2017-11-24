@@ -31,38 +31,33 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         /// <summary>
         /// 当前回合剩余秒数
         /// </summary>
-        public int currentRoundRemainingSecond { get; set; }
+        public int currentTurnRemainingSecond { get; set; }
 
         /// <summary>
         /// 进行完的回合数
         /// </summary>
-        public int roundIndex { get; set; }
+        public int TurnIndex { get; set; }
 
         /// <summary>
         /// 当前回合编码
         /// </summary>
-        public string currentRoundCode { get; set; }
+        public string currentTurnCode { get; set; }
 
         /// <summary>
         /// 下个回合编码
         /// </summary>
-        public string nextRoundCode { get; set; }
-
-        /// <summary>
-        /// 在游戏中的卡牌编码链表
-        /// </summary>
-        public LinkedList<string> cardInGameCodes = new LinkedList<string>();
-
+        public string nextTurnCode { get; set; }
+        
         [ControlerMonitor, PlayerActionMonitor]
         public void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup)
         {            
             GameCode = game.GameCode;
-            currentRoundCode = game.CurrentRoundCode;
-            nextRoundCode = game.NextRoundCode;
+            currentTurnCode = game.CurrentTurnCode;
+            nextTurnCode = game.NextTurnCode;
 
             #region 加载玩家卡组
             gameContextOutput = new GameContextOutput();
-            UserCards firstUser = new UserCards();
+            UserContext firstUser = new UserContext();
             firstUser.UserCode = _firstPlayer.UserCode;
             firstUser.User = _firstPlayer;
             firstUser.IsActivation = true;
@@ -81,7 +76,6 @@ namespace MyHearthStoneV2.CardLibrary.Controler
                 var card = lstCardLib.First(c => c.CardCode == cg.CardCode);
                 card.CardInGameCode = cardInGameIndex.ToString();
                 firstUser.AllCards.Add(card);
-                cardInGameCodes.AddLast(card.CardInGameCode);
                 cardInGameIndex++;
             }
 
@@ -91,7 +85,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             //});
             firstUser.StockCards = firstUser.AllCards;
 
-            UserCards secondUser = new UserCards
+            UserContext secondUser = new UserContext
             {
                 UserCode = _secondPlayer.UserCode,
                 User = _secondPlayer,
@@ -104,7 +98,6 @@ namespace MyHearthStoneV2.CardLibrary.Controler
                 var card = lstCardLib.First(c => c.CardCode == detail.CardCode);
                 card.CardInGameCode = cardInGameIndex.ToString();
                 secondUser.AllCards.Add(card);
-                cardInGameCodes.AddLast(card.CardInGameCode);
                 cardInGameIndex++;
             });
 
@@ -112,7 +105,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
 
             gameContext = new GameContext
             {
-                Players = new List<UserCards>()
+                Players = new List<UserContext>()
             };
             gameContext.Players.Add(firstUser);
             gameContext.Players.Add(secondUser);
@@ -147,7 +140,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             lstAll.AddRange(firstUser.AllCards);
             lstAll.AddRange(secondUser.AllCards);
             gameContext.AllCard = lstAll;
-            //SetCurrentRoundCode();
+            //SetCurrentTurnCode();
         }
 
 
@@ -159,7 +152,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
 
         }
 
-        public void RoundStart()
+        public void TurnStart()
         {
         }
         

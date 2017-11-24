@@ -20,6 +20,6 @@ namespace MyHearthStoneV2.CardLibrary.Context
         /// <summary>
         /// 本局中对战的玩家
         /// </summary>
-        public List<UserCards> Players { get; set; }
+        public List<UserContext> Players { get; set; }
     }
 }

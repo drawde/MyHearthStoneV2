@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace MyHearthStoneV2.CardLibrary.Context
 {
     /// <summary>
-    /// 当前用户的牌
+    /// 当前用户上下文
     /// </summary>
-    public class UserCards: BaseUserCards
+    public class UserContext: BaseUserContext
     {
         
 

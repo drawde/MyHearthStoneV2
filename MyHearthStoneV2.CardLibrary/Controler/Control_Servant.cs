@@ -1,13 +1,9 @@
 ﻿using MyHearthStoneV2.CardEnum;
-using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary.Context;
 using MyHearthStoneV2.CardLibrary.Monitor;
 using MyHearthStoneV2.CardLibrary.Servant;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace MyHearthStoneV2.CardLibrary.Controler
 {
@@ -20,11 +16,34 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         /// <param name="cardInGameCode"></param>
         /// <param name="location"></param>
         [ControlerMonitor, PlayerActionMonitor]
-        public void CastServant(UserCards user, BaseServant card, int location)
+        public void CastServant(UserContext user, BaseServant card, int location, List<int> target)
         {
+            #region 首先触发打出的这张牌的技能
+            if (card.LstBuff != null && card.LstBuff.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
+            {
+                foreach (var buff in card.LstBuff.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
+                {
+                    buff.CastAbility(gameContext, target);
+                }
+            }
+            #endregion
+
             user.Power -= card.Cost;
             card.CardLocation = CardLocation.场上;
             user.DeskCards[location] = card;
+
+            #region 然后触发场内牌的技能
+
+            if (card.LstBuff != null && card.LstBuff.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
+            {
+                foreach (var buff in card.LstBuff.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
+                {
+                    buff.CastAbility(gameContext, target);
+                }
+            }
+            #endregion
+
+            
         }
     }
 }

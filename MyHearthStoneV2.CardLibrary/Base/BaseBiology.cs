@@ -1,9 +1,6 @@
-﻿using MyHearthStoneV2.CardSpecialEffect;
-using System;
+﻿using MyHearthStoneV2.CardLibrary.CardAbility;
+using MyHearthStoneV2.CardLibrary.Context;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Base
 {

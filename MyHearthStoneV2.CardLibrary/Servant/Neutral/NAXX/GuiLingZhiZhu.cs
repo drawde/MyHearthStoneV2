@@ -1,8 +1,8 @@
 ﻿using MyHearthStoneV2.CardEnum;
 using System.Collections.Generic;
-using MyHearthStoneV2.CardSpecialEffect.Deathwhisper;
-using MyHearthStoneV2.CardSpecialEffect;
 using MyHearthStoneV2.CardLibrary.Monitor;
+using MyHearthStoneV2.CardLibrary.CardAbility;
+using MyHearthStoneV2.CardLibrary.CardAbility.Deathwhisper;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX
 {

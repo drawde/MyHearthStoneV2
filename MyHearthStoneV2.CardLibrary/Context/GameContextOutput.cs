@@ -13,10 +13,10 @@ namespace MyHearthStoneV2.CardLibrary.Context
     {
         public string GameCode { get; set; }
 
-        public int RoundIndex { get; set; }
+        public int TurnIndex { get; set; }
         /// <summary>
         /// 本局中对战的玩家
         /// </summary>
-        public List<BaseUserCards> Players { get; set; }
+        public List<BaseUserContext> Players { get; set; }
     }
 }

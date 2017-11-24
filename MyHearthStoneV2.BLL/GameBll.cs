@@ -26,10 +26,10 @@ namespace MyHearthStoneV2.BLL
                 {
                     GameCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameCode),
                     AddTime = DateTime.Now,
-                    CurrentRoundCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode),
+                    CurrentTurnCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameTurnCode),
                     FirstUserCode = firstUserCode,
                     IsFirstUserWin = false,
-                    NextRoundCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameRoundCode),
+                    NextTurnCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameTurnCode),
                     SecondUserCode = secondUserCode,
                     FirstUserCardGroupCode = firstUserCardGroupCode,
                     SecondUserCardGroupCode = secondUserCardGroupCode,
@@ -45,10 +45,10 @@ namespace MyHearthStoneV2.BLL
                     GameContext = "",
                     FirstUserCode = firstUserCode,
                     GameCode = game.GameCode,
-                    IsFirstUserRound = true,
-                    RoundIndex = 0,
+                    IsFirstUserTurn = true,
+                    TurnIndex = 0,
                     SecondUserCode = secondUserCode,
-                    RoundCode = game.CurrentRoundCode,
+                    TurnCode = game.CurrentTurnCode,
                     FunctionName = "CreateGame"
                 };
                 context.hs_gamerecord.Add(record);

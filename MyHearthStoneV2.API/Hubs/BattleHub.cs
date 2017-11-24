@@ -52,11 +52,11 @@ namespace MyHearthStoneV2.API.Hubs
                 res = ControllerProxy.SwitchCard(gameCode, userCode, switchCards.Split(",").ToList());
                 if (res.code == (int)OperateResCodeEnum.成功)
                 {
-                    var userCard = ((APISingleModelResult<BaseUserCards>)res).data;
+                    var userCard = ((APISingleModelResult<BaseUserContext>)res).data;
                     if (userCard != null)
                     {
                         //如果双方都已经换完牌，则初始化手牌、游戏环境变量，之后通知玩家去获取游戏信息
-                        if (userCard.RoundIndex > 0)
+                        if (userCard.TurnIndex > 0)
                         {
                             Clients.Group(gameCode, new string[0]).queryMyCards("aaaaa");
                         }

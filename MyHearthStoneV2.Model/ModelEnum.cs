@@ -30,7 +30,7 @@ namespace MyHearthStoneV2.Model
         无 = 0,
         卡牌 = 1,
         GameCode = 2,
-        GameRoundCode = 3,
+        GameTurnCode = 3,
         TableCode = 4,
         InvitationCode = 5,
         CardGroupCode = 6,

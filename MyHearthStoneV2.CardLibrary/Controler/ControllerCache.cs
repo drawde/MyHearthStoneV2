@@ -1,10 +1,6 @@
-﻿using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.Redis;
-using System;
+﻿using MyHearthStoneV2.Redis;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MyHearthStoneV2.CardLibrary.Controler
