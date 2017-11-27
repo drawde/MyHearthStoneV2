@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MyHearthStoneV2.CardLibrary.Monitor;
 using MyHearthStoneV2.CardLibrary.CardAbility;
-using MyHearthStoneV2.CardLibrary.CardAbility.Other;
+using MyHearthStoneV2.CardLibrary.CardAbility.BaseAbility;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Shaman.Classical
 {

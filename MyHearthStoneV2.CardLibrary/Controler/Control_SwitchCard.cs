@@ -71,14 +71,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
 
                 var secondUser = gameContext.Players.First(c => c.IsFirst == false);
                 //后手玩家添加一枚幸运币
-                string cardCode = "";
-                using (var redisClient = RedisManager.GetClient())
-                {
-                    List<Card> lstCardLib = new List<Card>();
-                    lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
-                    cardCode = lstCardLib.First(c => c.GetType() == typeof(LuckyCoin)).CardCode;
-                }
-                var luckyCoin = new LuckyCoin() { CardCode = cardCode, CardInGameCode = gameContext.AllCard.Count.ToString() };
+                var luckyCoin = CreateNewCardInController<LuckyCoin>();
                 secondUser.HandCards.Add(luckyCoin);
                 secondUser.AllCards.Add(luckyCoin);
                 gameContext.AllCard.Add(luckyCoin);

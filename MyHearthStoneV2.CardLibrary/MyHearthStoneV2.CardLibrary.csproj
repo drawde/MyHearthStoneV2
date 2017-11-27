@@ -77,11 +77,12 @@
     <Compile Include="Base\BaseBiology.cs" />
     <Compile Include="CardAbility\Aura\SE_VioletTeacher.cs" />
     <Compile Include="CardAbility\BaseSpecialEffect.cs" />
+    <Compile Include="CardAbility\CardAbilityUtil.cs" />
     <Compile Include="CardAbility\Deathwhisper\SE_GuiLingZhiZhu.cs" />
-    <Compile Include="CardAbility\Other\Charge.cs" />
-    <Compile Include="CardAbility\Other\HolyShield.cs" />
-    <Compile Include="CardAbility\Other\Taunt.cs" />
-    <Compile Include="CardAbility\Other\Windfury.cs" />
+    <Compile Include="CardAbility\BaseAbility\Charge.cs" />
+    <Compile Include="CardAbility\BaseAbility\HolyShield.cs" />
+    <Compile Include="CardAbility\BaseAbility\Taunt.cs" />
+    <Compile Include="CardAbility\BaseAbility\Windfury.cs" />
     <Compile Include="CardAbility\WarCry\AlterBody\SE_DefenderOfArgus.cs" />
     <Compile Include="CardAbility\WarCry\AlterBody\SE_JiaoXiaoDeZhongShi.cs" />
     <Compile Include="Context\BaseUserContext.cs" />

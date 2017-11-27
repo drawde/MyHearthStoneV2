@@ -4,6 +4,7 @@ using MyHearthStoneV2.CardLibrary.Monitor;
 using MyHearthStoneV2.CardLibrary.Servant;
 using System.Linq;
 using System.Collections.Generic;
+using MyHearthStoneV2.CardLibrary.Base;
 
 namespace MyHearthStoneV2.CardLibrary.Controler
 {
@@ -19,11 +20,11 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         public void CastServant(UserContext user, BaseServant card, int location, List<int> target)
         {
             #region 首先触发打出的这张牌的技能
-            if (card.LstBuff != null && card.LstBuff.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
+            if (card.LstBuff.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
             {
                 foreach (var buff in card.LstBuff.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
                 {
-                    buff.CastAbility(gameContext, target);
+                    buff.CastAbility(gameContext, card, card, target, location);
                 }
             }
             #endregion
@@ -33,12 +34,16 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             user.DeskCards[location] = card;
 
             #region 然后触发场内牌的技能
-
-            if (card.LstBuff != null && card.LstBuff.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
+            var lstAllDeskCard = gameContext.AllCard.Where(c => c.CardLocation == CardLocation.场上);
+            foreach (Card cd in lstAllDeskCard)
             {
-                foreach (var buff in card.LstBuff.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
+                BaseServant servant = cd as BaseServant;
+                if (servant.LstBuff.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
                 {
-                    buff.CastAbility(gameContext, target);
+                    foreach (var buff in servant.LstBuff.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.入场)))
+                    {
+                        buff.CastAbility(gameContext, card, cd, target, location);
+                    }
                 }
             }
             #endregion

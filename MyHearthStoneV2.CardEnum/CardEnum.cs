@@ -101,6 +101,6 @@ namespace MyHearthStoneV2.CardEnum
         攻击 = 3,
         受到伤害 = 4,
         受到攻击 = 5,
-
+        己方打出法术牌 = 6
     }
 }

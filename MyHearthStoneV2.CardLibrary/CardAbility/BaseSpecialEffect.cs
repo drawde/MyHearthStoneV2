@@ -19,12 +19,17 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility
 
         public virtual bool CanItTrigger(GameContext gameContext, Card triggerCard) => false;
 
+
+
         /// <summary>
         /// 触发卡牌技能
         /// </summary>
-        /// <param name="gameContext"></param>
-        /// <param name="targetCardIndex"></param>
+        /// <param name="gameContext">游戏环境</param>
+        /// <param name="triggerCard">触发这个技能的牌（幸运币(triggerCard) => 紫罗兰教师(sourceCard)）</param>
+        /// <param name="sourceCard">持有这个技能的牌（幸运币(triggerCard) => 紫罗兰教师(sourceCard)）</param>
+        /// <param name="targetCardIndex">指向类技能的目标卡牌下标</param>
+        /// <param name="location">触发这个技能的牌准备进入牌桌上的下标</param>
         /// <returns></returns>
-        public abstract void CastAbility(GameContext gameContext, List<int> targetCardIndex);
+        public abstract void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, List<int> targetCardIndex, int location);
     }
 }

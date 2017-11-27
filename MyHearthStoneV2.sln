@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.HearthStoneWeb", "MyHearthStoneV2.HearthStoneWeb\MyHearthStoneV2.HearthStoneWeb.csproj", "{82C9E741-CB6A-42DF-890A-4F43FA76C8F3}"
 EndProject
