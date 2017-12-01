@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
 using System.Collections.Generic;
 using MyHearthStoneV2.CardLibrary.Monitor;
 using MyHearthStoneV2.CardLibrary.CardAbility;
@@ -6,7 +6,6 @@ using MyHearthStoneV2.CardLibrary.CardAbility.Deathwhisper;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX
 {
-    [PropertyChangedNotification]
     public class GuiLingZhiZhu : BaseServant
     {
         public override int Damage { get; set; } = 2;
@@ -28,7 +27,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX
             }
         }
         
-        public override List<BaseSpecialEffect> LstBuff { get; set; } = new List<BaseSpecialEffect>() { new SE_GuiLingZhiZhu() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_GuiLingZhiZhu() };
 
         public override string Name
         {

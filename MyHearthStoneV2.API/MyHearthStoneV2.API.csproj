@@ -257,10 +257,6 @@
       <Project>{f69a8aeb-ab89-4f87-b2fd-af68d009e42e}</Project>
       <Name>MyHearthStoneV2.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj">
-      <Project>{07edba98-a0de-406a-8145-7bdba71e06d4}</Project>
-      <Name>MyHearthStoneV2.CardEnum</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj">
       <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
       <Name>MyHearthStoneV2.CardLibrary</Name>

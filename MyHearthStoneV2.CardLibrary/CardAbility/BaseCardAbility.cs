@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
 using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary.Context;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.CardAbility
 {
-    public abstract class BaseSpecialEffect
+    public abstract class BaseCardAbility
     {
         public virtual BuffTimeLimit buffTime { get; } = BuffTimeLimit.无限制;
         public virtual CastStyle CastStyle { get; } = CastStyle.无;
@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility
 
         public virtual List<SpellCardAbilityTime> LstSpellCardAbilityTime { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.无 };
 
-        public virtual bool CanItTrigger(GameContext gameContext, Card triggerCard) => false;
+        //public virtual bool CanItTrigger(GameContext gameContext, Card triggerCard) => false;
 
 
 
@@ -30,6 +30,6 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility
         /// <param name="targetCardIndex">指向类技能的目标卡牌下标</param>
         /// <param name="location">触发这个技能的牌准备进入牌桌上的下标</param>
         /// <returns></returns>
-        public abstract void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, List<int> targetCardIndex, int location);
+        public abstract void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, List<int> targetCardIndex, int location = -1);        
     }
 }

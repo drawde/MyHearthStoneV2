@@ -43,6 +43,9 @@ namespace MyHearthStoneV2.CardLibrary.Context
         /// </summary>
         public List<Card> InitCards { get; set; }
 
-        
+        /// <summary>
+        /// 疲劳值
+        /// </summary>
+        public int FatigueValue { get; set; }
     }
 }

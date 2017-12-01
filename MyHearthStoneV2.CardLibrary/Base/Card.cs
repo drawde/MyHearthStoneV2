@@ -1,4 +1,5 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
+using MyHearthStoneV2.CardLibrary.CardAbility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,16 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// <summary>
         /// 是否是某张牌的衍生物（如鬼灵爬行者 => 鬼灵蜘蛛）
         /// </summary>
-        public virtual bool IsDerivative { get; } = false;        
+        public virtual bool IsDerivative { get; } = false;
+
+        /// <summary>
+        /// 卡牌技能
+        /// </summary>
+        public virtual List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>();
+
+        /// <summary>
+        /// 卡牌BUFF
+        /// </summary>
+        public virtual Dictionary<Card, BaseCardAbility> Buffs { get; set; } = new Dictionary<Card, BaseCardAbility>();
     }
 }

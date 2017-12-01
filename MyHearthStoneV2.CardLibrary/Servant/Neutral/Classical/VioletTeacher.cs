@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
 using MyHearthStoneV2.CardLibrary.CardAbility;
 using MyHearthStoneV2.CardLibrary.CardAbility.Aura;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical
             }
         }
 
-        public override List<BaseSpecialEffect> LstBuff { get; set; } = new List<BaseSpecialEffect>() { new SE_VioletTeacher() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_VioletTeacher() };
 
 
         public override string Name

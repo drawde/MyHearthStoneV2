@@ -1,9 +1,8 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
 using MyHearthStoneV2.CardLibrary.Monitor;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX
 {
-    [PropertyChangedNotification]
     public class XiaoZhiZhu : BaseServant
     {
         public override int Damage { get; set; } = 1;

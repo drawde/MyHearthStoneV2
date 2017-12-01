@@ -75,16 +75,18 @@
   <ItemGroup>
     <Compile Include="Base\Card.cs" />
     <Compile Include="Base\BaseBiology.cs" />
-    <Compile Include="CardAbility\Aura\SE_VioletTeacher.cs" />
-    <Compile Include="CardAbility\BaseSpecialEffect.cs" />
+    <Compile Include="CardAbility\Aura\CA_VioletTeacher.cs" />
+    <Compile Include="CardAbility\BaseCardAbility.cs" />
     <Compile Include="CardAbility\CardAbilityUtil.cs" />
-    <Compile Include="CardAbility\Deathwhisper\SE_GuiLingZhiZhu.cs" />
+    <Compile Include="CardAbility\Deathwhisper\CA_GuiLingZhiZhu.cs" />
     <Compile Include="CardAbility\BaseAbility\Charge.cs" />
     <Compile Include="CardAbility\BaseAbility\HolyShield.cs" />
     <Compile Include="CardAbility\BaseAbility\Taunt.cs" />
     <Compile Include="CardAbility\BaseAbility\Windfury.cs" />
-    <Compile Include="CardAbility\WarCry\AlterBody\SE_DefenderOfArgus.cs" />
-    <Compile Include="CardAbility\WarCry\AlterBody\SE_JiaoXiaoDeZhongShi.cs" />
+    <Compile Include="CardAbility\WarCry\AlterBody\REV_JiaoXiaoDeZhongShi.cs" />
+    <Compile Include="CardAbility\WarCry\AlterBody\CA_DefenderOfArgus.cs" />
+    <Compile Include="CardAbility\WarCry\AlterBody\CA_JiaoXiaoDeZhongShi.cs" />
+    <Compile Include="CardEnum.cs" />
     <Compile Include="Context\BaseUserContext.cs" />
     <Compile Include="Context\GameContext.cs" />
     <Compile Include="Context\GameContextOutput.cs" />
@@ -92,10 +94,11 @@
     <Compile Include="Context\UserContextOutput.cs" />
     <Compile Include="Context\UserContextSimpleOutput.cs" />
     <Compile Include="Controler\Controler_Base.cs" />
-    <Compile Include="Controler\Controler_RoundEnd.cs" />
+    <Compile Include="Controler\Controler_Turn.cs" />
     <Compile Include="Controler\ControllerCache.cs" />
     <Compile Include="Controler\ControllerUtil.cs" />
     <Compile Include="Controler\Control_Servant.cs" />
+    <Compile Include="Controler\Control_Spell.cs" />
     <Compile Include="Controler\Control_SwitchCard.cs" />
     <Compile Include="Hero\BaseHero.cs" />
     <Compile Include="Hero\Druid.cs" />
@@ -156,10 +159,6 @@
     <Folder Include="Weapon\Warrior\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyHearthStoneV2.CardEnum\MyHearthStoneV2.CardEnum.csproj">
-      <Project>{07edba98-a0de-406a-8145-7bdba71e06d4}</Project>
-      <Name>MyHearthStoneV2.CardEnum</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>

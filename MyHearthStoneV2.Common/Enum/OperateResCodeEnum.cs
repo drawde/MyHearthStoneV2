@@ -29,5 +29,6 @@ namespace MyHearthStoneV2.Common.Enum
         法力值不足 = 117,
         没有足够的法力值 = 118,
         位置已被占用 = 119,
+        你必须先攻击有嘲讽技能的随从 = 120,
     }
 }

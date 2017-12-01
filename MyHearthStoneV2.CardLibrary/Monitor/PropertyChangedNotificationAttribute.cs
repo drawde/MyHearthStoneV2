@@ -3,7 +3,7 @@ using PostSharp.Extensibility;
 using System;
 using System.Reflection;
 using MyHearthStoneV2.Common.Util;
-using MyHearthStoneV2.CardEnum;
+
 
 namespace MyHearthStoneV2.CardLibrary.Monitor
 {

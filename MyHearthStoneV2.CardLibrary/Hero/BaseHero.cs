@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
 using MyHearthStoneV2.CardLibrary.Base;
 using System;
 using System.Collections.Generic;
@@ -21,5 +21,7 @@ namespace MyHearthStoneV2.CardLibrary.Hero
         public virtual Profession profession { get; set; }
 
         public virtual int ProfessionSkillTimes { get; set; }
+
+        public override int Life { get; set; } = 30;
     }
 }

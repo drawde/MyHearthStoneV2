@@ -31,6 +31,13 @@ namespace MyHearthStoneV2.BLL
                 new DefenderOfArgus(),
                 new VioletTeacher(),
                 new VioletStudent(),
+                new Mage(),
+                new Paladin(),
+                new Priest(),
+                new Rogue(),
+                new Shaman(),
+                new Warlock(),
+                new Warrior(),
             };
 
             lstCard.ForEach(c => c.CardCode = ShortCodeBusiness.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);

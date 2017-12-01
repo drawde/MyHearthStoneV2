@@ -11,6 +11,8 @@ using MyHearthStoneV2.CardLibrary.Servant;
 using MyHearthStoneV2.CardLibrary.Context;
 using MyHearthStoneV2.BLL;
 using MyHearthStoneV2.CardLibrary.Controler;
+using MyHearthStoneV2.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.CardLibrary.Spell;
 
 namespace MyHearthStoneV2.GameControlerProxy
 {
@@ -67,8 +69,11 @@ namespace MyHearthStoneV2.GameControlerProxy
 
             ControllerCache.Init();
             var game = GameBll.Instance.CreateGame(tableCode, firstPlayerCode, secondPlayerCode, fristCardGroupCode, secondCardGroupCode);
+
+            string firstUserProfession = UserCardGroupBll.Instance.GetCardGroup(fristCardGroupCode, firstPlayerCode).Profession;
+            string secondUserProfession = UserCardGroupBll.Instance.GetCardGroup(secondCardGroupCode, secondPlayerCode).Profession;
             Controler_Base ctl = new Controler_Base();
-            ctl.GameStart(game, firstUser, secondUser, firstCardGroup, secondCardGroup);            
+            ctl.GameStart(game, firstUser, secondUser, firstCardGroup, secondCardGroup, firstUserProfession, secondUserProfession);
             return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput);
         }
 
@@ -209,7 +214,7 @@ namespace MyHearthStoneV2.GameControlerProxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            if (location < 0 || location > 6)
+            if (location != 0 && location < 8)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
@@ -223,10 +228,88 @@ namespace MyHearthStoneV2.GameControlerProxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.没有足够的法力值);
             }
-            ctl.CastServant(player, (BaseServant)card, location, target);
+            ctl.CastServant((BaseServant)card, location, target);            
             return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput.Players.First(c => c.UserCode == userCode));
         }
 
+        /// <summary>
+        /// 打出一张法术牌
+        /// </summary>
+        /// <param name="gameCode"></param>
+        /// <param name="userCode"></param>
+        /// <param name="cardInGameCode"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static APIResultBase CastSpell(string gameCode, string userCode, string cardInGameCode, List<int> target)
+        {
+            string res = JsonStringResult.VerifyFail();
+            Controler_Base ctl = Validate(gameCode, userCode);
+            if (ctl == null)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            var player = ctl.GetCurrentTurnUserCards();
+            if (player == null || player.UserCode != userCode)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            if (player.HandCards.Any(c => c.CardInGameCode == cardInGameCode) == false)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+
+            Card card = player.HandCards.First(c => c.CardInGameCode == cardInGameCode);
+
+            if (player.Power < card.Cost)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.没有足够的法力值);
+            }
+            ctl.CastSpell((BaseSpell)card, target);
+            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput.Players.First(c => c.UserCode == userCode));
+        }
+        /// <summary>
+        /// 随从发起攻击
+        /// </summary>
+        /// <param name="gameCode"></param>
+        /// <param name="userCode"></param>
+        /// <param name="cardInGameCode"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static APIResultBase ServantAttack(string gameCode, string userCode, string cardInGameCode, int target)
+        {
+            string res = JsonStringResult.VerifyFail();
+            Controler_Base ctl = Validate(gameCode, userCode);
+            if (ctl == null)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            var player = ctl.GetCurrentTurnUserCards();
+            if (player == null || player.UserCode != userCode)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            if (player.DeskCards.Any(c => c.CardInGameCode == cardInGameCode) == false)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+
+            BaseServant servant = player.DeskCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
+            if (servant.RemainAttackTimes < 1)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            //BaseBiology bb = ctl.GetCardByLocation(target) as BaseBiology;
+            var taunts = ctl.GetNextTurnUserCards().DeskCards.Where(c => c.Abilities.Any(x => x is Taunt));
+            var dskCards = ctl.GetNextTurnUserCards().DeskCards;
+            for (int i = 0; i < dskCards.Count; i++)
+            {
+                if (dskCards[i] != null && dskCards[i].Abilities.Any(x => x is Taunt) && i != target)
+                {
+                    return JsonModelResult.PackageFail(OperateResCodeEnum.你必须先攻击有嘲讽技能的随从);
+                }
+            }
+            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput.Players.First(c => c.UserCode == userCode));
+        }
         private static Controler_Base Validate(string gameCode, string userCode)
         {
             Controler_Base ctl = null;

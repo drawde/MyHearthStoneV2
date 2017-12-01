@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
 using System.Collections.Generic;
 using MyHearthStoneV2.CardLibrary.Monitor;
 using MyHearthStoneV2.CardLibrary.CardAbility;
@@ -6,7 +6,6 @@ using MyHearthStoneV2.CardLibrary.CardAbility.BaseAbility;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Shaman.Classical
 {
-    [PropertyChangedNotification]
     public class Al_akir : BaseServant
     {
         public override int Damage { get; set; } = 3;
@@ -14,7 +13,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Shaman.Classical
         public override int Cost { get; set; } = 8;
         public override CardLocation CardLocation { get; set; }
 
-        public override List<BaseSpecialEffect> LstBuff { get; set; } = new List<BaseSpecialEffect>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
         public override string Describe
         {
             get

@@ -69,5 +69,16 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility
         {
             return context.Players.Any(c => c.IsActivation && c.AllCards.Any(x => x.CardInGameCode == card.CardInGameCode));
         }
+
+        /// <summary>
+        /// 根据下标获取场上的牌
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public static Card GetCardByLocation(this GameContext context, int location)
+        {
+            return context.Players.First(c => c.IsFirst == location < 8).DeskCards[location];
+        }
     }
 }

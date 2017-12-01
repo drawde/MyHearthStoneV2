@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
 using System.Collections.Generic;
 using MyHearthStoneV2.CardLibrary.Monitor;
 using MyHearthStoneV2.CardLibrary.CardAbility;
@@ -6,7 +6,6 @@ using MyHearthStoneV2.CardLibrary.CardAbility.WarCry.AlterBody;
 
 namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical
 {
-    [PropertyChangedNotification]
     public class JiaoXiaoDeZhongShi : BaseServant
     {
         public override int Damage { get; set; } = 2;
@@ -29,7 +28,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical
             }
         }
 
-        public override List<BaseSpecialEffect> LstBuff { get; set; } = new List<BaseSpecialEffect>() { new SE_JiaoXiaoDeZhongShi() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_JiaoXiaoDeZhongShi() };
 
 
         public override string Name

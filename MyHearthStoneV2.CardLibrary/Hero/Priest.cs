@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.CardEnum;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;

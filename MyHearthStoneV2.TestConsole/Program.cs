@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.BLL;using MyHearthStoneV2.CardEnum;
+﻿using MyHearthStoneV2.BLL;
 using MyHearthStoneV2.CardLibrary;
 using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical;
@@ -21,7 +21,8 @@ using System.Threading.Tasks;
 namespace MyHearthStoneV2.TestConsole
 {
     class Program
-    {        
+    {
+        static List<string> lstttttttt = new List<string>();
         static void Main(string[] args)
         {
             //var t = new GuiLingZhiZhu().GetType();
@@ -32,16 +33,20 @@ namespace MyHearthStoneV2.TestConsole
             //string code = ShortCodeBll.Instance.CreateCode("test", ShortCodeTypeEnum.CardGroupCode);
             //ShortCodeBll.Instance.SaveToDB();
 
-            var user = UsersBll.Instance.GetById(1);
 
-            List<int> lll = new List<int>();
-            lll.Any();
             //CardUtil.AddToRedis();
             //using (var redisClient = RedisManager.GetClient())
             //{
             //    LinkedList<HS_ShortCode> ll = redisClient.Get<LinkedList<HS_ShortCode>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.ShortCodeKey));
             //}
+
+            addd(lstttttttt);
             Console.ReadKey();
+        }
+
+        public static void addd(List<string> dddd)
+        {
+            dddd.Add("adadadasdadadadasd");
         }
     }
 }

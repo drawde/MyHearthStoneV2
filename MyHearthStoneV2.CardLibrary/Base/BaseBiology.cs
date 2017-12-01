@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// </summary>
         public virtual int Damage { get; set; }
 
-        public virtual List<BaseSpecialEffect> LstBuff { get; set; } = new List<BaseSpecialEffect>();
+        
 
         /// <summary>
         /// 当前回合剩余攻击次数

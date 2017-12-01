@@ -113,14 +113,16 @@ namespace MyHearthStoneV2.BLL
                 {
                     for (int i = 0; i < dic.Value; i++)
                     {
-                        HS_UserCardGroupDetail detail = new HS_UserCardGroupDetail();
-                        detail.AddTime = DateTime.Now;
-                        detail.CardBorder = 1;
-                        detail.CardCode = dic.Key.CardCode;
-                        detail.CardName = dic.Key.Name;
-                        detail.Cost = dic.Key.Cost;
-                        detail.GroupCode = cardGroupModel.GroupCode;
-                        detail.UserCode = UserCode;
+                        HS_UserCardGroupDetail detail = new HS_UserCardGroupDetail
+                        {
+                            AddTime = DateTime.Now,
+                            CardBorder = 1,
+                            CardCode = dic.Key.CardCode,
+                            CardName = dic.Key.Name,
+                            Cost = dic.Key.Cost,
+                            GroupCode = cardGroupModel.GroupCode,
+                            UserCode = UserCode
+                        };
                         context.hs_usercardgroupdetail.Add(detail);
                         //lstCardCodes.Add(detail);
                     }

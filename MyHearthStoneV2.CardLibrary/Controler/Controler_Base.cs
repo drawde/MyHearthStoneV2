@@ -1,5 +1,6 @@
 ﻿using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary.Context;
+using MyHearthStoneV2.CardLibrary.Hero;
 using MyHearthStoneV2.CardLibrary.Monitor;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Model;
@@ -49,7 +50,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         public string nextTurnCode { get; set; }
         
         [ControlerMonitor, PlayerActionMonitor]
-        public void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup)
+        public void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
         {            
             GameCode = game.GameCode;
             currentTurnCode = game.CurrentTurnCode;
@@ -126,35 +127,45 @@ namespace MyHearthStoneV2.CardLibrary.Controler
                 lstSecondPickUpCard.Add(gameContext.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]]);
             }
             firstUser.InitCards = lstFirstPickUpCard;
-            firstUser.DeskCards = new List<Card>() { null, null, null, null, null, null, null };
+            BaseHero firstHero = null, secondHero = null;
+            switch (firstUserProfession)
+            {
+                case "Druid": firstHero = new Druid(); break;
+                case "Hunter": firstHero = new Hunter(); break;
+                case "Mage": firstHero = new Mage(); break;
+                case "Paladin": firstHero = new Paladin(); break;
+                case "Priest": firstHero = new Priest(); break;
+                case "Rogue": firstHero = new Rogue(); break;
+                case "Shaman": firstHero = new Shaman(); break;
+                case "Warlock": firstHero = new Warlock(); break;
+                case "Warrior": firstHero = new Warrior(); break;
+            }
+            switch (secondUserProfession)
+            {
+                case "Druid": secondHero = new Druid(); break;
+                case "Hunter": secondHero = new Hunter(); break;
+                case "Mage": secondHero = new Mage(); break;
+                case "Paladin": secondHero = new Paladin(); break;
+                case "Priest": secondHero = new Priest(); break;
+                case "Rogue": secondHero = new Rogue(); break;
+                case "Shaman": secondHero = new Shaman(); break;
+                case "Warlock": secondHero = new Warlock(); break;
+                case "Warrior": secondHero = new Warrior(); break;
+            }
+            firstUser.Hero = firstHero;
+            firstUser.DeskCards = new List<Card>() { firstHero, null, null, null, null, null, null, null };
             firstUser.HandCards = new List<Card>();
-            //firstUser.StockCards = new List<Card>();
 
+            secondUser.Hero = secondHero;
             secondUser.InitCards = lstSecondPickUpCard;
-            secondUser.DeskCards = new List<Card>() { null, null, null, null, null, null, null };
+            secondUser.DeskCards = new List<Card>() { secondHero, null, null, null, null, null, null, null };
             secondUser.HandCards = new List<Card>();
-            //secondUser.StockCards = new List<Card>();
             #endregion
 
             List<Card> lstAll = new List<Card>();
             lstAll.AddRange(firstUser.AllCards);
             lstAll.AddRange(secondUser.AllCards);
             gameContext.AllCard = lstAll;
-            //SetCurrentTurnCode();
-        }
-
-
-
-
-
-        public void PickUpACard(string userCode)
-        {
-
-        }
-
-        public void TurnStart()
-        {
-        }
-        
+        }       
     }
 }

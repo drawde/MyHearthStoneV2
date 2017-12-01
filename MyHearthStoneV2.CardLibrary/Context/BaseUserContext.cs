@@ -12,14 +12,18 @@ namespace MyHearthStoneV2.CardLibrary.Context
         /// <summary>
         /// 选择的英雄
         /// </summary>
-        public BaseHero hero { get; set; }
+        public BaseHero Hero { get; set; }
 
         public string UserCode { get; set; }
         /// <summary>
-        /// 当前回合的费用
+        /// 当前回合的剩余费用
         /// </summary>
         public int Power { get; set; }
 
+        /// <summary>
+        /// 当前回合的总费用
+        /// </summary>
+        public int FullPower { get; set; }
         /// <summary>
         /// 是否先手
         /// </summary>
