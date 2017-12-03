@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.Aura
                 if (player.DeskCards.Any(c => c == null))
                 {
                     VioletStudent student = gameContext.CreateNewCardInDesk<VioletStudent>();
-                    player.DeskCards[player.DeskCards.FindIndex(c => c is null)] = student;
+                    player.DeskCards[player.DeskCards.FindIndex(c => c == null)] = student;
                     player.AllCards.Add(student);
                     gameContext.AllCard.Add(student);
                 }

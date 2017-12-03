@@ -1,8 +1,7 @@
-﻿@using System.Configuration
-@using MyHearthStoneV2.Common.Util
+﻿@using MyHearthStoneV2.Common.Util
 @using MyHearthStoneV2.Common.Enum
 @using MyHearthStoneV2.Model
-@using MyHearthStoneV2.CardEnum
+@using MyHearthStoneV2.CardLibrary
 @{
     Layout = "/Views/Shared/_GameLayout.cshtml";
     ViewBag.Title = "对战";
@@ -29,7 +28,7 @@
 <script src="/js/baraja/jquery.baraja.js"></script>
 <script src="/Scripts/linq.min.js"></script>
 <script type="text/javascript">
-        @(EnumUtil.GetJsonEnum(typeof(MyHearthStoneV2.CardEnum.CastStyle)));
+        @(EnumUtil.GetJsonEnum(typeof(CastStyle)));
 </script>
 @(Html.Raw(SignUtil.ImportSignJsFile("/js/battle.source.js", ViewBag.cssAndJSVersion)))
 }

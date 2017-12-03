@@ -79,6 +79,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
 
                 TurnEnd();
             }
+            
         }
     }
 }

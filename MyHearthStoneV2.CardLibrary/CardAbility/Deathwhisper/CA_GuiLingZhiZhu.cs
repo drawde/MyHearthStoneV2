@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.Deathwhisper
             var userContext = gameContext.Players.First(c => c.IsActivation);
             int count = 0;
             bool isActivation = gameContext.IsThisActivationUserCard(sourceCard);
-            while (userContext.DeskCards.Any(c => c is null) && count < 2)
+            while (userContext.DeskCards.Any(c => c == null) && count < 2)
             {
                 gameContext.CreateNewCardInDesk<XiaoZhiZhu>(isActivation);
                 count++;

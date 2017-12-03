@@ -57,7 +57,7 @@ namespace MyHearthStoneV2.CardLibrary.Monitor
         {
             if (eventArgs.Arguments != null && eventArgs.Arguments.Count > 0)
             {
-                DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.GameControler);
+                //DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.GameControler);
             }
             Controler_Base ctl = eventArgs.Instance as Controler_Base;
             

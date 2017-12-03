@@ -34,7 +34,7 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility
             card.CardCode = cardCode;
             card.CardInGameCode = context.AllCard.Count.ToString();
             var player = context.Players.First(c => c.IsActivation == isActivation);
-            player.DeskCards[player.DeskCards.FindIndex(c => c is null)] = card;
+            player.DeskCards[player.DeskCards.FindIndex(c => c == null)] = card;
             player.AllCards.Add(card);
             context.AllCard.Add(card);
             return card;

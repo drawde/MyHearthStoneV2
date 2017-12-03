@@ -197,7 +197,7 @@ namespace MyHearthStoneV2.GameControlerProxy
         /// <param name="cardInGameCode"></param>
         /// <param name="location"></param>
         /// <returns></returns>
-        public static APIResultBase CastServant(string gameCode, string userCode, string cardInGameCode, int location, List<int> target)
+        public static APIResultBase CastServant(string gameCode, string userCode, string cardInGameCode, int location, List<string> target)
         {
             string res = JsonStringResult.VerifyFail();
             Controler_Base ctl = Validate(gameCode, userCode);
@@ -228,7 +228,12 @@ namespace MyHearthStoneV2.GameControlerProxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.没有足够的法力值);
             }
-            ctl.CastServant((BaseServant)card, location, target);            
+            List<int> initCardIndex = new List<int>();
+            foreach (string idx in target)
+            {
+                initCardIndex.Add(idx.TryParseInt());
+            }
+            ctl.CastServant((BaseServant)card, location, initCardIndex);            
             return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput.Players.First(c => c.UserCode == userCode));
         }
 
@@ -240,7 +245,7 @@ namespace MyHearthStoneV2.GameControlerProxy
         /// <param name="cardInGameCode"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static APIResultBase CastSpell(string gameCode, string userCode, string cardInGameCode, List<int> target)
+        public static APIResultBase CastSpell(string gameCode, string userCode, string cardInGameCode, List<string> target)
         {
             string res = JsonStringResult.VerifyFail();
             Controler_Base ctl = Validate(gameCode, userCode);
@@ -264,7 +269,13 @@ namespace MyHearthStoneV2.GameControlerProxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.没有足够的法力值);
             }
-            ctl.CastSpell((BaseSpell)card, target);
+
+            List<int> initCardIndex = new List<int>();
+            foreach (string idx in target)
+            {
+                initCardIndex.Add(idx.TryParseInt());
+            }
+            ctl.CastSpell((BaseSpell)card, initCardIndex);
             return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput.Players.First(c => c.UserCode == userCode));
         }
         /// <summary>

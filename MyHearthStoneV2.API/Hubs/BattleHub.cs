@@ -83,6 +83,24 @@ namespace MyHearthStoneV2.API.Hubs
             return JsonStringResult.Error(OperateResCodeEnum.参数错误);
         }
 
+        [SignalRMethod]
+        public string CastSpell(string param)
+        {
+            JObject jobj = JObject.Parse(param);
+            string userCode = jobj["UserCode"].TryParseString();
+            string gameCode = jobj["GameCode"].TryParseString();
+            string cardInCode = jobj["cardInCode"].TryParseString();
+            string switchCards = jobj["SwitchCards"].TryParseString();
+
+            var res = ControllerProxy.GetGame(gameCode, userCode);
+            if (res.code == (int)OperateResCodeEnum.成功)
+            {
+                res = ControllerProxy.CastSpell(gameCode, userCode, cardInCode, switchCards.Split(",").ToList());
+                return JsonStringResult.SuccessResult(res);
+            }
+            return JsonStringResult.Error(OperateResCodeEnum.参数错误);
+        }
+
         public void Bordcast(string param)
         {
             throw new NotImplementedException();
