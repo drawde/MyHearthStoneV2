@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility
 {
     public abstract class BaseCardAbility
     {
-        public virtual BuffTimeLimit buffTime { get; } = BuffTimeLimit.无限制;
+        public virtual BuffTimeLimit BuffTime { get; } = BuffTimeLimit.无限制;
         public virtual CastStyle CastStyle { get; } = CastStyle.无;
         public virtual CastCrosshairStyle CastCrosshairStyle { get; } = CastCrosshairStyle.无;
 
@@ -30,6 +30,6 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility
         /// <param name="targetCardIndex">指向类技能的目标卡牌下标</param>
         /// <param name="location">触发这个技能的牌准备进入牌桌上的下标</param>
         /// <returns></returns>
-        public abstract void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, List<int> targetCardIndex, int location = -1);        
+        public abstract void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1);        
     }
 }

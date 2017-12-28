@@ -29,7 +29,7 @@ namespace MyHearthStoneV2.TestConsole
             //Console.WriteLine(new GuiLingZhiZhu().GetType().FullName);
             //Console.WriteLine(typeof(GuiLingZhiZhu).FullName);
 
-            //CardUtil.AddToRedis();
+            CardUtil.AddToRedis();
             //string code = ShortCodeBll.Instance.CreateCode("test", ShortCodeTypeEnum.CardGroupCode);
             //ShortCodeBll.Instance.SaveToDB();
 

@@ -43,5 +43,10 @@ namespace MyHearthStoneV2.CardLibrary.Context
         /// 进行完的回合数
         /// </summary>
         public int TurnIndex { get; set; }
+
+        /// <summary>
+        /// 当前回合使用英雄技能的剩余次数
+        /// </summary>
+        public int RemainingHeroPowerCastCount { get; set; }
     }
 }

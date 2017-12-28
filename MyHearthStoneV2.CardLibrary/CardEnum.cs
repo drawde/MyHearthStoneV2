@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 namespace MyHearthStoneV2.CardLibrary
 {
     /// <summary>
+    /// 卡牌类型
+    /// </summary>
+    public enum CardType
+    {
+        无 = 0,
+        随从 = 1,
+        法术 = 2,
+        装备 = 3,
+        英雄 = 4,
+    }
+
+    /// <summary>
     /// 场上位置
     /// </summary>
     public enum CardLocation
@@ -53,15 +65,15 @@ namespace MyHearthStoneV2.CardLibrary
     /// </summary>
     public enum Profession
     {
-        猎人 = 1,
-        术士 = 2,
-        战士 = 3,
-        法师 = 4,
-        德鲁伊 = 5,
-        萨满 = 6,
-        盗贼 = 7,
-        圣骑士 = 8,
-        牧师 = 9
+        Hunter = 1,
+        Warlock = 2,
+        Warrior = 3,
+        Mage = 4,
+        Druid = 5,
+        Shaman = 6,
+        Rogue = 7,
+        Paladin = 8,
+        Priest = 9
     }
 
     /// <summary>
@@ -130,5 +142,8 @@ namespace MyHearthStoneV2.CardLibrary
 
         对方打出法术牌前 = 111,
         对方打出法术牌后 = 112,
+
+        //********************************************************//
+        战吼 = 1000,
     }
 }

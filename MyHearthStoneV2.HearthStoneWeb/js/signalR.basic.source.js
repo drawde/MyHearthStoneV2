@@ -1,13 +1,17 @@
-﻿$(function () {
+﻿//房间编号（TableCode或GameCode）
+var groupCode = "";
+$(function () {
     showLoader();
 
     $.connection.hub.url = APIURL + "/signalr";
     $.connection.hub.start({ xdomain: true });
     if (window.location.pathname.toLowerCase() == "/game/chosencardgroup") {
         roomHub = $.connection.chosenCardGroupHub;
+        groupCode = "TableCode";
     }
     else if (window.location.pathname.toLowerCase() == "/game/battle") {
         roomHub = $.connection.battleHub;
+        groupCode = "GameCode";
     }
     //后端SendChat调用后，产生的addNewMessageToPage回调
     roomHub.client.addNewMessageToPage = function (name, message) {
@@ -32,10 +36,10 @@
                 var param = "";
                 showLoader();
                 if (window.location.pathname.toLowerCase() == "/game/chosencardgroup") {
-                    param = "{\"NickName\":\"" + getNickName() + "\",\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + getUrlParam("password") + "\"}";
+                    param = "{\"NickName\":\"" + getNickName() + "\",\""+groupCode+"\":\"" + getUrlParam(groupCode) + "\",\"UserCode\":\"" + getUserCode() + "\",\"Password\":\"" + getUrlParam("password") + "\"}";
                 }
                 else if (window.location.pathname.toLowerCase() == "/game/battle") {
-                    param = "{\"NickName\":\"" + getNickName() + "\",\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
+                    param = "{\"NickName\":\"" + getNickName() + "\",\""+groupCode+"\":\"" + getUrlParam(groupCode) + "\",\"UserCode\":\"" + getUserCode() + "\"}";
                 }
                 roomHub.server.online(appendParam(param, signObj)).done(function (res) {
                     res = JSON.parse(res);
@@ -45,7 +49,9 @@
                         ClientConnected(res);
                         $('#send').click(function () {
                             var chatContent = $('#message').val();
-                            roomHub.server.sendChat(getUserCode(), chatContent, getUrlParam("TableCode"));
+                            roomHub.server.sendChat(getUserCode(), chatContent, getUrlParam(groupCode)).done(function (res) {
+                                $('#message').val("");
+                            });
                         });
                     }
                     else {
@@ -76,6 +82,6 @@ function clearUnReadMessage() {
 }
 
 window.onbeforeunload = function () {
-    var param = "{\"TableCode\":\"" + getUrlParam("TableCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
+    var param = "{\""+ groupCode +"\":\"" + getUrlParam(groupCode) + "\",\"UserCode\":\"" + getUserCode() + "\"}";
     roomHub.server.leaveRoom(appendParam(param, signObj));
 }

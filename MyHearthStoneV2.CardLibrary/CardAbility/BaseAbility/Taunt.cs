@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.BaseAbility
     public class Taunt : BaseCardAbility
     {        
         public override List<SpellCardAbilityTime> LstSpellCardAbilityTime { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从入场 };
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, List<int> targetCardIndex, int location)
+        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
         {
         }        
     }

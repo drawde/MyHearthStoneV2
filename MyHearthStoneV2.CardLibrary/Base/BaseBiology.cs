@@ -25,5 +25,10 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// 当前回合剩余攻击次数
         /// </summary>
         public virtual int RemainAttackTimes { get; set; }
+
+        /// <summary>
+        /// 在牌桌上的位置
+        /// </summary>
+        public virtual int DeskIndex { get; set; } = -1;
     }
 }

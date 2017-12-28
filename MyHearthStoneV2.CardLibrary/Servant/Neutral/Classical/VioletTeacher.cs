@@ -37,5 +37,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical
                 return "紫罗兰教师";
             }
         }
+
+        public override string BackgroudImage { get; set; } = "W7_064_D.png";
     }
 }

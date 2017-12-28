@@ -36,11 +36,11 @@ namespace MyHearthStoneV2.CardLibrary.Monitor
                 {
                     AddTime = DateTime.Now,
                     GameContext = JsonConvert.SerializeObject(ctl.gameContext),
-                    FirstUserCode = ctl.GetCurrentTurnUserCards().UserCode,
+                    FirstUserCode = ctl.gameContext.GetActivationUserContext().UserCode,
                     GameCode = ctl.GameCode,
                     IsFirstUserTurn = false,
                     TurnIndex = ctl.TurnIndex,
-                    SecondUserCode = ctl.GetNextTurnUserCards().UserCode,
+                    SecondUserCode = ctl.gameContext.GetNotActivationUserContext().UserCode,
                     TurnCode = ctl.currentTurnCode,
                     FunctionName = _methodName
                 };

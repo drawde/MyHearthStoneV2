@@ -37,5 +37,6 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Shaman.Classical
                 return "风领主奥拉基尔";
             }
         }
+        public override string BackgroudImage { get; set; } = "W14_a190_D.png";
     }
 }

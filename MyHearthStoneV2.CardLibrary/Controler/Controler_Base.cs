@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
     /// <summary>
     /// 游戏控制器
     /// </summary>
-    public partial class Controler_Base
+    internal partial class Controler_Base
     {
         /// <summary>
         /// 游戏ID
@@ -50,7 +50,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         public string nextTurnCode { get; set; }
         
         [ControlerMonitor, PlayerActionMonitor]
-        public void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
+        internal void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
         {            
             GameCode = game.GameCode;
             currentTurnCode = game.CurrentTurnCode;
@@ -58,12 +58,14 @@ namespace MyHearthStoneV2.CardLibrary.Controler
 
             #region 加载玩家卡组
             gameContextOutput = new GameContextOutput();
-            UserContext firstUser = new UserContext();
-            firstUser.UserCode = _firstPlayer.UserCode;
-            firstUser.User = _firstPlayer;
-            firstUser.IsActivation = true;
-            firstUser.IsFirst = true;
-            firstUser.AllCards = new List<Card>();
+            UserContext firstUser = new UserContext
+            {
+                UserCode = _firstPlayer.UserCode,
+                User = _firstPlayer,
+                IsActivation = true,
+                IsFirst = true,
+                AllCards = new List<Card>()
+            };
             List<Card> lstCardLib = new List<Card>();
             using (var redisClient = RedisManager.GetClient())
             {

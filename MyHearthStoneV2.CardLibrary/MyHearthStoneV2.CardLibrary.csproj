@@ -77,12 +77,17 @@
     <Compile Include="Base\BaseBiology.cs" />
     <Compile Include="CardAbility\Aura\CA_VioletTeacher.cs" />
     <Compile Include="CardAbility\BaseCardAbility.cs" />
-    <Compile Include="CardAbility\CardAbilityUtil.cs" />
     <Compile Include="CardAbility\Deathwhisper\CA_GuiLingZhiZhu.cs" />
     <Compile Include="CardAbility\BaseAbility\Charge.cs" />
     <Compile Include="CardAbility\BaseAbility\HolyShield.cs" />
     <Compile Include="CardAbility\BaseAbility\Taunt.cs" />
     <Compile Include="CardAbility\BaseAbility\Windfury.cs" />
+    <Compile Include="CardAbility\BaseHeroAbility.cs" />
+    <Compile Include="CardAbility\HeroPower\DruidAbility.cs" />
+    <Compile Include="CardAbility\HeroPower\MageAbility.cs" />
+    <Compile Include="CardAbility\HeroPower\WarlockAbility.cs" />
+    <Compile Include="CardAbility\Spell\AppendPower.cs" />
+    <Compile Include="CardAbility\WarCry\AlterBody\REV_DefenderOfArgus.cs" />
     <Compile Include="CardAbility\WarCry\AlterBody\REV_JiaoXiaoDeZhongShi.cs" />
     <Compile Include="CardAbility\WarCry\AlterBody\CA_DefenderOfArgus.cs" />
     <Compile Include="CardAbility\WarCry\AlterBody\CA_JiaoXiaoDeZhongShi.cs" />
@@ -97,9 +102,13 @@
     <Compile Include="Controler\Controler_Turn.cs" />
     <Compile Include="Controler\ControllerCache.cs" />
     <Compile Include="Controler\ControllerUtil.cs" />
+    <Compile Include="Controler\Control_Hero.cs" />
     <Compile Include="Controler\Control_Servant.cs" />
     <Compile Include="Controler\Control_Spell.cs" />
     <Compile Include="Controler\Control_SwitchCard.cs" />
+    <Compile Include="Controler\Proxy\ControllerProxy.cs" />
+    <Compile Include="Equip\BaseEquip.cs" />
+    <Compile Include="Equip\Neutral\Classical\WarglaiveOfAzzinoth.cs" />
     <Compile Include="Hero\BaseHero.cs" />
     <Compile Include="Hero\Druid.cs" />
     <Compile Include="Hero\Hunter.cs" />
@@ -130,6 +139,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Equip\Druid\" />
+    <Folder Include="Equip\Hunter\" />
+    <Folder Include="Equip\Mage\" />
+    <Folder Include="Equip\Paladin\" />
+    <Folder Include="Equip\Priest\" />
+    <Folder Include="Equip\Rogue\" />
+    <Folder Include="Equip\Shaman\Classical\" />
+    <Folder Include="Equip\Warlock\" />
+    <Folder Include="Equip\Warrior\" />
     <Folder Include="Servant\Druid\" />
     <Folder Include="Servant\Hunter\" />
     <Folder Include="Servant\Mage\" />
@@ -147,16 +165,6 @@
     <Folder Include="Spell\Shaman\Classical\" />
     <Folder Include="Spell\Warlock\" />
     <Folder Include="Spell\Warrior\" />
-    <Folder Include="Weapon\Druid\" />
-    <Folder Include="Weapon\Hunter\" />
-    <Folder Include="Weapon\Mage\" />
-    <Folder Include="Weapon\Neutral\Classical\" />
-    <Folder Include="Weapon\Paladin\" />
-    <Folder Include="Weapon\Priest\" />
-    <Folder Include="Weapon\Rogue\" />
-    <Folder Include="Weapon\Shaman\Classical\" />
-    <Folder Include="Weapon\Warlock\" />
-    <Folder Include="Weapon\Warrior\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">

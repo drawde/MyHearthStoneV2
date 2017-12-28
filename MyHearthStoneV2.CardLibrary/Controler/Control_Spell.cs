@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.CardLibrary.Controler
 {
-    public partial class Controler_Base
+    internal partial class Controler_Base
     {
         /// <summary>
         /// 打出一张法术牌
@@ -18,18 +18,32 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         /// <param name="spell"></param>
         /// <param name="target"></param>
         [ControlerMonitor, PlayerActionMonitor]
-        public void CastSpell(BaseSpell spell, List<int> target)
+        internal void CastSpell(BaseSpell spell, int target)
         {
             #region 触发场内牌的技能
-            TriggerCardAbility(GetCurrentTurnUserCards().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方打出法术牌前, spell, target);
+            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方打出法术牌前, spell, target);
             #endregion
 
-            var user = GetCurrentTurnUserCards();
+            var user = gameContext.GetActivationUserContext();
             user.Power -= spell.Cost;
+            Card triggerCard = null;
+            if (target > -1)
+            {
+                triggerCard = gameContext.GetCardByLocation(target);
+            }
+            if (spell.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方打出法术牌后)))
+            {
+                foreach (var buff in spell.Abilities.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方打出法术牌后)))
+                {
+                    buff.CastAbility(gameContext, triggerCard, spell, target);
+                }
+            }
             spell.CardLocation = CardLocation.坟场;
+            user.HandCards.Remove(spell);
+            user.GraveyardCards.Add(spell);
 
             #region 触发场内牌的技能
-            TriggerCardAbility(GetCurrentTurnUserCards().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方打出法术牌后, spell, target);
+            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方打出法术牌后, spell, target);
             #endregion
         }
     }

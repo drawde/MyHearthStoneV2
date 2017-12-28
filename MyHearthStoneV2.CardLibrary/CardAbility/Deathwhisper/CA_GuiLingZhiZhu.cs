@@ -1,4 +1,4 @@
-﻿
+﻿using MyHearthStoneV2.CardLibrary.Controler;
 using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.CardLibrary.Context;
 using MyHearthStoneV2.CardLibrary.Servant;
@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.Deathwhisper
     public class CA_GuiLingZhiZhu : BaseCardAbility
     {
         public override List<SpellCardAbilityTime> LstSpellCardAbilityTime { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从入坟场 };
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, List<int> targetCardIndex, int location)
+        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
         {
             var userContext = gameContext.Players.First(c => c.IsActivation);
             int count = 0;

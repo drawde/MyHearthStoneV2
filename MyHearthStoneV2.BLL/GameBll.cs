@@ -17,6 +17,15 @@ namespace MyHearthStoneV2.BLL
         }
         public static GameBll Instance = new GameBll();
 
+        /// <summary>
+        /// 创建一个游戏（数据库层面）
+        /// </summary>
+        /// <param name="tableCode"></param>
+        /// <param name="firstUserCode"></param>
+        /// <param name="secondUserCode"></param>
+        /// <param name="firstUserCardGroupCode"></param>
+        /// <param name="secondUserCardGroupCode"></param>
+        /// <returns></returns>
         public HS_Game CreateGame(string tableCode, string firstUserCode, string secondUserCode,string firstUserCardGroupCode,string secondUserCardGroupCode)
         {
             HS_Game game = null;

@@ -44,8 +44,16 @@ namespace MyHearthStoneV2.CardLibrary.Context
         public List<Card> InitCards { get; set; }
 
         /// <summary>
+        /// 玩家坟场的牌
+        /// </summary>
+        public List<Card> GraveyardCards { get; set; } = new List<Card>();
+
+
+        /// <summary>
         /// 疲劳值
         /// </summary>
         public int FatigueValue { get; set; }
+
+        
     }
 }

@@ -58,5 +58,9 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// 卡牌BUFF
         /// </summary>
         public virtual Dictionary<Card, BaseCardAbility> Buffs { get; set; } = new Dictionary<Card, BaseCardAbility>();
+
+        public virtual CardType CardType { get; set; } = CardType.无;
+
+        public virtual string BackgroudImage { get; set; } = "/images/baraja/1.jpg";
     }
 }

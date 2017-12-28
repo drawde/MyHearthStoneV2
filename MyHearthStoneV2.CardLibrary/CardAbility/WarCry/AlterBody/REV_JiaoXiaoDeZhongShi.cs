@@ -11,10 +11,11 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.WarCry.AlterBody
 {
     public class REV_JiaoXiaoDeZhongShi : CA_JiaoXiaoDeZhongShi
     {
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, List<int> targetCardIndex, int location)
+        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
         {
             BaseServant card = sourceCard as BaseServant;
             card.Damage -= 2;
+            card.Buffs.Remove(card.Buffs.First(c => c.Value is CA_JiaoXiaoDeZhongShi).Key);
         }
     }
 }

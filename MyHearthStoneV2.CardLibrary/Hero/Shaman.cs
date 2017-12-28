@@ -10,6 +10,6 @@ namespace MyHearthStoneV2.CardLibrary.Hero
     public class Shaman : BaseHero
     {
         public virtual new string Name { get; } = "萨满";
-        public virtual new Profession profession { get; } = Profession.萨满;
+        public virtual new Profession Profession { get; } = Profession.Shaman;
     }
 }

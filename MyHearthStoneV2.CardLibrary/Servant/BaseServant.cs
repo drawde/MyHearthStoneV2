@@ -12,11 +12,6 @@ namespace MyHearthStoneV2.CardLibrary.Servant
     /// </summary>
     public abstract class BaseServant : BaseBiology
     {
-        
-
-        /// <summary>
-        /// 场上位置下标
-        /// </summary>
-        //public virtual int DeskIndex { get; set; }
+        public override CardType CardType { get; set; } = CardType.随从;
     }
 }

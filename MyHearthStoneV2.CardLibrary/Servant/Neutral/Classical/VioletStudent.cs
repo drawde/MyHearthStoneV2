@@ -36,5 +36,7 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical
                 return "紫罗兰学徒";
             }
         }
+
+        public override string BackgroudImage { get; set; } = "WOW_EQU_050_D.png"; 
     }
 }

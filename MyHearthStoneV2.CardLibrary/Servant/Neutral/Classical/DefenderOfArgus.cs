@@ -37,5 +37,6 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical
                 return "阿古斯防御者";
             }
         }
+        public override string BackgroudImage { get; set; } = "W5_008_D.png";
     }
 }

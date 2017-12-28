@@ -9,8 +9,9 @@ using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Model.CustomModels;
 using MyHearthStoneV2.API.Monitor;
-using MyHearthStoneV2.GameControlerProxy;
 using MyHearthStoneV2.CardLibrary.Context;
+using MyHearthStoneV2.CardLibrary.Controler.Proxy;
+using System.Collections.Generic;
 
 namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
 {
@@ -163,22 +164,22 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
         private void Go(HS_GameTable gameTable)
         {
             int firstPlayerIndex = RandomUtil.CreateRandomInt(0, 1);
-            string firstPlayerCode = "", secontPlayerCode = "", firstPlayerCardGroup = "", secondPlayerCardGroup = "";
+            string firstPlayerCode = "", secondPlayerCode = "", firstPlayerCardGroupCode = "", secondPlayerCardGroupCode = "";
             if (firstPlayerIndex == 0)
             {
                 firstPlayerCode = gameTable.CreateUserCode;
-                firstPlayerCardGroup = gameTable.CreateUserCardGroup;
+                firstPlayerCardGroupCode = gameTable.CreateUserCardGroup;
 
-                secontPlayerCode = gameTable.PlayerUserCode;
-                secondPlayerCardGroup = gameTable.PlayerUserCardGroup;
+                secondPlayerCode = gameTable.PlayerUserCode;
+                secondPlayerCardGroupCode = gameTable.PlayerUserCardGroup;
             }
             else
             {
                 firstPlayerCode = gameTable.PlayerUserCode;
-                firstPlayerCardGroup = gameTable.PlayerUserCardGroup;
+                firstPlayerCardGroupCode = gameTable.PlayerUserCardGroup;
 
-                secontPlayerCode = gameTable.CreateUserCode;
-                secondPlayerCardGroup = gameTable.CreateUserCardGroup;
+                secondPlayerCode = gameTable.CreateUserCode;
+                secondPlayerCardGroupCode = gameTable.CreateUserCardGroup;
             }
             var game = GameBll.Instance.GetGameByTableCode(gameTable.TableCode);
             string gameCode = "";
@@ -186,7 +187,26 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
             //如果游戏记录为空，则创建游戏
             if (game == null || ControllerProxy.GetGame(game.GameCode) == null)
             {
-                var res = ControllerProxy.CreateGame(gameTable.TableCode, firstPlayerCode, secontPlayerCode, firstPlayerCardGroup, secondPlayerCardGroup);
+                CUsers firstUser = UsersBll.Instance.GetUser(firstPlayerCode);
+                CUsers secondUser = UsersBll.Instance.GetUser(secondPlayerCode);
+
+                List<HS_UserCardGroupDetail> firstCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(firstPlayerCardGroupCode, firstPlayerCode);
+                List<HS_UserCardGroupDetail> secondCardGroup = UserCardGroupDetailBll.Instance.GetCardGroupDetail(secondPlayerCardGroupCode, secondPlayerCode);
+
+                game = GameBll.Instance.CreateGame(gameTable.TableCode, firstPlayerCode, secondPlayerCode, firstPlayerCardGroupCode, secondPlayerCardGroupCode);
+
+                string firstUserProfession = UserCardGroupBll.Instance.GetCardGroup(firstPlayerCardGroupCode, firstPlayerCode).Profession;
+                string secondUserProfession = UserCardGroupBll.Instance.GetCardGroup(secondPlayerCardGroupCode, secondPlayerCode).Profession;
+                int whoIsFirst = RandomUtil.CreateRandomInt(0, 100);
+                APIResultBase res = null;
+                if (whoIsFirst % 2 == 0)
+                {
+                    res = ControllerProxy.CreateGame(gameTable.TableCode, firstUser, secondUser, firstCardGroup, secondCardGroup, game, firstUserProfession, secondUserProfession);
+                }
+                else
+                {
+                    res = ControllerProxy.CreateGame(gameTable.TableCode, secondUser, firstUser, secondCardGroup, firstCardGroup, game, secondUserProfession, firstUserProfession);
+                }
                 if (res.code == (int)OperateResCodeEnum.成功)
                 {
                     GameContextOutput chessBoard = ((APISingleModelResult<GameContextOutput>)res).data;

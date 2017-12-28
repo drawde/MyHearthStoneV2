@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace MyHearthStoneV2.CardLibrary.Controler
 {
-    public class ControllerCache
+    internal class ControllerCache
     {
-        public static List<Controler_Base> GetControls()
+        internal static List<Controler_Base> GetControls()
         {
             using (var redisClient = RedisManager.GetClient())
             {
@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
                 return lst;
             }
         }
-        public static Controler_Base GetControler(string gameCode)
+        internal static Controler_Base GetControler(string gameCode)
         {
             var lstCtls = GetControls();
             if (lstCtls.Any(c => c.GameCode == gameCode))
@@ -29,7 +29,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             }
             return null;
         }
-        public static void Init()
+        internal static void Init()
         {
             if (GetControls() == null)
             {
@@ -40,7 +40,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             }
         }
 
-        public static void SetController(Controler_Base ctl)
+        internal static void SetController(Controler_Base ctl)
         {
             var lstCtls = GetControls();
             if (lstCtls.Any(c => c.GameCode == ctl.GameCode))
