@@ -159,5 +159,6 @@ namespace MyHearthStoneV2.Game
         触发 = 6,
         激怒 = 7,
         剧毒 = 8,
+        嘲讽 = 9,
     }
 }
