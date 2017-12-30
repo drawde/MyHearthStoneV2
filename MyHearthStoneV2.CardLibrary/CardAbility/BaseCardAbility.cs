@@ -17,9 +17,7 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility
 
         public virtual List<SpellCardAbilityTime> LstSpellCardAbilityTime { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.无 };
 
-        //public virtual bool CanItTrigger(GameContext gameContext, Card triggerCard) => false;
-
-
+        public virtual AbilityType AbilityType { get; } = AbilityType.无;
 
         /// <summary>
         /// 触发卡牌技能

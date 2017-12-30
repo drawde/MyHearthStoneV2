@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.HearthStoneWeb", "MyHearthStoneV2.HearthStoneWeb\MyHearthStoneV2.HearthStoneWeb.csproj", "{82C9E741-CB6A-42DF-890A-4F43FA76C8F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.CardLibrary", "MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj", "{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Game", "MyHearthStoneV2.CardLibrary\MyHearthStoneV2.Game.csproj", "{8811F35D-3DFD-43C3-B8DE-ECCCC54B3602}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.DAL", "MyHearthStoneV2.DAL\MyHearthStoneV2.DAL.csproj", "{80486935-FD89-47A1-87BE-5E079FCD40B4}"
 EndProject

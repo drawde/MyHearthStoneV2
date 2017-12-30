@@ -17,11 +17,17 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.WarCry.AlterBody
             BaseServant card = sourceCard as BaseServant;
             card.Damage -= 1;
             card.Life -= 1;
-            if (card.Buffs.Any(c => c.Value is Taunt))
+            if (card.Abilities.Any(c => c is Taunt))
             {
-                var buff = card.Buffs.First(c => c.Value is Taunt).Key;
-                card.Buffs.Remove(buff);
+                Taunt taunt = card.Abilities.First(c => c is Taunt) as Taunt;
+                card.Abilities.Remove(taunt);
             }
+            card.Abilities.Remove(this);
+            //if (card.Buffs.Any(c => c.Value is Taunt))
+            //{
+            //    var buff = card.Buffs.First(c => c.Value is Taunt).Key;
+            //    card.Buffs.Remove(buff);
+            //}
         }
     }
 }

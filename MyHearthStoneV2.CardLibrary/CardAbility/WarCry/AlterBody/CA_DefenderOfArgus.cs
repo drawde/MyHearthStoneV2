@@ -25,7 +25,8 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.WarCry.AlterBody
                     left.Abilities.Add(new Taunt());
                     left.Damage += 1;
                     left.Life += 1;
-                    left.Buffs.Add(sourceCard, new CA_DefenderOfArgus());
+                    //left.Buffs.Add(sourceCard, new CA_DefenderOfArgus());
+                    left.Abilities.Add(new REV_DefenderOfArgus());
                 }
                 if (location < 8)
                 {
@@ -33,7 +34,8 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.WarCry.AlterBody
                     right.Abilities.Add(new Taunt());
                     right.Damage += 1;
                     right.Life += 1;
-                    right.Buffs.Add(sourceCard, new CA_DefenderOfArgus());
+                    //right.Buffs.Add(sourceCard, new CA_DefenderOfArgus());
+                    right.Abilities.Add(new REV_DefenderOfArgus());
                 }
             }
         }

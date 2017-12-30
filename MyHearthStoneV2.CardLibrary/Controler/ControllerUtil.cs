@@ -21,7 +21,7 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         /// <param name="controler"></param>
         /// <param name="isActivation">是否是当前回合玩家的牌</param>
         /// <returns></returns>
-        public static T CreateNewCardInDesk<T>(this GameContext context, bool isActivation = true) where T : Card
+        public static T CreateNewCardInDesk<T>(this GameContext context, bool isActivation = true) where T : BaseBiology
         {
             T card = Activator.CreateInstance<T>();
             string cardCode = "";
@@ -123,6 +123,23 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         }
 
         /// <summary>
+        /// 根据自己的牌获取敌方的用户环境对象
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="myCard"></param>
+        /// <returns></returns>
+        public static UserContext GetEnemyUserContextByMyCard(this GameContext context, Card myCard)
+        {
+            if (context.AllCard.Any(c => c.CardInGameCode == myCard.CardInGameCode))
+            {
+                if (context.Players[0].AllCards.Any(c => c.CardInGameCode == myCard.CardInGameCode))
+                    return context.Players[0];
+                return context.Players[1];
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 移除（沉默、BUFF时间过期）卡牌技能
         /// </summary>
         /// <param name="lstCard"></param>
@@ -135,11 +152,12 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             {
                 foreach (Card card in lstCards)
                 {
-                    foreach (var buff in card.Buffs.Where(c => c.Value.BuffTime == buffTime))
-                    {
-                        buff.Value.CastAbility(context, null, card, -1);
-                    }
-                    card.Buffs.Clear();
+                    //foreach (var buff in card.Buffs.Where(c => c.Value.BuffTime == buffTime))
+                    //{
+                    //    buff.Value.CastAbility(context, null, card, -1);
+                    //}
+                    //card.Buffs.Clear();
+                    card.Abilities.Clear();
                 }
             }
         }
@@ -290,13 +308,13 @@ namespace MyHearthStoneV2.CardLibrary.Controler
                             lstCards[i].Abilities[n].CastAbility(context, triggerCard, lstCards[i], target);
                         }
                     }
-                    if (lstCards[i].Buffs.Any(c => c.Value.LstSpellCardAbilityTime.Any(x => x == spellTime)))
-                    {
-                        for (int n = 0; n < lstCards[i].Buffs.Where(c => c.Value.LstSpellCardAbilityTime.Any(x => x == spellTime)).ToList().Count; n++)
-                        {
-                            lstCards[i].Abilities[n].CastAbility(context, triggerCard, lstCards[i], target);
-                        }
-                    }
+                    //if (lstCards[i].Buffs.Any(c => c.Value.LstSpellCardAbilityTime.Any(x => x == spellTime)))
+                    //{
+                    //    for (int n = 0; n < lstCards[i].Buffs.Where(c => c.Value.LstSpellCardAbilityTime.Any(x => x == spellTime)).ToList().Count; n++)
+                    //    {
+                    //        lstCards[i].Abilities[n].CastAbility(context, triggerCard, lstCards[i], target);
+                    //    }
+                    //}
                 }
             }
         }

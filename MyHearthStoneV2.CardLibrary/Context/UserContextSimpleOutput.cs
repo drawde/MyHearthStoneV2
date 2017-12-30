@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.CardLibrary.Context
         /// <summary>
         /// 玩家场上的牌
         /// </summary>
-        public List<Card> DeskCards { get; set; }
+        public List<BaseBiology> DeskCards { get; set; }
 
         /// <summary>
         /// 玩家开场摸的牌

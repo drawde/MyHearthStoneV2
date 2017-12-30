@@ -17,9 +17,7 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// <summary>
         /// 攻击力
         /// </summary>
-        public virtual int Damage { get; set; }
-
-        
+        public virtual int Damage { get; set; }        
 
         /// <summary>
         /// 当前回合剩余攻击次数
@@ -30,5 +28,12 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// 在牌桌上的位置
         /// </summary>
         public virtual int DeskIndex { get; set; } = -1;
+
+        /// <summary>
+        /// 被攻击
+        /// </summary>
+        public virtual void UnderAttack(GameContext gameContext, BaseBiology attackCard)
+        {
+        }
     }
 }

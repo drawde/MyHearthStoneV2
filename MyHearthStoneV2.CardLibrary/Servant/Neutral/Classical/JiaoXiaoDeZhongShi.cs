@@ -30,7 +30,8 @@ namespace MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_JiaoXiaoDeZhongShi() };
 
-
+        public override string BackgroudImage { get; set; } = "W2_326_D.png";
+        
         public override string Name
         {
             get

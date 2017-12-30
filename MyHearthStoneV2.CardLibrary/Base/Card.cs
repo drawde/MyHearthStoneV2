@@ -57,10 +57,15 @@ namespace MyHearthStoneV2.CardLibrary.Base
         /// <summary>
         /// 卡牌BUFF
         /// </summary>
-        public virtual Dictionary<Card, BaseCardAbility> Buffs { get; set; } = new Dictionary<Card, BaseCardAbility>();
+        //public virtual Dictionary<Card, BaseCardAbility> Buffs { get; set; } = new Dictionary<Card, BaseCardAbility>();
 
         public virtual CardType CardType { get; set; } = CardType.无;
 
         public virtual string BackgroudImage { get; set; } = "/images/baraja/1.jpg";
+
+        /// <summary>
+        /// 当前这张牌在当前游戏环境中的打出顺序（用于结算队列）
+        /// </summary>
+        public virtual int CastIndex { get; set; } = 0;
     }
 }

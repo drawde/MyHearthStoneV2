@@ -21,8 +21,8 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方回合结束);
 
             //获取是自己的牌的技能所影响的牌
-            var myBuffCards = gameContext.AllCard.Where(c => gameContext.IsThisActivationUserCard(c.Buffs.Keys.ToList()));
-            gameContext.DisableCardAbility(myBuffCards, CardLocation.场上, BuffTimeLimit.己方回合结束);
+            //var myBuffCards = gameContext.AllCard.Where(c => gameContext.IsThisActivationUserCard(c.Buffs.Keys.ToList()));
+            //gameContext.DisableCardAbility(myBuffCards, CardLocation.场上, BuffTimeLimit.己方回合结束);
 
             #region 调整玩家对象
             UserContext uc = null, next_uc = null;
@@ -70,8 +70,8 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方回合开始);
 
             //获取是自己的牌的技能所影响的牌
-            var myBuffCards = gameContext.AllCard.Where(c => gameContext.IsThisActivationUserCard(c.Buffs.Keys.ToList()));
-            gameContext.DisableCardAbility(myBuffCards, CardLocation.场上, BuffTimeLimit.己方回合开始);
+            //var myBuffCards = gameContext.AllCard.Where(c => gameContext.IsThisActivationUserCard(c.Buffs.Keys.ToList()));
+            //gameContext.DisableCardAbility(myBuffCards, CardLocation.场上, BuffTimeLimit.己方回合开始);
 
             var uc = gameContext.GetActivationUserContext();
             if (uc.FullPower < 10)

@@ -23,7 +23,8 @@ namespace MyHearthStoneV2.CardLibrary.CardAbility.WarCry.AlterBody
             {
                 BaseServant card = gameContext.GetCardByLocation(targetCardIndex) as BaseServant;
                 card.Damage += 2;
-                card.Buffs.Add(sourceCard, new REV_JiaoXiaoDeZhongShi());
+                //card.Buffs.Add(sourceCard, new REV_JiaoXiaoDeZhongShi());
+                card.Abilities.Add(new REV_JiaoXiaoDeZhongShi());
             }
         }
     }

@@ -45,7 +45,17 @@ namespace MyHearthStoneV2.CardLibrary.Controler
         }
 
         /// <summary>
-        /// 随从攻击
+        /// 随从攻击准备阶段
+        /// </summary>
+        /// <param name="servant"></param>
+        /// <param name="target"></param>
+        [ControlerMonitor, PlayerActionMonitor]
+        internal void ServantReadyAttack(BaseServant servant, int target)
+        {
+        }
+
+        /// <summary>
+        /// 随从攻击进行阶段
         /// </summary>
         /// <param name="servant"></param>
         /// <param name="target"></param>

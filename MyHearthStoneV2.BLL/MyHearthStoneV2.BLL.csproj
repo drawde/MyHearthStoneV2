@@ -105,9 +105,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.CardLibrary.csproj">
+    <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.Game.csproj">
       <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
-      <Name>MyHearthStoneV2.CardLibrary</Name>
+      <Name>MyHearthStoneV2.Game</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>

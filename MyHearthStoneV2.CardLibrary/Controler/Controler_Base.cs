@@ -105,10 +105,15 @@ namespace MyHearthStoneV2.CardLibrary.Controler
             });
 
             secondUser.StockCards = secondUser.AllCards;
+            
 
+            var lstAllDeskCards = new List<BaseBiology>();
+            lstAllDeskCards.AddRange(firstUser.DeskCards);
+            lstAllDeskCards.AddRange(secondUser.DeskCards);
             gameContext = new GameContext
             {
-                Players = new List<UserContext>()
+                Players = new List<UserContext>(),
+                DeskCards = lstAllDeskCards,                
             };
             gameContext.Players.Add(firstUser);
             gameContext.Players.Add(secondUser);
@@ -155,12 +160,12 @@ namespace MyHearthStoneV2.CardLibrary.Controler
                 case "Warrior": secondHero = new Warrior(); break;
             }
             firstUser.Hero = firstHero;
-            firstUser.DeskCards = new List<Card>() { firstHero, null, null, null, null, null, null, null };
+            firstUser.DeskCards = new List<BaseBiology>() { firstHero, null, null, null, null, null, null, null };
             firstUser.HandCards = new List<Card>();
 
             secondUser.Hero = secondHero;
             secondUser.InitCards = lstSecondPickUpCard;
-            secondUser.DeskCards = new List<Card>() { secondHero, null, null, null, null, null, null, null };
+            secondUser.DeskCards = new List<BaseBiology>() { secondHero, null, null, null, null, null, null, null };
             secondUser.HandCards = new List<Card>();
             #endregion
 
