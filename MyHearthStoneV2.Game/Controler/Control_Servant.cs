@@ -1,13 +1,13 @@
 ﻿
-using MyHearthStoneV2.CardLibrary.Context;
-using MyHearthStoneV2.CardLibrary.Monitor;
-using MyHearthStoneV2.CardLibrary.Servant;
+using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Monitor;
 using System.Linq;
 using System.Collections.Generic;
-using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Servant;
 
-namespace MyHearthStoneV2.CardLibrary.Controler
+namespace MyHearthStoneV2.Game.Controler
 {
     internal partial class Controler_Base
     {

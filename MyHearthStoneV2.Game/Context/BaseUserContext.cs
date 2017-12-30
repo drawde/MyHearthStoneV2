@@ -1,11 +1,6 @@
-﻿using MyHearthStoneV2.CardLibrary.Hero;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyHearthStoneV2.Game.CardLibrary.Hero;
 
-namespace MyHearthStoneV2.CardLibrary.Context
+namespace MyHearthStoneV2.Game.Context
 {
     public abstract class BaseUserContext
     {

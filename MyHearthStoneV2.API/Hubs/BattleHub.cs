@@ -6,9 +6,9 @@ using MyHearthStoneV2.Common.Util;
 using Newtonsoft.Json.Linq;
 using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.API.Monitor;
-using MyHearthStoneV2.CardLibrary.Context;
+using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.CardLibrary.Controler.Proxy;
+using MyHearthStoneV2.Game.Controler.Proxy;
 using Newtonsoft.Json;
 
 namespace MyHearthStoneV2.API.Hubs

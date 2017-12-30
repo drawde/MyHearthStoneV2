@@ -1,8 +1,8 @@
 ﻿using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.CardLibrary;
-using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical;
-using MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX;
+using MyHearthStoneV2.Game;
+using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX;
 using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Model;

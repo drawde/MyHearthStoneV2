@@ -1,15 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 using MyHearthStoneV2.BLL;
-using MyHearthStoneV2.CardLibrary;
-using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;

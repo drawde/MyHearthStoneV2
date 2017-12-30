@@ -9,8 +9,8 @@ using MyHearthStoneV2.Common.Enum;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Model.CustomModels;
 using MyHearthStoneV2.API.Monitor;
-using MyHearthStoneV2.CardLibrary.Context;
-using MyHearthStoneV2.CardLibrary.Controler.Proxy;
+using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Controler.Proxy;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup

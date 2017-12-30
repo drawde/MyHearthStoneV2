@@ -1,11 +1,7 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
-using System;
+﻿using MyHearthStoneV2.Game.CardLibrary;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.Context
+namespace MyHearthStoneV2.Game.Context
 {
     public class UserContextSimpleOutput: BaseUserContext
     {

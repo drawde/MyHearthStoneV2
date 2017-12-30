@@ -5,7 +5,7 @@ using System.Reflection;
 using MyHearthStoneV2.Common.Util;
 
 
-namespace MyHearthStoneV2.CardLibrary.Monitor
+namespace MyHearthStoneV2.Game.Monitor
 {
     /// <summary>
     /// 卡牌属性监视器

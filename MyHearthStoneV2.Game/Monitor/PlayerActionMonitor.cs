@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.CardLibrary.Controler;
+﻿using MyHearthStoneV2.Game.Controler;
 using MyHearthStoneV2.Log;
 using MyHearthStoneV2.Model;
 using Newtonsoft.Json;
@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.Monitor
+namespace MyHearthStoneV2.Game.Monitor
 {
     /// <summary>
     /// 玩家操作监控器，把操作结果存进HS_GameRecord表

@@ -1,5 +1,5 @@
-﻿using MyHearthStoneV2.CardLibrary.Context;
-using MyHearthStoneV2.CardLibrary.Controler;
+﻿using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Controler;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Log;
 using MyHearthStoneV2.Model;
@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-namespace MyHearthStoneV2.CardLibrary.Monitor
+namespace MyHearthStoneV2.Game.Monitor
 {
     /// <summary>
     /// 控制器监控器（保存游戏控制器对象、封装游戏对象的输出）

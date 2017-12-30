@@ -1,7 +1,7 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.Context;
-using MyHearthStoneV2.CardLibrary.Hero;
-using MyHearthStoneV2.CardLibrary.Monitor;
+﻿using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.Monitor;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Model.CustomModels;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace MyHearthStoneV2.CardLibrary.Controler
+namespace MyHearthStoneV2.Game.Controler
 {
     /// <summary>
     /// 游戏控制器

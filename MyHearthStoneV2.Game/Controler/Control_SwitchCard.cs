@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyHearthStoneV2.CardLibrary.CardAbility;
-using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.Spell.Neutral.Classical;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical;
 using MyHearthStoneV2.Redis;
-using MyHearthStoneV2.CardLibrary.Monitor;
-using MyHearthStoneV2.CardLibrary.Context;
+using MyHearthStoneV2.Game.Monitor;
+using MyHearthStoneV2.Game.Context;
 
-namespace MyHearthStoneV2.CardLibrary.Controler
+namespace MyHearthStoneV2.Game.Controler
 {
     internal partial class Controler_Base
     {

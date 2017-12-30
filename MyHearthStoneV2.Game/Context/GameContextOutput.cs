@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.Context
+namespace MyHearthStoneV2.Game.Context
 {
     /// <summary>
     /// 游戏环境上下文（用于输出）

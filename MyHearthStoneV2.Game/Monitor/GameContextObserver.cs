@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.Monitor
+namespace MyHearthStoneV2.Game.Monitor
 {
     /// <summary>
     /// 游戏环境监视器（用于监控游戏环境中的各种变化、事件，然后触发相应的卡牌技能）

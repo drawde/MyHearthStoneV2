@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace MyHearthStoneV2.CardLibrary.Controler
+namespace MyHearthStoneV2.Game.Controler
 {
     internal class ControllerCache
     {

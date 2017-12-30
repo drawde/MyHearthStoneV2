@@ -1,9 +1,9 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.Hero;
-using MyHearthStoneV2.CardLibrary.Servant.Neutral.Classical;
-using MyHearthStoneV2.CardLibrary.Servant.Neutral.NAXX;
-using MyHearthStoneV2.CardLibrary.Servant.Shaman.Classical;
-using MyHearthStoneV2.CardLibrary.Spell.Neutral.Classical;
+﻿using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical;
+using MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.ShortCodeBll;

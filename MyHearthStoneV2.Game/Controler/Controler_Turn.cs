@@ -1,13 +1,11 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.CardAbility.BaseAbility;
-using MyHearthStoneV2.CardLibrary.Context;
-using MyHearthStoneV2.CardLibrary.Monitor;
+﻿using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Monitor;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.ShortCodeBll;
-using System.Collections.Generic;
 using System.Linq;
-using MyHearthStoneV2.CardLibrary.CardAbility;
-namespace MyHearthStoneV2.CardLibrary.Controler
+namespace MyHearthStoneV2.Game.Controler
 {
     internal partial class Controler_Base
     {

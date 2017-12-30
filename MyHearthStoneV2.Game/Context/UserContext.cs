@@ -1,13 +1,8 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.Model;
+﻿using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Model.CustomModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.CardLibrary.Context
+namespace MyHearthStoneV2.Game.Context
 {
     /// <summary>
     /// 当前用户上下文

@@ -1,13 +1,7 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyHearthStoneV2.Model;
-using MyHearthStoneV2.CardLibrary.Monitor;
+﻿using System.Collections.Generic;
+using MyHearthStoneV2.Game.CardLibrary;
 
-namespace MyHearthStoneV2.CardLibrary.Context
+namespace MyHearthStoneV2.Game.Context
 {
     /// <summary>
     /// 游戏环境（游戏上下文）

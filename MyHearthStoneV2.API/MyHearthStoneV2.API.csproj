@@ -257,13 +257,13 @@
       <Project>{f69a8aeb-ab89-4f87-b2fd-af68d009e42e}</Project>
       <Name>MyHearthStoneV2.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyHearthStoneV2.CardLibrary\MyHearthStoneV2.Game.csproj">
-      <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
-      <Name>MyHearthStoneV2.Game</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">
       <Project>{e5dcd04c-6945-4e1f-b5f8-aa9e7a2bbb99}</Project>
       <Name>MyHearthStoneV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyHearthStoneV2.Game\MyHearthStoneV2.Game.csproj">
+      <Project>{8811f35d-3dfd-43c3-b8de-ecccc54b3602}</Project>
+      <Name>MyHearthStoneV2.Game</Name>
     </ProjectReference>
     <ProjectReference Include="..\MyHearthStoneV2.Log\MyHearthStoneV2.Log.csproj">
       <Project>{5195f93d-8ff6-48c3-8e0b-4d04a50ae024}</Project>

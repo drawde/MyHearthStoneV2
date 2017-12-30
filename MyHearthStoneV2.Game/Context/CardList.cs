@@ -1,11 +1,6 @@
-﻿using MyHearthStoneV2.CardLibrary.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace MyHearthStoneV2.CardLibrary.Context
+namespace MyHearthStoneV2.Game.Context
 {
     public class CardList<Card> : List<Card>
     {

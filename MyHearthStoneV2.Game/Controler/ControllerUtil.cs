@@ -1,16 +1,14 @@
 ﻿
-using MyHearthStoneV2.CardLibrary.Base;
-using MyHearthStoneV2.CardLibrary.Context;
-using MyHearthStoneV2.CardLibrary.Hero;
-using MyHearthStoneV2.CardLibrary.Servant;
-using MyHearthStoneV2.CardLibrary.Spell;
-using MyHearthStoneV2.Model;
+using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyHearthStoneV2.CardLibrary.Controler
+namespace MyHearthStoneV2.Game.Controler
 {
     public static class Controler_Util
     {

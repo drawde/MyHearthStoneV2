@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.CardLibrary.Base;
 using MyHearthStoneV2.Model.CustomModels;
-using MyHearthStoneV2.CardLibrary.Servant;
-using MyHearthStoneV2.CardLibrary.Context;
-using MyHearthStoneV2.CardLibrary.Controler;
-using MyHearthStoneV2.CardLibrary.CardAbility.BaseAbility;
-using MyHearthStoneV2.CardLibrary.Spell;
+using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.Servant;
+using MyHearthStoneV2.Game.CardLibrary.Spell;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 
-namespace MyHearthStoneV2.CardLibrary.Controler.Proxy
+namespace MyHearthStoneV2.Game.Controler.Proxy
 {
     /// <summary>
     /// 游戏控制器代理
