@@ -146,6 +146,8 @@ namespace MyHearthStoneV2.Game
         //********************************************************//
         战吼 = 1000,
         //回合结束 = 1001,
+        随从攻击 = 1001,
+        打出一张法术牌 = 1002,
     }
 
     public enum AbilityType
@@ -160,5 +162,12 @@ namespace MyHearthStoneV2.Game
         激怒 = 7,
         剧毒 = 8,
         嘲讽 = 9,
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum ActionType
+    {
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.CardAction;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
             }
         }
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_JiaoXiaoDeZhongShi() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_JiaoXiaoDeZhongShi(), new CA_ServantAttack() };
 
         public override string BackgroudImage { get; set; } = "W2_326_D.png";
         

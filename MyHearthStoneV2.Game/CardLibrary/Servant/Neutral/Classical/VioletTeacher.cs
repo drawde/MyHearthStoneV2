@@ -1,5 +1,6 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.CardAction;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Collections.Generic;
 
@@ -27,7 +28,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
             }
         }
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_VioletTeacher() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_VioletTeacher(), new CA_ServantAttack() };
 
 
         public override string Name

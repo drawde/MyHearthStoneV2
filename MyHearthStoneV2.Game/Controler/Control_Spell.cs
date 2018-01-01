@@ -21,31 +21,48 @@ namespace MyHearthStoneV2.Game.Controler
         [ControlerMonitor, PlayerActionMonitor]
         internal void CastSpell(BaseSpell spell, int target)
         {
-            #region 触发场内牌的技能
-            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方打出法术牌前, spell, target);
-            #endregion
+            var currentUserContext = gameContext.GetActivationUserContext();
+            var enenmyUserContext = gameContext.GetNotActivationUserContext();
+            gameContext.AddActionStatement(currentUserContext.DeskCards, SpellCardAbilityTime.己方打出法术牌前, spell, target);
+            gameContext.AddActionStatement(currentUserContext.HandCards, SpellCardAbilityTime.己方打出法术牌前, spell, target);
 
-            var user = gameContext.GetActivationUserContext();
-            user.Power -= spell.Cost;
-            Card triggerCard = null;
-            if (target > -1)
-            {
-                triggerCard = gameContext.GetCardByLocation(target);
-            }
-            if (spell.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方打出法术牌后)))
-            {
-                foreach (var buff in spell.Abilities.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方打出法术牌后)))
-                {
-                    buff.CastAbility(gameContext, triggerCard, spell, target);
-                }
-            }
-            spell.CardLocation = CardLocation.坟场;
-            user.HandCards.Remove(spell);
-            user.GraveyardCards.Add(spell);
+            gameContext.AddActionStatement(enenmyUserContext.DeskCards, SpellCardAbilityTime.对方打出法术牌前, spell, target);
+            gameContext.AddActionStatement(enenmyUserContext.HandCards, SpellCardAbilityTime.对方打出法术牌前, spell, target);
 
-            #region 触发场内牌的技能
-            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方打出法术牌后, spell, target);
-            #endregion
+            gameContext.AddActionStatement(spell, SpellCardAbilityTime.打出一张法术牌, spell, target);
+
+            gameContext.AddActionStatement(currentUserContext.DeskCards, SpellCardAbilityTime.己方打出法术牌后, spell, target);
+            gameContext.AddActionStatement(currentUserContext.HandCards, SpellCardAbilityTime.己方打出法术牌后, spell, target);
+
+            gameContext.AddActionStatement(enenmyUserContext.DeskCards, SpellCardAbilityTime.对方打出法术牌后, spell, target);
+            gameContext.AddActionStatement(enenmyUserContext.HandCards, SpellCardAbilityTime.对方打出法术牌后, spell, target);
+
+            //#region 触发场内牌的技能
+            //gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方打出法术牌前, spell, target);
+            //#endregion
+            //gameContext.CastCardCount++;
+            //spell.CastIndex = gameContext.CastCardCount;
+            //var user = gameContext.GetActivationUserContext();
+            //user.Power -= spell.Cost;
+            //Card triggerCard = null;
+            //if (target > -1)
+            //{
+            //    triggerCard = gameContext.GetCardByLocation(target);
+            //}
+            //if (spell.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方打出法术牌后)))
+            //{
+            //    foreach (var buff in spell.Abilities.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方打出法术牌后)))
+            //    {
+            //        buff.CastAbility(gameContext, triggerCard, spell, target);
+            //    }
+            //}
+            //spell.CardLocation = CardLocation.坟场;
+            //user.HandCards.Remove(spell);
+            //user.GraveyardCards.Add(spell);
+
+            //#region 触发场内牌的技能
+            //gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方打出法术牌后, spell, target);
+            //#endregion
         }
     }
 }

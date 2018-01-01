@@ -1,4 +1,7 @@
-﻿using MyHearthStoneV2.Game.CardLibrary.Servant;
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.CardAction;
+using MyHearthStoneV2.Game.CardLibrary.Servant;
+using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
 {
@@ -24,6 +27,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
                 return Rarity.普通;
             }
         }
+
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_ServantAttack() };
         public override string Name
         {
             get

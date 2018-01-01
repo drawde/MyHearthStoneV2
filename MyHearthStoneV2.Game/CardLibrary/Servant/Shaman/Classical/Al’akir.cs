@@ -1,6 +1,7 @@
 ﻿
 using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.CardAction;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical
         public override int Cost { get; set; } = 8;
         public override CardLocation CardLocation { get; set; }
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new Taunt(), new Windfury(), new Charge(), new HolyShield(), new CA_ServantAttack() };
         public override string Describe
         {
             get

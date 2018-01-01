@@ -77,6 +77,7 @@
     <Compile Include="CardLibrary\BaseBiology.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\CA_VioletTeacher.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseCardAbility.cs" />
+    <Compile Include="CardLibrary\CardAbility\CardAction\CA_ServantAttack.cs" />
     <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_GuiLingZhiZhu.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Charge.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\HolyShield.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\CA_DefenderOfArgus.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\CA_JiaoXiaoDeZhongShi.cs" />
     <Compile Include="CardEnum.cs" />
+    <Compile Include="Context\ActionStatement.cs" />
     <Compile Include="Context\BaseUserContext.cs" />
     <Compile Include="Context\CardList.cs" />
     <Compile Include="Context\GameContext.cs" />

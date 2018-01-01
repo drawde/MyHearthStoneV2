@@ -13,6 +13,49 @@ namespace MyHearthStoneV2.Game.Controler
     public static class Controler_Util
     {
         /// <summary>
+        /// 添加一个结算队列
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="lstCard"></param>
+        /// <param name="cl"></param>
+        /// <param name="spellTime"></param>
+        /// <param name="triggerCard"></param>
+        /// <param name="target"></param>
+        public static void AddActionStatement(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
+        {
+            var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
+            for (int i = 0; i < lstCards.Count(); i++)
+            {
+                AddActionStatement(context, lstCards[i], spellTime, triggerCard, target);                
+            }
+            context.ActionStatementQueueIndex++;
+        }
+
+        /// <summary>
+        /// 添加一个结算队列
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="card"></param>
+        /// <param name="spellTime"></param>
+        /// <param name="triggerCard"></param>
+        /// <param name="target"></param>
+        public static void AddActionStatement(this GameContext context, Card card, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
+        {
+            if (card.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == spellTime)))
+            {
+                ActionStatement statement = new ActionStatement()
+                {
+                    QueueIndex = context.ActionStatementQueueIndex,
+                    SourceCard = card,
+                    SpellCardAbilityTime = spellTime,
+                    TargetCardIndex = target,
+                    TriggerCard = triggerCard,
+                };
+
+                context.ActionStatementQueue.AddLast(statement);
+            }            
+        }
+        /// <summary>
         /// 创造一张牌到场内
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -44,6 +87,21 @@ namespace MyHearthStoneV2.Game.Controler
                     servant.DeskIndex = deskIndex;
                 }
             }
+            else
+            {
+                BaseHero hero = card as BaseHero;
+                if (player.IsFirst == false)
+                {
+                    hero.DeskIndex = 0;                    
+                }
+                else
+                {
+                    hero.DeskIndex = 8;
+                }
+                player.Hero = hero;
+            }
+            context.CastCardCount++;
+            card.CastIndex = context.CastCardCount;
             player.DeskCards[deskIndex] = card;
             player.AllCards.Add(card);
             context.AllCard.Add(card);

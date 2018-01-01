@@ -29,6 +29,10 @@ namespace MyHearthStoneV2.Game.Controler
                 }
             }
             #endregion
+
+            gameContext.CastCardCount++;
+            triggerCard.CastIndex = gameContext.CastCardCount;
+
             var user = gameContext.GetActivationUserContext();
             user.Power -= triggerCard.Cost;
             triggerCard.CardLocation = CardLocation.场上;
@@ -62,139 +66,12 @@ namespace MyHearthStoneV2.Game.Controler
         [ControlerMonitor, PlayerActionMonitor]
         internal void ServantAttack(BaseServant servant, int target)
         {
-            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方随从攻击, servant, target);
-            gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方随从攻击, servant, target);
-            BaseBiology targetBiology = gameContext.GetCardByLocation(target) as BaseBiology;
-            if (targetBiology != null)
-            {
-                int trueDamege = servant.Damage;
-                if (targetBiology is BaseHero)
-                {
-                    BaseHero hero = gameContext.GetCardByLocation(target) as BaseHero;
-                    if (hero.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方英雄受到攻击)))
-                    {
-                        gameContext.TriggerCardAbility(new List<Card>() { hero }, CardLocation.场上, SpellCardAbilityTime.己方英雄受到攻击, servant, target);
-                    }
-                    else
-                    {
-                        if (trueDamege >= hero.Ammo)
-                        {
-                            trueDamege -= hero.Ammo;
-                            hero.Ammo = 0;
-                        }
-                        else
-                        {
-                            hero.Ammo -= trueDamege;
-                            trueDamege = 0;
-                        }
-                        hero.Life -= trueDamege;
-                    }
-                }
-                else
-                {
-                    if (targetBiology.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方随从受到攻击)))
-                    {
-                        gameContext.TriggerCardAbility(new List<Card>() { targetBiology }, CardLocation.场上, SpellCardAbilityTime.己方随从受到攻击, servant, target);
-                    }
-                    else
-                    {
-                        targetBiology.Life -= trueDamege;
-                    }
-                    //随从死亡
-                    if (targetBiology.Life < 1)
-                    {
-                        //随从进坟场
-                        targetBiology.CardLocation = CardLocation.坟场;                        
-                        UserContext enemy = gameContext.GetNotActivationUserContext();
-                        enemy.GraveyardCards.Add(targetBiology);
+            //gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方随从攻击, servant, target);
+            //gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方随从攻击, servant, target);
 
-                        gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方随从入坟场, servant, target);
-                        gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方随从入坟场, servant, target);
-                    }
-
-                    //攻击者也要受到被攻击者的伤害
-                    if (servant.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方随从受到攻击)))
-                    {
-                        gameContext.TriggerCardAbility(new List<Card>() { servant }, CardLocation.场上, SpellCardAbilityTime.己方随从受到攻击, targetBiology, target);
-                    }
-                    else
-                    {
-                        servant.Life -= targetBiology.Damage;
-                    }
-
-                    //随从死亡
-                    if (servant.Life < 1)
-                    {
-                        //随从进坟场
-                        servant.CardLocation = CardLocation.坟场;
-                        UserContext currentUser = gameContext.GetActivationUserContext();
-                        currentUser.GraveyardCards.Add(servant);
-
-                        gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方随从入坟场, targetBiology, target);
-                        gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方随从入坟场, targetBiology, target);
-                    }
-                }
-            }
+            gameContext.AddActionStatement(gameContext.DeskCards, SpellCardAbilityTime.己方随从攻击, servant, target);
         }
 
-        /// <summary>
-        /// 随从、英雄受到伤害（被火球砸、火冲点）
-        /// </summary>
-        /// <param name="triggerCard"></param>
-        /// <param name="location"></param>
-        /// <param name="target"></param>
-        [ControlerMonitor, PlayerActionMonitor]
-        internal void BiologyByDamege(Card sourceCard, int damege, int target)
-        {
-            BaseBiology targetBiology = gameContext.GetCardByLocation(target) as BaseBiology;
-            if (targetBiology != null)
-            {
-                int trueDamege = damege;
-                if (targetBiology is BaseHero)
-                {
-                    BaseHero hero = gameContext.GetCardByLocation(target) as BaseHero;
-                    if (hero.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.对方英雄受到伤害)))
-                    {
-                        gameContext.TriggerCardAbility(new List<Card>() { hero }, CardLocation.场上, SpellCardAbilityTime.对方英雄受到伤害, sourceCard, target);
-                    }
-                    else
-                    {
-                        if (trueDamege >= hero.Ammo)
-                        {
-                            trueDamege -= hero.Ammo;
-                            hero.Ammo = 0;
-                        }
-                        else
-                        {
-                            hero.Ammo -= trueDamege;
-                            trueDamege = 0;
-                        }
-                        hero.Life -= trueDamege;
-                    }
-                }
-                else
-                {
-                    if (targetBiology.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方随从受到伤害)))
-                    {
-                        gameContext.TriggerCardAbility(new List<Card>() { targetBiology }, CardLocation.场上, SpellCardAbilityTime.己方随从受到伤害, sourceCard, target);
-                    }
-                    else
-                    {
-                        targetBiology.Life -= trueDamege;
-                    }
-                    //随从死亡
-                    if (targetBiology.Life < 1)
-                    {
-                        //随从进坟场
-                        targetBiology.CardLocation = CardLocation.坟场;
-                        UserContext enemy = gameContext.GetNotActivationUserContext();
-                        enemy.GraveyardCards.Add(targetBiology);
 
-                        gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方随从入坟场, sourceCard, target);
-                        gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方随从入坟场, sourceCard, target);
-                    }                                        
-                }
-            }
-        }
     }
 }

@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
             {
                 if (enemyUserContext.DeskCards[i] != null)
                 {
-                    rndTargets.Add(((BaseBiology)enemyUserContext.DeskCards[i]).DeskIndex);
+                    rndTargets.Add(enemyUserContext.DeskCards[i].DeskIndex);
                 }
             }
             if (rndTargets.Count > 0)

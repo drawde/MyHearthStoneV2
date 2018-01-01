@@ -48,7 +48,9 @@ namespace MyHearthStoneV2.Game.Controler
         /// 下个回合编码
         /// </summary>
         public string nextTurnCode { get; set; }
+
         
+
         [ControlerMonitor, PlayerActionMonitor]
         internal void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
         {            

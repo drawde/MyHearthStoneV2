@@ -24,8 +24,17 @@ namespace MyHearthStoneV2.Game.Context
         public List<BaseBiology> DeskCards { get; set; }
 
         /// <summary>
+        /// 一共打出了多少张牌
+        /// </summary>
+        public int CastCardCount { get; set; } = 0;
+
+        /// <summary>
+        /// 累计结算队列数(用于区分不同的队列)
+        /// </summary>
+        public int ActionStatementQueueIndex { get; set; } = 0;
+        /// <summary>
         /// 当前用户动作结算队列（指的是用户打出一张牌、指定一个随从攻击等动作时，当前游戏环境的卡牌技能触发队列（先入场先触发、等））
         /// </summary>
-        public LinkedList<Card> CurrentActionStatement = new LinkedList<Card>();
+        public LinkedList<ActionStatement> ActionStatementQueue = new LinkedList<ActionStatement>();
     }
 }
