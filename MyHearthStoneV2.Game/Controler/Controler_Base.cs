@@ -17,58 +17,23 @@ namespace MyHearthStoneV2.Game.Controler
     /// </summary>
     internal partial class Controler_Base
     {
-        /// <summary>
-        /// 游戏ID
-        /// </summary>
-        public string GameCode { get; set; }
+
 
         public GameContext gameContext { get; set; }
-
-        /// <summary>
-        /// 游戏输出模型
-        /// </summary>
-        public GameContextOutput gameContextOutput { get; set; }
-
-        /// <summary>
-        /// 当前回合剩余秒数
-        /// </summary>
-        public int currentTurnRemainingSecond { get; set; }
-
-        /// <summary>
-        /// 进行完的回合数
-        /// </summary>
-        public int TurnIndex { get; set; }
-
-        /// <summary>
-        /// 当前回合编码
-        /// </summary>
-        public string currentTurnCode { get; set; }
-
-        /// <summary>
-        /// 下个回合编码
-        /// </summary>
-        public string nextTurnCode { get; set; }
-
-        
-
         [ControlerMonitor, PlayerActionMonitor]
-        internal void GameStart(HS_Game game, CUsers _firstPlayer, CUsers _secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
-        {            
-            GameCode = game.GameCode;
-            currentTurnCode = game.CurrentTurnCode;
-            nextTurnCode = game.NextTurnCode;
-
+        internal void GameStart(HS_Game game, CUsers firstPlayer, CUsers secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
+        {                        
             #region 加载玩家卡组
-            gameContextOutput = new GameContextOutput();
+            //gameContextOutput = new GameContextOutput();
             UserContext firstUser = new UserContext
             {
-                UserCode = _firstPlayer.UserCode,
-                User = _firstPlayer,
+                UserCode = firstPlayer.UserCode,
+                User = firstPlayer,
                 IsActivation = true,
                 IsFirst = true,
                 AllCards = new List<Card>()
             };
-            List<Card> lstCardLib = new List<Card>();
+            List<Card> lstCardLib;
             using (var redisClient = RedisManager.GetClient())
             {
                 lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
@@ -92,8 +57,8 @@ namespace MyHearthStoneV2.Game.Controler
 
             UserContext secondUser = new UserContext
             {
-                UserCode = _secondPlayer.UserCode,
-                User = _secondPlayer,
+                UserCode = secondPlayer.UserCode,
+                User = secondPlayer,
                 IsActivation = true,
                 IsFirst = false,
                 AllCards = new List<Card>()
@@ -115,7 +80,10 @@ namespace MyHearthStoneV2.Game.Controler
             gameContext = new GameContext
             {
                 Players = new List<UserContext>(),
-                DeskCards = lstAllDeskCards,                
+                DeskCards = lstAllDeskCards,
+                GameCode = game.GameCode,
+                currentTurnCode = game.CurrentTurnCode,
+                nextTurnCode = game.NextTurnCode,
             };
             gameContext.Players.Add(firstUser);
             gameContext.Players.Add(secondUser);

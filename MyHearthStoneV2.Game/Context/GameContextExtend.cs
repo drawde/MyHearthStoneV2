@@ -1,5 +1,4 @@
-﻿
-using MyHearthStoneV2.Game.CardLibrary;
+﻿using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
@@ -8,10 +7,111 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyHearthStoneV2.Game.Controler
+namespace MyHearthStoneV2.Game.Context
 {
-    public static class Controler_Util
+    /// <summary>
+    /// 游戏环境扩展类
+    /// </summary>
+    public static class GameContextExtend
     {
+        public static GameContextOutput Output(this GameContext gameContext, string userCode)
+        {
+            GameContextOutput gameContextOutput = new GameContextOutput();
+            foreach (var cd in gameContext.Players)
+            {
+                if (userCode == cd.UserCode)
+                {
+                    gameContextOutput.Players.Add(new UserContextOutput()
+                    {
+                        DeskCards = cd.DeskCards,
+                        HandCards = cd.HandCards,
+                        InitCards = cd.InitCards,
+                        IsActivation = cd.IsActivation,
+                        IsFirst = cd.IsFirst,
+                        Power = cd.Power,
+                        StockCards = cd.StockCards.Count,
+                        SwitchDone = cd.SwitchDone,
+                        UserCode = cd.UserCode,
+                        TurnIndex = gameContext.TurnIndex,
+                        FullPower = cd.FullPower,
+                        Hero = cd.Hero,
+                    });
+                }
+                else
+                {
+                    gameContextOutput.Players.Add(new UserContextSimpleOutput()
+                    {
+                        DeskCards = cd.DeskCards,
+                        HandCards = cd.HandCards.Count,
+                        InitCards = cd.InitCards.Count,
+                        IsActivation = cd.IsActivation,
+                        IsFirst = cd.IsFirst,
+                        Power = cd.Power,
+                        StockCards = cd.StockCards.Count,
+                        SwitchDone = cd.SwitchDone,
+                        UserCode = cd.UserCode,
+                        TurnIndex = gameContext.TurnIndex,
+                        FullPower = cd.FullPower,
+                        Hero = cd.Hero,
+                    });
+                }
+            }
+            return gameContextOutput;
+        }
+
+        public static GameContextOutput Output(this GameContext gameContext)
+        {
+            GameContextOutput gameContextOutput = new GameContextOutput();
+            foreach (var cd in gameContext.Players)
+            {
+                if (cd.IsActivation)
+                {
+                    gameContextOutput.Players.Add(new UserContextOutput()
+                    {
+                        DeskCards = cd.DeskCards,
+                        HandCards = cd.HandCards,
+                        InitCards = cd.InitCards,
+                        IsActivation = cd.IsActivation,
+                        IsFirst = cd.IsFirst,
+                        Power = cd.Power,
+                        StockCards = cd.StockCards.Count,
+                        SwitchDone = cd.SwitchDone,
+                        UserCode = cd.UserCode,
+                        TurnIndex = gameContext.TurnIndex,
+                        FullPower = cd.FullPower,
+                        Hero = cd.Hero,
+                    });
+                }
+                else
+                {
+                    gameContextOutput.Players.Add(new UserContextSimpleOutput()
+                    {
+                        DeskCards = cd.DeskCards,
+                        HandCards = cd.HandCards.Count,
+                        InitCards = cd.InitCards.Count,
+                        IsActivation = cd.IsActivation,
+                        IsFirst = cd.IsFirst,
+                        Power = cd.Power,
+                        StockCards = cd.StockCards.Count,
+                        SwitchDone = cd.SwitchDone,
+                        UserCode = cd.UserCode,
+                        TurnIndex = gameContext.TurnIndex,
+                        FullPower = cd.FullPower,
+                        Hero = cd.Hero,
+                    });
+                }
+            }
+            return gameContextOutput;
+        }
+
+        /// <summary>
+        /// 阶段检索，即在每一个结算队列结算完之后，开始的检索，包括死亡检索、受伤检索，光环检索等
+        /// </summary>
+        /// <param name="context"></param>
+        public static void StageRetrieval(this GameContext context)
+        {
+        }
+
         /// <summary>
         /// 添加一个结算队列
         /// </summary>
@@ -26,7 +126,7 @@ namespace MyHearthStoneV2.Game.Controler
             var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
             for (int i = 0; i < lstCards.Count(); i++)
             {
-                AddActionStatement(context, lstCards[i], spellTime, triggerCard, target);                
+                AddActionStatement(context, lstCards[i], spellTime, triggerCard, target);
             }
             context.ActionStatementQueueIndex++;
         }
@@ -41,7 +141,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="target"></param>
         public static void AddActionStatement(this GameContext context, Card card, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
         {
-            if (card.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == spellTime)))
+            if (card.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == spellTime)))
             {
                 ActionStatement statement = new ActionStatement()
                 {
@@ -53,13 +153,14 @@ namespace MyHearthStoneV2.Game.Controler
                 };
 
                 context.ActionStatementQueue.AddLast(statement);
-            }            
+            }
         }
+
         /// <summary>
         /// 创造一张牌到场内
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="controler"></param>
+        /// <param name="context"></param>
         /// <param name="isActivation">是否是当前回合玩家的牌</param>
         /// <returns></returns>
         public static T CreateNewCardInDesk<T>(this GameContext context, bool isActivation = true) where T : BaseBiology
@@ -92,7 +193,7 @@ namespace MyHearthStoneV2.Game.Controler
                 BaseHero hero = card as BaseHero;
                 if (player.IsFirst == false)
                 {
-                    hero.DeskIndex = 0;                    
+                    hero.DeskIndex = 0;
                 }
                 else
                 {
@@ -104,7 +205,12 @@ namespace MyHearthStoneV2.Game.Controler
             card.CastIndex = context.CastCardCount;
             player.DeskCards[deskIndex] = card;
             player.AllCards.Add(card);
+            context.DeskCards[player.IsFirst ? deskIndex : deskIndex + 8] = card;
+            
             context.AllCard.Add(card);
+            context.TriggerCardAbility(player.DeskCards, SpellCardAbilityTime.己方随从入场, card);
+            var playerTwo = context.Players.First(c => c.IsActivation != isActivation);
+            context.TriggerCardAbility(playerTwo.DeskCards, SpellCardAbilityTime.对方随从入场, card);
             return card;
         }
 
@@ -153,6 +259,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// 判断这张牌是否是当前回合玩家打出的牌
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="card"></param>
         /// <returns></returns>
         public static bool IsThisActivationUserCard(this GameContext context, Card card)
         {
@@ -170,12 +277,11 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="context"></param>
         /// <param name="location"></param>
         /// <returns></returns>
-        public static Card GetCardByLocation(this GameContext context, int location)
+        public static BaseBiology GetCardByLocation(this GameContext context, int location)
         {
             if (location < 8)
-                return context.Players.First(c => c.IsFirst == true).DeskCards[location];
-            else
-                return context.Players.First(c => c.IsFirst == false).DeskCards[location - 8];
+                return context.Players.First(c => c.IsFirst).DeskCards[location];
+            return context.Players.First(c => c.IsFirst == false).DeskCards[location - 8];
         }
 
         /// <summary>
@@ -189,33 +295,27 @@ namespace MyHearthStoneV2.Game.Controler
             if (context.AllCard.Any(c => c.CardInGameCode == myCard.CardInGameCode))
             {
                 if (context.Players[0].AllCards.Any(c => c.CardInGameCode == myCard.CardInGameCode))
-                    return context.Players[0];
-                return context.Players[1];
+                    return context.Players[1];
+                return context.Players[0];
             }
             return null;
         }
 
         /// <summary>
-        /// 移除（沉默、BUFF时间过期）卡牌技能
+        /// 根据自己的牌获取自己的用户环境对象
         /// </summary>
-        /// <param name="lstCard"></param>
-        /// <param name="cl"></param>
-        /// <param name="spellTime"></param>
-        public static void DisableCardAbility(this GameContext context, IEnumerable<Card> lstCard, CardLocation cl, BuffTimeLimit buffTime)
+        /// <param name="context"></param>
+        /// <param name="myCard"></param>
+        /// <returns></returns>
+        public static UserContext GetUserContextByMyCard(this GameContext context, Card myCard)
         {
-            var lstCards = lstCard.Where(c => c != null && c.CardLocation == cl);
-            if (lstCards != null)
+            if (context.AllCard.Any(c => c.CardInGameCode == myCard.CardInGameCode))
             {
-                foreach (Card card in lstCards)
-                {
-                    //foreach (var buff in card.Buffs.Where(c => c.Value.BuffTime == buffTime))
-                    //{
-                    //    buff.Value.CastAbility(context, null, card, -1);
-                    //}
-                    //card.Buffs.Clear();
-                    card.Abilities.Clear();
-                }
+                if (context.Players[0].AllCards.Any(c => c.CardInGameCode == myCard.CardInGameCode))
+                    return context.Players[0];
+                return context.Players[1];
             }
+            return null;
         }
 
         /// <summary>
@@ -237,7 +337,7 @@ namespace MyHearthStoneV2.Game.Controler
             }
             for (int i = 1; i <= drawCount; i++)
             {
-                ///当牌库里有牌时
+                //当牌库里有牌时
                 if (uc.StockCards.Count > 0)
                 {
                     var drawCard = uc.StockCards.First();
@@ -261,9 +361,9 @@ namespace MyHearthStoneV2.Game.Controler
                     //没牌则计算疲劳值
                     uc.FatigueValue++;
                     int trueDamege = uc.FatigueValue;
-                    if (uc.Hero.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方英雄受到伤害)))
+                    if (uc.Hero.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方英雄受到伤害前)))
                     {
-                        context.TriggerCardAbility(uc.DeskCards, CardLocation.场上, SpellCardAbilityTime.己方英雄受到伤害);
+                        context.TriggerCardAbility(uc.DeskCards, SpellCardAbilityTime.己方英雄受到伤害前);
                     }
                     else
                     {
@@ -279,69 +379,28 @@ namespace MyHearthStoneV2.Game.Controler
                         }
                         uc.Hero.Life -= trueDamege;
                     }
+                    context.TriggerCardAbility(uc.DeskCards, SpellCardAbilityTime.己方英雄受到伤害后);
                 }
             }
         }
 
         /// <summary>
-        /// 随从、英雄受到伤害（被火球砸、火冲点）
+        /// 移除（沉默、BUFF时间过期）卡牌技能
         /// </summary>
-        /// <param name="triggerCard"></param>
-        /// <param name="location"></param>
-        /// <param name="target"></param>
-        public static void BiologyByDamege(this GameContext context, Card sourceCard, int damege, int target)
+        /// <param name="lstCard"></param>
+        /// <param name="cl"></param>
+        /// <param name="spellTime"></param>
+        public static void DisableCardAbility(this GameContext context, IEnumerable<BaseBiology> lstCard, CardLocation cl)
         {
-            BaseBiology targetBiology = context.GetCardByLocation(target) as BaseBiology;
-            if (targetBiology != null)
+            var lstCards = lstCard.Where(c => c != null && c.CardLocation == cl);
+            foreach (BaseBiology card in lstCards)
             {
-                int trueDamege = damege;
-                if (targetBiology is BaseHero)
-                {
-                    BaseHero hero = context.GetCardByLocation(target) as BaseHero;
-                    if (hero.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.对方英雄受到伤害)))
-                    {
-                        TriggerCardAbility(context, new List<Card>() { hero }, CardLocation.场上, SpellCardAbilityTime.对方英雄受到伤害, sourceCard, target);
-                    }
-                    else
-                    {
-                        if (trueDamege >= hero.Ammo)
-                        {
-                            trueDamege -= hero.Ammo;
-                            hero.Ammo = 0;
-                        }
-                        else
-                        {
-                            hero.Ammo -= trueDamege;
-                            trueDamege = 0;
-                        }
-                        hero.Life -= trueDamege;
-                    }
-                }
-                else
-                {
-                    if (targetBiology.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.己方随从受到伤害)))
-                    {
-                        TriggerCardAbility(context, new List<Card>() { targetBiology }, CardLocation.场上, SpellCardAbilityTime.己方随从受到伤害, sourceCard, target);
-                    }
-                    else
-                    {
-                        targetBiology.Life -= trueDamege;
-                    }
-                    //随从死亡
-                    if (targetBiology.Life < 1)
-                    {
-                        //随从进坟场
-                        targetBiology.CardLocation = CardLocation.坟场;
-                        UserContext enemy = context.GetNotActivationUserContext();
-                        enemy.GraveyardCards.Add(targetBiology);
-
-                        TriggerCardAbility(context, context.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方随从入坟场, sourceCard, target);
-                        TriggerCardAbility(context, context.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方随从入坟场, sourceCard, target);
-                    }
-                }
+                card.Damage = card.InitialDamage;
+                card.Cost = card.InitialCost;
+                card.Life = card.InitialLife;
+                card.Abilities.Clear();
             }
         }
-
 
         /// <summary>
         /// 触发卡牌技能
@@ -350,27 +409,20 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="spellTime"></param>
         /// <param name="triggerCard"></param>
         /// <param name="target"></param>
-        public static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, CardLocation cl, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
+        public static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
         {
-            if (lstCard != null && lstCard.Any(c => c != null && c.CardLocation == cl))
+            if (lstCard == null || !lstCard.Any(c => c != null)) return;
+            var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
+            for (int i = 0; i < lstCards.Count(); i++)
             {
-                var lstCards = lstCard.Where(c => c != null && c.CardLocation == cl).ToList();
-                for (int i = 0; i < lstCards.Count(); i++)
+                if (!lstCards[i].Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == spellTime))) continue;
+                for (int n = 0;
+                    n < lstCards[i].Abilities.Where(c => c.SpellCardAbilityTimes.Any(x => x == spellTime)).ToList()
+                        .Count;
+                    n++)
                 {
-                    if (lstCards[i].Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == spellTime)))
-                    {
-                        for (int n = 0; n < lstCards[i].Abilities.Where(c => c.LstSpellCardAbilityTime.Any(x => x == spellTime)).ToList().Count; n++)
-                        {
-                            lstCards[i].Abilities[n].CastAbility(context, triggerCard, lstCards[i], target);
-                        }
-                    }
-                    //if (lstCards[i].Buffs.Any(c => c.Value.LstSpellCardAbilityTime.Any(x => x == spellTime)))
-                    //{
-                    //    for (int n = 0; n < lstCards[i].Buffs.Where(c => c.Value.LstSpellCardAbilityTime.Any(x => x == spellTime)).ToList().Count; n++)
-                    //    {
-                    //        lstCards[i].Abilities[n].CastAbility(context, triggerCard, lstCards[i], target);
-                    //    }
-                    //}
+                    lstCards[i].Abilities[n].CastAbility(context, triggerCard, lstCards[i], target);
+                    //AddActionStatement(context, lstCards[i], spellTime, triggerCard, target);
                 }
             }
         }

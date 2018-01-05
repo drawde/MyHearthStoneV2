@@ -2,7 +2,7 @@
 {
     public class Rogue : BaseHero
     {
-        public virtual new string Name { get; } = "盗贼";
-        public virtual new Profession Profession { get; } = Profession.Rogue;
+        public override string Name { get; } = "盗贼";
+        public override Profession Profession { get; set; } = Profession.Rogue;
     }
 }

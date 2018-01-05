@@ -1,4 +1,5 @@
-﻿namespace MyHearthStoneV2.Game.CardLibrary.Servant
+﻿
+namespace MyHearthStoneV2.Game.CardLibrary.Servant
 {
     /// <summary>
     /// 随从基类

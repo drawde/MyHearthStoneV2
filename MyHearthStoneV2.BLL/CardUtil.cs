@@ -8,6 +8,9 @@ using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.ShortCodeBll;
 using System.Collections.Generic;
+using MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Warrior;
+using MyHearthStoneV2.Game.CardLibrary.Spell.Warrior;
 
 
 namespace MyHearthStoneV2.BLL
@@ -31,6 +34,9 @@ namespace MyHearthStoneV2.BLL
                 new DefenderOfArgus(),
                 new VioletTeacher(),
                 new VioletStudent(),
+                new Whirlwind(),
+                new FrothingBerserker(),
+                new KnifeJuggler(),
                 new Mage(),
                 new Paladin(),
                 new Priest(),
@@ -38,6 +44,8 @@ namespace MyHearthStoneV2.BLL
                 new Shaman(),
                 new Warlock(),
                 new Warrior(),
+                new WarglaiveOfAzzinoth(),
+                new IllidanStormrage(),
             };
 
             lstCard.ForEach(c => c.CardCode = ShortCodeBusiness.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);

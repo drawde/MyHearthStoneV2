@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
         public override CastStyle CastStyle { get; } = CastStyle.随从;
         public override CastCrosshairStyle CastCrosshairStyle { get; } = CastCrosshairStyle.单个;
 
-        public override List<SpellCardAbilityTime> LstSpellCardAbilityTime { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.战吼 };
+        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.战吼 };
         public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
         {
             if (targetCardIndex > -1 && targetCardIndex != 0 && targetCardIndex != 8)

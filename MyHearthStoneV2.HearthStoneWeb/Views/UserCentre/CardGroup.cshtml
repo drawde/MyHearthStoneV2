@@ -4,6 +4,7 @@
 @using MyHearthStoneV2.BLL
 @using MyHearthStoneV2.Game.CardLibrary.Hero
 @using System.Configuration
+@using MyHearthStoneV2.Game
 @{
     ViewBag.Title = "创建卡组";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,80 +38,22 @@
 @(Html.Raw(ViewBag.ConfusionStringToHTML))
 <input type="hidden" id="GroupCode" value="@(Request["GroupCode"])"/>
 <div id="container">
-    <ul id="grid" class="group" style="@(Request["GroupCode"].IsNullOrEmpty()?"":"display:none")">
-        <li>
-            <div class="details">
-                <h3>德鲁伊</h3>                
-            </div>
-            <a class="more" href="#Druid">
-                <img src="/images/Druid.jpg">
-            </a>
-        </li>
-        <li>
-            <div class="details">
-                <h3>圣骑士</h3>
-                @*<a class="more" href="#info2">view details</a>*@
-            </div>
-            <a href="#Paladin">
-                <img src="/images/Paladin.jpg">
-            </a>
-        </li>
-        <li>
-            <div class="details">
-                <h3>法师</h3>
-            </div>
-            <a href="#Mage">
-                <img src="/images/Mage.jpg">
-            </a>
-        </li>
-        <li>
-            <div class="details">
-                <h3>术士</h3>
-            </div>
-            <a href="#Warlock">
-                <img src="/images/Warlock.jpg">
-            </a>
-        </li>
-        <li>
-            <div class="details">
-                <h3>战士</h3>
-            </div>
-            <a href="#Warrior">
-                <img src="/images/Warrior.jpg">
-            </a>
-        </li>
-        <li>
-            <div class="details">
-                <h3>盗贼</h3>
-            </div>
-            <a href="#Rogue">
-                <img src="/images/Rogue.jpg">
-            </a>
-        </li>
-        <li>
-            <div class="details">
-                <h3>牧师</h3>
-            </div>
-            <a href="#Priest">
-                <img src="/images/Priest.jpg">
-            </a>
-        </li>
-        <li>
-            <div class="details">
-                <h3>猎人</h3>
-            </div>
-            <a href="#Hunter">
-                <img src="/images/Hunter.jpg">
-            </a>
-        </li>
-        <li>
-            <div class="details">
-                <h3>萨满</h3>
-            </div>
-            <a href="#Shaman">
-                <img src="/images/Shaman.jpg">
-            </a>
-        </li>
+    <ul id="grid" class="group" style="@(Request["GroupCode"].IsNullOrEmpty() ? "" : "display:none")">
+        @{
+            foreach (var card in lstCards.Where(c=>c.CardType== CardType.英雄))
+            {
+                BaseHero hero = card as BaseHero;
+                <li>
+                    <div class="details">
+                        <h3>@(hero.Name)</h3>
+                    </div>
+                    <a class="more" href="#@(hero.Profession.ToString())">
+                        <img style="width: 200px;height: 225px" src="/images/game/texture/hero/@(hero.Profession.ToString()).png" />
+                    </a>
+                </li>
+            }
+        }
+        
     </ul>
 
     <ul id="cards" class="group" style="display:none">
@@ -132,7 +75,7 @@
                             <h3>@(card.Name)</h3>
                         </div>
                         <a class="more" href="javascript:;" cardCode="@(card.CardCode)" cardName="@(card.Name)">
-                            <img src="/images/Shaman.jpg">
+                            <img style="width: 290px;height: 200px" src="/images/cards/texture/@(card.BackgroudImage)">
                         </a>
                     </li>
                 }
@@ -154,7 +97,7 @@
         
     </ul>
 </div>
-<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2" style="overflow: auto">
     <h3><input style="width:150px" placeholder="卡组名称" value="@(groupName)"/></h3>
     @{
         if (lstCardDetail != null && lstCardDetail.Count > 0)

@@ -60,6 +60,11 @@ namespace MyHearthStoneV2.Redis
         /// <summary>
         /// 测试用
         /// </summary>
-        Test = 8
+        Test = 8,
+
+        /// <summary>
+        /// 游戏环境
+        /// </summary>
+        GameContext = 9,
     }
 }

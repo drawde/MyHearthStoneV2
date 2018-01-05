@@ -11,7 +11,7 @@ var handcardoffsets = [
     [-35, -20, -5, 10, 25, 40, 55, 70, 85],
     [-40, -25, -10, 5, 20, 35, 50, 65, 80, 95],
 ];
-var cardBackgroupImage = "/images/cards/texture/";
+
 var heroPowerImage = "/images/game/texture/hero/heropower/";
 var switchCardIndexs = [];
 var originalCard = { width: "150px", height: "250px" };

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
+using MyHearthStoneV2.Game.CardLibrary.CardAction;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Servant;
 
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -20,10 +22,12 @@ namespace MyHearthStoneV2.Game.Controler
         [ControlerMonitor, PlayerActionMonitor]
         internal void CastServant(BaseServant triggerCard, int location, int target)
         {
+            var user = gameContext.GetActivationUserContext();
+            user.Power -= triggerCard.Cost;
             #region 首先触发打出的这张牌的战吼技能
-            if (triggerCard.Abilities.Any(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.战吼)))
+            if (triggerCard.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.战吼)))
             {
-                foreach (var buff in triggerCard.Abilities.Where(c => c.LstSpellCardAbilityTime.Any(x => x == SpellCardAbilityTime.战吼)))
+                foreach (var buff in triggerCard.Abilities.Where(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.战吼)))
                 {
                     buff.CastAbility(gameContext, triggerCard, triggerCard, target, location);
                 }
@@ -33,18 +37,17 @@ namespace MyHearthStoneV2.Game.Controler
             gameContext.CastCardCount++;
             triggerCard.CastIndex = gameContext.CastCardCount;
 
-            var user = gameContext.GetActivationUserContext();
-            user.Power -= triggerCard.Cost;
+            
             triggerCard.CardLocation = CardLocation.场上;
             triggerCard.DeskIndex = location;
             user.DeskCards[location < 8? location: location - 8] = triggerCard;
             user.HandCards.Remove(triggerCard);
             #region 然后触发场内牌的技能
-            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方随从入场, triggerCard, target);
+            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, SpellCardAbilityTime.己方随从入场, triggerCard, target);
             #endregion
 
             #region 最后触发手牌的技能
-            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.手牌, SpellCardAbilityTime.己方随从入场, triggerCard, target);
+            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, SpellCardAbilityTime.己方随从入场, triggerCard, target);
             #endregion
         }
 
@@ -69,7 +72,8 @@ namespace MyHearthStoneV2.Game.Controler
             //gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方随从攻击, servant, target);
             //gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方随从攻击, servant, target);
 
-            gameContext.AddActionStatement(gameContext.DeskCards, SpellCardAbilityTime.己方随从攻击, servant, target);
+            servant.Attack(gameContext, gameContext.GetCardByLocation(target));
+            //gameContext.AddActionStatement(gameContext.DeskCards, SpellCardAbilityTime.己方随从攻击, servant, target);
         }
 
 

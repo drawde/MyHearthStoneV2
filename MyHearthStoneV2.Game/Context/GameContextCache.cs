@@ -1,28 +1,30 @@
 ﻿using MyHearthStoneV2.Redis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace MyHearthStoneV2.Game.Controler
+namespace MyHearthStoneV2.Game.Context
 {
-    internal class ControllerCache
+    internal class GameContextCache
     {
-        internal static List<Controler_Base> GetControls()
+        internal static List<GameContext> GetContexts()
         {
             using (var redisClient = RedisManager.GetClient())
             {
-                var lst = redisClient.Get<List<Controler_Base>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers));
+                var lst = redisClient.Get<List<GameContext>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext));
                 if (lst == null)
                 {
-                    lst = new List<Controler_Base>();
-                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), lst);
+                    lst = new List<GameContext>();
+                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext), lst);
                 }
                 return lst;
             }
         }
-        internal static Controler_Base GetControler(string gameCode)
+        internal static GameContext GetContext(string gameCode)
         {
-            var lstCtls = GetControls();
+            var lstCtls = GetContexts();
             if (lstCtls.Any(c => c.GameCode == gameCode))
             {
                 return lstCtls[lstCtls.FindIndex(c => c.GameCode == gameCode)];
@@ -31,18 +33,18 @@ namespace MyHearthStoneV2.Game.Controler
         }
         internal static void Init()
         {
-            if (GetControls() == null)
+            if (GetContexts() == null)
             {
                 using (var redisClient = RedisManager.GetClient())
                 {
-                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), new List<Controler_Base>());
+                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext), new List<GameContext>());
                 }
             }
         }
 
-        internal static void SetController(Controler_Base ctl)
+        internal static void SetContext(GameContext ctl)
         {
-            var lstCtls = GetControls();
+            var lstCtls = GetContexts();
             if (lstCtls.Any(c => c.GameCode == ctl.GameCode))
             {
                 lstCtls[lstCtls.FindIndex(c => c.GameCode == ctl.GameCode)] = ctl;
@@ -53,10 +55,8 @@ namespace MyHearthStoneV2.Game.Controler
             }
             using (var redisClient = RedisManager.GetClient())
             {
-                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameControllers), lstCtls);
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext), lstCtls);
             }
         }
-
-        
     }
 }

@@ -13,6 +13,12 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// </summary>
         public virtual int Cost { get; set; }
 
+
+        /// <summary>
+        /// 初始费用
+        /// </summary>
+        public virtual int InitialCost { get; set; }
+
         /// <summary>
         /// 卡牌在一局游戏中的编号
         /// </summary>

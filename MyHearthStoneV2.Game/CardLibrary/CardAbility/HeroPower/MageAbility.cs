@@ -1,5 +1,7 @@
 ﻿using MyHearthStoneV2.Game.Context;
-using MyHearthStoneV2.Game.Controler;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
 {
     public class MageAbility : BaseHeroAbility
@@ -9,8 +11,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
         public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1)
         {
             var uc = gameContext.GetActivationUserContext();
-            var card = gameContext.GetCardByLocation(targetCardIndex) as BaseBiology;
-            gameContext.BiologyByDamege(sourceCard, 1, targetCardIndex);
+            var hero = sourceCard as BaseHero;
+            hero.BiologyByDamege(triggerCard, gameContext, 1);
             uc.RemainingHeroPowerCastCount -= 1;
         }
     }

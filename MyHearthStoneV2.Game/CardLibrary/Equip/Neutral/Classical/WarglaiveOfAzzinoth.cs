@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical
 {
@@ -15,5 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical
         public override int Durable { get; set; } = 3;
 
         public override bool IsDerivative => true;
+
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_WarglaiveOfAzzinoth() };
     }
 }

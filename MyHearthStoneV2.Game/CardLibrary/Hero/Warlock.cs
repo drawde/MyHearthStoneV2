@@ -6,8 +6,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Hero
 {
     public class Warlock : BaseHero
     {
-        public virtual new string Name { get; } = "术士";
-        public virtual new Profession Profession { get; } = Profession.Warlock;
+        public override string Name { get; } = "术士";
+        public override Profession Profession { get; set; } = Profession.Warlock;
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new DruidAbility() };
     }
 }

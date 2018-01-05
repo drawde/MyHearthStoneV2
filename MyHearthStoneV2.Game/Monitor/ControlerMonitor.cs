@@ -5,9 +5,9 @@ using MyHearthStoneV2.Log;
 using MyHearthStoneV2.Model;
 using PostSharp.Aspects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+
+
 namespace MyHearthStoneV2.Game.Monitor
 {
     /// <summary>
@@ -26,14 +26,16 @@ namespace MyHearthStoneV2.Game.Monitor
         }
         public override void OnException(MethodExecutionArgs args)
         {
-            HS_ErrRec ex = new HS_ErrRec();
-            ex.Action = _methodName;
-            ex.AddTime = DateTime.Now;
-            ex.Controller = _className;
-            ex.ErrorMsg = args.Exception.Message;
-            ex.IP = StringUtil.GetIP();
-            ex.StackTrace = args.Exception.StackTrace;
-            ex.Arguments = "";
+            HS_ErrRec ex = new HS_ErrRec
+            {
+                Action = _methodName,
+                AddTime = DateTime.Now,
+                Controller = _className,
+                ErrorMsg = args.Exception.Message,
+                IP = StringUtil.GetIP(),
+                StackTrace = args.Exception.StackTrace,
+                Arguments = ""
+            };
             if (args.Arguments != null && args.Arguments.Count > 0)
             {
                 ex.Arguments = args.Arguments.ToJsonString();
@@ -42,11 +44,6 @@ namespace MyHearthStoneV2.Game.Monitor
             ErrRecBll.Instance.AsyncInsert(ex);
             //args.ReturnValue = JsonModelResult.Package500();
             args.FlowBehavior = FlowBehavior.ThrowException;
-        }
-
-        public override void OnEntry(MethodExecutionArgs args)
-        {
-            base.OnEntry(args);
         }
 
         /// <summary>
@@ -63,51 +60,9 @@ namespace MyHearthStoneV2.Game.Monitor
             
 
             #region 封装输出
-            ctl.gameContextOutput = new GameContextOutput();
-            ctl.gameContextOutput.Players = new List<BaseUserContext>();
-            ctl.gameContextOutput.GameCode = ctl.GameCode;
-            ctl.gameContextOutput.TurnIndex = ctl.TurnIndex;
-            foreach (var cd in ctl.gameContext.Players)
-            {
-                if (cd.IsActivation)
-                {
-                    ctl.gameContextOutput.Players.Add(new UserContextOutput()
-                    {
-                        DeskCards = cd.DeskCards,
-                        HandCards = cd.HandCards,
-                        InitCards = cd.InitCards,
-                        IsActivation = cd.IsActivation,
-                        IsFirst = cd.IsFirst,
-                        Power = cd.Power,
-                        StockCards = cd.StockCards.Count,
-                        SwitchDone = cd.SwitchDone,
-                        UserCode = cd.UserCode,
-                        TurnIndex = ctl.TurnIndex,
-                        FullPower = cd.FullPower,
-                        Hero = cd.Hero,
-                    });
-                }
-                else
-                {
-                    ctl.gameContextOutput.Players.Add(new UserContextSimpleOutput()
-                    {
-                        DeskCards = cd.DeskCards,
-                        HandCards = cd.HandCards.Count,
-                        InitCards = cd.InitCards.Count,
-                        IsActivation = cd.IsActivation,
-                        IsFirst = cd.IsFirst,
-                        Power = cd.Power,
-                        StockCards = cd.StockCards.Count,
-                        SwitchDone = cd.SwitchDone,
-                        UserCode = cd.UserCode,
-                        TurnIndex = ctl.TurnIndex,
-                        FullPower = cd.FullPower,
-                        Hero = cd.Hero,
-                    });
-                }
-            }
+
             #endregion
-            ControllerCache.SetController(ctl);
+            GameContextCache.SetContext(ctl.gameContext);
             base.OnEntry(eventArgs);
         }
     }

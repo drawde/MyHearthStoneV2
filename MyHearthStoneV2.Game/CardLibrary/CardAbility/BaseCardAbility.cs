@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility
         public virtual CastStyle CastStyle { get; } = CastStyle.无;
         public virtual CastCrosshairStyle CastCrosshairStyle { get; } = CastCrosshairStyle.无;
 
-        public virtual List<SpellCardAbilityTime> LstSpellCardAbilityTime { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.无 };
+        public virtual List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.无 };
 
         public virtual AbilityType AbilityType { get; } = AbilityType.无;
 

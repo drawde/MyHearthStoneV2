@@ -1,5 +1,4 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.CardAction;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Collections.Generic;
@@ -12,6 +11,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int Life { get; set; } = 3;
         public override int Cost { get; set; } = 4;
 
+        public override int InitialDamage { get; set; } = 2;
+        public override int InitialLife { get; set; } = 3;
+        public override int InitialCost { get; set; } = 4;
         public override string Describe
         {
             get
@@ -28,7 +30,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
             }
         }
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_DefenderOfArgus(), new CA_ServantAttack() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_DefenderOfArgus() };
 
 
         public override string Name

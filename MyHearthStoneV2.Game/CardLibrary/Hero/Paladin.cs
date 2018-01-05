@@ -2,8 +2,8 @@
 {
     public class Paladin : BaseHero
     {
-        public virtual new string Name { get; } = "圣骑士";
-        public virtual new Profession Profession { get; } = Profession.Paladin;
+        public override string Name { get; } = "圣骑士";
+        public override Profession Profession { get; set; } = Profession.Paladin;
     }
 
 }

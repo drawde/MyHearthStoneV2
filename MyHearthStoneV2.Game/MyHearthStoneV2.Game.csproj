@@ -77,7 +77,7 @@
     <Compile Include="CardLibrary\BaseBiology.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\CA_VioletTeacher.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseCardAbility.cs" />
-    <Compile Include="CardLibrary\CardAbility\CardAction\CA_ServantAttack.cs" />
+    <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_EquipWarglaiveOfAzzinoth.cs" />
     <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_GuiLingZhiZhu.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Charge.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\HolyShield.cs" />
@@ -87,25 +87,36 @@
     <Compile Include="CardLibrary\CardAbility\HeroPower\DruidAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\MageAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\WarlockAbility.cs" />
+    <Compile Include="CardLibrary\CardAbility\Observer\CA_FrothingBerserker.cs" />
     <Compile Include="CardLibrary\CardAbility\Observer\CA_KnifeJuggler.cs" />
+    <Compile Include="CardLibrary\CardAbility\Observer\CA_WarglaiveOfAzzinoth.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\AppendPower.cs" />
+    <Compile Include="CardLibrary\CardAbility\Spell\CA_Whirlwind.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\REV_DefenderOfArgus.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\REV_JiaoXiaoDeZhongShi.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\CA_DefenderOfArgus.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\CA_JiaoXiaoDeZhongShi.cs" />
     <Compile Include="CardEnum.cs" />
+    <Compile Include="CardLibrary\CardAction\BaseBiologyAction.cs" />
+    <Compile Include="CardLibrary\CardAction\BaseCardAction.cs" />
+    <Compile Include="CardLibrary\CardAction\Equip\BaseEquipAction.cs" />
+    <Compile Include="CardLibrary\CardAction\Hero\BaseHeroAction.cs" />
+    <Compile Include="CardLibrary\CardAction\Servant\BaseServantAction.cs" />
+    <Compile Include="CardLibrary\Servant\Neutral\Classical\IllidanStormrage.cs" />
+    <Compile Include="CardLibrary\Servant\Warrior\FrothingBerserker.cs" />
+    <Compile Include="CardLibrary\Spell\Warrior\Whirlwind.cs" />
     <Compile Include="Context\ActionStatement.cs" />
     <Compile Include="Context\BaseUserContext.cs" />
     <Compile Include="Context\CardList.cs" />
     <Compile Include="Context\GameContext.cs" />
+    <Compile Include="Context\GameContextCache.cs" />
+    <Compile Include="Context\GameContextExtend.cs" />
     <Compile Include="Context\GameContextOutput.cs" />
     <Compile Include="Context\UserContext.cs" />
     <Compile Include="Context\UserContextOutput.cs" />
     <Compile Include="Context\UserContextSimpleOutput.cs" />
     <Compile Include="Controler\Controler_Base.cs" />
     <Compile Include="Controler\Controler_Turn.cs" />
-    <Compile Include="Controler\ControllerCache.cs" />
-    <Compile Include="Controler\ControllerUtil.cs" />
     <Compile Include="Controler\Control_Hero.cs" />
     <Compile Include="Controler\Control_Servant.cs" />
     <Compile Include="Controler\Control_Spell.cs" />
@@ -161,7 +172,6 @@
     <Folder Include="CardLibrary\Servant\Priest\" />
     <Folder Include="CardLibrary\Servant\Rogue\" />
     <Folder Include="CardLibrary\Servant\Warlock\" />
-    <Folder Include="CardLibrary\Servant\Warrior\" />
     <Folder Include="CardLibrary\Spell\Druid\" />
     <Folder Include="CardLibrary\Spell\Hunter\" />
     <Folder Include="CardLibrary\Spell\Mage\" />
@@ -170,7 +180,6 @@
     <Folder Include="CardLibrary\Spell\Rogue\" />
     <Folder Include="CardLibrary\Spell\Shaman\Classical\" />
     <Folder Include="CardLibrary\Spell\Warlock\" />
-    <Folder Include="CardLibrary\Spell\Warrior\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyHearthStoneV2.Common\MyHearthStoneV2.Common.csproj">

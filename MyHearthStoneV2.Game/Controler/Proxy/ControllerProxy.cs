@@ -66,14 +66,14 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
 
-            ControllerCache.Init();
+            GameContextCache.Init();
             //var game = GameBll.Instance.CreateGame(tableCode, firstPlayerCode, secondPlayerCode, fristCardGroupCode, secondCardGroupCode);
 
             //string firstUserProfession = UserCardGroupBll.Instance.GetCardGroup(fristCardGroupCode, firstPlayerCode).Profession;
             //string secondUserProfession = UserCardGroupBll.Instance.GetCardGroup(secondCardGroupCode, secondPlayerCode).Profession;
             Controler_Base ctl = new Controler_Base();
             ctl.GameStart(game, firstUser, secondUser, firstCardGroup, secondCardGroup, firstUserProfession, secondUserProfession);
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
         }
 
         /// <summary>
@@ -83,72 +83,14 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
         /// <returns></returns>
         public static APIResultBase GetGame(string gameCode, string userCode = "")
         {
-            var ctl = ControllerCache.GetControler(gameCode);
-            if (ctl != null)
-                return JsonModelResult.PackageSuccess(GetChessboardOutputByUser(ctl, userCode));
+            var gameContext = GameContextCache.GetContext(gameCode);
+            if (gameContext != null)
+            {
+                if (userCode.IsNullOrEmpty())
+                    return JsonModelResult.PackageSuccess(gameContext.Output());
+                return JsonModelResult.PackageSuccess(gameContext.Output(userCode));
+            }            
             return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
-        }
-
-        /// <summary>
-        /// 根据玩家返回对应的游戏输出模型
-        /// </summary>
-        /// <param name="ctl"></param>
-        /// <param name="userCode"></param>
-        /// <returns></returns>
-        private static GameContextOutput GetChessboardOutputByUser(Controler_Base ctl, string userCode)
-        {
-            GameContextOutput output = new GameContextOutput
-            {
-                GameCode = ctl.GameCode,
-                TurnIndex = ctl.TurnIndex,
-                Players = new List<BaseUserContext>()
-            };
-
-            foreach (UserContext cd in ctl.gameContext.Players)
-            {
-                if (cd.UserCode == userCode)
-                {
-                    output.Players.Add(new UserContextOutput()
-                    {
-                        DeskCards = cd.DeskCards,
-                        HandCards = cd.HandCards,
-                        InitCards = cd.InitCards,
-                        IsActivation = cd.IsActivation,
-                        IsFirst = cd.IsFirst,
-                        Power = cd.Power,
-                        StockCards = cd.StockCards.Count,
-                        SwitchDone = cd.SwitchDone,
-                        UserCode = cd.UserCode,
-                        TurnIndex = cd.TurnIndex,
-                        FullPower = cd.FullPower,
-                        Hero = cd.Hero
-                    });
-                }
-                else
-                {
-                    output.Players.Add(new UserContextSimpleOutput()
-                    {
-                        DeskCards = cd.DeskCards,
-                        HandCards = cd.HandCards.Count,
-                        InitCards = cd.InitCards.Count,
-                        IsActivation = cd.IsActivation,
-                        IsFirst = cd.IsFirst,
-                        Power = cd.Power,
-                        StockCards = cd.StockCards.Count,
-                        SwitchDone = cd.SwitchDone,
-                        UserCode = cd.UserCode,
-                        TurnIndex = cd.TurnIndex,
-                        FullPower = cd.FullPower,
-                        Hero = cd.Hero
-                    });
-                }
-            }
-            return output;
-        }
-
-        public void TurnEnd()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -189,7 +131,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
             ctl.SwitchCard(userCode, initCardIndex);
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput.Players.First(c => c.UserCode == userCode));
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output().Players.First(c => c.UserCode == userCode));
         }
 
         /// <summary>
@@ -237,7 +179,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             }
 
             ctl.CastServant((BaseServant)card, location, target);            
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
         }
 
         /// <summary>
@@ -274,7 +216,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             }
 
             ctl.CastSpell((BaseSpell)card, target);
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
         }
         /// <summary>
         /// 随从发起攻击
@@ -317,7 +259,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
                     return JsonModelResult.PackageFail(OperateResCodeEnum.你必须先攻击有嘲讽技能的随从);
                 }
             }
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
         }
 
         /// <summary>
@@ -341,7 +283,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             }
 
             ctl.TurnEnd();
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
         }
 
         /// <summary>
@@ -365,17 +307,17 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             }
 
             ctl.TurnStart();
-            return JsonModelResult.PackageSuccess(ControllerCache.GetControler(ctl.GameCode).gameContextOutput);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
         }
         private static Controler_Base Validate(string gameCode, string userCode)
         {
-            Controler_Base ctl = null;
-            var lstCtls = ControllerCache.GetControls();
-            if (!lstCtls.Any(c => c.GameCode == gameCode) || !lstCtls.Any(c => c.gameContext.Players.Any(x => x.User.UserCode == userCode)))
+            Controler_Base ctl = new Controler_Base();
+            var lstCtls = GameContextCache.GetContexts();
+            if (lstCtls.All(c => c.GameCode != gameCode) || !lstCtls.Any(c => c.Players.Any(x => x.User.UserCode == userCode)))
             {
                 return null;
             }
-            ctl = lstCtls.First(c => c.GameCode == gameCode);
+            ctl.gameContext = lstCtls.First(c => c.GameCode == gameCode);
             if (ctl.gameContext.Players.Any(c => c.UserCode == userCode) == false)
             {
                 return null;

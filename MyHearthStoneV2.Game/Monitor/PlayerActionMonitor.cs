@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
+using MyHearthStoneV2.Game.Context;
 
 namespace MyHearthStoneV2.Game.Monitor
 {
@@ -30,27 +30,19 @@ namespace MyHearthStoneV2.Game.Monitor
         {            
             Controler_Base ctl = eventArgs.Instance as Controler_Base;
 
-            try
+            HS_GameRecord record = new HS_GameRecord
             {
-                HS_GameRecord record = new HS_GameRecord
-                {
-                    AddTime = DateTime.Now,
-                    GameContext = JsonConvert.SerializeObject(ctl.gameContext),
-                    FirstUserCode = ctl.gameContext.GetActivationUserContext().UserCode,
-                    GameCode = ctl.GameCode,
-                    IsFirstUserTurn = false,
-                    TurnIndex = ctl.TurnIndex,
-                    SecondUserCode = ctl.gameContext.GetNotActivationUserContext().UserCode,
-                    TurnCode = ctl.currentTurnCode,
-                    FunctionName = _methodName
-                };
-                GameRecordBll.Instance.Insert(record);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+                AddTime = DateTime.Now,
+                GameContext = JsonConvert.SerializeObject(ctl.gameContext),
+                FirstUserCode = ctl.gameContext.GetActivationUserContext().UserCode,
+                GameCode = ctl.gameContext.GameCode,
+                IsFirstUserTurn = false,
+                TurnIndex = ctl.gameContext.TurnIndex,
+                SecondUserCode = ctl.gameContext.GetNotActivationUserContext().UserCode,
+                TurnCode = ctl.gameContext.currentTurnCode,
+                FunctionName = _methodName
+            };
+            GameRecordBll.Instance.Insert(record);
 
             base.OnEntry(eventArgs);
         }

@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
 {
     public class CA_VioletTeacher : BaseCardAbility
     {
-        public override List<SpellCardAbilityTime> LstSpellCardAbilityTime { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方打出法术牌前 };
+        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方打出法术牌前 };
         public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
         {
             //必须是自己打出的法术类牌才能触发自己的紫罗兰教师的技能

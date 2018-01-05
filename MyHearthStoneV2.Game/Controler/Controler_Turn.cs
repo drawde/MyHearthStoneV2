@@ -15,8 +15,8 @@ namespace MyHearthStoneV2.Game.Controler
         [ControlerMonitor, PlayerActionMonitor]
         internal void TurnEnd()
         {
-            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方回合结束);
-            gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方回合结束);
+            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, SpellCardAbilityTime.己方回合结束);
+            gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, SpellCardAbilityTime.对方回合结束);
 
             //获取是自己的牌的技能所影响的牌
             //var myBuffCards = gameContext.AllCard.Where(c => gameContext.IsThisActivationUserCard(c.Buffs.Keys.ToList()));
@@ -24,7 +24,7 @@ namespace MyHearthStoneV2.Game.Controler
 
             #region 调整玩家对象
             UserContext uc = null, next_uc = null;
-            if (TurnIndex > 0)
+            if (gameContext.TurnIndex > 0)
             {
                 uc = gameContext.GetActivationUserContext();
                 next_uc = gameContext.GetNotActivationUserContext();
@@ -53,10 +53,10 @@ namespace MyHearthStoneV2.Game.Controler
             #endregion
 
             #region 调整游戏环境对象
-            currentTurnRemainingSecond = 60;
-            currentTurnCode = nextTurnCode;
-            nextTurnCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameTurnCode);
-            TurnIndex++;
+            gameContext.currentTurnRemainingSecond = 60;
+            gameContext.currentTurnCode = gameContext.nextTurnCode;
+            gameContext.nextTurnCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameTurnCode);
+            gameContext.TurnIndex++;
             
             #endregion
         }
@@ -64,8 +64,8 @@ namespace MyHearthStoneV2.Game.Controler
         [ControlerMonitor, PlayerActionMonitor]
         internal void TurnStart()
         {
-            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.己方回合开始);
-            gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, CardLocation.场上, SpellCardAbilityTime.对方回合开始);
+            gameContext.TriggerCardAbility(gameContext.GetActivationUserContext().DeskCards, SpellCardAbilityTime.己方回合开始);
+            gameContext.TriggerCardAbility(gameContext.GetNotActivationUserContext().DeskCards, SpellCardAbilityTime.对方回合开始);
 
             //获取是自己的牌的技能所影响的牌
             //var myBuffCards = gameContext.AllCard.Where(c => gameContext.IsThisActivationUserCard(c.Buffs.Keys.ToList()));
