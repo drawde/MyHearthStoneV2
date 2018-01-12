@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.Game.Controler
         [ControlerMonitor, PlayerActionMonitor]
         internal void SwitchCard(string userCode, List<int> lstInitCardIndex)
         {
-            UserContext uc = gameContext.Players.First(c => c.User.UserCode == userCode);
+            UserContext uc = GameContext.Players.First(c => c.User.UserCode == userCode);
             uc.InitCards.ForEach(c => uc.HandCards.Add(c));
             if (lstInitCardIndex != null && lstInitCardIndex.Count > 0)
             {
@@ -50,21 +50,21 @@ namespace MyHearthStoneV2.Game.Controler
             uc.InitCards.Clear();
 
             //双方都换完牌后的流程
-            if (gameContext.Players.First(c => c.User.UserCode != userCode).SwitchDone)
+            if (GameContext.Players.First(c => c.User.UserCode != userCode).SwitchDone)
             {
-                var firstUser = gameContext.Players.First(c => c.IsFirst);
+                var firstUser = GameContext.Players.First(c => c.IsFirst);
                 //先手玩家换完牌后再抽一张牌
                 var addCard = firstUser.StockCards.First();
                 addCard.CardLocation = CardLocation.手牌;
                 firstUser.HandCards.Add(addCard);
                 firstUser.StockCards.RemoveAt(0);
 
-                var secondUser = gameContext.Players.First(c => c.IsFirst == false);
+                var secondUser = GameContext.Players.First(c => c.IsFirst == false);
                 //后手玩家添加一枚幸运币
-                var luckyCoin = gameContext.CreateNewCardInController<LuckyCoin>();
+                var luckyCoin = GameContext.CreateNewCardInController<LuckyCoin>();
                 secondUser.HandCards.Add(luckyCoin);
                 secondUser.AllCards.Add(luckyCoin);
-                gameContext.AllCard.Add(luckyCoin);
+                GameContext.AllCard.Add(luckyCoin);
                 secondUser.IsActivation = false;
 
                 TurnEnd();

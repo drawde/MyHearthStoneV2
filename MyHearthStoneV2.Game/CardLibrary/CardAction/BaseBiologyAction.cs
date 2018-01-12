@@ -32,6 +32,24 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction
         }
 
         /// <summary>
+        /// 生物死亡检测
+        /// </summary>
+        /// <param name="sourceCard"></param>
+        /// <param name="context"></param>
+        /// <param name="triggerCard"></param>
+        public static void BiologyDead(this BaseBiology sourceCard, GameContext context, Card triggerCard)
+        {
+            if (sourceCard.CardType == CardType.英雄)
+            {
+                BaseHeroAction.BiologyDead(sourceCard as BaseHero, triggerCard, context);
+            }
+            else
+            {
+                BaseServantAction.BiologyDead(sourceCard as BaseServant, triggerCard, context);
+            }
+        }
+
+        /// <summary>
         /// 随从、英雄受到伤害（被火球砸、火冲点）
         /// </summary>
         public static void BiologyByDamege(this BaseBiology sourceCard, Card targetCard, GameContext context, int damege)
@@ -79,6 +97,42 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction
             else
             {
                 BaseServantAction.Attack(sourceCard as BaseServant, gameContext, targetCard);
+            }
+        }
+
+        /// <summary>
+        /// 随从或英雄进场（不触发技能，比如召唤出来的随从）
+        /// </summary>
+        /// <param name="biology"></param>
+        /// <param name="gameContext"></param>
+        /// <param name="location"></param>
+        /// <param name="target"></param>
+        public static void Cast(this BaseBiology biology, GameContext gameContext, int location, int target)
+        {
+            if (biology.CardType == CardType.英雄)
+            {
+                BaseHeroAction.Cast(biology as BaseHero, gameContext, location, target);
+            }
+            else
+            {
+                BaseServantAction.Cast(biology as BaseServant, gameContext, location, target);
+            }
+        }
+
+        /// <summary>
+        /// 重置随从或英雄攻击次数
+        /// </summary>
+        /// <param name="biology"></param>
+        /// <param name="gameContext"></param>
+        public static void ResetRemainAttackTimes(this BaseBiology biology, GameContext gameContext)
+        {
+            if (biology.CardType == CardType.英雄)
+            {
+                BaseHeroAction.ResetRemainAttackTimes(biology as BaseHero, gameContext);
+            }
+            else
+            {
+                BaseServantAction.ResetRemainAttackTimes(biology as BaseServant, gameContext);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.Context
@@ -16,13 +17,9 @@ namespace MyHearthStoneV2.Game.Context
         public int StockCards { get; set; }
 
         /// <summary>
-        /// 玩家场上的牌
-        /// </summary>
-        public List<BaseBiology> DeskCards { get; set; }
-
-        /// <summary>
         /// 玩家开场摸的牌
         /// </summary>
         public int InitCards { get; set; }
+        public BaseHero Hero { get; set; }
     }
 }

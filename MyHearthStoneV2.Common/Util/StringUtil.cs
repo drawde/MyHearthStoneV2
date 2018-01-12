@@ -22,6 +22,10 @@ namespace MyHearthStoneV2.Common.Util
         public static string GetIP()
         {
             string loginip = "";
+            if (HttpContext.Current == null || HttpContext.Current.Request == null)
+            {
+                return "127.0.0.1";
+            }
             var Request = HttpContext.Current.Request;  
             if (Request.ServerVariables["REMOTE_ADDR"] != null) //判断发出请求的远程主机的ip地址是否为空  
             {

@@ -16,7 +16,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <summary>
         /// 当前回合剩余秒数
         /// </summary>
-        public int currentTurnRemainingSecond { get; set; }
+        public int CurrentTurnRemainingSecond { get; set; }
 
         /// <summary>
         /// 进行完的回合数
@@ -26,12 +26,12 @@ namespace MyHearthStoneV2.Game.Context
         /// <summary>
         /// 当前回合编码
         /// </summary>
-        public string currentTurnCode { get; set; }
+        public string CurrentTurnCode { get; set; }
 
         /// <summary>
         /// 下个回合编码
         /// </summary>
-        public string nextTurnCode { get; set; }
+        public string NextTurnCode { get; set; }
 
         /// <summary>
         /// 本局中所有的牌
@@ -46,7 +46,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <summary>
         /// 场上的生物牌
         /// </summary>        
-        public List<BaseBiology> DeskCards { get; set; }
+        public DeskBoard DeskCards { get; set; }
 
         /// <summary>
         /// 一共打出了多少张牌

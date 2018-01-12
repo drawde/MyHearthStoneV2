@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using MyHearthStoneV2.Game.Context;
-
+using MyHearthStoneV2.Game.CardLibrary.CardAction;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
         public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
         {
             BaseBiology bb = sourceCard as BaseBiology;
-            bb.RemainAttackTimes += 1;
+            bb.ResetRemainAttackTimes(gameContext);
         }        
     }
 }

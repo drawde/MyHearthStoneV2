@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
             if (gameContext.IsThisActivationUserCard(triggerCard) && gameContext.IsThisActivationUserCard(sourceCard) && triggerCard is BaseSpell)
             {
                 var player = gameContext.GetActivationUserContext();
-                if (player.DeskCards.Any(c => c == null))
+                if (gameContext.DeskCards.GetDeskCardsByMyCard(sourceCard as BaseBiology).Any(c => c == null))
                 {
                     VioletStudent student = gameContext.CreateNewCardInDesk<VioletStudent>();                     
                 }

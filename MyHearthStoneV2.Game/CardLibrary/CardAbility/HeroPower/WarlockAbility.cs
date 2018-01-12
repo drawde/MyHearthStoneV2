@@ -8,7 +8,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
         public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1)
         {
             var uc = gameContext.GetActivationUserContext();
-            var hero = uc.Hero;
+            var hero = gameContext.DeskCards.GetHeroByIsFirst(uc.IsFirst);
             hero.Life -= 2;
             gameContext.DrawCard();
             uc.RemainingHeroPowerCastCount -= 1;

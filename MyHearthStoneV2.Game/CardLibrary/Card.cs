@@ -55,11 +55,6 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// </summary>
         public virtual List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>();
 
-        /// <summary>
-        /// 卡牌BUFF
-        /// </summary>
-        //public virtual Dictionary<Card, BaseCardAbility> Buffs { get; set; } = new Dictionary<Card, BaseCardAbility>();
-
         public virtual CardType CardType { get; set; } = CardType.无;
 
         public virtual string BackgroudImage { get; set; } = "/images/baraja/1.jpg";

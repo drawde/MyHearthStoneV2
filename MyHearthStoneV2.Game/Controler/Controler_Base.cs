@@ -8,7 +8,7 @@ using MyHearthStoneV2.Model.CustomModels;
 using MyHearthStoneV2.Redis;
 using System.Collections.Generic;
 using System.Linq;
-
+using System;
 
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -17,9 +17,12 @@ namespace MyHearthStoneV2.Game.Controler
     /// </summary>
     internal partial class Controler_Base
     {
+        /// <summary>
+        /// 游戏环境对象
+        /// </summary>
+        public GameContext GameContext { get; set; }
 
 
-        public GameContext gameContext { get; set; }
         [ControlerMonitor, PlayerActionMonitor]
         internal void GameStart(HS_Game game, CUsers firstPlayer, CUsers secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
         {                        
@@ -38,13 +41,14 @@ namespace MyHearthStoneV2.Game.Controler
             {
                 lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
             }
-
-            //初始化游戏中的卡牌编码链表
+            
             int cardInGameIndex = 0;
             foreach (var cg in firstCardGroup)
             {
-                var card = lstCardLib.First(c => c.CardCode == cg.CardCode);
-                card.CardInGameCode = cardInGameIndex.ToString();
+                Card libCard = lstCardLib.First(c => c.CardCode == cg.CardCode);
+                var card = Activator.CreateInstance(libCard.GetType()) as Card;
+                card.CardCode = libCard.CardCode;
+                card.CardInGameCode = cardInGameIndex.ToString();                
                 firstUser.AllCards.Add(card);
                 cardInGameIndex++;
             }
@@ -65,7 +69,9 @@ namespace MyHearthStoneV2.Game.Controler
             };
             secondCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
             {
-                var card = lstCardLib.First(c => c.CardCode == detail.CardCode);
+                Card libCard = lstCardLib.First(c => c.CardCode == detail.CardCode);
+                var card = Activator.CreateInstance(libCard.GetType()) as Card;
+                card.CardCode = libCard.CardCode;
                 card.CardInGameCode = cardInGameIndex.ToString();
                 secondUser.AllCards.Add(card);
                 cardInGameIndex++;
@@ -73,20 +79,17 @@ namespace MyHearthStoneV2.Game.Controler
 
             secondUser.StockCards = secondUser.AllCards;
             
-
-            var lstAllDeskCards = new List<BaseBiology>();
-            lstAllDeskCards.AddRange(firstUser.DeskCards);
-            lstAllDeskCards.AddRange(secondUser.DeskCards);
-            gameContext = new GameContext
+            
+            GameContext = new GameContext
             {
                 Players = new List<UserContext>(),
-                DeskCards = lstAllDeskCards,
+                DeskCards = null,
                 GameCode = game.GameCode,
-                currentTurnCode = game.CurrentTurnCode,
-                nextTurnCode = game.NextTurnCode,
+                CurrentTurnCode = game.CurrentTurnCode,
+                NextTurnCode = game.NextTurnCode,
             };
-            gameContext.Players.Add(firstUser);
-            gameContext.Players.Add(secondUser);
+            GameContext.Players.Add(firstUser);
+            GameContext.Players.Add(secondUser);
             #endregion
 
             #region 初始化开场选牌
@@ -94,16 +97,16 @@ namespace MyHearthStoneV2.Game.Controler
             List<Card> lstFirstPickUpCard = new List<Card>();
             List<Card> lstSecondPickUpCard = new List<Card>();
 
-            List<int> lstRndIndex = RandomUtil.CreateRandomInt(0, gameContext.Players.First(c => c.IsFirst).AllCards.Count - 1, firstPickUpCount);
+            List<int> lstRndIndex = RandomUtil.CreateRandomInt(0, GameContext.Players.First(c => c.IsFirst).AllCards.Count - 1, firstPickUpCount);
             for (int i = 0; i < lstRndIndex.Count; i++)
             {
                 if (i < lstRndIndex.Count - 1)
                 {
-                    lstFirstPickUpCard.Add(gameContext.Players.First(c => c.IsFirst).AllCards[lstRndIndex[i]]);
+                    lstFirstPickUpCard.Add(GameContext.Players.First(c => c.IsFirst).AllCards[lstRndIndex[i]]);
                 }
-                lstSecondPickUpCard.Add(gameContext.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]]);
+                lstSecondPickUpCard.Add(GameContext.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]]);
             }
-            firstUser.InitCards = lstFirstPickUpCard;
+            
             BaseHero firstHero = null, secondHero = null;
             switch (firstUserProfession)
             {
@@ -129,20 +132,30 @@ namespace MyHearthStoneV2.Game.Controler
                 case "Warlock": secondHero = new Warlock(); break;
                 case "Warrior": secondHero = new Warrior(); break;
             }
-            firstUser.Hero = firstHero;
-            firstUser.DeskCards = new List<BaseBiology>() { firstHero, null, null, null, null, null, null, null };
-            firstUser.HandCards = new List<Card>();
 
-            secondUser.Hero = secondHero;
-            secondUser.InitCards = lstSecondPickUpCard;
-            secondUser.DeskCards = new List<BaseBiology>() { secondHero, null, null, null, null, null, null, null };
+            firstUser.HandCards = new List<Card>();
+            firstUser.InitCards = lstFirstPickUpCard;
+
             secondUser.HandCards = new List<Card>();
+            secondUser.InitCards = lstSecondPickUpCard;
+
+            cardInGameIndex++;
+            firstHero.CardCode = lstCardLib.First(c => c.GetType().Name == firstHero.GetType().Name).CardCode;
+            firstHero.CardInGameCode = cardInGameIndex.ToString();
+            firstHero.DeskIndex = 0;
+
+            cardInGameIndex++;
+            secondHero.CardCode = lstCardLib.First(c => c.GetType().Name == secondHero.GetType().Name).CardCode;
+            secondHero.CardInGameCode = cardInGameIndex.ToString();
+            secondHero.DeskIndex = 8;
+
+            GameContext.DeskCards = new DeskBoard() { firstHero, null, null, null, null, null, null, null, secondHero, null, null, null, null, null, null, null };
             #endregion
 
             List<Card> lstAll = new List<Card>();
             lstAll.AddRange(firstUser.AllCards);
             lstAll.AddRange(secondUser.AllCards);
-            gameContext.AllCard = lstAll;
+            GameContext.AllCard = lstAll;
         }       
     }
 }

@@ -13,10 +13,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper
 {
     public class CA_EquipWarglaiveOfAzzinoth : BaseCardAbility
     {
-
+        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.随从死亡 };
         public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1)
         {
-            BaseHero hero = sourceCard as BaseHero;
+            BaseHero hero = gameContext.DeskCards.GetHeroByMyCard(sourceCard as BaseBiology);
             hero.Equip(gameContext, gameContext.CreateNewCardInController<WarglaiveOfAzzinoth>());
         }
     }

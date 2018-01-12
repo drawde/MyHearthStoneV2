@@ -151,6 +151,8 @@ namespace MyHearthStoneV2.Game
         打出一张法术牌 = 1002,
         随从受伤= 1003,
         英雄受伤 = 1004,
+        随从死亡 = 1005,
+        重置攻击次数 = 1006,
     }
 
     public enum AbilityType

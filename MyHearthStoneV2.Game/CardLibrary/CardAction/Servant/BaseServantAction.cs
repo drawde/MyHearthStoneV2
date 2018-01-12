@@ -9,8 +9,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
 {
     public static class BaseServantAction
     {
-        
-
         /// <summary>
         /// 随从受到伤害时，扣除它的生命值，然后触发随从或英雄受伤后的技能
         /// </summary>
@@ -45,30 +43,43 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
                 DeductionBiologyLife(sourceCard, context, targetCard, trueDamege);
             }
             context.TriggerCardAbility(new List<Card>() { sourceCard }, SpellCardAbilityTime.己方随从受到伤害后, targetCard, sourceCard.DeskIndex);
+
+            //BiologyDead(sourceCard, targetCard, context);
+        }
+
+        /// <summary>
+        /// 随从死亡检测
+        /// </summary>
+        /// <param name="sourceCard"></param>
+        /// <param name="targetCard"></param>
+        /// <param name="context"></param>
+        public static void BiologyDead(this BaseServant sourceCard, Card targetCard, GameContext context)
+        {
             //随从死亡
             if (sourceCard.Life < 1)
             {
                 //随从进坟场
                 sourceCard.CardLocation = CardLocation.坟场;
-                UserContext enemy = context.GetNotActivationUserContext();
-                enemy.GraveyardCards.Add(sourceCard);
+                UserContext uc = context.GetUserContextByMyCard(sourceCard);
+                uc.GraveyardCards.Add(sourceCard);
+                context.DeskCards[context.DeskCards.FindIndex(c => c != null && c.CardInGameCode == sourceCard.CardInGameCode)] = null;
 
-                context.TriggerCardAbility(context.GetActivationUserContext().DeskCards, SpellCardAbilityTime.己方随从入坟场, targetCard, sourceCard.DeskIndex);
-                context.TriggerCardAbility(context.GetNotActivationUserContext().DeskCards, SpellCardAbilityTime.对方随从入坟场, targetCard, sourceCard.DeskIndex);
+                context.TriggerCardAbility(new List<Card>() { sourceCard }, SpellCardAbilityTime.随从死亡, targetCard, sourceCard.DeskIndex);
+                context.TriggerCardAbility(context.DeskCards.GetDeskCardsByEnemyCard(sourceCard), SpellCardAbilityTime.对方随从入坟场, targetCard, sourceCard.DeskIndex);
             }
         }
 
 
-        
+
 
         /// <summary>
         /// 被攻击
         /// </summary>
         public static void UnderAttack(this BaseServant servant, GameContext gameContext, BaseBiology attackCard)
         {
-            if (attackCard.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方随从受到伤害后)))
+            if (attackCard.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.随从攻击)))
             {
-                var abiliti = attackCard.Abilities.First(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方随从受到伤害后));
+                var abiliti = attackCard.Abilities.First(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.随从攻击));
                 abiliti.CastAbility(gameContext, attackCard, servant, 0, servant.DeskIndex);
             }
             else
@@ -100,6 +111,41 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             //自己挨打
             UnderAttack(servant, gameContext, targetCard);            
             servant.RemainAttackTimes -= 1;
+        }
+
+        /// <summary>
+        /// 随从进场（不触发技能，比如召唤出来的随从）
+        /// </summary>
+        /// <param name="servant"></param>
+        /// <param name="gameContext"></param>
+        /// <param name="location"></param>
+        /// <param name="target"></param>
+        public static void Cast(this BaseServant servant, GameContext gameContext, int location, int target)
+        {
+            var user = gameContext.GetUserContextByMyCard(servant);
+            gameContext.CastCardCount++;
+            servant.CastIndex = gameContext.CastCardCount;
+            servant.CardLocation = CardLocation.场上;
+            servant.DeskIndex = location;
+            gameContext.DeskCards[location] = servant;
+            user.HandCards.Remove(servant);
+        }
+
+        /// <summary>
+        /// 重置随从攻击次数
+        /// </summary>
+        /// <param name="biology"></param>
+        /// <param name="gameContext"></param>
+        public static void ResetRemainAttackTimes(this BaseServant servant, GameContext gameContext)
+        {
+            if (servant.Damage > 0 && servant.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.重置攻击次数)) == false)
+            {
+                servant.RemainAttackTimes += 1;
+            }
+            else
+            {
+                gameContext.TriggerCardAbility(new List<Card>() { servant }, SpellCardAbilityTime.重置攻击次数);
+            }
         }
     }
 }

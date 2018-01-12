@@ -11,6 +11,8 @@ using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.CardLibrary.Spell;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 
 namespace MyHearthStoneV2.Game.Controler.Proxy
 {
@@ -73,7 +75,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             //string secondUserProfession = UserCardGroupBll.Instance.GetCardGroup(secondCardGroupCode, secondPlayerCode).Profession;
             Controler_Base ctl = new Controler_Base();
             ctl.GameStart(game, firstUser, secondUser, firstCardGroup, secondCardGroup, firstUserProfession, secondUserProfession);
-            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
         }
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             //{
             //    return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             //}
-            if (ctl.gameContext.Players.Any(c => c.UserCode == userCode && c.SwitchDone == false) == false)
+            if (ctl.GameContext.Players.Any(c => c.UserCode == userCode && c.SwitchDone == false) == false)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
@@ -121,7 +123,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 initCardIndex.Add(idx.TryParseInt());
             }
-            if (initCardIndex.Any(c => c < 0 || c > 3) || initCardIndex.Any(c => c >= ctl.gameContext.Players.First(x => x.UserCode == userCode).InitCards.Count))
+            if (initCardIndex.Any(c => c < 0 || c > 3) || initCardIndex.Any(c => c >= ctl.GameContext.Players.First(x => x.UserCode == userCode).InitCards.Count))
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
@@ -131,7 +133,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
             ctl.SwitchCard(userCode, initCardIndex);
-            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output().Players.First(c => c.UserCode == userCode));
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output().Players.First(c => c.UserCode == userCode));
         }
 
         /// <summary>
@@ -150,7 +152,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            var player = ctl.gameContext.GetActivationUserContext();
+            var player = ctl.GameContext.GetActivationUserContext();
             if (player == null || player.UserCode != userCode)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
@@ -163,13 +165,17 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            if (player.IsFirst && player.DeskCards[location] != null)
+            if (ctl.GameContext.DeskCards[location] != null)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.位置已被占用);
             }
-            else if (player.IsFirst == false && player.DeskCards[location - 8] != null)
+            if (player.IsFirst && (location == 0 || location > 7))
             {
-                return JsonModelResult.PackageFail(OperateResCodeEnum.位置已被占用);
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+            else if (player.IsFirst == false && (location == 8 || location < 8))
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
             Card card = player.HandCards.First(c => c.CardInGameCode == cardInGameCode);
 
@@ -179,7 +185,40 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             }
 
             ctl.CastServant((BaseServant)card, location, target);            
-            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
+        }
+
+        /// <summary>
+        /// 使用英雄技能
+        /// </summary>
+        /// <param name="gameCode"></param>
+        /// <param name="userCode"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static APIResultBase CastHeroPower(string gameCode, string userCode, int target = -1)
+        {
+            string res = JsonStringResult.VerifyFail();
+            Controler_Base ctl = Validate(gameCode, userCode);
+            if (ctl == null)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+
+            var player = ctl.GameContext.GetActivationUserContext();
+            if (player == null || player.UserCode != userCode || player.RemainingHeroPowerCastCount < 1)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+
+            BaseHero hero = ctl.GameContext.GetHeroByActivation();
+
+            if (player.Power < (hero.Abilities.First() as BaseHeroAbility).Cost)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.没有足够的法力值);
+            }
+
+            ctl.CastHeroPower(hero, target);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output().Players.First(c => c.UserCode == userCode));
         }
 
         /// <summary>
@@ -198,7 +237,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            var player = ctl.gameContext.GetActivationUserContext();
+            var player = ctl.GameContext.GetActivationUserContext();
             if (player == null || player.UserCode != userCode)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
@@ -216,7 +255,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             }
 
             ctl.CastSpell((BaseSpell)card, target);
-            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
         }
         /// <summary>
         /// 随从发起攻击
@@ -234,33 +273,96 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            var player = ctl.gameContext.GetActivationUserContext();
+
+            var player = ctl.GameContext.GetActivationUserContext();
             if (player == null || player.UserCode != userCode)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            if (player.DeskCards.Any(c => c.CardInGameCode == cardInGameCode) == false)
+
+            if (ctl.GameContext.DeskCards.Any(c => c != null && c.CardInGameCode == cardInGameCode) == false)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
 
-            BaseServant servant = player.DeskCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
+            if (player.IsFirst && target < 8)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+            else if (player.IsFirst == false && target > 7)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+
+            BaseServant servant = ctl.GameContext.DeskCards.First(c => c != null && c.CardInGameCode == cardInGameCode) as BaseServant;
             if (servant.RemainAttackTimes < 1)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            //BaseBiology bb = ctl.GetCardByLocation(target) as BaseBiology;
-            var taunts = ctl.gameContext.GetNotActivationUserContext().DeskCards.Where(c => c.Abilities.Any(x => x is Taunt));
-            var dskCards = ctl.gameContext.GetNotActivationUserContext().DeskCards;
-            for (int i = 0; i < dskCards.Count; i++)
+
+            var taunts = ctl.GameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst ? false : true).Where(c => c != null && c.Abilities.Any(x => x is Taunt)).ToList();
+            for (int i = 0; i < taunts.Count; i++)
             {
-                if (dskCards[i] != null && dskCards[i].Abilities.Any(x => x is Taunt) && i != target)
+                if (taunts[i].Abilities.Any(x => x is Taunt) && i != target)
                 {
                     return JsonModelResult.PackageFail(OperateResCodeEnum.你必须先攻击有嘲讽技能的随从);
                 }
             }
-            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
+            ctl.ServantAttack(servant, target);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
         }
+
+
+        /// <summary>
+        /// 英雄发起攻击
+        /// </summary>
+        /// <param name="gameCode"></param>
+        /// <param name="userCode"></param>
+        /// <param name="cardInGameCode"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static APIResultBase HeroAttack(string gameCode, string userCode, int target)
+        {
+            string res = JsonStringResult.VerifyFail();
+            Controler_Base ctl = Validate(gameCode, userCode);
+            if (ctl == null)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+
+            var player = ctl.GameContext.GetActivationUserContext();
+            if (player == null || player.UserCode != userCode)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+            if (player.IsFirst && target < 8)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+            else if (player.IsFirst == false && target > 7)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
+            }
+
+            BaseHero hero = ctl.GameContext.GetHeroByActivation(player.IsActivation);
+            if (hero.RemainAttackTimes < 1)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
+            }
+
+            var taunts = ctl.GameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst ? false : true).Where(c => c != null && c.Abilities.Any(x => x is Taunt)).ToList();
+            for (int i = 0; i < taunts.Count; i++)
+            {
+                if (taunts[i].Abilities.Any(x => x is Taunt) && i != target)
+                {
+                    return JsonModelResult.PackageFail(OperateResCodeEnum.你必须先攻击有嘲讽技能的随从);
+                }
+            }
+
+            ctl.HeroAttack(hero, target);
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
+        }
+
 
         /// <summary>
         /// 回合结束
@@ -276,14 +378,14 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            var player = ctl.gameContext.GetActivationUserContext();
+            var player = ctl.GameContext.GetActivationUserContext();
             if (player == null || player.UserCode != userCode)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
 
             ctl.TurnEnd();
-            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
         }
 
         /// <summary>
@@ -300,14 +402,14 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            var player = ctl.gameContext.GetActivationUserContext();
+            var player = ctl.GameContext.GetActivationUserContext();
             if (player == null || player.UserCode != userCode)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
 
             ctl.TurnStart();
-            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.gameContext.GameCode).Output());
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
         }
         private static Controler_Base Validate(string gameCode, string userCode)
         {
@@ -317,8 +419,8 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return null;
             }
-            ctl.gameContext = lstCtls.First(c => c.GameCode == gameCode);
-            if (ctl.gameContext.Players.Any(c => c.UserCode == userCode) == false)
+            ctl.GameContext = lstCtls.First(c => c.GameCode == gameCode);
+            if (ctl.GameContext.Players.Any(c => c.UserCode == userCode) == false)
             {
                 return null;
             }

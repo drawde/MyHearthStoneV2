@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
         /// <param name="gameContext"></param>
         public static void Unload(this BaseEquip equip, GameContext gameContext)
         {
-            BaseHero baseHero = gameContext.GetUserContextByMyCard(equip).Hero;
+            BaseHero baseHero = gameContext.DeskCards.GetHeroByIsFirst(gameContext.GetUserContextByMyCard(equip).IsFirst);
 
             baseHero.Equip.Durable -= 1;
             if (baseHero.Equip.Durable == 0)

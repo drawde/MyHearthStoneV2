@@ -33,13 +33,13 @@ namespace MyHearthStoneV2.Game.Monitor
             HS_GameRecord record = new HS_GameRecord
             {
                 AddTime = DateTime.Now,
-                GameContext = JsonConvert.SerializeObject(ctl.gameContext),
-                FirstUserCode = ctl.gameContext.GetActivationUserContext().UserCode,
-                GameCode = ctl.gameContext.GameCode,
+                GameContext = JsonConvert.SerializeObject(ctl.GameContext),
+                FirstUserCode = ctl.GameContext.GetActivationUserContext().UserCode,
+                GameCode = ctl.GameContext.GameCode,
                 IsFirstUserTurn = false,
-                TurnIndex = ctl.gameContext.TurnIndex,
-                SecondUserCode = ctl.gameContext.GetNotActivationUserContext().UserCode,
-                TurnCode = ctl.gameContext.currentTurnCode,
+                TurnIndex = ctl.GameContext.TurnIndex,
+                SecondUserCode = ctl.GameContext.GetNotActivationUserContext().UserCode,
+                TurnCode = ctl.GameContext.CurrentTurnCode,
                 FunctionName = _methodName
             };
             GameRecordBll.Instance.Insert(record);

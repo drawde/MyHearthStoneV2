@@ -12,5 +12,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility
         /// 技能背景图片
         /// </summary>
         public virtual string PowerImage { get; } = "";
+
+        /// <summary>
+        /// 技能费用
+        /// </summary>
+        public virtual int Cost { get; set; } = 2;
     }
 }

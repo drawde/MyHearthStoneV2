@@ -29,11 +29,6 @@ namespace MyHearthStoneV2.Game.Context
         public List<Card> StockCards { get; set; }
 
         /// <summary>
-        /// 玩家场上的牌
-        /// </summary>
-        public List<BaseBiology> DeskCards { get; set; }
-
-        /// <summary>
         /// 玩家开场摸的牌
         /// </summary>
         public List<Card> InitCards { get; set; }

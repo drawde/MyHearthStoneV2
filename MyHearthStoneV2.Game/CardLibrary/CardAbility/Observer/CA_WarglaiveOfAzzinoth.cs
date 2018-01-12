@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
         public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1)
         {
             BaseEquip equip = sourceCard as BaseEquip;
-            BaseHero baseHero = gameContext.GetUserContextByMyCard(sourceCard).Hero;
+            BaseHero baseHero = gameContext.DeskCards.GetHeroByIsFirst(gameContext.GetUserContextByMyCard(sourceCard).IsFirst);
             //沉默目标
             gameContext.DisableCardAbility(new List<BaseBiology>() {triggerCard as BaseBiology }, CardLocation.场上);
 
@@ -33,7 +33,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
             else
             {
                 BaseServant servant = triggerCard as BaseServant;
-                servant.BiologyByDamege(triggerCard, gameContext, equip.Damege);
+                servant.UnderAttack(gameContext, baseHero);
             }
             
             baseHero.Equip.Unload(gameContext);

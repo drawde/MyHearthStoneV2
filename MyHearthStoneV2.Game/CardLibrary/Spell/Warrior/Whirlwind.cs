@@ -21,7 +21,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
                 return "旋风斩";
             }
         }
-        public override int Cost { get; set; } = 0;
+        public override int Cost { get; set; } = 1;
 
         public override string Describe
         {

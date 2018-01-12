@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.Monitor
     /// 控制器监控器（保存游戏控制器对象、封装游戏对象的输出）
     /// </summary>
     [Serializable]
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]    
     public class ControlerMonitor: OnMethodBoundaryAspect
     {
         string _methodName = "";
@@ -57,12 +57,8 @@ namespace MyHearthStoneV2.Game.Monitor
                 DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.GameControler);
             }
             Controler_Base ctl = eventArgs.Instance as Controler_Base;
-            
-
-            #region 封装输出
-
-            #endregion
-            GameContextCache.SetContext(ctl.gameContext);
+      
+            GameContextCache.SetContext(ctl.GameContext);
             base.OnEntry(eventArgs);
         }
     }

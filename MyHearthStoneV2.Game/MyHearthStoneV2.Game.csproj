@@ -108,6 +108,7 @@
     <Compile Include="Context\ActionStatement.cs" />
     <Compile Include="Context\BaseUserContext.cs" />
     <Compile Include="Context\CardList.cs" />
+    <Compile Include="Context\DeskBoard.cs" />
     <Compile Include="Context\GameContext.cs" />
     <Compile Include="Context\GameContextCache.cs" />
     <Compile Include="Context\GameContextExtend.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Monitor\GameContextObserver.cs" />
     <Compile Include="Monitor\PlayerActionMonitor.cs" />
     <Compile Include="Monitor\PropertyChangedNotificationAttribute.cs" />
+    <Compile Include="Monitor\UserActionMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CardLibrary\Servant\BaseServant.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\Classical\KnifeJuggler.cs" />

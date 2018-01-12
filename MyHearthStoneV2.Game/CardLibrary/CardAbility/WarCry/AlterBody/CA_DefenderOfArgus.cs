@@ -14,9 +14,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
             if (gameContext.IsThisActivationUserCard(sourceCard))
             {
                 var player = gameContext.GetActivationUserContext();
+                List<BaseBiology> lstBiologys = gameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst);
                 if (location > 1)
                 {
-                    BaseServant left = player.DeskCards[location - 1] as BaseServant;
+                    BaseServant left = lstBiologys[location - 1] as BaseServant;
                     left.Abilities.Add(new Taunt());
                     left.Damage += 1;
                     left.Life += 1;
@@ -25,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
                 }
                 if (location < 8)
                 {
-                    BaseServant right = player.DeskCards[location - 1] as BaseServant;
+                    BaseServant right = lstBiologys[location - 1] as BaseServant;
                     right.Abilities.Add(new Taunt());
                     right.Damage += 1;
                     right.Life += 1;

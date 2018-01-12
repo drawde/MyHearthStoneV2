@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
         public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.打出一张法术牌 };
         public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1)
         {
-            foreach (var servant in gameContext.DeskCards.Where(c => c.CardType == CardType.随从).OrderBy(c => c.CastIndex))
+            foreach (var servant in gameContext.DeskCards.Where(c => c != null && c.CardType == CardType.随从).OrderBy(c => c.CastIndex))
             {
                 BaseServant sv = servant as BaseServant;
                 sv.BiologyByDamege(sourceCard, gameContext, 1);

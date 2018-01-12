@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
         {
             if (targetCardIndex > -1 && targetCardIndex != 0 && targetCardIndex != 8)
             {
-                BaseServant card = gameContext.GetCardByLocation(targetCardIndex) as BaseServant;
+                BaseServant card = gameContext.DeskCards[targetCardIndex] as BaseServant;
                 card.Damage += 2;
                 //card.Buffs.Add(sourceCard, new REV_JiaoXiaoDeZhongShi());
                 card.Abilities.Add(new REV_JiaoXiaoDeZhongShi());
