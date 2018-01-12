@@ -90,6 +90,7 @@
     <Compile Include="BaseBLL.cs" />
     <Compile Include="CardUtil.cs" />
     <Compile Include="GameBll.cs" />
+    <Compile Include="GameRecordBll.cs" />
     <Compile Include="GameTableBll.cs" />
     <Compile Include="InvitationBll.cs" />
     <Compile Include="LoginTokenBll.cs" />

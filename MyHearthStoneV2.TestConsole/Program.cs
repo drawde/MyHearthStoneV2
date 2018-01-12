@@ -41,10 +41,13 @@ namespace MyHearthStoneV2.TestConsole
             HS_Users mendicantbias = UsersBll.Instance.GetUserByAdmin("7CB46FE0E48E2A81FF3055927AB33B9C",
                 "DECC8686654B465E5313259325149A86");
 
+            
+
             string res = "";
             APIResultBase reslut = null;
             //res = Go(GameTableBll.Instance.GetTable("00009", "123"));
             string gameCode = GameBll.Instance.GetGameByTableCode("00009").GameCode;
+            var lstRec = GameRecordBll.Instance.GetGameRecord(gameCode, 1, 1);
 
             //ControllerProxy.SwitchCard(gameCode, drawde.UserCode, new List<string>() { });
 
