@@ -7,7 +7,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <summary>
         /// 选择的英雄
         /// </summary>
-        //public BaseHero Hero { get; set; }
+        //internal BaseHero Hero { get; set; }
 
         public string UserCode { get; set; }
         /// <summary>

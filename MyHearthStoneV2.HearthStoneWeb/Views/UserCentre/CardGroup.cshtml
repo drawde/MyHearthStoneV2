@@ -3,8 +3,9 @@
 @using MyHearthStoneV2.Game.CardLibrary
 @using MyHearthStoneV2.BLL
 @using MyHearthStoneV2.Game.CardLibrary.Hero
-@using System.Configuration
+@using MyHearthStoneV2.Common
 @using MyHearthStoneV2.Game
+@using System.Linq
 @{
     ViewBag.Title = "创建卡组";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,6 +20,7 @@
     List<Card> lstCards = CardUtil.GetCardInRedis();
     ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
     List<HS_UserCardGroupDetail> lstCardDetail = ViewBag.lstCardGroupDetail as List<HS_UserCardGroupDetail>;
+    var rr = Request;
 }
 @section css{
 <link href="/css/css3_3d.css" rel="stylesheet" />
@@ -65,7 +67,7 @@
                 <img src="/images/Druid.jpg">
             </a>
         </li>
-        @{
+        @*@{
             if (lstCards != null && lstCards.Count > 0)
             {
                 foreach (var card in lstCards.Where(c => c is BaseHero == false && c.IsDerivative == false).OrderBy(c => c.Cost))
@@ -80,7 +82,7 @@
                     </li>
                 }
             }
-        }
+        }*@
     </ul>
     <ul id="information">
         <li id="info1">

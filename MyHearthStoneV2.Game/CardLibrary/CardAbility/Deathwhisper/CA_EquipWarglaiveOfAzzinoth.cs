@@ -1,23 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyHearthStoneV2.Game.CardLibrary.Hero;
+﻿using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.Context;
-using MyHearthStoneV2.Game.CardLibrary.CardAction;
-using MyHearthStoneV2.Game.CardLibrary.CardAction.Hero;
 using MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical;
+using MyHearthStoneV2.Game.Parameter;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Controler;
+using MyHearthStoneV2.Game.Parameter.Controler;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Equip;
+using MyHearthStoneV2.Game.Parameter.Equip;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper
 {
     public class CA_EquipWarglaiveOfAzzinoth : BaseCardAbility
     {
-        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.随从死亡 };
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1)
+        public override AbilityType AbilityType { get; set; } = AbilityType.亡语;
+        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            BaseHero hero = gameContext.DeskCards.GetHeroByMyCard(sourceCard as BaseBiology);
-            hero.Equip(gameContext, gameContext.CreateNewCardInController<WarglaiveOfAzzinoth>());
+            BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByMyCard(actionParameter.MainCard as BaseBiology);
+            ControlerActionParameter ctlPara = new ControlerActionParameter()
+            {
+                GameContext = actionParameter.GameContext,
+                UserContext = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard)
+            };
+
+            WarglaiveOfAzzinoth warglaiveOfAzzinoth = new CreateNewCardInControllerAction<WarglaiveOfAzzinoth>().Action(ctlPara) as WarglaiveOfAzzinoth;
+            EquipActionParameter para = new EquipActionParameter()
+            {
+                GameContext = actionParameter.GameContext,
+                Equip = warglaiveOfAzzinoth,
+                Hero = hero,                
+            };
+            new LoadAction().Action(para);
+            //actionParameter.GameContext.AddActionStatement(new LoadEquipAction(), para);
+            return null;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.Context
     /// </summary>
     public class UserContext: BaseUserContext
     {
-        
+
 
         public CUsers User { get; set; }
 

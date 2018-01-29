@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Parameter;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
@@ -7,10 +8,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 嘲讽
     /// </summary>
     public class Taunt : BaseCardAbility
-    {        
-        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从入场 };
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
+    {
+        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从入场 };
+        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
+            return null;
         }        
     }
 }

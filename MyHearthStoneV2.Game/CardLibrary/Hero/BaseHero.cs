@@ -10,11 +10,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Hero
         /// <summary>
         /// 护甲值
         /// </summary>
-        public virtual int Ammo { get; set; }
-
-        public virtual Profession Profession { get; set; }
+        public virtual int Ammo { get; set; }        
 
         public override int Life { get; set; } = 30;
+        public override int InitialLife { get; set; } = 30;
+        public override int BuffLife { get; set; } = 30;
 
         public override CardType CardType { get; set; } = CardType.英雄;
 
@@ -22,5 +22,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Hero
         /// 装备
         /// </summary>
         public virtual BaseEquip Equip { get; set; }
+
+        /// <summary>
+        /// 英雄技能的费用
+        /// </summary>
+        public int HeroPowerCost { get; set; } = 2;
     }
 }

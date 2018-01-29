@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 namespace MyHearthStoneV2.Game.Context
 {
+    /// <summary>
+    /// 棋盘对象（扩展了泛型集合，便于更方便的获取场上的牌）
+    /// </summary>
     public class DeskBoard : List<BaseBiology>
     {
         public List<BaseBiology> FirstPlayerDeskCards()

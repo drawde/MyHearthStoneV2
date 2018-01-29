@@ -2,16 +2,23 @@
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Linq;
+using MyHearthStoneV2.Game.Parameter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
 {
-    public class REV_DefenderOfArgus: CA_DefenderOfArgus
+    internal class REV_DefenderOfArgus: CA_DefenderOfArgus
     {
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
+        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            BaseServant card = sourceCard as BaseServant;
+            BaseServant card = actionParameter.MainCard as BaseServant;
             card.Damage -= 1;
             card.Life -= 1;
+            card.BuffDamage -= 1;
+            card.BuffLife -= 1;
+            if (card.Life < 1)
+            {
+                card.Life = 1;
+            }
             if (card.Abilities.Any(c => c is Taunt))
             {
                 Taunt taunt = card.Abilities.First(c => c is Taunt) as Taunt;
@@ -23,6 +30,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
             //    var buff = card.Buffs.First(c => c.Value is Taunt).Key;
             //    card.Buffs.Remove(buff);
             //}
+            return null;
         }
     }
 }

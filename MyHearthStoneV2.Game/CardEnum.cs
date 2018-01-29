@@ -65,6 +65,8 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public enum Profession
     {
+        None = 0,
+        Neutral = 10,
         Hunter = 1,
         Warlock = 2,
         Warrior = 3,
@@ -103,7 +105,7 @@ namespace MyHearthStoneV2.Game
     }
 
     /// <summary>
-    /// 卡牌技能施放时机
+    /// 触发卡牌技能的方式
     /// </summary>
     public enum SpellCardAbilityTime
     {
@@ -146,13 +148,14 @@ namespace MyHearthStoneV2.Game
         对方打出法术牌后 = 112,
 
         //********************************************************//
-        战吼 = 1000,        
+   
         随从攻击 = 1001,
-        打出一张法术牌 = 1002,
+        //打出一张法术牌 = 1002,
         随从受伤= 1003,
         英雄受伤 = 1004,
-        随从死亡 = 1005,
+        //随从死亡 = 1005,
         重置攻击次数 = 1006,
+        英雄攻击 = 1007,
     }
 
     public enum AbilityType
@@ -167,12 +170,28 @@ namespace MyHearthStoneV2.Game
         激怒 = 7,
         剧毒 = 8,
         嘲讽 = 9,
+        冲锋 = 10,
     }
 
     /// <summary>
-    /// 
+    /// 卡牌行为类型
     /// </summary>
     public enum ActionType
     {
+        进场 = 1,
+        扣血 = 2,
+        攻击 = 3,
+        受到伤害 = 4,
+        死亡 = 5,
+        受到攻击 = 6,
+        重置攻击次数 = 7
+    }
+
+    /// <summary>
+    /// 结算优先级
+    /// </summary>
+    public enum PriorityOfSettlement
+    {
+        无 = 0
     }
 }

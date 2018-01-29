@@ -20,10 +20,10 @@ namespace MyHearthStoneV2.Game.Controler
         /// <summary>
         /// 游戏环境对象
         /// </summary>
-        public GameContext GameContext { get; set; }
+        internal GameContext GameContext { get; set; }
 
 
-        [ControlerMonitor, PlayerActionMonitor]
+        [ControlerMonitor, PlayerActionMonitor, UserActionMonitor]
         internal void GameStart(HS_Game game, CUsers firstPlayer, CUsers secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
         {                        
             #region 加载玩家卡组

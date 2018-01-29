@@ -1,0 +1,26 @@
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
+{
+    public class InnerRage : BaseSpell
+    {
+        public override Rarity Rare { get; set; } = Rarity.普通;
+
+        public override string Name { get; set; } = "怒火中烧";
+        public override int Cost { get; set; } = 0;
+        public override int InitialCost { get; set; } = 0;
+        public override int BuffCost { get; set; } = 0;
+        public override string Describe { get; set; } = "对一个随从造成1点伤害，该随从获得+2攻击力。";
+
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_CruelTaskmaster() { AbilityType  = AbilityType.法术} };
+
+        public override string BackgroudImage { get; set; } = "W17_A197_D.png";
+        public override Profession Profession { get; set; } = Profession.Warrior;
+    }
+}

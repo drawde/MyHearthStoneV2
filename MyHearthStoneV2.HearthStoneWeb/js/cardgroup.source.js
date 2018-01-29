@@ -2,6 +2,12 @@
     if ($("#saveCardGroup")) {
         $("#saveCardGroup").click(saveCardGroup);
     }
+    var interval = setInterval(function () {
+        if (!!apiTime && !!signObj) {
+            clearInterval(interval);
+            getCards();
+        }
+    });
 });
 function saveCardGroup() {
     if (cardCount != 30) {
@@ -28,5 +34,34 @@ function saveCardGroup() {
                 window.location = "/UserCentre/MyCardGroups";
             }
         });
+    });
+}
+function getCards() {
+    var param = "{\"Profession\":\"" + window.location.hash.replace('#', '') + "\"}";
+    ajaxGetData("/Cards/GetCard", param, signObj, function (data) {
+        if (data.code == 100) {
+            $("#cards").html("");
+            $("#cards").append("<li>"+
+                "<div class=\"details\">"+
+                    "<h3>重新选择</h3>"+
+                "</div>"+
+                "<a class=\"more\" href=\"javascript:repick();\">"+
+                    "<img src=\"/images/Druid.jpg\">"+
+                "</a>"+
+            "</li>");
+            for (var i = 0; i < data.data.length; i++) {
+                $("#cards").append("<li>"+
+                        "<div class=\"details\">"+
+                            "<h3>" + data.data[i].Name + "</h3>" +
+                        "</div>"+
+                        "<a class=\"more\" href=\"javascript:;\" cardCode=\"" + data.data[i].CardCode + "\" cardName=\"" + data.data[i].Name + "\">" +
+                            "<img style=\"width: 290px;height: 200px\" src=\"/images/cards/texture/" + data.data[i].BackgroudImage + "\">" +
+                        "</a>"+
+                    "</li>");
+            }
+            $("#cards a[cardCode]").click(function () {
+                pickCard($(this));
+            });
+        }
     });
 }

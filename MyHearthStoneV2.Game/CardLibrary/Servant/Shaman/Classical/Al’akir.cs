@@ -17,6 +17,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical
         public override int InitialLife { get; set; } = 4;
         public override int InitialCost { get; set; } = 8;
 
+        public override int BuffDamage { get; set; } = 3;
+        public override int BuffLife { get; set; } = 4;
+        public override int BuffCost { get; set; } = 8;
         public override CardLocation CardLocation { get; set; }
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
@@ -44,5 +47,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical
             }
         }
         public override string BackgroudImage { get; set; } = "W14_a190_D.png";
+
+        public override Profession Profession { get; set; } = Profession.Shaman;
     }
 }

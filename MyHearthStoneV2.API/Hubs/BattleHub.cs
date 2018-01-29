@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.API.Hubs
             string userCode = jobj["UserCode"].TryParseString();
             string userName = jobj["NickName"].TryParseString();
             string gameCode = jobj["GameCode"].TryParseString();
-            var res = ControllerProxy.GetGame(gameCode, userCode);
+            var res = Controller_Base_Proxy.GetGame(gameCode, userCode);
             if (res.code == (int)OperateResCodeEnum.成功)
             {
                 GameContextOutput chessBoard = ((APISingleModelResult<GameContextOutput>)res).data;
@@ -48,10 +48,10 @@ namespace MyHearthStoneV2.API.Hubs
             string gameCode = jobj["GameCode"].TryParseString();
             string switchCards = jobj["SwitchCards"].TryParseString();
 
-            var res = ControllerProxy.GetGame(gameCode, userCode);
+            var res = Controller_Base_Proxy.GetGame(gameCode, userCode);
             if (res.code == (int)OperateResCodeEnum.成功)
             {
-                res = ControllerProxy.SwitchCard(gameCode, userCode, switchCards.Split(",").ToList());
+                res = Controller_Base_Proxy.SwitchCard(gameCode, userCode, switchCards.Split(",").ToList());
                 if (res.code == (int)OperateResCodeEnum.成功)
                 {
                     var userCard = ((APISingleModelResult<BaseUserContext>)res).data;
@@ -76,7 +76,7 @@ namespace MyHearthStoneV2.API.Hubs
             string userCode = jobj["UserCode"].TryParseString();
             string gameCode = jobj["GameCode"].TryParseString();
 
-            var res = ControllerProxy.GetGame(gameCode, userCode);
+            var res = Controller_Base_Proxy.GetGame(gameCode, userCode);
             if (res.code == (int)OperateResCodeEnum.成功)
             {
                 var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
@@ -94,13 +94,13 @@ namespace MyHearthStoneV2.API.Hubs
             string CardInGameCode = jobj["CardInGameCode"].TryParseString();
             int Target = jobj["Target"].TryParseInt(-1);
 
-            var res = ControllerProxy.GetGame(GameCode, UserCode);
+            var res = Controller_Base_Proxy.GetGame(GameCode, UserCode);
             if (res.code == (int)OperateResCodeEnum.成功)
             {
                 var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
                 string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
-                res = ControllerProxy.CastSpell(GameCode, UserCode, CardInGameCode, Target);
-                var gamContext = ControllerProxy.GetGame(GameCode, enemyUserCode);
+                res = Controller_Base_Proxy.CastSpell(GameCode, UserCode, CardInGameCode, Target);
+                var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
                 Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
                 return JsonConvert.SerializeObject(res);
             }
@@ -117,13 +117,13 @@ namespace MyHearthStoneV2.API.Hubs
             int Location = jobj["Location"].TryParseInt();
             int Target = jobj["Target"].TryParseInt(-1);
 
-            var res = ControllerProxy.GetGame(GameCode, UserCode);
+            var res = Controller_Base_Proxy.GetGame(GameCode, UserCode);
             if (res.code == (int)OperateResCodeEnum.成功)
             {
                 var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
                 string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
-                res = ControllerProxy.CastServant(GameCode, UserCode, CardInGameCode, Location, Target);
-                var gamContext = ControllerProxy.GetGame(GameCode, enemyUserCode);
+                res = Controller_Base_Proxy.CastServant(GameCode, UserCode, CardInGameCode, Location, Target);
+                var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
                 Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
                 return JsonConvert.SerializeObject(res);
             }
@@ -138,13 +138,13 @@ namespace MyHearthStoneV2.API.Hubs
             string GameCode = jobj["GameCode"].TryParseString();
 
 
-            var res = ControllerProxy.GetGame(GameCode, UserCode);
+            var res = Controller_Base_Proxy.GetGame(GameCode, UserCode);
             if (res.code == (int)OperateResCodeEnum.成功)
             {
                 var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
                 string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
-                res = ControllerProxy.TurnEnd(GameCode, UserCode);
-                var gamContext = ControllerProxy.GetGame(GameCode, enemyUserCode);
+                res = Controller_Base_Proxy.TurnEnd(GameCode, UserCode);
+                var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
                 Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
                 return JsonConvert.SerializeObject(res);
             }
@@ -159,13 +159,13 @@ namespace MyHearthStoneV2.API.Hubs
             string GameCode = jobj["GameCode"].TryParseString();
 
 
-            var res = ControllerProxy.GetGame(GameCode, UserCode);
+            var res = Controller_Base_Proxy.GetGame(GameCode, UserCode);
             if (res.code == (int)OperateResCodeEnum.成功)
             {
                 var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
                 string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
-                res = ControllerProxy.TurnStart(GameCode, UserCode);
-                var gamContext = ControllerProxy.GetGame(GameCode, enemyUserCode);
+                res = Controller_Base_Proxy.TurnStart(GameCode, UserCode);
+                var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
                 Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
                 return JsonConvert.SerializeObject(res);
             }

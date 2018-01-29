@@ -2,7 +2,7 @@
 {
     public class Shaman : BaseHero
     {
-        public override string Name { get; } = "萨满";
+        public override string Name { get; set; } = "萨满";
         public override Profession Profession { get; set; } = Profession.Shaman;
     }
 }

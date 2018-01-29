@@ -25,6 +25,8 @@ using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.ShortCodeBll;
 using MyHearthStoneV2.Game.Controler.Proxy;
 using MyHearthStoneV2.Model.CustomModels;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Warrior;
 
 namespace MyHearthStoneV2.TestConsole
 {
@@ -32,60 +34,69 @@ namespace MyHearthStoneV2.TestConsole
     {
         static void Main(string[] args)
         {
-            //CardUtil.AddToRedis();
+            CardUtil.AddToRedis();
             //List<Card> lstCards = CardUtil.GetCardInRedis();
             //var lst = ShortCodeBusiness.Instance.GetList();
 
-            HS_Users drawde = UsersBll.Instance.GetUserByAdmin("58657C04BCADF3C6AA26F2B79D24994D",
-                "DECC8686654B465E5313259325149A86");
-            HS_Users mendicantbias = UsersBll.Instance.GetUserByAdmin("7CB46FE0E48E2A81FF3055927AB33B9C",
-                "DECC8686654B465E5313259325149A86");
-
-            
+            string drawde = "58657C04BCADF3C6AA26F2B79D24994D";
+            string mendicantbias = "7CB46FE0E48E2A81FF3055927AB33B9C";
 
             string res = "";
             APIResultBase reslut = null;
+            GameContext gameContext = null;
             //res = Go(GameTableBll.Instance.GetTable("00009", "123"));
             string gameCode = GameBll.Instance.GetGameByTableCode("00009").GameCode;
-            var lstRec = GameRecordBll.Instance.GetGameRecord(gameCode, 1, 1);
-
-            //ControllerProxy.SwitchCard(gameCode, drawde.UserCode, new List<string>() { });
-
-            //reslut = ControllerProxy.SwitchCard(gameCode, drawde.UserCode, new List<string>() { "0", "1", "2" });
-            //reslut = ControllerProxy.SwitchCard(gameCode, mendicantbias.UserCode, new List<string>() { "0", "1", "2", "3" });
-
-            //reslut = ControllerProxy.CastSpell(gameCode, drawde.UserCode, "60", -1);
-            //reslut = ControllerProxy.CastSpell(gameCode, mendicantbias.UserCode, "60", -1);
-
-            //reslut = ControllerProxy.CastServant(gameCode, drawde.UserCode, "20", 3, 1);
-            //reslut = ControllerProxy.CastServant(gameCode, mendicantbias.UserCode, "36", 11, -1);
-
-            //reslut = ControllerProxy.ServantAttack(gameCode, drawde.UserCode, "11", 8);
-            //reslut = ControllerProxy.ServantAttack(gameCode, mendicantbias.UserCode, "40", 2);
-
-
-            //reslut = ControllerProxy.TurnEnd(gameCode, drawde.UserCode);
-            //reslut = ControllerProxy.TurnEnd(gameCode, mendicantbias.UserCode);
-
-            //reslut = ControllerProxy.TurnStart(gameCode, drawde.UserCode);
-            //reslut = ControllerProxy.TurnStart(gameCode, mendicantbias.UserCode);
-
-            //reslut = ControllerProxy.CastHeroPower(gameCode, drawde.UserCode);
-            //reslut = ControllerProxy.CastHeroPower(gameCode, mendicantbias.UserCode);
-
-            //reslut = ControllerProxy.HeroAttack(gameCode, drawde.UserCode, 10);
-            //reslut = ControllerProxy.HeroAttack(gameCode, mendicantbias.UserCode, "30", 4);
-
-            var gameContext = GetContext(gameCode);
-
-
+            gameContext = GetContext(gameCode);
+            //gameContext.Players[0].Power = 10;
             //gameContext.Players[1].Power = 10;
+            //GameTester.DrawCard(gameContext, 7);                  
             //SetContext(gameContext);
+
+            //var lstRec = GameRecordBll.Instance.GetGameRecord(gameCode, 10, 1);
+            //for (int i = 0; i < lstRec.Count; i++)
+            //{
+            //    JObject obj = JObject.Parse(lstRec[i].GameContext);
+            //    string deskCard = obj["DeskCards"].ToString();
+            //}
+            //Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() { });
+
+            //reslut = Controller_Base_Proxy.LoadEquip(gameCode, drawde, "50");
+            //reslut = Controller_Base_Proxy.LoadEquip(gameCode, mendicantbias, "20");
+
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() { "1", "2" });
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { "0", "1", "2" });
+
+            //reslut = Controller_Base_Proxy.CastSpell(gameCode, drawde, "43", 1);
+            //reslut = Controller_Base_Proxy.CastSpell(gameCode, mendicantbias, "28", -1);
+            
+            //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "35", 9, -1);
+            //reslut = Controller_Base_Proxy.CastServant(gameCode, mendicantbias, "25", 5, -1);
+
+            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, drawde, "31", 1);
+            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "27", 8);
+
+            //reslut = Controller_Base_Proxy.CastHeroPower(gameCode, drawde);
+            //reslut = Controller_Base_Proxy.CastHeroPower(gameCode, mendicantbias);
+
+            //reslut = Controller_Base_Proxy.HeroAttack(gameCode, drawde, 5);
+            //reslut = Controller_Base_Proxy.HeroAttack(gameCode, mendicantbias, 8);
+
+
+
+            //GameTester.CastServant(gameContext, "36");
+            //GameTester.CastServant(gameContext, "37");
+            //GameTester.TurnEnd(gameContext);
+            //SetContext(gameContext);            
+
+            gameContext = GetContext(gameCode);            
+            //gameContext.DeskCards[1].RemainAttackTimes = 1;
+            //gameContext.DrawCard(true, 6);
+            //gameContext.Players[0].Power = 10;
+
+            
+            //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "0", 1, -1);
             //gameContext.DeskCards[2] = null;
             //gameContext.Players[1].DeskCards[2].RemainAttackTimes = 1;
-
-            //SetContext(gameContext);
-
             Console.WriteLine("=================End=================");
             Console.ReadKey();
         }
@@ -153,7 +164,7 @@ namespace MyHearthStoneV2.TestConsole
             string gameCode = "";
 
             //如果游戏记录为空，则创建游戏
-            if (game == null || ControllerProxy.GetGame(game.GameCode) == null)
+            if (game == null || Controller_Base_Proxy.GetGame(game.GameCode) == null)
             {
                 CUsers firstUser = UsersBll.Instance.GetUser(firstPlayerCode);
                 CUsers secondUser = UsersBll.Instance.GetUser(secondPlayerCode);
@@ -169,11 +180,11 @@ namespace MyHearthStoneV2.TestConsole
                 APIResultBase res = null;
                 if (whoIsFirst % 2 == 0)
                 {
-                    res = ControllerProxy.CreateGame(gameTable.TableCode, firstUser, secondUser, firstCardGroup, secondCardGroup, game, firstUserProfession, secondUserProfession);
+                    res = Controller_Base_Proxy.CreateGame(gameTable.TableCode, firstUser, secondUser, firstCardGroup, secondCardGroup, game, firstUserProfession, secondUserProfession);
                 }
                 else
                 {
-                    res = ControllerProxy.CreateGame(gameTable.TableCode, secondUser, firstUser, secondCardGroup, firstCardGroup, game, secondUserProfession, firstUserProfession);
+                    res = Controller_Base_Proxy.CreateGame(gameTable.TableCode, secondUser, firstUser, secondCardGroup, firstCardGroup, game, secondUserProfession, firstUserProfession);
                 }
                 if (res.code == (int)OperateResCodeEnum.成功)
                 {

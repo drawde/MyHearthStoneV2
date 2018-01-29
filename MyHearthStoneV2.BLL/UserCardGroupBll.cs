@@ -73,16 +73,30 @@ namespace MyHearthStoneV2.BLL
                     return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
                 }
                 int count = cardstr.Substring(cardstr.LastIndexOf("X") + 1).Trim().TryParseInt();
+                if (count > 2 || count < 1)
+                {
+                    return JsonModelResult.PackageFail(OperateResCodeEnum.同一张卡牌数量不能超过两张);
+                }
+                Card card = lstCards.First(c => c.CardCode == cardCode);
+                if (card.Rare == Rarity.传说 && count > 1)
+                {
+                    return JsonModelResult.PackageFail(OperateResCodeEnum.同一张传说级卡牌最多只能带一张);
+                }
                 cardCount += count;
-                dicCardGroup.Add(lstCards.First(c => c.CardCode == cardCode), count);
+                dicCardGroup.Add(card, count);
             }
             if (cardCount != 30)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
             #region 验证卡牌是否有效
+            Profession pro = (Profession)Enum.Parse(typeof(Profession), Profession);
+            if (dicCardGroup.Any(c => c.Key.Profession != pro && c.Key.Profession != Game.Profession.Neutral))
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.只能携带本职业的牌或中立牌);
+            }
             #endregion
-            using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
+                using (MyHearthStoneV2Context context = new MyHearthStoneV2Context())
             {
                 HS_UserCardGroup cardGroupModel = new HS_UserCardGroup();
                 if (!GroupCode.IsNullOrEmpty())

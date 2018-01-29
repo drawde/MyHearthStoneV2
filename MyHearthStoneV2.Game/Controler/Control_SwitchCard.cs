@@ -10,6 +10,8 @@ using MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.Game.Monitor;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Controler;
+using MyHearthStoneV2.Game.Parameter.Controler;
 
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -20,7 +22,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// </summary>
         /// <param name="userCode"></param>
         /// <param name="lstInitCardIndex"></param>        
-        [ControlerMonitor, PlayerActionMonitor]
+        [ControlerMonitor, PlayerActionMonitor, UserActionMonitor]
         internal void SwitchCard(string userCode, List<int> lstInitCardIndex)
         {
             UserContext uc = GameContext.Players.First(c => c.User.UserCode == userCode);
@@ -32,13 +34,14 @@ namespace MyHearthStoneV2.Game.Controler
                 {
                     uc.HandCards[lstInitCardIndex[i]] = uc.StockCards[newIdx[i]];
                 }
-
-                //从牌库减去手牌
-                foreach (int i in newIdx.OrderByDescending(c => c))
-                {
-                    uc.StockCards.RemoveAt(i);
-                }
             }
+
+            //从牌库减去手牌
+            foreach (var card in uc.HandCards)
+            {
+                uc.StockCards.RemoveAt(uc.StockCards.FindIndex(c => c.CardInGameCode == card.CardInGameCode));
+            }
+
             //打乱牌库顺序
             uc.StockCards.Sort(delegate (Card a, Card b) { return RandomUtil.CreateRandomInt(-1, 1); });
 
@@ -61,9 +64,8 @@ namespace MyHearthStoneV2.Game.Controler
 
                 var secondUser = GameContext.Players.First(c => c.IsFirst == false);
                 //后手玩家添加一枚幸运币
-                var luckyCoin = GameContext.CreateNewCardInController<LuckyCoin>();
+                var luckyCoin = new CreateNewCardInControllerAction<LuckyCoin>().Action(new ControlerActionParameter() { GameContext = GameContext, UserContext = secondUser }) as LuckyCoin;
                 secondUser.HandCards.Add(luckyCoin);
-                secondUser.AllCards.Add(luckyCoin);
                 GameContext.AllCard.Add(luckyCoin);
                 secondUser.IsActivation = false;
 

@@ -185,7 +185,7 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
             string gameCode = "";
 
             //如果游戏记录为空，则创建游戏
-            if (game == null || ControllerProxy.GetGame(game.GameCode) == null)
+            if (game == null || Controller_Base_Proxy.GetGame(game.GameCode) == null)
             {
                 CUsers firstUser = UsersBll.Instance.GetUser(firstPlayerCode);
                 CUsers secondUser = UsersBll.Instance.GetUser(secondPlayerCode);
@@ -201,11 +201,11 @@ namespace MyHearthStoneV2.API.Hubs.ChosenCardGroup
                 APIResultBase res = null;
                 if (whoIsFirst % 2 == 0)
                 {
-                    res = ControllerProxy.CreateGame(gameTable.TableCode, firstUser, secondUser, firstCardGroup, secondCardGroup, game, firstUserProfession, secondUserProfession);
+                    res = Controller_Base_Proxy.CreateGame(gameTable.TableCode, firstUser, secondUser, firstCardGroup, secondCardGroup, game, firstUserProfession, secondUserProfession);
                 }
                 else
                 {
-                    res = ControllerProxy.CreateGame(gameTable.TableCode, secondUser, firstUser, secondCardGroup, firstCardGroup, game, secondUserProfession, firstUserProfession);
+                    res = Controller_Base_Proxy.CreateGame(gameTable.TableCode, secondUser, firstUser, secondCardGroup, firstCardGroup, game, secondUserProfession, firstUserProfession);
                 }
                 if (res.code == (int)OperateResCodeEnum.成功)
                 {

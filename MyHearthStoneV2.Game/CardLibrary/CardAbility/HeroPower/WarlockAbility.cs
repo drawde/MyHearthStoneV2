@@ -1,17 +1,28 @@
-﻿using MyHearthStoneV2.Game.Context;
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
+using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Controler;
+using MyHearthStoneV2.Game.Parameter;
+using MyHearthStoneV2.Game.Parameter.Player;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
 {
-    public class WarlockAbility : BaseHeroAbility
+    internal class WarlockAbility : BaseHeroAbility
     {
         public override string PowerImage { get; } = "Warlock.png";
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1)
+        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            var uc = gameContext.GetActivationUserContext();
-            var hero = gameContext.DeskCards.GetHeroByIsFirst(uc.IsFirst);
+            var uc = actionParameter.GameContext.GetActivationUserContext();
+            var hero = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(uc.IsFirst);
             hero.Life -= 2;
-            gameContext.DrawCard();
-            uc.RemainingHeroPowerCastCount -= 1;
+            DrawCardActionParameter para = new DrawCardActionParameter()
+            {
+                DrawCount = 1,
+                GameContext = actionParameter.GameContext,
+                UserContext = uc
+            };
+            new DrawCardAction().Action(para);
+            //actionParameter.GameContext.DrawCard();
+            return null;
         }
     }
 }

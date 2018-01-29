@@ -16,6 +16,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialLife { get; set; } = 5;
         public override int InitialCost { get; set; } = 4;
 
+        public override int BuffDamage { get; set; } = 3;
+        public override int BuffLife { get; set; } = 5;
+        public override int BuffCost { get; set; } = 4;
+
         public override string Describe
         {
             get
@@ -35,14 +39,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_VioletTeacher() };
 
 
-        public override string Name
-        {
-            get
-            {
-                return "紫罗兰教师";
-            }
-        }
+        public override string Name { get; set; } = "紫罗兰教师";
 
         public override string BackgroudImage { get; set; } = "W7_064_D.png";
+        public override Profession Profession { get; set; } = Profession.Neutral;
     }
 }

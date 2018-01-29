@@ -2,24 +2,27 @@
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Controler;
+using MyHearthStoneV2.Game.Parameter;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
 {
     public class CA_JiaoXiaoDeZhongShi : BaseCardAbility
     {
-        public override BuffTimeLimit BuffTime { get; } = BuffTimeLimit.己方回合结束;
-        public override CastStyle CastStyle { get; } = CastStyle.随从;
+        public override CastStyle CastStyle { get; set; } = CastStyle.随从;
         public override CastCrosshairStyle CastCrosshairStyle { get; } = CastCrosshairStyle.单个;
 
-        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.战吼 };
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
+        public override AbilityType AbilityType { get; set; } = AbilityType.战吼;
+        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            if (targetCardIndex > -1 && targetCardIndex != 0 && targetCardIndex != 8)
-            {
-                BaseServant card = gameContext.DeskCards[targetCardIndex] as BaseServant;
-                card.Damage += 2;
+            BaseServant servant = actionParameter.SecondaryCard as BaseServant;
+            if (servant.DeskIndex > -1 && servant.DeskIndex != 0 && servant.DeskIndex != 8)
+            {                
+                servant.Damage += 2;
+                servant.BuffDamage += 2;
                 //card.Buffs.Add(sourceCard, new REV_JiaoXiaoDeZhongShi());
-                card.Abilities.Add(new REV_JiaoXiaoDeZhongShi());
+                servant.Abilities.Add(new REV_JiaoXiaoDeZhongShi());
             }
+            return null;
         }
     }
 }

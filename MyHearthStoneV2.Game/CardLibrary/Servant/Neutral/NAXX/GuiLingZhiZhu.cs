@@ -16,6 +16,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
         public override int InitialDamage { get; set; } = 1;
         public override int InitialLife { get; set; } = 2;
         public override int InitialCost { get; set; } = 2;
+
+        public override int BuffDamage { get; set; } = 1;
+        public override int BuffLife { get; set; } = 2;
+        public override int BuffCost { get; set; } = 2;
         public override string Describe
         {
             get
@@ -34,12 +38,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
         
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_GuiLingZhiZhu() };
 
-        public override string Name
-        {
-            get
-            {
-                return "鬼灵爬行者";
-            }
-        }
+        public override string Name { get; set; } = "鬼灵爬行者";
+        public override Profession Profession { get; set; } = Profession.Neutral;
     }
 }

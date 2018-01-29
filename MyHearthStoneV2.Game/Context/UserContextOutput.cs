@@ -8,7 +8,7 @@ namespace MyHearthStoneV2.Game.Context
     /// 用户上下文（用于输出）
     /// </summary>
     public class UserContextOutput : BaseUserContext
-    {        
+    {
         /// <summary>
         /// 玩家的手牌
         /// </summary>
@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <summary>
         /// 玩家开场摸的牌
         /// </summary>
-        public List<Card> InitCards { get; set; }        
+        public List<Card> InitCards { get; set; }
 
         public BaseHero Hero { get; set; }
     }

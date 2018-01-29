@@ -189,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cards\" />
     <Folder Include="Views\Game\" />
     <Folder Include="Views\Option\" />
     <Folder Include="Views\Saloon\" />
@@ -199,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CardsController.cs" />
     <Compile Include="Controllers\OptionController.cs" />
     <Compile Include="Controllers\SaloonController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

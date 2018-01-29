@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Parameter;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
@@ -8,11 +9,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// </summary>
     public class HolyShield : BaseCardAbility
     {
-        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从受到伤害后 };
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location)
+        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从受到伤害前 };
+        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             //BaseBiology bb = sourceCard as BaseBiology;
-            sourceCard.Abilities.RemoveAt(sourceCard.Abilities.FindIndex(c => c == this));
+            actionParameter.MainCard.Abilities.RemoveAt(actionParameter.MainCard.Abilities.FindIndex(c => c == this));
+            return null;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.Parameter;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary
@@ -6,7 +7,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
     /// <summary>
     /// 卡牌基类接口
     /// </summary>
-    public abstract class Card
+    public abstract class Card: IActionOutputParameter
     {
         /// <summary>
         /// 费用
@@ -20,6 +21,11 @@ namespace MyHearthStoneV2.Game.CardLibrary
         public virtual int InitialCost { get; set; }
 
         /// <summary>
+        /// 被法术或技能修改过的费用
+        /// </summary>
+        public virtual int BuffCost { get; set; }
+
+        /// <summary>
         /// 卡牌在一局游戏中的编号
         /// </summary>
         public virtual string CardInGameCode { get; set; }
@@ -27,16 +33,16 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 名称
         /// </summary>
-        public virtual string Name { get; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// 卡牌描述
         /// </summary>
-        public virtual string Describe { get; }
+        public virtual string Describe { get; set; }
         /// <summary>
         /// 稀有程度
         /// </summary>
-        public virtual Rarity Rare { get; }
+        public virtual Rarity Rare { get; set; }
 
         public virtual CardLocation CardLocation { get; set; } = CardLocation.牌库;
 
@@ -48,7 +54,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 是否是某张牌的衍生物（如鬼灵爬行者 => 鬼灵蜘蛛）
         /// </summary>
-        public virtual bool IsDerivative { get; } = false;
+        public virtual bool IsDerivative { get; set; } = false;
 
         /// <summary>
         /// 卡牌技能
@@ -63,5 +69,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// 当前这张牌在当前游戏环境中的打出顺序（用于结算队列）
         /// </summary>
         public virtual int CastIndex { get; set; } = 0;
+
+        public virtual Profession Profession { get; set; }
     }
 }

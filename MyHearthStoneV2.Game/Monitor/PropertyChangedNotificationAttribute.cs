@@ -42,7 +42,7 @@ namespace MyHearthStoneV2.Game.Monitor
                     life = int.Parse(this.GetPropertyValue(eventArgs.Instance, property).ToString());
                     if (life == 0)
                     {
-                        //var mths = eventArgs.Instance.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                        //var mths = eventArgs.Instance.GetType().GetMethods(BindingFlags.Nonpublic | BindingFlags.public | BindingFlags.Instance);
                         //foreach (var mth in mths)
                         //{
 

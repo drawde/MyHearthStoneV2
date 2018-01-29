@@ -3,9 +3,13 @@ using PostSharp.Aspects;
 using System;
 using System.Linq;
 using MyHearthStoneV2.Game.Context;
-using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Common.Util;
 using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAction;
+using MyHearthStoneV2.Log;
+using System.Reflection;
+using MyHearthStoneV2.Model;
+
 namespace MyHearthStoneV2.Game.Monitor
 {
     /// <summary>
@@ -15,22 +19,26 @@ namespace MyHearthStoneV2.Game.Monitor
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class UserActionMonitor : OnMethodBoundaryAspect
     {
+        string _methodName = "";
+        string _className = "";
+        public override void CompileTimeInitialize(MethodBase method, AspectInfo aspectInfo)
+        {
+            _className = method.DeclaringType.Name;
+            _methodName = method.Name;
+        }
+
+
+
         public override void OnExit(MethodExecutionArgs eventArgs)
         {
             Controler_Base ctl = eventArgs.Instance as Controler_Base;
-            
-            //进行死亡检测
-            if (ctl.GameContext.DeskCards.Any(c => c != null && c.Life < 1))
-            {
-                //先按入场顺序排列
-                var lstBiology = ctl.GameContext.DeskCards.Where(c => c != null && c.Life < 1).OrderBy(x => x.CastIndex);
-                foreach (var bio in lstBiology)
-                {
-                    bio.BiologyDead(ctl.GameContext, null);
-                    //ctl.gameContext.TriggerCardAbility(new List<Card>() { bio }, SpellCardAbilityTime.己方随从入坟场);                    
-                }
-            }
 
+            ctl.GameContext.QueueSettlement();
+
+            if (eventArgs.Arguments != null && eventArgs.Arguments.Count > 0)
+            {
+                DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.GameControler);
+            }
             GameContextCache.SetContext(ctl.GameContext);
             base.OnEntry(eventArgs);
         }

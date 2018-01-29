@@ -15,7 +15,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
         public override int InitialLife { get; set; } = 1;
         public override int InitialCost { get; set; } = 1;
 
-        public override bool IsDerivative { get; } = true;
+        public override int BuffDamage { get; set; } = 1;
+        public override int BuffLife { get; set; } = 1;
+        public override int BuffCost { get; set; } = 1;
+
+        public override bool IsDerivative { get; set; } = true;
         public override string Describe
         {
             get
@@ -33,12 +37,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
         }
 
         //public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_ServantAttack() };
-        public override string Name
-        {
-            get
-            {
-                return "鬼灵蜘蛛";
-            }
-        }        
+        public override string Name { get; set; } = "鬼灵蜘蛛";
+        public override Profession Profession { get; set; } = Profession.Neutral;
     }
 }

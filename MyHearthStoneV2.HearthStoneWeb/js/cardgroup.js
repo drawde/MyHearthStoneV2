@@ -2,9 +2,7 @@
     $("#grid a").click(function () {
         $("#grid").fadeOut(500, function () { $("#cards").fadeIn(500); classie.toggle(document.getElementById('cbp-spmenu-s2'), 'cbp-spmenu-open'); });
     });
-    $("#cards a[cardCode]").click(function () {
-        pickCard($(this));
-    });
+    
     if (!!groupCode) {
         $("#grid").fadeOut(500, function () { $("#cards").fadeIn(500); classie.toggle(document.getElementById('cbp-spmenu-s2'), 'cbp-spmenu-open'); });
     }

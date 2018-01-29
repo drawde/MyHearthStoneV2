@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction
     /// <summary>
     /// 卡牌动作基类（跪求C#8.0）
     /// </summary>
-    public static class BaseCardAction
+    internal static class BaseCardAction
     {
     }
 }

@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Controler;
+using MyHearthStoneV2.Game.Parameter;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
     public class AppendPower : BaseCardAbility
     {
-        public override BuffTimeLimit BuffTime { get; } = BuffTimeLimit.己方回合结束;
-        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.打出一张法术牌 };
-        public override void CastAbility(GameContext gameContext, Card triggerCard, Card sourceCard, int targetCardIndex, int location = -1)
+        public override AbilityType AbilityType { get; set; } = AbilityType.法术;
+        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            gameContext.GetActivationUserContext().Power += 1;
+            actionParameter.GameContext.GetActivationUserContext().Power += 1;
+            return null;
         }
     }
 }

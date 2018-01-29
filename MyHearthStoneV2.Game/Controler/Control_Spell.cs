@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Parameter.CardAbility;
+
 namespace MyHearthStoneV2.Game.Controler
 {
     internal partial class Controler_Base
@@ -25,7 +27,7 @@ namespace MyHearthStoneV2.Game.Controler
             var currentUserContext = GameContext.GetActivationUserContext();
             //var enenmyUserContext = gameContext.GetNotActivationUserContext();
 
-            currentUserContext.Power -= spell.Cost;            
+            currentUserContext.Power -= spell.Cost < 0 ? 0 : spell.Cost;
             currentUserContext.HandCards.Remove(spell);
 
             #region 触发场内牌的技能
@@ -41,11 +43,17 @@ namespace MyHearthStoneV2.Game.Controler
                 triggerCard = GameContext.DeskCards[target];
             }
 
-            if (spell.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.打出一张法术牌)))
+            if (spell.Abilities.Any(c => c.AbilityType == AbilityType.法术))
             {
-                foreach (BaseCardAbility abilities in spell.Abilities.Where(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.打出一张法术牌)))
+                foreach (BaseCardAbility abilities in spell.Abilities.Where(c => c.AbilityType == AbilityType.法术))
                 {
-                    abilities.CastAbility(GameContext, triggerCard, spell, target);
+                    CardAbilityParameter para = new CardAbilityParameter()
+                    {
+                        GameContext = GameContext,
+                        MainCard = spell,
+                        SecondaryCard = triggerCard,
+                    };
+                    abilities.Action(para);
                 }
             }
             spell.CardLocation = CardLocation.坟场;
