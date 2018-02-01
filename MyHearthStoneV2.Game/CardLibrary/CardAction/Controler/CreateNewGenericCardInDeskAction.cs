@@ -7,15 +7,14 @@ using MyHearthStoneV2.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
 {
     /// <summary>
     /// 创造一张牌到场内
     /// </summary>
-    internal class CreateNewCardInDeskAction
+    /// <typeparam name="T"></typeparam>
+    internal class CreateNewGenericCardInDeskAction<T>: IGameAction where T : BaseServant
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
@@ -23,12 +22,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
             GameContext context = para.GameContext;
             bool isActivation = para.IsActivation;
 
-            BaseServant servant = para.MainCard as BaseServant;
+            T servant = Activator.CreateInstance<T>();
             string cardCode = "";
             using (var redisClient = RedisManager.GetClient())
             {
                 List<Card> lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
-                cardCode = lstCardLib.First(c => c.GetType() == servant.GetType()).CardCode;
+                cardCode = lstCardLib.First(c => c.GetType() == typeof(T)).CardCode;
             }
             servant.CardCode = cardCode;
 
@@ -70,5 +69,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
             actionParameter.MainCard = servant;
             return servant;
         }
+
+        
     }
 }

@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility
     {
         public virtual PriorityOfSettlement PriorityOfSettlement => PriorityOfSettlement.无;
         public virtual CastStyle CastStyle { get; set; } = CastStyle.无;
-        public virtual CastCrosshairStyle CastCrosshairStyle { get; } = CastCrosshairStyle.无;
+        public virtual CastCrosshairStyle CastCrosshairStyle { get; set; } = CastCrosshairStyle.无;
 
         public virtual List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.无 };
 

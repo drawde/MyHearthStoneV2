@@ -43,7 +43,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain
 
         public override string Name { get; set; } = "索瑞森大帝";
 
-        public override string BackgroudImage { get; set; } = "W8_022_D.png";
+        public override string BackgroudImage { get; set; } = "BlackrockMountain/EmperorThaurissan.jpg";
 
         public override Profession Profession { get; set; } = Profession.Neutral;
     }

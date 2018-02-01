@@ -14,20 +14,17 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper
         public override AbilityType AbilityType { get; set; } = AbilityType.亡语;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            var userContext = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
             int count = 0;
             bool isActivation = actionParameter.GameContext.IsThisActivationUserCard(actionParameter.MainCard);
             while (count < 2)
             {
-                CreateNewCardInDeskAction<XiaoZhiZhu> action = new CreateNewCardInDeskAction<XiaoZhiZhu>();
+                CreateNewGenericCardInDeskAction<XiaoZhiZhu> action = new CreateNewGenericCardInDeskAction<XiaoZhiZhu>();
                 ControlerActionParameter para = new ControlerActionParameter()
                 {
                     GameContext = actionParameter.GameContext,
                     IsActivation =isActivation,
                 };
                 action.Action(para);
-                //actionParameter.GameContext.AddActionStatement(action, para);
-                //actionParameter.GameContext.CreateNewCardInDesk<XiaoZhiZhu>(isActivation);
                 count++;
             }
             return null;

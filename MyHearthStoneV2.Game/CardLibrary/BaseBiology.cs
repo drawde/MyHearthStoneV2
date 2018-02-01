@@ -59,5 +59,15 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// 能否攻击（和剩余攻击次数配合使用）
         /// </summary>
         public virtual bool CanAttack { get; set; } = true;
+
+        /// <summary>
+        /// 种族
+        /// </summary>
+        public virtual Race Race { get; set; } = Race.无;
+
+        /// <summary>
+        /// 是否被标记为已死亡（力量的代价效果）
+        /// </summary>
+        public virtual bool Deathing { get; set; } = false;
     }
 }

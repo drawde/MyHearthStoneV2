@@ -30,10 +30,12 @@ using MyHearthStoneV2.Game.CardLibrary.Servant.Warrior;
 
 namespace MyHearthStoneV2.TestConsole
 {
+
     class Program
     {
         static void Main(string[] args)
-        {
+        {            
+
             CardUtil.AddToRedis();
             //List<Card> lstCards = CardUtil.GetCardInRedis();
             //var lst = ShortCodeBusiness.Instance.GetList();

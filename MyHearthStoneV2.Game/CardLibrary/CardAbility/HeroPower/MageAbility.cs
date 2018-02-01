@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
     public class MageAbility : BaseHeroAbility
     {
         public override string PowerImage { get; } = "Mage.png";
-        public override CastCrosshairStyle CastCrosshairStyle { get; } = CastCrosshairStyle.单个;
+        public override CastCrosshairStyle CastCrosshairStyle { get; set; } = CastCrosshairStyle.单个;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             var uc = actionParameter.GameContext.GetActivationUserContext();

@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
         public override AbilityType AbilityType { get; set; } = AbilityType.法术;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            UserContext uc = actionParameter.GameContext.GetActivationUserContext();
+            UserContext uc = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
             var deskCards = actionParameter.GameContext.DeskCards.GetDeskCardsByIsFirst(uc.IsFirst);
             int drawCount = deskCards.Count(c => c != null && c.Life < c.BuffLife);
             DrawCardActionParameter para = new DrawCardActionParameter()

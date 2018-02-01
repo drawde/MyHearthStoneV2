@@ -5,7 +5,7 @@ var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-
 var mobilereg = /^1(3|4|5|7|8)\d{9}$/;
 var signObj;
 var apiTime;
-var cardBackgroupImage = "/images/cards/texture/";
+var cardBackgroupImage = "http://123.56.130.111:998/images/cards/texture/";
 //获取url中的参数
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

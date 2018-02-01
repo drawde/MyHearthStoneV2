@@ -194,4 +194,30 @@ namespace MyHearthStoneV2.Game
     {
         无 = 0
     }
+
+    /// <summary>
+    /// 种族
+    /// </summary>
+    public enum Race
+    {
+        无 = 0,
+        野兽 = 1,
+        恶魔 = 2,
+        龙 = 3,
+        机械 = 4,
+        元素 = 5,
+        鱼人 = 6,
+        海盗 = 7,
+        图腾 = 8,
+        兽人 = 9,
+    }
+
+    /// <summary>
+    /// 弃牌方式
+    /// </summary>
+    public enum DropCardType
+    {
+        随机 = 1,
+        指定 = 2,
+    }
 }

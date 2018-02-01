@@ -437,16 +437,16 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="lstCard"></param>
         /// <param name="cl"></param>
         /// <param name="spellTime"></param>
-        internal static void DisableCardAbility(this GameContext context, IEnumerable<BaseBiology> lstCard)
-        {
-            foreach (BaseBiology card in lstCard)
-            {
-                card.Damage = card.InitialDamage;
-                card.Cost = card.InitialCost;
-                card.Life = card.InitialLife;
-                card.Abilities.Clear();
-            }
-        }
+        //internal static void DisableCardAbility(this GameContext context, IEnumerable<BaseBiology> lstCard)
+        //{
+        //    foreach (BaseBiology card in lstCard)
+        //    {
+        //        card.Damage = card.InitialDamage;
+        //        card.Cost = card.InitialCost;
+        //        card.Life = card.InitialLife;
+        //        card.Abilities.Clear();
+        //    }
+        //}
 
 
         /// <summary>

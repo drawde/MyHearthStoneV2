@@ -101,7 +101,14 @@ namespace MyHearthStoneV2.Game.Controler
             {
                 foreach (var card in activationDeskCards.Where(c => c != null))
                 {
-                    card.CanAttack = true;
+                    if (card.CardType == CardType.随从 && card.Damage < 1)
+                    {
+                        card.CanAttack = false;
+                    }
+                    else
+                    {
+                        card.CanAttack = true;
+                    }
                     BaseActionParameter resetPara = CardActionFactory.CreateParameter(card, GameContext);
                     CardActionFactory.CreateAction(card, ActionType.重置攻击次数).Action(resetPara);
                 }

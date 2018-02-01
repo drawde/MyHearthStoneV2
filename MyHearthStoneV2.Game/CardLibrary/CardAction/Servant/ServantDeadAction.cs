@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             Card triggerCard = para.SecondaryCard;
 
             //随从死亡
-            if (servant.Life < 1)
+            if (servant.Life < 1 || servant.Deathing)
             {
                 //随从进坟场
                 servant.CardLocation = CardLocation.坟场;

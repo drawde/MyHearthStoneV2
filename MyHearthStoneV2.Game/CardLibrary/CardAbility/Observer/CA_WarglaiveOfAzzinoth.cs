@@ -6,6 +6,8 @@ using MyHearthStoneV2.Game.CardLibrary.Equip;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.Parameter.Equip;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.Parameter.CardAbility;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
 {
@@ -32,7 +34,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
             else
             {
                 //沉默目标
-                actionParameter.GameContext.DisableCardAbility(new List<BaseBiology>() { actionParameter.SecondaryCard as BaseBiology });
+                Silence silence = new Silence();
+                silence.Action(actionParameter);
+                //actionParameter.GameContext.DisableCardAbility(new List<BaseBiology>() { actionParameter.SecondaryCard as BaseBiology });
 
                 BaseActionParameter para = CardActionFactory.CreateParameter(actionParameter.SecondaryCard, actionParameter.GameContext, secondaryCard: actionParameter.MainCard);
                 CardActionFactory.CreateAction(actionParameter.SecondaryCard, ActionType.受到攻击).Action(para);

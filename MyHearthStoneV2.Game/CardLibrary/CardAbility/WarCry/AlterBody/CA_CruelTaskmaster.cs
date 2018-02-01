@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
     public class CA_CruelTaskmaster : BaseCardAbility
     {
         public override CastStyle CastStyle { get; set; } = CastStyle.随从;
-        public override CastCrosshairStyle CastCrosshairStyle { get; } = CastCrosshairStyle.单个;
+        public override CastCrosshairStyle CastCrosshairStyle { get; set; } = CastCrosshairStyle.单个;
 
         public override AbilityType AbilityType { get; set; } = AbilityType.战吼;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

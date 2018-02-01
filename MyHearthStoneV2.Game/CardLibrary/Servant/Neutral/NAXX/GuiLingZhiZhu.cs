@@ -40,5 +40,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
 
         public override string Name { get; set; } = "鬼灵爬行者";
         public override Profession Profession { get; set; } = Profession.Neutral;
+
+        public override Race Race { get; set; } = Race.野兽;
     }
 }

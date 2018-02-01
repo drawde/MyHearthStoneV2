@@ -1,11 +1,12 @@
-﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-
-using MyHearthStoneV2.Game.CardLibrary.Servant;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
+namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 {
-    public class XiaoZhiZhu : BaseServant
+    public class Imp : BaseServant
     {
         public override int Damage { get; set; } = 1;
         public override int Life { get; set; } = 1;
@@ -19,13 +20,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
         public override int BuffLife { get; set; } = 1;
         public override int BuffCost { get; set; } = 1;
 
-        public override bool IsDerivative { get; set; } = true;
         public override string Describe { get; set; } = "";
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        //public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_ServantAttack() };
-        public override string Name { get; set; } = "鬼灵蜘蛛";
-        public override Profession Profession { get; set; } = Profession.Neutral;
+        public override string BackgroudImage { get; set; } = "Classical/Imp.jpg";
+        public override bool IsDerivative { get; set; } = true;
+        public override string Name { get; set; } = "小鬼";
+        public override Profession Profession { get; set; } = Profession.Warlock;
+        public override Race Race { get; set; } = Race.恶魔;
     }
 }

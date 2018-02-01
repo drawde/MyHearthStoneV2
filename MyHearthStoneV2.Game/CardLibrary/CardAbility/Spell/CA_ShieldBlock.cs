@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
         {
             BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard).IsFirst);
             hero.Ammo += 5;
-            var uc = actionParameter.GameContext.GetActivationUserContext();
+            var uc = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
             DrawCardActionParameter para = new DrawCardActionParameter()
             {
                 DrawCount = 1,

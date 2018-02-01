@@ -23,10 +23,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
             if (actionParameter.GameContext.IsThisActivationUserCard(actionParameter.SecondaryCard) &&
                 actionParameter.GameContext.IsThisActivationUserCard(actionParameter.MainCard) && actionParameter.SecondaryCard is BaseSpell)
             {
-                var player = actionParameter.GameContext.GetActivationUserContext();
+                var player = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
                 if (actionParameter.GameContext.DeskCards.GetDeskCardsByMyCard(actionParameter.MainCard as BaseBiology).Any(c => c == null))
                 {
-                    actionParameter.GameContext.AddActionStatement(new CreateNewCardInDeskAction<VioletStudent>(), actionParameter);
+                    actionParameter.GameContext.AddActionStatement(new CreateNewGenericCardInDeskAction<VioletStudent>(), actionParameter);
                     //VioletStudent student = new CreateNewCardInDeskAction<VioletStudent>().Action(new ControlerActionParameter() { IsActivation = true }) as VioletStudent;
                 }
             }

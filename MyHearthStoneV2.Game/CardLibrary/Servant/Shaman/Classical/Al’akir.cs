@@ -49,5 +49,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical
         public override string BackgroudImage { get; set; } = "W14_a190_D.png";
 
         public override Profession Profession { get; set; } = Profession.Shaman;
+        public override Race Race { get; set; } = Race.元素;
     }
 }

@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
             if (servant.Life > 0)
             {
                 bool isActivation = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard).IsActivation;
-                CreateNewCardInDeskAction<GrimPatron> action = new CreateNewCardInDeskAction<GrimPatron>();
+                CreateNewGenericCardInDeskAction<GrimPatron> action = new CreateNewGenericCardInDeskAction<GrimPatron>();
                 ControlerActionParameter para = new ControlerActionParameter()
                 {
                     GameContext = actionParameter.GameContext,

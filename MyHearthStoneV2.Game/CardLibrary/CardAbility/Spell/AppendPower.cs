@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
         public override AbilityType AbilityType { get; set; } = AbilityType.法术;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            actionParameter.GameContext.GetActivationUserContext().Power += 1;
+            actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard).Power += 1;
             return null;
         }
     }

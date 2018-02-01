@@ -55,7 +55,7 @@ namespace MyHearthStoneV2.Game.Controler
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
         internal void LoadEquip(BaseHero hero, BaseEquip equip)
         {
-            var user = GameContext.GetActivationUserContext();
+            var user = GameContext.GetUserContextByMyCard(hero);
             user.Power -= equip.Cost < 0 ? 0 : equip.Cost;
             EquipActionParameter equipPara = new EquipActionParameter()
             {
