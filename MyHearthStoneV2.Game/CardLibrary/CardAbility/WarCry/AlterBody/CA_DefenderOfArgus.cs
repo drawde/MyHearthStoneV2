@@ -18,11 +18,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
             if (abilityPara.GameContext.IsThisActivationUserCard(abilityPara.MainCard))
             {
                 var player = abilityPara.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
-                List<BaseBiology> lstBiologys = abilityPara.GameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst);
+                //List<BaseBiology> lstBiologys = abilityPara.GameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst);
                 int mainCardLocation = servant.DeskIndex;
                 if (mainCardLocation != 1 && mainCardLocation != 8)
                 {
-                    BaseBiology left = lstBiologys[abilityPara.MainCardLocation - 1] as BaseServant;
+                    BaseBiology left = abilityPara.GameContext.DeskCards[abilityPara.MainCardLocation - 1] as BaseServant;
                     if (left != null && left.CardType != CardType.英雄)
                     {
                         left.Abilities.Add(new Taunt());
@@ -36,7 +36,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
                 }
                 if (mainCardLocation != 7 && mainCardLocation != 15)
                 {
-                    BaseBiology right = lstBiologys[abilityPara.MainCardLocation + 1] as BaseServant;
+                    BaseBiology right = abilityPara.GameContext.DeskCards[abilityPara.MainCardLocation + 1] as BaseServant;
                     if (right != null && right.CardType != CardType.英雄)
                     {
                         right.Abilities.Add(new Taunt());

@@ -1,8 +1,13 @@
 ﻿using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Controler;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Equip;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
+using MyHearthStoneV2.Game.CardLibrary.Equip;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Controler.Proxy;
+using MyHearthStoneV2.Game.Parameter.Controler;
+using MyHearthStoneV2.Game.Parameter.Equip;
 using MyHearthStoneV2.Game.Parameter.Player;
 using System;
 using System.Collections.Generic;
@@ -103,6 +108,45 @@ namespace MyHearthStoneV2.Game
             string enemy = gameContext.Players.First(c => c.IsActivation == false).UserCode.ToString();
             Controller_Base_Proxy.TurnEnd(gameContext.GameCode, current);
             Controller_Base_Proxy.TurnStart(gameContext.GameCode, enemy);
+        }
+
+        public static void LoadEquip<T>(GameContext gameContext)where T : BaseEquip
+        {
+            var current = gameContext.Players.First(c => c.IsActivation == true);
+            var enemy = gameContext.Players.First(c => c.IsActivation == false);
+            bool isfirst = true;
+
+            //T equip = Activator.CreateInstance<T>();
+            ControlerActionParameter ctlPara = null;
+
+
+            if (current.AllCards.Any(c => c.GetType() == typeof(T)))
+            {
+                isfirst = current.IsFirst;
+                ctlPara = new ControlerActionParameter()
+                {
+                    GameContext = gameContext,
+                    UserContext = current
+                };
+            }
+            else
+            {
+                isfirst = enemy.IsFirst;
+                ctlPara = new ControlerActionParameter()
+                {
+                    GameContext = gameContext,
+                    UserContext = enemy
+                };
+            }
+            
+            BaseEquip equip = new CreateNewCardInControllerAction<T>().Action(ctlPara) as BaseEquip;
+            EquipActionParameter equipPara = new EquipActionParameter()
+            {
+                GameContext = gameContext,
+                Equip = equip,
+                Hero = gameContext.DeskCards.GetHeroByIsFirst(isfirst),
+            };
+            new LoadAction().Action(equipPara);
         }
     }
 }

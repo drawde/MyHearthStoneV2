@@ -20,14 +20,16 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
                 {
                     left.Damage += 1;
                     left.BuffDamage += 1;
+                    left.Abilities.Add(new REV_DireWolfAlpha());
                 }
             }
             if (servant.DeskIndex != 8 && servant.DeskIndex != 15)
             {
-                if (actionParameter.GameContext.DeskCards[servant.DeskIndex - 1] is BaseServant right)
+                if (actionParameter.GameContext.DeskCards[servant.DeskIndex + 1] is BaseServant right)
                 {
                     right.Damage += 1;
                     right.BuffDamage += 1;
+                    right.Abilities.Add(new REV_DireWolfAlpha());
                 }
             }
             return null;

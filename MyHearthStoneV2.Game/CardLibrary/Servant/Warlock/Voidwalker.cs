@@ -28,7 +28,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new Taunt() };
 
-        public override string BackgroudImage { get; set; } = "GVG/PilotedShredder.jpg";
+        public override string BackgroudImage { get; set; } = "Classical/Voidwalker.jpg";
 
         public override string Name { get; set; } = "虚空行者";
         public override Profession Profession { get; set; } = Profession.Warlock;

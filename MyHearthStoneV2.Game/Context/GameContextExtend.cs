@@ -125,7 +125,7 @@ namespace MyHearthStoneV2.Game.Context
         }
 
         /// <summary>
-        /// 阶段检索，即在每一个结算队列结算完之后，开始的检索，包括死亡检索、受伤检索，光环检索等
+        /// 阶段检索，即在每一个结算队列结算完之后，开始的检索，包括死亡检索、受伤检索等
         /// </summary>
         /// <param name="context"></param>
         internal static void StageRetrieval(this GameContext context)
@@ -133,7 +133,7 @@ namespace MyHearthStoneV2.Game.Context
             if (context.DeskCards.Any(c => c != null && c.Life < 1))
             {
                 //先按入场顺序排列
-                var lstBiology = context.DeskCards.Where(c => c != null && c.Life < 1).OrderBy(x => x.CastIndex);
+                var lstBiology = context.DeskCards.Where(c => c != null && (c.Life < 1 || c.Deathing)).OrderBy(x => x.CastIndex);
                 foreach (var bio in lstBiology)
                 {
                     BaseActionParameter para = CardActionFactory.CreateParameter(bio, context);
@@ -145,11 +145,11 @@ namespace MyHearthStoneV2.Game.Context
         }
 
         /// <summary>
-        /// 进行队列结算
+        /// 进行队列结算、光环更新
         /// </summary>
         /// <param name="context"></param>
         internal static void QueueSettlement(this GameContext context)
-        {
+        {            
             LinkedList<ActionStatement> ll = context.ActionStatementQueue;
             if (ll != null && ll.Count > 0)
             {
@@ -161,7 +161,45 @@ namespace MyHearthStoneV2.Game.Context
                 }
                 ll.Clear();                
             }
+            AuraSettlement(context);
             StageRetrieval(context);
+        }
+
+        /// <summary>
+        /// 光环结算
+        /// </summary>
+        /// <param name="context"></param>
+        internal static void AuraSettlement(this GameContext context)
+        {
+            //先移除光环BUFF
+            foreach (BaseBiology biology in context.DeskCards.Where(c => c != null && c.Abilities.Any(x => x.AbilityType == AbilityType.光环BUFF)))
+            {
+                foreach (BaseCardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环BUFF))
+                {
+                    CardAbilityParameter para = new CardAbilityParameter()
+                    {
+                        GameContext = context,
+                        MainCard = biology,
+                    };
+                    ability.Action(para);
+                    //biology.Abilities.Remove(ability);
+                }
+                biology.Abilities.RemoveAll(x => x.AbilityType == AbilityType.光环BUFF);
+            }
+
+            //再重新触发光环效果（不会触发有触发条件的随从如索瑞森大帝）
+            foreach (BaseBiology biology in context.DeskCards.Where(c => c != null && c.Abilities.Any(x => x.AbilityType == AbilityType.光环)))
+            {
+                foreach (BaseCardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环 && x.SpellCardAbilityTimes.Count == 0))
+                {
+                    CardAbilityParameter para = new CardAbilityParameter()
+                    {
+                        GameContext = context,
+                        MainCard = biology,
+                    };
+                    ability.Action(para);
+                }
+            }
         }
 
         /// <summary>
@@ -335,6 +373,14 @@ namespace MyHearthStoneV2.Game.Context
                 if (context.Players[0].AllCards.Any(c => c.CardInGameCode == myCard.CardInGameCode))
                     return context.Players[0];
                 return context.Players[1];
+            }
+            else if (context.DeskCards.GetFirstPlayerHero().CardInGameCode == myCard.CardInGameCode)
+            {
+                return context.Players.First(c => c.IsFirst);
+            }
+            else if (context.DeskCards.GetSecondPlayerHero().CardInGameCode == myCard.CardInGameCode)
+            {
+                return context.Players.First(c => c.IsFirst == false);
             }
             return null;
         }

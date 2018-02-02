@@ -109,6 +109,7 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public enum SpellCardAbilityTime
     {
+        #region 己方场上只要出现某种效果时就触发
         无 = 0,
 
         己方回合结束 = 1,
@@ -127,9 +128,9 @@ namespace MyHearthStoneV2.Game
         
         己方打出法术牌前 = 11,
         己方打出法术牌后 = 12,
+        #endregion
 
-        //********************************************************//
-
+        #region 对方场上只要出现某种效果时就触发
         对方回合结束 = 101,
         对方回合开始 = 102,
 
@@ -146,9 +147,9 @@ namespace MyHearthStoneV2.Game
 
         对方打出法术牌前 = 111,
         对方打出法术牌后 = 112,
+        #endregion
 
-        //********************************************************//
-   
+        #region 场上只要出现某种效果时就触发
         随从攻击 = 1001,
         //打出一张法术牌 = 1002,
         随从受伤= 1003,
@@ -156,6 +157,13 @@ namespace MyHearthStoneV2.Game
         //随从死亡 = 1005,
         重置攻击次数 = 1006,
         英雄攻击 = 1007,
+        #endregion
+
+        #region 只有自己受到某种效果时才触发
+        攻击 = 10001,
+        受伤 = 10002,
+        #endregion
+
     }
 
     public enum AbilityType
@@ -171,6 +179,8 @@ namespace MyHearthStoneV2.Game
         剧毒 = 8,
         嘲讽 = 9,
         冲锋 = 10,
+        光环BUFF = 11,
+        BUFF = 12,
     }
 
     /// <summary>

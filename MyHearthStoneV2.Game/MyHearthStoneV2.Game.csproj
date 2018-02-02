@@ -80,6 +80,7 @@
     <Compile Include="CardLibrary\CardAbility\Aura\CA_DireWolfAlpha.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\CA_EmperorThaurissan.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\CA_VioletTeacher.cs" />
+    <Compile Include="CardLibrary\CardAbility\Aura\REV_DireWolfAlpha.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\AppendAmmo.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Death.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\DrawCard.cs" />

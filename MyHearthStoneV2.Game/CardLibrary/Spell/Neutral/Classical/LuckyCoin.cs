@@ -17,6 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new AppendPower() };
 
+        public override bool IsDerivative { get; set; } = true;
         public override string BackgroudImage { get; set; } = "coin_D_1.png";
 
         public override Profession Profession { get; set; } = Profession.Neutral;

@@ -31,7 +31,6 @@ namespace MyHearthStoneV2.Game.Context
         {
             return this.First() as BaseHero;
         }
-
         public BaseHero GetSecondPlayerHero()
         {
             return this[8] as BaseHero;

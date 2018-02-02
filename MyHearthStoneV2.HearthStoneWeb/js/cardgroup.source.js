@@ -55,10 +55,13 @@ function getCards() {
                             "<h3>" + data.data[i].Name + "</h3>" +
                         "</div>"+
                         "<a class=\"more\" href=\"javascript:;\" cardCode=\"" + data.data[i].CardCode + "\" cardName=\"" + data.data[i].Name + "\">" +
-                            "<img style=\"width: 290px;height: 200px\" src=\"/images/cards/texture/" + data.data[i].BackgroudImage + "\">" +
+                            "<img class=\"lazy\" style=\"width: 290px;height: 200px\" data-original=\"" + cardBackgroupImage + data.data[i].BackgroudImage + "\">" +
                         "</a>"+
                     "</li>");
             }
+            $("img.lazy").lazyload({
+                effect: "fadeIn",
+            });
             $("#cards a[cardCode]").click(function () {
                 pickCard($(this));
             });

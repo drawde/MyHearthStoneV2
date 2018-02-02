@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
     public class CA_GrimPatron : BaseCardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.触发;
-        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get;  set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.随从受伤 };
+        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get;  set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.受伤 };
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             BaseServant servant = actionParameter.MainCard as BaseServant;

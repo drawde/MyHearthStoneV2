@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_NerubianEgg() };
 
         public override string BackgroudImage { get; set; } = "NAXX/NerubianEgg.jpg";
 

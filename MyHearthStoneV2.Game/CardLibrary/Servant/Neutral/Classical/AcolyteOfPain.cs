@@ -35,7 +35,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
             }
         }
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new DrawCard() { DrawCount = 1, SpellCardAbilityTimes = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.随从受伤} } };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new DrawCard() { DrawCount = 1, SpellCardAbilityTimes = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.受伤} } };
 
 
         public override string Name { get; set; } = "苦痛侍僧";

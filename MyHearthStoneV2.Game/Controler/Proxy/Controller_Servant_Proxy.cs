@@ -110,12 +110,15 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
 
-            List<BaseBiology> taunts = ctl.GameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst ? false : true).Where(c => c != null && c.Abilities.Any(x => x is Taunt)).ToList();
-            for (int i = 0; i < taunts.Count; i++)
+            if (ctl.GameContext.DeskCards[target].Abilities.Any(x => x is Taunt) == false)
             {
-                if (taunts[i].Abilities.Any(x => x is Taunt) && i != target)
+                List<BaseBiology> taunts = ctl.GameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst ? false : true).Where(c => c != null && c.Abilities.Any(x => x is Taunt)).ToList();
+                for (int i = 0; i < taunts.Count; i++)
                 {
-                    return JsonModelResult.PackageFail(OperateResCodeEnum.你必须先攻击有嘲讽技能的随从);
+                    if (taunts[i].Abilities.Any(x => x is Taunt) && i != target)
+                    {
+                        return JsonModelResult.PackageFail(OperateResCodeEnum.你必须先攻击有嘲讽技能的随从);
+                    }
                 }
             }
             ctl.ServantAttack(servant, target);
