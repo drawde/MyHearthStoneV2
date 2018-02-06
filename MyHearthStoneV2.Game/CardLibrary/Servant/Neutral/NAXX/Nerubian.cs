@@ -15,10 +15,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
         public override int InitialDamage { get; set; } = 4;
         public override int InitialLife { get; set; } = 4;
         public override int InitialCost { get; set; } = 4;
-
-        public override int BuffDamage { get; set; } = 4;
+        
         public override int BuffLife { get; set; } = 4;
-        public override int BuffCost { get; set; } = 4;
 
         public override bool IsDerivative { get; set; } = true;
         public override string Describe { get; set; } = "";

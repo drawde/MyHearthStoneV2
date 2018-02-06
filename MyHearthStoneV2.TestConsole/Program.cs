@@ -52,7 +52,11 @@ namespace MyHearthStoneV2.TestConsole
             gameContext = GetContext(gameCode);
             //gameContext.Players[0].Power = 10;
             //gameContext.Players[1].Power = 10;
-            //GameTester.DrawCard(gameContext, 7);                  
+            //GameTester.DrawCard(gameContext, 7);   
+            //gameContext.DeskCards[7] = gameContext.DeskCards[1];
+            //gameContext.DeskCards[6] = gameContext.DeskCards[2];
+            //gameContext.DeskCards[1] = null;
+            //gameContext.DeskCards[2] = null;
             //SetContext(gameContext);
 
             //var lstRec = GameRecordBll.Instance.GetGameRecord(gameCode, 10, 1);
@@ -62,30 +66,31 @@ namespace MyHearthStoneV2.TestConsole
             //    string deskCard = obj["DeskCards"].ToString();
             //}
 
-            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() { "0", "1", "3" });
-            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { "0", "1", "2" });
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() { });
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { });
 
-            //reslut = Controller_Base_Proxy.LoadEquip(gameCode, drawde, "1");
+            //reslut = Controller_Base_Proxy.LoadEquip(gameCode, drawde, "51");
             //reslut = Controller_Base_Proxy.LoadEquip(gameCode, mendicantbias, "20");            
 
-            //reslut = Controller_Base_Proxy.CastSpell(gameCode, drawde, "28", 1);
-            //reslut = Controller_Base_Proxy.CastSpell(gameCode, mendicantbias, "61", -1);
+            //reslut = Controller_Base_Proxy.CastSpell(gameCode, drawde, "30", 3);
+            //reslut = Controller_Base_Proxy.CastSpell(gameCode, mendicantbias, "26", 2);
 
-            //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "5", 1, -1);
-            //reslut = Controller_Base_Proxy.CastServant(gameCode, mendicantbias, "50", 13, -1);
+            //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "55", 11, -1);
+            //reslut = Controller_Base_Proxy.CastServant(gameCode, mendicantbias, "1", 4, -1);
 
             //reslut = Controller_Base_Proxy.ServantAttack(gameCode, drawde, "17", 9);
-            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "50", 1);
+            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "63", 8);
+            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "64", 8);
+
 
             //reslut = Controller_Base_Proxy.CastHeroPower(gameCode, drawde);
             //reslut = Controller_Base_Proxy.CastHeroPower(gameCode, mendicantbias);
 
-            //reslut = Controller_Base_Proxy.HeroAttack(gameCode, drawde, 9);
+            //reslut = Controller_Base_Proxy.HeroAttack(gameCode, drawde, 2);
             //reslut = Controller_Base_Proxy.HeroAttack(gameCode, mendicantbias, 8);
 
 
-            //GameTester.CastServant(gameContext, "21");
-            //GameTester.CastServant(gameContext, "20");
+            //GameTester.CastServant(gameContext, "57");
             //GameTester.TurnEnd(gameContext);
 
             //GameTester.LoadEquip<DeathBite>(gameContext);
@@ -105,45 +110,22 @@ namespace MyHearthStoneV2.TestConsole
             Console.ReadKey();
         }
 
-        internal static void SetContext(GameContext ctl)
+        internal static GameContext GetContext(string gameCode)
         {
-            var lstCtls = GetContexts();
-            if (lstCtls.Any(c => c.GameCode == ctl.GameCode))
-            {
-                lstCtls[lstCtls.FindIndex(c => c.GameCode == ctl.GameCode)] = ctl;
-            }
-            else
-            {
-                lstCtls.Add(ctl);
-            }
             using (var redisClient = RedisManager.GetClient())
             {
-                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext), lstCtls);
+                return redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
             }
         }
 
-        static GameContext GetContext(string gameCode)
-        {
-            var lstCtls = GetContexts();
-            if (lstCtls.Any(c => c.GameCode == gameCode))
-            {
-                return lstCtls[lstCtls.FindIndex(c => c.GameCode == gameCode)];
-            }
-            return null;
-        }
-        internal static List<GameContext> GetContexts()
+        internal static void SetContext(GameContext ctl)
         {
             using (var redisClient = RedisManager.GetClient())
             {
-                var lst = redisClient.Get<List<GameContext>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext));
-                if (lst == null)
-                {
-                    lst = new List<GameContext>();
-                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext), lst);
-                }
-                return lst;
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, ctl.GameCode), ctl);
             }
         }
+
         private static string Go(HS_GameTable gameTable)
         {
             int firstPlayerIndex = RandomUtil.CreateRandomInt(0, 1);

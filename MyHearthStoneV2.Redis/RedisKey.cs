@@ -11,11 +11,16 @@ namespace MyHearthStoneV2.Redis
     /// </summary>
     public class RedisKey
     {
-        public static string GetKey(RedisAppKeyEnum appKey, RedisCategoryKeyEnum categoryKey)
+        public static string GetKey(RedisAppKeyEnum appKey, RedisCategoryKeyEnum categoryKey, string key = null)
         {
-            return appKey.ToString() + "." + categoryKey.ToString();
-        }
+            StringBuilder sb = new StringBuilder();
+            sb.Append(appKey.ToString());
+            sb.Append(".");
+            sb.Append(categoryKey.ToString());
 
-        
+            if (string.IsNullOrWhiteSpace(key) == false)
+                sb.Append("." + key);
+            return sb.ToString();
+        }        
     }
 }

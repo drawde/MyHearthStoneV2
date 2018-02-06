@@ -18,12 +18,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 初始费用
         /// </summary>
-        public virtual int InitialCost { get; set; }
-
-        /// <summary>
-        /// 被法术或技能修改过的费用
-        /// </summary>
-        public virtual int BuffCost { get; set; }
+        public virtual int InitialCost { get; set; }        
 
         /// <summary>
         /// 卡牌在一局游戏中的编号

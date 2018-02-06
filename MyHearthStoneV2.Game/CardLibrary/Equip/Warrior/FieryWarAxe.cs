@@ -18,7 +18,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Equip.Warrior
         public override int InitialDamege { get; set; } = 3;
         public override int Durable { get; set; } = 2;
         public override int Cost { get; set; } = 2;
-        public override int BuffCost { get; set; } = 2;
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "";
 

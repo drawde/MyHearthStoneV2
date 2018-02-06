@@ -1,4 +1,5 @@
-﻿using MyHearthStoneV2.Game.CardLibrary.Servant;
+﻿using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter;
 
@@ -19,8 +20,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
                 if (actionParameter.GameContext.DeskCards[servant.DeskIndex - 1] is BaseServant left)
                 {
                     left.Damage += 1;
-                    left.BuffDamage += 1;
                     left.Abilities.Add(new REV_DireWolfAlpha());
+                    BaseActionParameter para = CardActionFactory.CreateParameter(left, actionParameter.GameContext);
+                    CardActionFactory.CreateAction(left, ActionType.重置攻击次数).Action(para);
                 }
             }
             if (servant.DeskIndex != 8 && servant.DeskIndex != 15)
@@ -28,8 +30,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
                 if (actionParameter.GameContext.DeskCards[servant.DeskIndex + 1] is BaseServant right)
                 {
                     right.Damage += 1;
-                    right.BuffDamage += 1;
                     right.Abilities.Add(new REV_DireWolfAlpha());
+                    BaseActionParameter para = CardActionFactory.CreateParameter(right, actionParameter.GameContext);
+                    CardActionFactory.CreateAction(right, ActionType.重置攻击次数).Action(para);
                 }
             }
             return null;

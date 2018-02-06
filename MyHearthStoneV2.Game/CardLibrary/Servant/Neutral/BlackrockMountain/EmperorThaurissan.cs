@@ -18,25 +18,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain
         public override int InitialLife { get; set; } = 5;
         public override int InitialCost { get; set; } = 6;
 
-
-        public override int BuffDamage { get; set; } = 5;
+        
         public override int BuffLife { get; set; } = 5;
-        public override int BuffCost { get; set; } = 6;
-        public override string Describe
-        {
-            get
-            {
-                return "在你的回合结束时候，你的所有手牌费用-1。";
-            }
-        }
+        public override string Describe { get; set; } = "在你的回合结束时候，你的所有手牌费用-1。";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.传说;
-            }
-        }
+        public override Rarity Rare { get; set; } = Rarity.传说;
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_EmperorThaurissan() };
 

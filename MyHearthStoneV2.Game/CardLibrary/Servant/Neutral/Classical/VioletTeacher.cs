@@ -15,26 +15,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialDamage { get; set; } = 3;
         public override int InitialLife { get; set; } = 5;
         public override int InitialCost { get; set; } = 4;
-
-        public override int BuffDamage { get; set; } = 3;
+        
         public override int BuffLife { get; set; } = 5;
-        public override int BuffCost { get; set; } = 4;
 
-        public override string Describe
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public override string Describe { get; set; } = "每当你施放一个法术时，召唤一个1/1的紫罗兰学徒。";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.精良;
-            }
-        }
+        public override Rarity Rare { get; set; } = Rarity.精良;
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_VioletTeacher() };
 

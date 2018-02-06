@@ -14,10 +14,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialDamage { get; set; } = 5;
         public override int InitialLife { get; set; } = 5;
         public override int InitialCost { get; set; } = 6;
-
-        public override int BuffDamage { get; set; } = 5;
+        
         public override int BuffLife { get; set; } = 5;
-        public override int BuffCost { get; set; } = 6;
+
         public override string Describe => "控制一个随机敌方随从。";
 
         public override Rarity Rare => Rarity.传说;

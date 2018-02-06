@@ -15,25 +15,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
         public override int InitialLife { get; set; } = 4;
         public override int InitialCost { get; set; } = 3;
 
-
-        public override int BuffDamage { get; set; } = 2;
+        
         public override int BuffLife { get; set; } = 4;
-        public override int BuffCost { get; set; } = 3;
-        public override string Describe
-        {
-            get
-            {
-                return "每当一个随从受到伤害时，便获得+1攻击力。";
-            }
-        }
+        public override string Describe { get; set; } = "每当一个随从受到伤害时，便获得+1攻击力。";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.精良;
-            }
-        }
+        public override Rarity Rare { get; set; } = Rarity.史诗;
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_FrothingBerserker() };
 

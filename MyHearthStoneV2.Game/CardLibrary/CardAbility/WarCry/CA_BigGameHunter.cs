@@ -16,7 +16,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             BaseServant servant = actionParameter.SecondaryCard as BaseServant;
-            if (servant.Damage >= 7)
+            if (servant != null && servant.Damage >= 7)
             {
                 servant.Deathing = true;
             }

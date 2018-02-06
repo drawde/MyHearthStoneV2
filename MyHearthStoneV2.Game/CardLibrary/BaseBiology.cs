@@ -38,12 +38,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 被法术或技能修改后的生命值
         /// </summary>
-        public virtual int BuffLife { get; set; }
-
-        /// <summary>
-        /// 被法术或技能修改后的攻击力
-        /// </summary>
-        public virtual int BuffDamage { get; set; }
+        public virtual int BuffLife { get; set; }        
 
         /// <summary>
         /// 当前回合剩余攻击次数

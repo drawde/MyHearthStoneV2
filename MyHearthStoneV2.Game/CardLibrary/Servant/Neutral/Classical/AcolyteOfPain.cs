@@ -15,25 +15,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialLife { get; set; } = 3;
         public override int InitialCost { get; set; } = 3;
 
-
-        public override int BuffDamage { get; set; } = 1;
+        
         public override int BuffLife { get; set; } = 3;
-        public override int BuffCost { get; set; } = 3;
-        public override string Describe
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public override string Describe { get; set; } = "每当该随从受到伤害时，抽一张牌。";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.精良;
-            }
-        }
+        public override Rarity Rare { get; set; } = Rarity.史诗;
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new DrawCard() { DrawCount = 1, SpellCardAbilityTimes = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.受伤} } };
 

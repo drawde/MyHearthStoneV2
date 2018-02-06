@@ -18,9 +18,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
         public override int InitialLife { get; set; } = 7;
         public override int InitialCost { get; set; } = 5;
 
-        public override int BuffDamage { get; set; } = 5;
+        
         public override int BuffLife { get; set; } = 7;
-        public override int BuffCost { get; set; } = 5;
 
         public override string Describe { get; set; } = "冲锋，战吼：随机弃2张牌。";
 

@@ -17,10 +17,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialDamage { get; set; } = 4;
         public override int InitialLife { get; set; } = 2;
         public override int InitialCost { get; set; } = 3;
-
-        public override int BuffDamage { get; set; } = 4;
+        
         public override int BuffLife { get; set; } = 2;
-        public override int BuffCost { get; set; } = 3;
 
         public override string Describe { get; set; } = "战吼：消灭一个攻击力大于或等于7的随从。";
 

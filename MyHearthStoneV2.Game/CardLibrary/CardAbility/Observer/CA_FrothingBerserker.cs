@@ -17,7 +17,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
         {
             BaseServant servant = actionParameter.MainCard as BaseServant;
             servant.Damage += 1;
-            servant.BuffDamage += 1;
             return null;
         }
     }

@@ -61,7 +61,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }
 
-            GameContextCache.Init();
+            //GameContextCache.Init();
             //var game = GameBll.Instance.CreateGame(tableCode, firstPlayerCode, secondPlayerCode, fristCardGroupCode, secondCardGroupCode);
 
             //string firstUserProfession = UserCardGroupBll.Instance.GetCardGroup(fristCardGroupCode, firstPlayerCode).Profession;
@@ -91,16 +91,12 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
         private static Controler_Base Validate(string gameCode, string userCode)
         {
             Controler_Base ctl = new Controler_Base();
-            var lstCtls = GameContextCache.GetContexts();
-            if (lstCtls.All(c => c.GameCode != gameCode) || !lstCtls.Any(c => c.Players.Any(x => x.User.UserCode == userCode)))
+            var context = GameContextCache.GetContext(gameCode);
+            if (context == null || !context.Players.Any(x => x.User.UserCode == userCode))
             {
                 return null;
             }
-            ctl.GameContext = lstCtls.First(c => c.GameCode == gameCode);
-            if (ctl.GameContext.Players.Any(c => c.UserCode == userCode) == false)
-            {
-                return null;
-            }
+            ctl.GameContext = context;
             return ctl;
         }
 

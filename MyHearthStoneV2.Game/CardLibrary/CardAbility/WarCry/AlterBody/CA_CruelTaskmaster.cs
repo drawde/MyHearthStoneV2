@@ -20,11 +20,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
             if (servant.DeskIndex > -1 && servant.DeskIndex != 0 && servant.DeskIndex != 8)
             {
                 servant.Damage += 2;
-                servant.BuffDamage += 2;
                 //card.Buffs.Add(sourceCard, new REV_JiaoXiaoDeZhongShi());
                 var para = CardActionFactory.CreateParameter(servant, actionParameter.GameContext, 1, secondaryCard: actionParameter.MainCard);
                 CardActionFactory.CreateAction(servant, ActionType.受到伤害).Action(para);
                 servant.Abilities.Add(new REV_CruelTaskmaster());
+                BaseActionParameter respara = CardActionFactory.CreateParameter(servant, actionParameter.GameContext);
+                CardActionFactory.CreateAction(servant, ActionType.重置攻击次数).Action(respara);
             }
             return null;
         }

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Parameter.CardAbility;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
     public class Silence : BaseCardAbility
@@ -17,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
         {
             if (CastCrosshairStyle == CastCrosshairStyle.单个)
             {
-                DisableCardAbility(actionParameter.SecondaryCard as BaseBiology);
+                DisableCardAbility(actionParameter.SecondaryCard as BaseBiology, actionParameter.GameContext);
             }
             else if (CastCrosshairStyle == CastCrosshairStyle.范围)
             {
@@ -39,19 +41,30 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
                 }
                 foreach (var bio in biologys.Where(c => c != null && c.CardType == CardType.随从))
                 {
-                    DisableCardAbility(bio);
+                    DisableCardAbility(bio, actionParameter.GameContext);
                 }
             }
             return null;
         }
 
-        private void DisableCardAbility(BaseBiology bio)
+        private void DisableCardAbility(BaseBiology bio, GameContext gameContext)
         {
-            bio.Damage = bio.InitialDamage;
-            bio.Cost = bio.InitialCost;
-            bio.Life = bio.InitialLife;
-            bio.BuffDamage = bio.InitialDamage;
-            bio.BuffCost = bio.InitialCost;
+            if (bio.Abilities.Any(c => c.AbilityType == AbilityType.BUFF))
+            {
+                foreach (var ability in bio.Abilities)
+                {
+                    CardAbilityParameter para = new CardAbilityParameter()
+                    {
+                        GameContext = gameContext,
+                        MainCard = bio,
+                    };
+                    ability.Action(para);
+                }
+            }
+            bio.Damage = bio.Damage < bio.InitialDamage ? bio.Damage : bio.InitialDamage;
+            bio.Cost = bio.Cost < bio.InitialCost ? bio.Cost : bio.InitialCost;
+            bio.Life = bio.Life < bio.InitialLife ? bio.Life : bio.InitialLife;
+
             bio.BuffLife = bio.InitialLife;
 
             bio.Abilities.Clear();

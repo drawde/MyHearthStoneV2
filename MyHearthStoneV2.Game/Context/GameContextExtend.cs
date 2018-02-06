@@ -203,6 +203,68 @@ namespace MyHearthStoneV2.Game.Context
         }
 
         /// <summary>
+        /// 随从移位
+        /// </summary>
+        /// <param name="gameContext"></param>
+        /// <param name="deskIndex"></param>
+        internal static int ShiftServant(this GameContext gameContext, int deskIndex)
+        {
+            if (gameContext.DeskCards[deskIndex] != null)
+            {
+                bool shiftDone = false;
+                int maxIndex = 16,minIndex = 8;
+                if (deskIndex < 8)
+                {
+                    maxIndex = 8;
+                    minIndex = 0;
+                }
+                #region 先往右移
+                int idx = deskIndex + 1;
+                for (; idx < maxIndex; idx++)
+                {
+                    if (gameContext.DeskCards[idx] == null)
+                    {                        
+                        BaseServant servant = null;
+                        for (int i = idx; i > deskIndex; i--)
+                        {
+                            servant = gameContext.DeskCards[i - 1] as BaseServant;
+                            servant.DeskIndex = i;
+                            gameContext.DeskCards[i] = servant;
+                            gameContext.DeskCards[i - 1] = null;
+                        }
+                        shiftDone = true;
+                        break;
+                    }
+                }
+                #endregion
+
+                #region 右移失败再尝试左移
+                if (shiftDone == false)
+                {
+                    idx = deskIndex - 1;
+                    for (; idx > minIndex; idx--)
+                    {
+                        if (gameContext.DeskCards[idx] == null)
+                        {
+                            BaseServant servant = null;
+                            //for (int i = 2; i < 4; i++)
+                            for (int i = idx; i < deskIndex - 1; i++)
+                            {
+                                servant = gameContext.DeskCards[i + 1] as BaseServant;
+                                servant.DeskIndex = i;
+                                gameContext.DeskCards[i] = servant;
+                            }
+                            shiftDone = true;
+                            deskIndex = deskIndex - 1;
+                            break;
+                        }
+                    }
+                }
+                #endregion                
+            }
+            return deskIndex;
+        }
+        /// <summary>
         /// 添加一个结算队列
         /// </summary>
         /// <param name="context"></param>

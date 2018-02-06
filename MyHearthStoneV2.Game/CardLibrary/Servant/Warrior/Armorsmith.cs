@@ -18,10 +18,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
         public override int InitialLife { get; set; } = 4;
         public override int InitialCost { get; set; } = 2;
 
-
-        public override int BuffDamage { get; set; } = 1;
+        
         public override int BuffLife { get; set; } = 4;
-        public override int BuffCost { get; set; } = 2;
 
         public override string Describe { get; set; } = "每当一个友方随从受到伤害，便获得1点护甲值。";
 

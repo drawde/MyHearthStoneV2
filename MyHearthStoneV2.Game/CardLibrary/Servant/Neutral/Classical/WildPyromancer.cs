@@ -17,10 +17,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialDamage { get; set; } = 3;
         public override int InitialLife { get; set; } = 2;
         public override int InitialCost { get; set; } = 2;
-
-        public override int BuffDamage { get; set; } = 3;
+        
         public override int BuffLife { get; set; } = 2;
-        public override int BuffCost { get; set; } = 2;
 
         public override string Describe { get; set; } = "每当你施放一个法术时，对所有随从造成1点伤害。";
 

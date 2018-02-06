@@ -298,6 +298,9 @@
     <Content Include="img\internet-of-things-iot.jpg" />
     <Content Include="img\lightbox\loading.gif" />
     <Content Include="img\lightbox\next.png" />
+    <Content Include="img\MyHearthStoneV2-游戏流程图.png" />
+    <Content Include="img\MyHearthStoneV2.Game-流程图.png" />
+    <Content Include="img\MyHearthStoneV2.Game.png" />
     <Content Include="img\nodejs-logo.jpg" />
     <Content Include="img\lightbox\prev.png" />
     <Content Include="js\apisign.source.js" />

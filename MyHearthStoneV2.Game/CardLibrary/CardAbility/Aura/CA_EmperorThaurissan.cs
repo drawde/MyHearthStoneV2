@@ -18,7 +18,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
             foreach (var card in player.HandCards)
             {
                 card.Cost -= 1;
-                card.BuffCost -= 1;
             }            
             return null;
         }

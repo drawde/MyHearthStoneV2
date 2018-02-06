@@ -17,10 +17,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
         public override int InitialDamage { get; set; } = 3;
         public override int InitialLife { get; set; } = 2;
         public override int InitialCost { get; set; } = 1;
-
-        public override int BuffDamage { get; set; } = 3;
+        
         public override int BuffLife { get; set; } = 2;
-        public override int BuffCost { get; set; } = 1;
 
         public override string Describe { get; set; } = "战吼：对你的英雄造成3点伤害。";
 

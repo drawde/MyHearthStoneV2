@@ -18,7 +18,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
             servant.Life += 4;
             servant.BuffLife += 4;
             servant.Damage += 4;
-            servant.BuffDamage += 4;
             servant.Abilities.Add(new Death());
             return null;
         }

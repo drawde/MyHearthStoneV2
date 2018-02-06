@@ -17,10 +17,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
         public override int InitialDamage { get; set; } = 4;
         public override int InitialLife { get; set; } = 3;
         public override int InitialCost { get; set; } = 4;
-
-        public override int BuffDamage { get; set; } = 4;
+        
         public override int BuffLife { get; set; } = 3;
-        public override int BuffCost { get; set; } = 4;
 
         public override string Describe { get; set; } = "亡语：增加召唤一个法力值消耗为（2）点的随从。";
 

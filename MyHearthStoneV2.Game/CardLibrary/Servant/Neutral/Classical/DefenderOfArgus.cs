@@ -14,25 +14,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialDamage { get; set; } = 2;
         public override int InitialLife { get; set; } = 3;
         public override int InitialCost { get; set; } = 4;
-
-        public override int BuffDamage { get; set; } = 2;
+        
         public override int BuffLife { get; set; } = 3;
-        public override int BuffCost { get; set; } = 4;
-        public override string Describe
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public override string Describe { get; set; } = "战吼：使相邻的随从获得+1/+1和嘲讽。";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.精良;
-            }
-        }
+        public override Rarity Rare { get; set; } = Rarity.精良;
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_DefenderOfArgus() };
 

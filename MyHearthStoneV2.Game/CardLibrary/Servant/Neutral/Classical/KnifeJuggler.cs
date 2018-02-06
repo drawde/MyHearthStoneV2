@@ -16,25 +16,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialLife { get; set; } = 2;
         public override int InitialCost { get; set; } = 2;
 
-
-        public override int BuffDamage { get; set; } = 3;
+        
         public override int BuffLife { get; set; } = 2;
-        public override int BuffCost { get; set; } = 2;
-        public override string Describe
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public override string Describe { get; set; } = "每当你召唤一个随从时，对一个随机敌方角色造成1点伤害。";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.精良;
-            }
-        }
+        public override Rarity Rare { get; set; } = Rarity.精良;
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_KnifeJuggler() };
 

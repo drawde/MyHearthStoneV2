@@ -21,7 +21,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             GameContext gameContext = para.GameContext;
             BaseBiology attackCard = para.SecondaryCard as BaseBiology;
 
-            if (servant.Damage > 0 && servant.CanAttack && servant.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.重置攻击次数)) == false)
+            if (servant.Damage > 0 && servant.CanAttack && servant.RemainAttackTimes < 1 && 
+                servant.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.重置攻击次数)) == false)
             {
                 servant.RemainAttackTimes += 1;
             }

@@ -11,8 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical
 
         public override string Name { get; set; } = "幸运币";
         public override int Cost { get; set; } = 0;
-
-        public override int BuffCost { get; set; } = 0;
+        
         public override string Describe { get; set; } = "";
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new AppendPower() };

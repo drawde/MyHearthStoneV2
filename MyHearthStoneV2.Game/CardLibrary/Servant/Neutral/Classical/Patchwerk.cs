@@ -14,11 +14,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialLife { get; set; } = 10;
         public override int InitialCost { get; set; } = 9;
 
-
-        public override int BuffDamage { get; set; } = 4;
+        
         public override int BuffLife { get; set; } = 10;
-        public override int BuffCost { get; set; } = 9;
-        public override string Describe => "";
+        public override string Describe { get; set; } = "当他的攻击目标为英雄时，无视护甲并造成双倍伤害";
 
         public override Rarity Rare => Rarity.传说;
 

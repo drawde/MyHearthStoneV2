@@ -18,25 +18,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialLife { get; set; } = 4;
         public override int InitialCost { get; set; } = 4;
 
-
-        public override int BuffDamage { get; set; } = 2;
+        
         public override int BuffLife { get; set; } = 4;
-        public override int BuffCost { get; set; } = 4;
-        public override string Describe
-        {
-            get
-            {
-                return "战吼：抽一张牌。";
-            }
-        }
+        public override string Describe { get; set; } = "战吼：抽一张牌。";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.普通;
-            }
-        }
+        public override Rarity Rare { get; set; } = Rarity.普通;
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new DrawCard() { DrawCount = 1, AbilityType = AbilityType.战吼 } };
 

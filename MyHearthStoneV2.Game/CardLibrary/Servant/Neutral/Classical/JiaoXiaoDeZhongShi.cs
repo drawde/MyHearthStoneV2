@@ -16,12 +16,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialDamage { get; set; } = 2;
         public override int InitialLife { get; set; } = 1;
         public override int InitialCost { get; set; } = 1;
-
-        public override int BuffDamage { get; set; } = 2;
+        
         public override int BuffLife { get; set; } = 1;
-        public override int BuffCost { get; set; } = 1;
 
-        public override string Describe { get; set; }
+        public override string Describe { get; set; } = "战吼：在本回合中，使一个随从获得 +2 攻击力。";
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 

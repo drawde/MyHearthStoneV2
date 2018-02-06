@@ -15,7 +15,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Equip.Warrior
         public override int InitialDamege { get; set; } = 4;
         public override int Durable { get; set; } = 2;
         public override int Cost { get; set; } = 4;
-        public override int BuffCost { get; set; } = 4;
         public override int InitialCost { get; set; } = 4;
         public override string Describe { get; set; }  = "亡语：对所有随从造成1点伤害";
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_DeathBite() };

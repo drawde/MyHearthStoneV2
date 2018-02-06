@@ -5,6 +5,7 @@ using MyHearthStoneV2.Game.Controler;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.CardAbility;
+using MyHearthStoneV2.Game.Action;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
 {
@@ -28,9 +29,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
                         left.Abilities.Add(new Taunt());
                         left.Damage += 1;
                         left.Life += 1;
-                        left.BuffDamage += 1;
                         left.BuffLife += 1;
                         left.Abilities.Add(new REV_DefenderOfArgus());
+                        BaseActionParameter para = CardActionFactory.CreateParameter(left, actionParameter.GameContext);
+                        CardActionFactory.CreateAction(left, ActionType.重置攻击次数).Action(para);
                     }
                     
                 }
@@ -42,9 +44,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
                         right.Abilities.Add(new Taunt());
                         right.Damage += 1;
                         right.Life += 1;
-                        right.BuffDamage += 1;
                         right.BuffLife += 1;
                         right.Abilities.Add(new REV_DefenderOfArgus());
+                        BaseActionParameter para = CardActionFactory.CreateParameter(right, actionParameter.GameContext);
+                        CardActionFactory.CreateAction(right, ActionType.重置攻击次数).Action(para);
                     }
                 }
             }

@@ -15,7 +15,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override string Name { get; set; } = "怒火中烧";
         public override int Cost { get; set; } = 0;
         public override int InitialCost { get; set; } = 0;
-        public override int BuffCost { get; set; } = 0;
         public override string Describe { get; set; } = "对一个随从造成1点伤害，该随从获得+2攻击力。";
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_CruelTaskmaster() { AbilityType  = AbilityType.法术} };

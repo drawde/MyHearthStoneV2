@@ -14,26 +14,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
         public override int InitialLife { get; set; } = 3;
         public override int InitialCost { get; set; } = 3;
 
-
-        public override int BuffDamage { get; set; } = 2;
+        
         public override int BuffLife { get; set; } = 3;
-        public override int BuffCost { get; set; } = 3;
 
-        public override string Describe
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public override string Describe { get; set; } = "每当你召唤一个攻击力小于或等于3的随从，使该随从获得冲锋";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.史诗;
-            }
-        }
+        public override Rarity Rare { get; set; } = Rarity.史诗;
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_WarsongCommander() };
 

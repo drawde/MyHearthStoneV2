@@ -15,7 +15,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override string Name { get; set; } = "斩杀";
         public override int Cost { get; set; } = 1;
         public override int InitialCost { get; set; } = 1;
-        public override int BuffCost { get; set; } = 1;
         public override string Describe { get; set; } = "消灭一个受过伤害的敌方随从。";
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Execute() };

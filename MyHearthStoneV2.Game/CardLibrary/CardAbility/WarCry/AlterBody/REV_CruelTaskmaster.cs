@@ -17,12 +17,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
             if (card.Damage > 2)
             {
                 card.Damage -= 2;
-                card.BuffDamage -= 2;
             }
             else
             {
                 card.Damage = 0;
-                card.BuffDamage = 0;
             }
             //card.Buffs.Remove(card.Buffs.First(c => c.Value is CA_JiaoXiaoDeZhongShi).Key);
             card.Abilities.Remove(this);

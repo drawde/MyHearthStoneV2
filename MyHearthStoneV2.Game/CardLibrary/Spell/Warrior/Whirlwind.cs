@@ -11,7 +11,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override string Name { get; set; } = "旋风斩";
         public override int Cost { get; set; } = 1;
         public override int InitialCost { get; set; } = 1;
-        public override int BuffCost { get; set; } = 1;
         public override string Describe { get; set; } = "对所有随从造成1点伤害。";
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Whirlwind() };

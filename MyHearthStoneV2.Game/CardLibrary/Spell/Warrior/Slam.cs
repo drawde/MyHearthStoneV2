@@ -14,7 +14,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
 
         public override string Name { get; set; } = "猛击";
         public override int Cost { get; set; } = 2;
-        public override int BuffCost { get; set; } = 2;
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "对一个随从造成2点伤害，如果它依然存活，则抽一张牌。";
 

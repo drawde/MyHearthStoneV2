@@ -14,7 +14,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
             BaseServant card = actionParameter.MainCard as BaseServant;
             card.Damage -= 1;
             card.Life -= 1;
-            card.BuffDamage -= 1;
             card.BuffLife -= 1;
             if (card.Life < 1)
             {

@@ -17,10 +17,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
         public override int InitialDamage { get; set; } = 2;
         public override int InitialLife { get; set; } = 4;
         public override int InitialCost { get; set; } = 3;
-
-        public override int BuffDamage { get; set; } = 2;
+        
         public override int BuffLife { get; set; } = 4;
-        public override int BuffCost { get; set; } = 3;
 
         public override string Describe { get; set; } = "每当他受到伤害的时候，召唤一只1/1的小鬼。";
 

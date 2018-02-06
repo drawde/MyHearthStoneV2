@@ -43,10 +43,10 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            if (ctl.GameContext.DeskCards[location] != null)
-            {
-                return JsonModelResult.PackageFail(OperateResCodeEnum.位置已被占用);
-            }
+            //if (ctl.GameContext.DeskCards[location] != null)
+            //{
+            //    return JsonModelResult.PackageFail(OperateResCodeEnum.位置已被占用);
+            //}
             if (player.IsFirst && (location == 0 || location > 7))
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);

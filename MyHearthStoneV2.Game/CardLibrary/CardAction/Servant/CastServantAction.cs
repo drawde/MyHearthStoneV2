@@ -26,6 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             servant.CardLocation = CardLocation.场上;
             servant.DeskIndex = deskIndex;
             servant.CanAttack = true;
+
             gameContext.DeskCards[deskIndex] = servant;
             if (user.HandCards.Any(c => c.CardInGameCode == servant.CardInGameCode))
                 user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
@@ -38,5 +39,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
 
             return null;
         }
+
+        
     }
 }
