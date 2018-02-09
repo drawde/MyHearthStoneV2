@@ -1,6 +1,8 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
-
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Collections.Generic;
 
@@ -22,7 +24,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_VioletTeacher() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new BeforeICastSpellDriver<Summon<VioletStudent,ONE>>(),            
+        };
 
 
         public override string Name { get; set; } = "紫罗兰教师";

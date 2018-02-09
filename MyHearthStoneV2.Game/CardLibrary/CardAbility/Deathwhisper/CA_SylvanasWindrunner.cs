@@ -14,11 +14,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             var enemyContext = actionParameter.GameContext.GetEnemyUserContextByMyCard(actionParameter.MainCard);
-            List<BaseBiology> lstBio = actionParameter.GameContext.DeskCards.GetDeskCardsByIsFirst(enemyContext.IsFirst);
-            if (lstBio.Any(c => c != null && c.CardType == CardType.随从))
+            List<BaseBiology> lstBio = actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(enemyContext.IsFirst);
+            if (lstBio.Count > 0)
             {
                 List<int> lstServantIndex = new List<int>();
-                foreach (var ser in lstBio.Where(c => c != null && c.CardType == CardType.随从))
+                foreach (var ser in lstBio)
                 {
                     lstServantIndex.Add(ser.DeskIndex);//lstBio.FindIndex(c => c != null && c.CardInGameCode == ser.CardInGameCode)
                 }

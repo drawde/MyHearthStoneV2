@@ -1,7 +1,9 @@
 ﻿
 using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Collections.Generic;
 
@@ -18,23 +20,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
         public override int InitialCost { get; set; } = 2;
         
         public override int BuffLife { get; set; } = 2;
-        public override string Describe
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public override string Describe { get; set; } = "";
 
-        public override Rarity Rare
+        public override Rarity Rare { get; set; } = Rarity.精良;
+
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            get
-            {
-                return Rarity.精良;
-            }
-        }
-        
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_GuiLingZhiZhu() };
+            new DeathWhisperDriver<Summon<XiaoZhiZhu,Two>>()
+        };
 
         public override string Name { get; set; } = "鬼灵爬行者";
         public override Profession Profession { get; set; } = Profession.Neutral;

@@ -17,5 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warlock
 
         public override string BackgroudImage { get; set; } = "GVG/Implosion.jpg";
         public override Profession Profession { get; set; } = Profession.Warlock;
+
+        public override int Damage { get; set; } = 4;
     }
 }

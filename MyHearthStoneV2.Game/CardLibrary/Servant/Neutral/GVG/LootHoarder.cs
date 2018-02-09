@@ -1,5 +1,7 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,23 +22,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 
         
         public override int BuffLife { get; set; } = 1;
-        public override string Describe
-        {
-            get
-            {
-                return "亡语：抽一张牌。";
-            }
-        }
+        public override string Describe { get; set; } = "亡语：抽一张牌。";
 
-        public override Rarity Rare
-        {
-            get
-            {
-                return Rarity.普通;
-            }
-        }
+        public override Rarity Rare => Rarity.普通;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new DrawCard() { DrawCount = 1, AbilityType = AbilityType.亡语 } };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new DeathWhisperDriver<DrawCard<ONE>>(),            
+        };
 
 
         public override string Name { get; set; } = "战利品贮藏者";

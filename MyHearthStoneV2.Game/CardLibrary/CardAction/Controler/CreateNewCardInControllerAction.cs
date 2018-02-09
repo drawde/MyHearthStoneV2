@@ -16,7 +16,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
     /// 创建一张牌
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class CreateNewCardInControllerAction<T> : IGameAction where T : Card
+    internal class CreateNewCardInControllerAction<T> : Action.IGameAction where T : Card
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

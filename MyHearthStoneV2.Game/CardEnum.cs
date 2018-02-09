@@ -128,6 +128,12 @@ namespace MyHearthStoneV2.Game
         
         己方打出法术牌前 = 11,
         己方打出法术牌后 = 12,
+
+        己方随从受到治疗前 = 13,
+        己方随从受到治疗后 = 14,
+
+        己方英雄受到治疗前 = 15,
+        己方英雄受到治疗后 = 16,
         #endregion
 
         #region 对方场上只要出现某种效果时就触发
@@ -147,6 +153,9 @@ namespace MyHearthStoneV2.Game
 
         对方打出法术牌前 = 111,
         对方打出法术牌后 = 112,
+
+        对方随从受到治疗前 = 113,
+        对方随从受到治疗后 = 114,
         #endregion
 
         #region 场上只要出现某种效果时就触发
@@ -157,11 +166,15 @@ namespace MyHearthStoneV2.Game
         //随从死亡 = 1005,
         重置攻击次数 = 1006,
         英雄攻击 = 1007,
+
+        治疗随从 = 1008,
+        治疗英雄 = 1009,
         #endregion
 
         #region 只有自己受到某种效果时才触发
         攻击 = 10001,
         受伤 = 10002,
+        治疗 = 10003,
         #endregion
 
     }
@@ -181,6 +194,7 @@ namespace MyHearthStoneV2.Game
         冲锋 = 10,
         光环BUFF = 11,
         BUFF = 12,
+        法术强度 = 13,
     }
 
     /// <summary>
@@ -194,7 +208,9 @@ namespace MyHearthStoneV2.Game
         受到伤害 = 4,
         死亡 = 5,
         受到攻击 = 6,
-        重置攻击次数 = 7
+        重置攻击次数 = 7,
+        受到治疗 = 8,
+        受到法术伤害 = 9,
     }
 
     /// <summary>
@@ -223,11 +239,21 @@ namespace MyHearthStoneV2.Game
     }
 
     /// <summary>
-    /// 弃牌方式
+    /// 挑选方式
     /// </summary>
-    public enum DropCardType
+    public enum PickType
     {
         随机 = 1,
         指定 = 2,
+    }
+
+    /// <summary>
+    /// 打出这张牌的前置条件
+    /// </summary>
+    public enum CastCardPrecondition
+    {
+        无 = 0,
+        健康 = 1,
+        装备有武器 = 2,
     }
 }

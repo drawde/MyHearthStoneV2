@@ -1,11 +1,9 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Parameter;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
@@ -18,7 +16,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
             servant.Life += 4;
             servant.BuffLife += 4;
             servant.Damage += 4;
-            servant.Abilities.Add(new Death());
+
+            servant.Abilities.Add(new Death<ServantFilter>()
+            {
+                SpellCardAbilityTimes = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方回合结束 },                
+            });
             return null;
         }
     }

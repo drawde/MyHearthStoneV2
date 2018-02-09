@@ -27,8 +27,12 @@ namespace MyHearthStoneV2.Game.Controler
         {
             var user = GameContext.GetActivationUserContext();
             user.Power -= servant.Cost < 0 ? 0 : servant.Cost;
+            user.ComboSwitch = true;
 
             location = GameContext.ShiftServant(location);
+
+            //先从手牌中移除这张牌
+            user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
 
             #region 首先触发打出的这张牌的战吼技能
             if (servant.Abilities.Any(c => c.AbilityType == AbilityType.战吼))

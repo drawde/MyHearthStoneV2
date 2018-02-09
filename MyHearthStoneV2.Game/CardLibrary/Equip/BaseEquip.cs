@@ -12,9 +12,7 @@
         /// <summary>
         /// 攻击力
         /// </summary>
-        public virtual int Damage { get; set; }
-
-        public virtual int BuffDamage { get; set; }
+        public virtual int Damage { get; set; }        
         public virtual int InitialDamege { get; set; }
         
     }

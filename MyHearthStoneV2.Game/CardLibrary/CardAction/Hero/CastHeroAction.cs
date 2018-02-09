@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
     /// <summary>
     /// 英雄进场（不触发技能，比如召唤出来的随从）
     /// </summary>
-    internal class CastHeroAction : IGameAction
+    internal class CastHeroAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

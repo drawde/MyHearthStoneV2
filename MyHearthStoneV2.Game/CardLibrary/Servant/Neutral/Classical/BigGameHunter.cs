@@ -1,4 +1,7 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry;
 using System;
 using System.Collections.Generic;
@@ -24,7 +27,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.史诗;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_BigGameHunter() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new BattlecryDriver<Death<ServantFilter>>(),
+        };
 
         public override string BackgroudImage { get; set; } = "W5_030_D.png";
 

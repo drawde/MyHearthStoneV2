@@ -1,5 +1,6 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new Silence() { AbilityType = AbilityType.战吼} };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new BattlecryDriver<Silence>()
+        };
 
         public override string BackgroudImage { get; set; } = "W4_280_D.png";
 

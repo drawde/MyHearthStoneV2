@@ -45,7 +45,18 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.没有足够的法力值);
             }
-
+            if (card.CastCardPrecondition == CastCardPrecondition.健康 && target > -1)
+            {
+                BaseBiology biology = ctl.GameContext.DeskCards[target];
+                if (biology.Life != biology.BuffLife)
+                {
+                    return JsonModelResult.PackageFail(OperateResCodeEnum.错误的目标);
+                }
+            }
+            if (card.CastCardPrecondition == CastCardPrecondition.装备有武器 && ctl.GameContext.GetHeroByActivation().Equip == null)
+            {
+                return JsonModelResult.PackageFail(OperateResCodeEnum.你无法施放这个技能);
+            }
             ctl.CastSpell((BaseSpell)card, target);
             return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
         }

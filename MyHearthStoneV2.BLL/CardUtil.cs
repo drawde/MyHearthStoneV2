@@ -16,6 +16,10 @@ using MyHearthStoneV2.Game.CardLibrary.Equip.Warrior;
 using MyHearthStoneV2.Game.CardLibrary.Spell.Warrior;
 using MyHearthStoneV2.Game.CardLibrary.Servant.Warlock;
 using MyHearthStoneV2.Game.CardLibrary.Spell.Warlock;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Rogue;
+using MyHearthStoneV2.Game.CardLibrary.Equip.Rogue;
+using MyHearthStoneV2.Game.CardLibrary.Spell.Rogue;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.TOC;
 
 namespace MyHearthStoneV2.BLL
 {
@@ -81,6 +85,31 @@ namespace MyHearthStoneV2.BLL
                 new Implosion(),//小鬼爆破
                 new PilotedShredder(),//载人收割机
                 new Voidwalker(),//虚空行者
+                new Loatheb(),//洛欧塞布
+                new AntiqueHealbot(),//老式治疗机器人
+                new EarthenRingFarseer(),//大地之环先知
+                new EdwinVanCleef(),//艾德温·范克里夫
+                new SI7Agent(),//军情七处特工
+                new WickedKnife(),//邪恶短刀
+                new BloodmageThalnos(),//血法师萨尔诺斯
+                new Sap(),//闷棍
+                new Vanish(),//消失
+                new Eviscerate(),//刺骨
+                new AzureDrake(),//碧蓝幼龙
+                new Preparation(),//伺机待发
+                new Sprint(),//疾跑
+                new Backstab(),//背刺
+                new FanofKnives(),//刀扇
+                new Assassin_sBlade(),//刺客之刃
+                new DeadlyPoison(),//致命药膏
+                new Tinker_sSharpswordOil(),//修补匠的磨刀油
+                new BladeFlurry(),//剑刃乱舞
+                new LeeroyJenkins(),//火车王里诺艾
+                new TombPillager(),//盗墓匪贼
+                new KoboldGeomancer(),//狗头人地卜师
+                new Doomsayer(),//末日预言者
+                new MadBomber(),//疯狂投弹者
+                new Whelp(),//雏龙
             };
 
             lstCard.ForEach(c => c.CardCode = ShortCodeBusiness.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);

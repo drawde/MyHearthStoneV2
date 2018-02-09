@@ -1,6 +1,8 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using System.Collections.Generic;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
@@ -20,7 +22,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare => Rarity.传说;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_EquipWarglaiveOfAzzinoth() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new DeathWhisperDriver<LoadEquip<WarglaiveOfAzzinoth>>()            
+        };
         
         public override string Name { get; set; } = "伊利丹·怒风";
         public override string BackgroudImage { get; set; } = "BlackTemple_D_1.png";

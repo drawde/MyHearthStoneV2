@@ -21,5 +21,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
 
         public override string BackgroudImage { get; set; } = "W6_002_D.png";
         public override Profession Profession { get; set; } = Profession.Warrior;
+
+        public override int Damage { get; set; } = 2;
     }
 }

@@ -37,8 +37,7 @@ namespace MyHearthStoneV2.Game.Context
         /// 玩家坟场的牌
         /// </summary>
         public List<Card> GraveyardCards { get; set; } = new List<Card>();
-
-
+        
         /// <summary>
         /// 疲劳值
         /// </summary>

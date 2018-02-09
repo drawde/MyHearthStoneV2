@@ -1,33 +1,36 @@
 ﻿using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Context;
-
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using System;
+using System.Linq;
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class RiseDamage : BaseCardAbility
+    /// <summary>
+    /// 对一个目标造成伤害
+    /// </summary>
+    /// <typeparam name="TAG">目标</typeparam>
+    /// <typeparam name="DMG">伤害量</typeparam>
+    /// <typeparam name="QAT">伤害次数</typeparam>
+    /// <typeparam name="DT">伤害类型</typeparam>
+    internal class RiseDamage<TAG, DMG, QAT, DT> : BaseCardAbility where TAG : ITarget where DMG : IQuantity where QAT : IQuantity where DT : IDamageType
     {
-        public override CastStyle CastStyle { get; set; } = CastStyle.随从;
-        public override CastCrosshairStyle CastCrosshairStyle { get; set; } = CastCrosshairStyle.单个;
 
-        public override AbilityType AbilityType { get; set; } = AbilityType.战吼;
-        public virtual int Damage { get; set; } = 1;
-        
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            BaseBiology biology = actionParameter.SecondaryCard as BaseBiology;
-            if (biology == null)
+            TAG tag = GameActivator<TAG>.CreateInstance();
+            DT damageType = GameActivator<DT>.CreateInstance();
+            DMG dmg = GameActivator<DMG>.CreateInstance();
+            QAT qat = GameActivator<QAT>.CreateInstance();
+            UserContext enemy = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.SecondaryCard);
+            for (int i = 0; i < qat.Quantity; i++)
             {
-                if (CastStyle == CastStyle.己方英雄)
+                foreach (BaseBiology biology in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)))
                 {
-                    biology = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard).IsFirst);
-                }
-                else if (CastStyle == CastStyle.敌方英雄)
-                {
-                    biology = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(actionParameter.GameContext.GetUserContextByEnemyCard(actionParameter.MainCard).IsFirst);
+                    var para = CardActionFactory.CreateParameter(biology, actionParameter.GameContext, dmg.Quantity, secondaryCard: actionParameter.MainCard);
+                    CardActionFactory.CreateAction(biology, damageType.ActionType).Action(para);
                 }
             }
-            var para = CardActionFactory.CreateParameter(biology, actionParameter.GameContext, Damage, secondaryCard: actionParameter.MainCard);
-            CardActionFactory.CreateAction(biology, ActionType.受到伤害).Action(para);
             return null;
         }
     }

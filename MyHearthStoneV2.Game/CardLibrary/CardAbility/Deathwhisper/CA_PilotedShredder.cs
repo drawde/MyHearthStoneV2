@@ -12,7 +12,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper
 {
     public class CA_PilotedShredder : BaseCardAbility
     {
-        public override AbilityType AbilityType { get; set; } = AbilityType.亡语;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             bool isActivation = actionParameter.GameContext.IsThisActivationUserCard(actionParameter.MainCard);

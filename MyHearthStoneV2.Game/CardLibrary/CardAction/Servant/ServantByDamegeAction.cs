@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从受到伤害（被火球砸、火冲点）
     /// </summary>
-    internal class ServantByDamegeAction : IGameAction
+    internal class ServantByDamegeAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             BaseServant servant = para.Biology;
             GameContext gameContext = para.GameContext;
             Card triggerCard = para.SecondaryCard;
-            int damege = para.Damage;
+            int damege = para.DamageOrHeal;
             
             if (servant.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方随从受到伤害前)))
             {
@@ -32,7 +32,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
                     GameContext = gameContext,
                     Biology = servant,
                     SecondaryCard = triggerCard,
-                    Damage = damege,
+                    DamageOrHeal = damege,
                 };
                 dslAct.Action(dslPara);
                 //DeductionBiologyLife(servant, gameContext, triggerCard, trueDamege);

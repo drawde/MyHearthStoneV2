@@ -1,24 +1,27 @@
-﻿using MyHearthStoneV2.Game.Action;
-using MyHearthStoneV2.Game.CardLibrary.Servant;
+﻿using MyHearthStoneV2.Common;
+using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.Parameter;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class Death : BaseCardAbility
+    /// <summary>
+    /// 将一个目标标记为死亡
+    /// </summary>
+    /// <typeparam name="TAG"></typeparam>
+    internal class Death<TAG> : BaseCardAbility where TAG : ITarget
     {
-        public override AbilityType AbilityType { get; set; } = AbilityType.法术;
-        public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方回合结束 };
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            BaseServant servant = actionParameter.MainCard as BaseServant;
-            servant.Deathing = true;
-            BaseActionParameter para = CardActionFactory.CreateParameter(servant, actionParameter.GameContext);
-            CardActionFactory.CreateAction(servant, ActionType.死亡).Action(para);
+            TAG tag = GameActivator<TAG>.CreateInstance();
+            foreach (var biology in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)))
+            {
+                //BaseServant servant = actionParameter.MainCard as BaseServant;
+                biology.Deathing = true;
+                BaseActionParameter para = CardActionFactory.CreateParameter(biology, actionParameter.GameContext);
+                CardActionFactory.CreateAction(biology, ActionType.死亡).Action(para);
+            }
             return null;
         }
     }

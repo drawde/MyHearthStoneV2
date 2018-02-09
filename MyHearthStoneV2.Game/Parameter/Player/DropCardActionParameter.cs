@@ -8,7 +8,7 @@ namespace MyHearthStoneV2.Game.Parameter.Player
         internal int DropCount { get; set; }
         internal UserContext UserContext { get; set; }
 
-        internal DropCardType DropCardType { get; set; } = DropCardType.随机;
+        internal PickType DropCardType { get; set; } = PickType.随机;
 
         /// <summary>
         /// 弃牌方式为指定时，设置为被弃牌的下标

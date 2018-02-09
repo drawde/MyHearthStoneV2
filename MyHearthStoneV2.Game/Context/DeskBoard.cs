@@ -27,6 +27,35 @@ namespace MyHearthStoneV2.Game.Context
             return GetRange(isFirst ? 0 : 8, 8);
         }
 
+        public List<BaseBiology> GetDeskServantsByIsFirst(bool isFirst = true)
+        {
+            return GetRange(isFirst ? 0 : 8, 8).Where(c => c != null && c.CardType == CardType.随从).ToList();
+        }
+
+        public List<BaseBiology> GetDeskBiologysByIsFirst(bool isFirst = true)
+        {
+            return GetRange(isFirst ? 0 : 8, 8).Where(c => c != null).ToList();
+        }
+
+        public List<BaseBiology> GetServants()
+        {
+            return this.Where(c => c != null && c.CardType == CardType.随从).ToList();
+        }
+        public List<BaseBiology> GetAllBiology()
+        {
+            return this.Where(c => c != null).ToList();
+        }
+
+        public Func<BaseBiology, bool> GetServant(string cardInGameCode)
+        {
+            return new Func<BaseBiology, bool>(c => c != null && c.CardInGameCode == cardInGameCode);
+        }
+
+        public Func<BaseBiology, bool> GetServantsFilter()
+        {
+            return new Func<BaseBiology, bool>(c => c != null && c.CardType == CardType.随从);
+        }
+
         public BaseHero GetFirstPlayerHero()
         {
             return this.First() as BaseHero;

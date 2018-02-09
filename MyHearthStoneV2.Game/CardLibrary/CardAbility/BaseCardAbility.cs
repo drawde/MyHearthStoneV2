@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility
     /// <summary>
     /// 卡牌技能基类
     /// </summary>
-    public abstract class BaseCardAbility : IGameAction
+    public abstract class BaseCardAbility : Action.IGameAction
     {
         public virtual PriorityOfSettlement PriorityOfSettlement => PriorityOfSettlement.无;
         public virtual CastStyle CastStyle { get; set; } = CastStyle.无;

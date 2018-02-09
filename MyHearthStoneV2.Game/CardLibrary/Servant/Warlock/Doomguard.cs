@@ -1,5 +1,8 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Pick;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +28,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new Charge(), new DropCard() { AbilityType = AbilityType.战吼, DropCardType = DropCardType.随机, DropCount = 2 } };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new Charge(),
+            new BattlecryDriver<DropCard<Two,RandomPick>>()
+        };
 
         public override string BackgroudImage { get; set; } = "W11_141_D_1.png";
 

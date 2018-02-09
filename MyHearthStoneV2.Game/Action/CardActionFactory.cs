@@ -29,6 +29,8 @@ namespace MyHearthStoneV2.Game.Action
                     case ActionType.死亡: action = new HeroDeadAction(); break;
                     case ActionType.进场: action = new CastHeroAction(); break;
                     case ActionType.重置攻击次数: action = new ResetHeroRemainAttackTimesAction(); break;
+                    case ActionType.受到治疗: action = new HeroByHealAction(); break;
+                    case ActionType.受到法术伤害: action = new HeroBySpellAction(); break;
                 }
             }
             else
@@ -42,12 +44,14 @@ namespace MyHearthStoneV2.Game.Action
                     case ActionType.死亡: action = new ServantDeadAction(); break;
                     case ActionType.进场: action = new CastServantAction(); break;
                     case ActionType.重置攻击次数: action = new ResetServantRemainAttackTimes(); break;
+                    case ActionType.受到治疗: action = new ServantByHealAction(); break;
+                    case ActionType.受到法术伤害: action = new ServantBySpellAction(); break;
                 }
             }
             return action;
         }
 
-        internal static BiologyActionParameter CreateParameter(Card biology, GameContext gameContext, int damage = 0, int deskIndex = -1, Card mainCard = null, Card secondaryCard = null)
+        internal static BiologyActionParameter CreateParameter(Card biology, GameContext gameContext, int damageOrHeal = 0, int deskIndex = -1, Card mainCard = null, Card secondaryCard = null)
         {
             BiologyActionParameter para = null;
             if (biology.CardType == CardType.英雄)
@@ -58,7 +62,7 @@ namespace MyHearthStoneV2.Game.Action
                     GameContext = gameContext,
                     MainCard = mainCard,
                     SecondaryCard = secondaryCard,
-                    Damage = damage,
+                    DamageOrHeal = damageOrHeal,
                     DeskIndex = deskIndex
                 };
             }
@@ -70,7 +74,7 @@ namespace MyHearthStoneV2.Game.Action
                     GameContext = gameContext,
                     MainCard = mainCard,
                     SecondaryCard = secondaryCard,
-                    Damage = damage,
+                    DamageOrHeal = damageOrHeal,
                     DeskIndex = deskIndex
                 };
             }

@@ -24,5 +24,7 @@ namespace MyHearthStoneV2.Game.Parameter
         /// 次要卡牌
         /// </summary>
         internal Card SecondaryCard { get; set; }
+
+        internal UserContext UserContext { get; set; }
     }
 }

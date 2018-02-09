@@ -1,12 +1,6 @@
-﻿
-using MyHearthStoneV2.Game.Monitor;
-using MyHearthStoneV2.Game.CardLibrary.Servant;
+﻿using MyHearthStoneV2.Game.Monitor;
 using MyHearthStoneV2.Game.CardLibrary.Spell;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.Context;
@@ -29,6 +23,7 @@ namespace MyHearthStoneV2.Game.Controler
 
             currentUserContext.Power -= spell.Cost < 0 ? 0 : spell.Cost;
             currentUserContext.HandCards.Remove(spell);
+            currentUserContext.ComboSwitch = true;
 
             #region 触发场内牌的技能
             GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(), SpellCardAbilityTime.己方打出法术牌前, spell, target);

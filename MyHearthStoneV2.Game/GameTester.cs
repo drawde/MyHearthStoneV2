@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Controler;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Equip;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
@@ -9,6 +10,7 @@ using MyHearthStoneV2.Game.Controler.Proxy;
 using MyHearthStoneV2.Game.Parameter.Controler;
 using MyHearthStoneV2.Game.Parameter.Equip;
 using MyHearthStoneV2.Game.Parameter.Player;
+using MyHearthStoneV2.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +32,13 @@ namespace MyHearthStoneV2.Game
                 GameContext = gameContext,
                 UserContext = gameContext.GetActivationUserContext()
             };
-            IGameAction drawCardAction = new DrawCardAction();
+            Action.IGameAction drawCardAction = new DrawCardAction();
             drawCardAction.Action(para);
+
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+            }
         }
 
         public static void CastServant(GameContext gameContext, string cardInGameCode)
@@ -99,7 +106,12 @@ namespace MyHearthStoneV2.Game
             servant.CanAttack = true;
             servant.RemainAttackTimes = 1;
             servant.DeskIndex = deskIndex;
-            gameContext.DeskCards[deskIndex] = servant;            
+            gameContext.DeskCards[deskIndex] = servant;
+
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+            }
         }
 
         public static void TurnEnd(GameContext gameContext)
@@ -108,6 +120,22 @@ namespace MyHearthStoneV2.Game
             string enemy = gameContext.Players.First(c => c.IsActivation == false).UserCode.ToString();
             Controller_Base_Proxy.TurnEnd(gameContext.GameCode, current);
             Controller_Base_Proxy.TurnStart(gameContext.GameCode, enemy);
+        }
+
+        public static void GodDraw<T>(GameContext gameContext) where T : Card
+        {
+            var current = gameContext.Players.First(c => c.IsActivation == true);
+            if (current.AllCards.Any(c => c.GetType() == typeof(T)))
+            {
+                var card = current.StockCards.First(c => c.GetType() == typeof(T));
+                current.StockCards.RemoveAt(current.StockCards.FindIndex(c => c.GetType() == typeof(T)));
+                current.HandCards.Add(card);
+
+                using (var redisClient = RedisManager.GetClient())
+                {
+                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+                }
+            }
         }
 
         public static void LoadEquip<T>(GameContext gameContext)where T : BaseEquip
@@ -147,6 +175,11 @@ namespace MyHearthStoneV2.Game
                 Hero = gameContext.DeskCards.GetHeroByIsFirst(isfirst),
             };
             new LoadAction().Action(equipPara);
+
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+            }
         }
     }
 }

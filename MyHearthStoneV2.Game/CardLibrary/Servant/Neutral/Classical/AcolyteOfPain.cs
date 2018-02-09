@@ -1,5 +1,7 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer;
 using System.Collections.Generic;
 
@@ -21,7 +23,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.史诗;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new DrawCard() { DrawCount = 1, SpellCardAbilityTimes = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.受伤} } };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new HurtDriver<DrawCard<ONE>>()
+        };
 
 
         public override string Name { get; set; } = "苦痛侍僧";

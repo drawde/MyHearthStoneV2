@@ -1,10 +1,10 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
-using System;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 {
@@ -17,14 +17,17 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
         public override int InitialDamage { get; set; } = 3;
         public override int InitialLife { get; set; } = 2;
         public override int InitialCost { get; set; } = 1;
-        
+
         public override int BuffLife { get; set; } = 2;
 
         public override string Describe { get; set; } = "战吼：对你的英雄造成3点伤害。";
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new RiseDamage() { CastStyle = CastStyle.己方英雄, Damage = 3, CastCrosshairStyle = CastCrosshairStyle.无, AbilityType = AbilityType.战吼 } };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new BattlecryDriver<RiseDamage<MyHero,Three,ONE,PhysicalDamage>>(),
+        };
 
         public override string BackgroudImage { get; set; } = "W7_009_D.png";
 

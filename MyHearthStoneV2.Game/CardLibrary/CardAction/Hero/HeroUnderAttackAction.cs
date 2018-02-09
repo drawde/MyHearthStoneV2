@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
     /// <summary>
     /// 被攻击
     /// </summary>
-    internal class HeroUnderAttackAction : IGameAction
+    internal class HeroUnderAttackAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

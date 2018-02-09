@@ -66,5 +66,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         public virtual int CastIndex { get; set; } = 0;
 
         public virtual Profession Profession { get; set; }
+
+        public virtual CastCardPrecondition CastCardPrecondition { get; set; } = CastCardPrecondition.无;
     }
 }

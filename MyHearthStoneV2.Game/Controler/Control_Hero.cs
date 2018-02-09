@@ -56,6 +56,7 @@ namespace MyHearthStoneV2.Game.Controler
         internal void LoadEquip(BaseHero hero, BaseEquip equip)
         {
             var user = GameContext.GetUserContextByMyCard(hero);
+            user.ComboSwitch = true;
             user.Power -= equip.Cost < 0 ? 0 : equip.Cost;
             EquipActionParameter equipPara = new EquipActionParameter()
             {

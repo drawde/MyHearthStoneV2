@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.Parameter.Biology
     {
         internal virtual BaseBiology Biology { get; set; }
 
-        internal int Damage { get; set; }
+        internal int DamageOrHeal { get; set; }
 
         internal int DeskIndex { get; set; }
     }

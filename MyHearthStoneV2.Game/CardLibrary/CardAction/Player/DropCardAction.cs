@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
     /// <summary>
     /// 弃牌
     /// </summary>
-    internal class DropCardAction : IGameAction
+    internal class DropCardAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
@@ -24,16 +24,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
             UserContext uc = dropPara.UserContext;
             
             
-            if (dropPara.DropCardType == DropCardType.随机 && uc.HandCards.Count > 0)
+            if (dropPara.DropCardType == PickType.随机 && uc.HandCards.Count > 0)
             {
                 List<int> dropList = new List<int>();
                 for (int i = 0; i < uc.HandCards.Count; i++)
                 {
-                    //不能弃掉带有这个技能的牌
-                    if (uc.HandCards[i].CardInGameCode != dropPara.MainCard.CardInGameCode)
-                    {
-                        dropList.Add(i);
-                    }
+                    dropList.Add(i);
                 }
                 if (dropList.Count < dropCount)
                 {

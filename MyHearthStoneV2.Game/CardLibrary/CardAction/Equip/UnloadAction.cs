@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
     /// <summary>
     /// 拆卸装备，如果装备耐久小于1的话
     /// </summary>
-    internal class UnloadAction : IGameAction
+    internal class UnloadAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
@@ -28,12 +28,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
                 baseHero.Equip.CardLocation = CardLocation.坟场;
                 if (baseHero.Equip.Abilities.Any(c => c.AbilityType == AbilityType.亡语))
                 {
-                    gameContext.TriggerCardAbility(new List<Card> { baseHero.Equip }, SpellCardAbilityTime.无);
+                    gameContext.TriggerCardAbility(new List<Card> { baseHero.Equip }, AbilityType.亡语);
                 }
-                else
-                {
-                    baseHero.Equip = null;
-                }
+                UserContext user = gameContext.GetUserContextByMyCard(baseHero);
+                user.GraveyardCards.Add(baseHero.Equip);
+                baseHero.Equip = null;
             }
 
             return null;

@@ -1,4 +1,9 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer;
 using System;
 using System.Collections.Generic;
@@ -24,7 +29,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_WildPyromancer() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new AfterICastSpellDriver<RiseDamage<AllServantFilter,ONE,ONE,SpellDamage>>()            
+        };
 
         public override string BackgroudImage { get; set; } = "W6_011_D.png";
 

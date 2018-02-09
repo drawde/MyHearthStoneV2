@@ -28,18 +28,18 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
                 List<BaseBiology> biologys = new List<BaseBiology>();
                 if (CastStyle == CastStyle.敌方随从)
                 {
-                    biologys = actionParameter.GameContext.DeskCards.GetDeskCardsByIsFirst(enemyPlayer.IsFirst);
+                    biologys = actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(enemyPlayer.IsFirst);
                 }
                 else if (CastStyle == CastStyle.己方随从)
                 {
-                    biologys = actionParameter.GameContext.DeskCards.GetDeskCardsByIsFirst(currentPlayer.IsFirst);
+                    biologys = actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(currentPlayer.IsFirst);
                 }
                 else if (CastStyle == CastStyle.随从)
                 {
-                    biologys.AddRange(actionParameter.GameContext.DeskCards.GetDeskCardsByIsFirst(currentPlayer.IsFirst));
-                    biologys.AddRange(actionParameter.GameContext.DeskCards.GetDeskCardsByIsFirst(enemyPlayer.IsFirst));
+                    biologys.AddRange(actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(currentPlayer.IsFirst));
+                    biologys.AddRange(actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(enemyPlayer.IsFirst));
                 }
-                foreach (var bio in biologys.Where(c => c != null && c.CardType == CardType.随从))
+                foreach (var bio in biologys)
                 {
                     DisableCardAbility(bio, actionParameter.GameContext);
                 }

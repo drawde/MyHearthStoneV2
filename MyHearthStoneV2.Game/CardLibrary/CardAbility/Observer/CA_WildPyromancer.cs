@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
             if (actionParameter.GameContext.IsThisActivationUserCard(actionParameter.SecondaryCard) &&
                 actionParameter.GameContext.IsThisActivationUserCard(actionParameter.MainCard) && actionParameter.SecondaryCard is BaseSpell)
             {
-                foreach (var bio in actionParameter.GameContext.DeskCards.Where(c => c != null && c.CardType == CardType.随从))
+                foreach (var bio in actionParameter.GameContext.DeskCards.GetServants())
                 {
                     BaseServant servant = bio as BaseServant;
                     var para = CardActionFactory.CreateParameter(servant, actionParameter.GameContext, 1, secondaryCard: actionParameter.MainCard);

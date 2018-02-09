@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从被攻击
     /// </summary>
-    internal class ServantUnderAttackAction : IGameAction
+    internal class ServantUnderAttackAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             BaseServant servant = para.Biology;
             GameContext gameContext = para.GameContext;
             BaseBiology attackCard = para.SecondaryCard as BaseBiology;
-            int damege = para.Damage;
+            int damege = para.DamageOrHeal;
 
             if (attackCard.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.随从攻击)))
             {

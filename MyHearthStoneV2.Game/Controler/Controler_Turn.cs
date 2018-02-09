@@ -80,6 +80,7 @@ namespace MyHearthStoneV2.Game.Controler
                 uc.FullPower += 1;
             }
             uc.Power = uc.FullPower;
+            uc.ComboSwitch = false;
 
             //抽牌
             DrawCardActionParameter para = new DrawCardActionParameter()

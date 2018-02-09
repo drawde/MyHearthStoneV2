@@ -11,14 +11,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
     /// <summary>
     /// 英雄受到伤害（被火球砸、火冲点）
     /// </summary>
-    internal class HeroByDamegeAction : IGameAction
+    internal class HeroByDamegeAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             HeroActionParameter para = actionParameter as HeroActionParameter;
             BaseHero baseHero = para.Biology;
             GameContext gameContext = para.GameContext;
-            int damege = para.Damage;
+            int damege = para.DamageOrHeal;
             Card targetCard = para.SecondaryCard;
 
             var trueDamege = damege;
@@ -45,7 +45,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
                     Biology = baseHero,
                     GameContext = gameContext,
                     SecondaryCard = targetCard,
-                    Damage = trueDamege,
+                    DamageOrHeal = trueDamege,
                 };
                 deductionAct.Action(deductionPara);
                 //DeductionBiologyLife(baseHero, context, targetCard, trueDamege);

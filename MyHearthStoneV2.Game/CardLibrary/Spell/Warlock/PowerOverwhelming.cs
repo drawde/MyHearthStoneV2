@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warlock
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_PowerOverwhelming() };
 
-        public override string BackgroudImage { get; set; } = "GVG/PowerOverwhelming.jpg";
+        public override string BackgroudImage { get; set; } = "Classical/PowerOverwhelming.jpg";
         public override Profession Profession { get; set; } = Profession.Warlock;
     }
 }

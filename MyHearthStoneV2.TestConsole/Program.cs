@@ -57,6 +57,9 @@ namespace MyHearthStoneV2.TestConsole
             //gameContext.DeskCards[6] = gameContext.DeskCards[2];
             //gameContext.DeskCards[1] = null;
             //gameContext.DeskCards[2] = null;
+            //var card = gameContext.Players[0].StockCards.First(c => c.CardInGameCode == "17");
+            //gameContext.Players[0].StockCards.RemoveAt(gameContext.Players[0].StockCards.FindIndex(c => c.CardInGameCode == "17"));
+            //gameContext.Players[0].HandCards.Add(card);
             //SetContext(gameContext);
 
             //var lstRec = GameRecordBll.Instance.GetGameRecord(gameCode, 10, 1);
@@ -66,8 +69,8 @@ namespace MyHearthStoneV2.TestConsole
             //    string deskCard = obj["DeskCards"].ToString();
             //}
 
-            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() { });
-            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { });
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() {});
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { "0" , "1" , "2" });
 
             //reslut = Controller_Base_Proxy.LoadEquip(gameCode, drawde, "51");
             //reslut = Controller_Base_Proxy.LoadEquip(gameCode, mendicantbias, "20");            
@@ -76,7 +79,7 @@ namespace MyHearthStoneV2.TestConsole
             //reslut = Controller_Base_Proxy.CastSpell(gameCode, mendicantbias, "26", 2);
 
             //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "55", 11, -1);
-            //reslut = Controller_Base_Proxy.CastServant(gameCode, mendicantbias, "1", 4, -1);
+            //reslut = Controller_Base_Proxy.CastServant(gameCode, mendicantbias, "17", 4, -1);
 
             //reslut = Controller_Base_Proxy.ServantAttack(gameCode, drawde, "17", 9);
             //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "63", 8);
@@ -86,11 +89,11 @@ namespace MyHearthStoneV2.TestConsole
             //reslut = Controller_Base_Proxy.CastHeroPower(gameCode, drawde);
             //reslut = Controller_Base_Proxy.CastHeroPower(gameCode, mendicantbias);
 
-            //reslut = Controller_Base_Proxy.HeroAttack(gameCode, drawde, 2);
+            //reslut = Controller_Base_Proxy.HeroAttack(gameCode, drawde, 1);
             //reslut = Controller_Base_Proxy.HeroAttack(gameCode, mendicantbias, 8);
 
 
-            //GameTester.CastServant(gameContext, "57");
+            //GameTester.CastServant(gameContext, "6");
             //GameTester.TurnEnd(gameContext);
 
             //GameTester.LoadEquip<DeathBite>(gameContext);
