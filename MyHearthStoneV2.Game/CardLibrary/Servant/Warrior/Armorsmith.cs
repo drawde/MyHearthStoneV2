@@ -1,10 +1,8 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
-using System;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 {
@@ -25,7 +23,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new AppendAmmo() { SpellCardAbilityTimes = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从受到伤害后 } } };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new MyServantHurtObserverDriver<AppendAmmo<ONE>>(),
+        };
 
         public override string BackgroudImage { get; set; } = "W10_A047_D.png";
 

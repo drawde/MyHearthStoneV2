@@ -11,8 +11,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// 法术驱动器
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class SpellDriver<T> : IDriver<T> where T : Action.IGameAction
-    {        
-
+    internal class SpellDriver<T> : IDriver<T> where T : IGameAction
+    {
+        public override AbilityType AbilityType => AbilityType.法术;
     }
 }

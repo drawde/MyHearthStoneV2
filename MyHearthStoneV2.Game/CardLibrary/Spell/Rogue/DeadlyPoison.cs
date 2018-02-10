@@ -1,5 +1,8 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Hero;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +20,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 1;
         public override string Describe { get; set; } = "使你的武器获得+2攻击力。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new UpgradeWeapon() { AbilityType = AbilityType.法术 } };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new SpellDriver<UpgradeWeapon<MainHeroFilter,Two,Zero>>()
+        };
 
         public override string BackgroudImage { get; set; } = "Classical/DeadlyPoison.jpg";
         public override Profession Profession { get; set; } = Profession.Rogue;

@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
             DT damageType = GameActivator<DT>.CreateInstance();
             DMG dmg = GameActivator<DMG>.CreateInstance();
             QAT qat = GameActivator<QAT>.CreateInstance();
-            UserContext enemy = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.SecondaryCard);
+
             for (int i = 0; i < qat.Quantity; i++)
             {
                 foreach (BaseBiology biology in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)))

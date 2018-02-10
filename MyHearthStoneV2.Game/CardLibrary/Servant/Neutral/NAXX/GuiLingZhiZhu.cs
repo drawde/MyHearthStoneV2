@@ -33,5 +33,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
         public override Profession Profession { get; set; } = Profession.Neutral;
 
         public override Race Race { get; set; } = Race.野兽;
+        public override string BackgroudImage { get; set; } = "NAXX/GuiLingZhiZhu.jpg";
     }
 }

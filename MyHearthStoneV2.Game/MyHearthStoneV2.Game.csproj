@@ -81,7 +81,9 @@
     <Compile Include="CardLibrary\CardAbility\Aura\CA_EmperorThaurissan.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\CA_VioletTeacher.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\REV_DireWolfAlpha.cs" />
+    <Compile Include="CardLibrary\CardAbility\BaseAbility\AddDamage.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\AppendAmmo.cs" />
+    <Compile Include="CardLibrary\CardAbility\BaseAbility\DestroyEquip.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\LoadEquip.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\BattlecryDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\AfterICastSpellDriver.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="CardLibrary\CardAbility\Driver\IDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IPickType.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IQuantity.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\MyServantHurtObserverDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\MyTurnStartDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Pick\LimitPick.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Pick\RandomPick.cs" />
@@ -129,11 +132,17 @@
     <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_PilotedShredder.cs" />
     <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_SylvanasWindrunner.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\ITarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Zero.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\ServantHurtObserverDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\SpellDriver.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\AllServantFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\MyHero.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\AllServantFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\IHeroTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Hero\MainHeroFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\IServantFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\MainServantFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Hero\SecondaryHeroFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Target\RandomFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\ServantFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\SecondaryServantFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\DruidAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\MageAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\RogueAbility.cs" />
@@ -216,6 +225,7 @@
     <Compile Include="CardLibrary\Equip\Warrior\FieryWarAxe.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\BlackrockMountain\EmperorThaurissan.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\BlackrockMountain\GrimPatron.cs" />
+    <Compile Include="CardLibrary\Servant\Neutral\Classical\AcidicSwampOoze.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\Classical\AcolyteOfPain.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\Classical\AzureDrake.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\Classical\BigGameHunter.cs" />

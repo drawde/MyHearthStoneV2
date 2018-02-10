@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Sap() };
 
-        public override string BackgroudImage { get; set; } = "Classical/Implosion.jpg";
+        public override string BackgroudImage { get; set; } = "Classical/Sap.jpg";
         public override Profession Profession { get; set; } = Profession.Rogue;
     }
 }

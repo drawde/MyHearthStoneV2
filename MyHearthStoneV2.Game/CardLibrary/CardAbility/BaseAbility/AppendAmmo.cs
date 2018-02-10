@@ -1,17 +1,17 @@
 ﻿using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class AppendAmmo : BaseCardAbility
+    internal class AppendAmmo<Q> : BaseCardAbility where Q : IQuantity
     {
-        public int AppendCount { get; set; } = 1;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             var uc = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
             BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(uc.IsFirst);
-            hero.Ammo += AppendCount;
+            hero.Ammo += GameActivator<Q>.CreateInstance().Quantity;
             return null;
         }
     }

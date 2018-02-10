@@ -110,6 +110,7 @@ namespace MyHearthStoneV2.BLL
                 new Doomsayer(),//末日预言者
                 new MadBomber(),//疯狂投弹者
                 new Whelp(),//雏龙
+                new AcidicSwampOoze(),//酸性沼泽软泥怪
             };
 
             lstCard.ForEach(c => c.CardCode = ShortCodeBusiness.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);

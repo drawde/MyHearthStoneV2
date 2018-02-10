@@ -1,10 +1,10 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody;
-using System;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Servant;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 {
@@ -37,7 +37,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
             }
         }
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_CruelTaskmaster() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new BattlecryDriver<RiseDamage<SecondaryServantFilter,ONE,ONE,PhysicalDamage>>(),
+            new BattlecryDriver<AddDamage<SecondaryServantFilter,Two>>()
+            //new CA_CruelTaskmaster()
+        };
 
 
         public override string Name { get; set; } = "严酷的监工";

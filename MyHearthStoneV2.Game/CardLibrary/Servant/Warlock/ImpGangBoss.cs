@@ -1,4 +1,7 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer;
 using System;
 using System.Collections.Generic;
@@ -24,7 +27,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_ImpGangBoss()};
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new HurtDriver<Summon<Imp,ONE>>(),            
+        };
 
         public override string BackgroudImage { get; set; } = "BlackrockMountain/ImpGangBoss.jpg";
 

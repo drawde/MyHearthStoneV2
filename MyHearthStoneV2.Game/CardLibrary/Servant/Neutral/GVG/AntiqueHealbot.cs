@@ -3,6 +3,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Hero;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<Heal<MyHero,Eight>>(),            
+            new BattlecryDriver<Heal<MainHeroFilter,Eight>>(),            
         };
 
         public override string Name { get; set; } = "老式治疗机器人";
