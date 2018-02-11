@@ -24,7 +24,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new MyTurnStartDriver<Death<AllServantFilter>>()            
+            new MyTurnStartDriver<Death<AllServantTarget>>()            
         };
 
         public override string BackgroudImage { get; set; } = "Classical/Doomsayer.jpg";

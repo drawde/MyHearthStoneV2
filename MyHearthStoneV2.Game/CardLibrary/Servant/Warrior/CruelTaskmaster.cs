@@ -39,8 +39,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<RiseDamage<SecondaryServantFilter,ONE,ONE,PhysicalDamage>>(),
-            new BattlecryDriver<AddDamage<SecondaryServantFilter,Two>>()
+            new BattlecryDriver<RiseDamage<SecondaryServantTarget,ONE,ONE,PhysicalDamage>>(),
+            new BattlecryDriver<AddDamage<SecondaryServantTarget,Two>>()
             //new CA_CruelTaskmaster()
         };
 

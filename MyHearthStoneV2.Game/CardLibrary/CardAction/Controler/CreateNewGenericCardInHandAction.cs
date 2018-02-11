@@ -27,6 +27,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
                 List<Card> lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
                 cardCode = lstCardLib.First(c => c.GetType() == typeof(T)).CardCode;
             }
+            card.IsFirstPlayerCard = userContext.IsFirst;
             card.CardCode = cardCode;
             context.AllCard.Add(card);
             card.CardInGameCode = context.AllCard.Count.ToString();

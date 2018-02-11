@@ -68,5 +68,10 @@ namespace MyHearthStoneV2.Game.CardLibrary
         public virtual Profession Profession { get; set; }
 
         public virtual CastCardPrecondition CastCardPrecondition { get; set; } = CastCardPrecondition.无;
+
+        /// <summary>
+        /// 卡牌归属
+        /// </summary>
+        public bool IsFirstPlayerCard { get; set; } 
     }
 }

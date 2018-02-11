@@ -8,7 +8,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// 技能驱动器基类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class IDriver<T> : BaseCardAbility where T : Action.IGameAction
+    internal class BaseDriver<T> : BaseCardAbility where T : IGameAction
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

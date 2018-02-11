@@ -1,4 +1,9 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Servant;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
 using System.Collections.Generic;
 
@@ -13,7 +18,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 3;
         public override string Describe { get; set; } = "对所有敌方随从造成1点伤害，抽一张牌。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_FanofKnives() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {            
+            new SpellDriver<DoubleActionDriver<RiseDamage<AllEnemyServantTarget,ONE,ONE,SpellDamage>,DrawCard<ONE>>>(),
+            //new CA_FanofKnives()
+        };
 
         public override string BackgroudImage { get; set; } = "Classical/FanofKnives.jpg";
         public override Profession Profession { get; set; } = Profession.Rogue;

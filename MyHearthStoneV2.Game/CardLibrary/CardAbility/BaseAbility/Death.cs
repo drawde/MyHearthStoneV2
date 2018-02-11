@@ -15,9 +15,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             TAG tag = GameActivator<TAG>.CreateInstance();
-            foreach (var biology in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)))
+            foreach (var card in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)))
             {
-                //BaseServant servant = actionParameter.MainCard as BaseServant;
+                BaseBiology biology = card as BaseBiology;
                 biology.Deathing = true;
                 BaseActionParameter para = CardActionFactory.CreateParameter(biology, actionParameter.GameContext);
                 CardActionFactory.CreateAction(biology, ActionType.死亡).Action(para);

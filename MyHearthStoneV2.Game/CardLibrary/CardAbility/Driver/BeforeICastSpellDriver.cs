@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
 {
-    internal class BeforeICastSpellDriver<T> : IDriver<T> where T : Action.IGameAction
+    internal class BeforeICastSpellDriver<T> : BaseDriver<T> where T : Action.IGameAction
     {
         public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方打出法术牌前 };
     }

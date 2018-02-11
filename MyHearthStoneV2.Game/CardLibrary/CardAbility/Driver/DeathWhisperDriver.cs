@@ -8,7 +8,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// 亡语驱动器
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class DeathWhisperDriver<T> : IDriver<T> where T : Action.IGameAction
+    internal class DeathWhisperDriver<T> : BaseDriver<T> where T : Action.IGameAction
     {
         public override AbilityType AbilityType => AbilityType.亡语;
     }

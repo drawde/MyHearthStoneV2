@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// 受伤
     /// </summary>
     /// <typeparam name="G"></typeparam>
-    internal class HurtDriver<G> : IDriver<G> where G : IGameAction
+    internal class HurtDriver<G> : BaseDriver<G> where G : IGameAction
     {
         public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.受伤 };
     }

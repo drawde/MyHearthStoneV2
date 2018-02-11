@@ -29,7 +29,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<Heal<MainHeroFilter,Eight>>(),            
+            new BattlecryDriver<Heal<MainHeroTarget,Eight>>(),            
         };
 
         public override string Name { get; set; } = "老式治疗机器人";

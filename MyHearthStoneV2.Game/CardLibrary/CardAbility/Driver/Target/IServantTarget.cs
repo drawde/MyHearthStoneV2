@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target
 {
-    internal interface IServantFilter: ITarget
+    internal interface IServantTarget: ITarget
     {
     }
 }

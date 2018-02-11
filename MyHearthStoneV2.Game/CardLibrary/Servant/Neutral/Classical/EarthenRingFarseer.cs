@@ -24,7 +24,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<Heal<SecondaryHeroFilter,Three>>()
+            new BattlecryDriver<Heal<SecondaryHeroTarget,Three>>()
         };
 
         public override string Name { get; set; } = "大地之环先知";

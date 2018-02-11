@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new AfterICastSpellDriver<RiseDamage<AllServantFilter,ONE,ONE,SpellDamage>>()            
+            new AfterICastSpellDriver<RiseDamage<AllServantTarget,ONE,ONE,SpellDamage>>()            
         };
 
         public override string BackgroudImage { get; set; } = "W6_011_D.png";

@@ -30,9 +30,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
                 List<Card> lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
                 cardCode = lstCardLib.First(c => c.GetType() == servant.GetType()).CardCode;
             }
-            servant.CardCode = cardCode;
+            servant.CardCode = cardCode;            
 
             var player = context.Players.First(c => c.IsActivation == isActivation);
+            servant.IsFirstPlayerCard = player.IsFirst;
             int deskIndex = -1;
             int searchCount = 0;
             for (int i = player.IsFirst ? 0 : 8; i < context.DeskCards.Count; i++)

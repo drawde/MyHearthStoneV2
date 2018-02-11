@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new SpellDriver<UpgradeWeapon<MainHeroFilter,Two,Zero>>()
+            new SpellDriver<UpgradeWeapon<MainHeroTarget,Two,Zero>>()
         };
 
         public override string BackgroudImage { get; set; } = "Classical/DeadlyPoison.jpg";

@@ -85,9 +85,13 @@
     <Compile Include="CardLibrary\CardAbility\BaseAbility\AppendAmmo.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\DestroyEquip.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\LoadEquip.cs" />
+    <Compile Include="CardLibrary\CardAbility\BaseAbility\Null.cs" />
+    <Compile Include="CardLibrary\CardAbility\BaseAbility\Recover.cs" />
+    <Compile Include="CardLibrary\CardAbility\BaseAbility\UpdateCost.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\BattlecryDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\AfterICastSpellDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\BeforeICastSpellDriver.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\ComboDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\DamageType\PhysicalDamage.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\DamageType\SpellDamage.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Death.cs" />
@@ -98,9 +102,13 @@
     <Compile Include="CardLibrary\CardAbility\BaseAbility\RiseDamage.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Silence.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\SpellPower.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Direction\Minus.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Direction\Plus.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\IDirection.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\DoubleActionDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\HurtDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IDamageType.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\IDriver.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\BaseDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IPickType.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IQuantity.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\MyServantHurtObserverDriver.cs" />
@@ -135,14 +143,21 @@
     <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Zero.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\ServantHurtObserverDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\SpellDriver.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\AllServantFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Context\MainUserContextFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\IUserContextFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Context\SecondaryUserContextFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\SecondaryTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\AllEnemyServantTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\AllMyServantTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\AllServantTarget.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Target\IHeroTarget.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\Hero\MainHeroFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\IServantFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\MainServantFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\Hero\SecondaryHeroFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\RandomFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\SecondaryServantFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Hero\MainHeroTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\IServantTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\MainServantTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Hero\SecondaryHeroTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\RandomTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\RandomMainServantTarget.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Target\Servant\SecondaryServantTarget.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\DruidAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\MageAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\RogueAbility.cs" />
@@ -187,8 +202,6 @@
     <Compile Include="CardLibrary\CardAbility\WarCry\CA_Loatheb.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\CA_SI7Agent.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\REV_Loatheb.cs" />
-    <Compile Include="CardLibrary\CardAction\BaseBiologyAction.cs" />
-    <Compile Include="CardLibrary\CardAction\BaseCardAction.cs" />
     <Compile Include="CardLibrary\CardAction\Controler\CreateNewCardInControllerAction.cs" />
     <Compile Include="CardLibrary\CardAction\Controler\CreateNewCardInDeskAction.cs" />
     <Compile Include="CardLibrary\CardAction\Controler\CreateNewGenericCardInDeskAction.cs" />
@@ -351,6 +364,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CardLibrary\CardAbility\Driver\Target\CardStatus\" />
     <Folder Include="CardLibrary\Equip\Druid\" />
     <Folder Include="CardLibrary\Equip\Hunter\" />
     <Folder Include="CardLibrary\Equip\Mage\" />

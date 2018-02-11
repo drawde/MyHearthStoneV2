@@ -25,7 +25,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new ServantHurtObserverDriver<AddDamage<MainServantFilter,ONE>>()
+            new ServantHurtObserverDriver<AddDamage<MainServantTarget,ONE>>()
         };
 
 

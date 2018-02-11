@@ -1,10 +1,4 @@
-﻿using MyHearthStoneV2.Game.Action;
-using MyHearthStoneV2.Game.Parameter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
 {
@@ -12,7 +6,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// 己方回合开始
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class MyTurnStartDriver<T> : IDriver<T> where T : Action.IGameAction
+    internal class MyTurnStartDriver<T> : BaseDriver<T> where T : Action.IGameAction
     {
         public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方回合开始 };        
     }

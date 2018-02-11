@@ -16,7 +16,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
             servant.BuffLife += 4;
             servant.Damage += 4;
 
-            servant.Abilities.Add(new Death<SecondaryServantFilter>()
+            servant.Abilities.Add(new Death<SecondaryServantTarget>()
             {
                 SpellCardAbilityTimes = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方回合结束 },                
             });

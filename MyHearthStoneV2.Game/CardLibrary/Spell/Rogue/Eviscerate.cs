@@ -1,4 +1,10 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Servant;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
 using System.Collections.Generic;
 
@@ -13,7 +19,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "造成2点伤害。连击：造成4点伤害取而代之。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Eviscerate() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new SpellDriver<ComboDriver<RiseDamage<SecondaryTarget,Two,ONE,SpellDamage>,RiseDamage<SecondaryTarget,Four,ONE,SpellDamage>>>(),
+        };
 
         public override string BackgroudImage { get; set; } = "Classical/Eviscerate.jpg";
         public override Profession Profession { get; set; } = Profession.Rogue;

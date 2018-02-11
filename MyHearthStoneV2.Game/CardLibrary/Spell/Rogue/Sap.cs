@@ -1,5 +1,9 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Servant;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +21,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "将一个敌方随从移回其拥有者的手牌。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Sap() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new SpellDriver<Recover<SecondaryServantTarget>>(),
+            //new CA_Sap()
+        };
 
         public override string BackgroudImage { get; set; } = "Classical/Sap.jpg";
         public override Profession Profession { get; set; } = Profession.Rogue;

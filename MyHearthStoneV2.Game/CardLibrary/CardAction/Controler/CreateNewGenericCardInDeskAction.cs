@@ -32,6 +32,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
             servant.CardCode = cardCode;
 
             var player = context.Players.First(c => c.IsActivation == isActivation);
+            servant.IsFirstPlayerCard = player.IsFirst;
+
             int deskIndex = -1;
             int searchCount = 0;
             for (int i = player.IsFirst ? 0 : 8; i < context.DeskCards.Count; i++)

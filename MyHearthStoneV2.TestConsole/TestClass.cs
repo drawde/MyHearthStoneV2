@@ -7,6 +7,8 @@ namespace MyHearthStoneV2.TestConsole
     {
         public List<NoClass> lstNoClass { get; set; } = new List<NoClass>();
 
+        public string str { get; set; }
+
         [TestMonitor]
         public void ddada()
         {

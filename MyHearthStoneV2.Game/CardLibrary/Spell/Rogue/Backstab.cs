@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new SpellDriver<RiseDamage<SecondaryServantFilter,Two,ONE,SpellDamage>>(),
+            new SpellDriver<RiseDamage<SecondaryServantTarget,Two,ONE,SpellDamage>>(),
         };
 
         public override string BackgroudImage { get; set; } = "Classical/Backstab.jpg";

@@ -28,7 +28,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<DestroyEquip<SecondaryHeroFilter>>()
+            new BattlecryDriver<DestroyEquip<SecondaryHeroTarget>>()
         };
 
 
