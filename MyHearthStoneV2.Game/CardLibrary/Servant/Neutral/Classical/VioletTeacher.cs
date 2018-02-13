@@ -3,6 +3,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Collections.Generic;
 
@@ -26,7 +27,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BeforeICastSpellDriver<Summon<VioletStudent,ONE>>(),            
+            new BeforeICastSpellDriver<Summon<MainUserContextFilter,VioletStudent,ONE>>(),            
         };
 
 

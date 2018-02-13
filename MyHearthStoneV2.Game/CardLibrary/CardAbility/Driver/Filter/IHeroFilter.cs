@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target
+namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter
 {
-    internal interface IServantTarget: ITarget
+    internal interface IHeroFilter : IFilter
     {
     }
 }

@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
             int damage = para.DamageOrHeal;
             baseHero.Life -= damage;
             gameContext.TriggerCardAbility(baseHero, SpellCardAbilityTime.受伤);
-            gameContext.TriggerCardAbility(baseHero, SpellCardAbilityTime.英雄受伤, para.SecondaryCard, baseHero.DeskIndex);
+            gameContext.TriggerCardAbility(baseHero, SpellCardAbilityTime.英雄受伤, AbilityType.无, para.SecondaryCard, baseHero.DeskIndex);
             return null;
         }
     }

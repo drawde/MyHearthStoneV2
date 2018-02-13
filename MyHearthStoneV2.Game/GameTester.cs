@@ -24,8 +24,13 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public class GameTester
     {
-        public static void DrawCard(GameContext gameContext, int drawCount)
+        public static void DrawCard(string gameCode, int drawCount)
         {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+            }
             DrawCardActionParameter para = new DrawCardActionParameter()
             {
                 DrawCount = drawCount,
@@ -41,11 +46,16 @@ namespace MyHearthStoneV2.Game
             }
         }
 
-        public static void CastServant(GameContext gameContext, string cardInGameCode)
+        public static void CastServant(string gameCode, string cardInGameCode)
         {
             int deskIndex = -1;
             int start = 1, end = 8;
             BaseServant servant = null;
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+            }
             if (gameContext.Players[0].AllCards.Any(c => c.CardInGameCode == cardInGameCode))
             {
                 if (gameContext.Players[0].IsFirst == false)
@@ -114,16 +124,26 @@ namespace MyHearthStoneV2.Game
             }
         }
 
-        public static void TurnEnd(GameContext gameContext)
+        public static void TurnEnd(string gameCode)
         {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+            }
             string current = gameContext.Players.First(c => c.IsActivation == true).UserCode.ToString();
             string enemy = gameContext.Players.First(c => c.IsActivation == false).UserCode.ToString();
             Controller_Base_Proxy.TurnEnd(gameContext.GameCode, current);
             Controller_Base_Proxy.TurnStart(gameContext.GameCode, enemy);
         }
 
-        public static void GodDraw<T>(GameContext gameContext) where T : Card
+        public static void GodDraw<T>(string gameCode) where T : Card
         {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+            }
             var current = gameContext.Players.First(c => c.IsActivation == true);
             if (current.AllCards.Any(c => c.GetType() == typeof(T)))
             {
@@ -138,8 +158,29 @@ namespace MyHearthStoneV2.Game
             }
         }
 
-        public static void LoadEquip<T>(GameContext gameContext)where T : BaseEquip
+        public static Card CreateCard<T>(string gameCode) where T : Card
         {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+                UserContext user = gameContext.GetActivationUserContext();
+                var card = new CreateNewCardInControllerAction<T>().Action(new ControlerActionParameter() { GameContext = gameContext, UserContext = user }) as T;
+                user.HandCards.Add(card);
+                gameContext.AllCard.Add(card);
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+                return card;
+            }            
+        }
+
+
+        public static void LoadEquip<T>(string gameCode) where T : BaseEquip
+        {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+            }
             var current = gameContext.Players.First(c => c.IsActivation == true);
             var enemy = gameContext.Players.First(c => c.IsActivation == false);
             bool isfirst = true;
@@ -178,6 +219,28 @@ namespace MyHearthStoneV2.Game
 
             using (var redisClient = RedisManager.GetClient())
             {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+            }
+        }
+
+        public static void QueueSettlement(string gameCode)
+        {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+                gameContext.QueueSettlement();
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+            }            
+        }
+
+        public static void FullPower(string gameCode)
+        {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+                gameContext.GetActivationUserContext().Power = 10;
                 redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
             }
         }

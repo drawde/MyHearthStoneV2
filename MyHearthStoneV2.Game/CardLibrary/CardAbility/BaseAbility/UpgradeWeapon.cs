@@ -2,7 +2,7 @@
 using System.Linq;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// <typeparam name="TAG"></typeparam>
     /// <typeparam name="Damage">武器伤害</typeparam>
     /// <typeparam name="Durable">武器耐久</typeparam>
-    internal class UpgradeWeapon<TAG, Damage, Durable> : BaseCardAbility where TAG : IHeroTarget where Damage : IQuantity where Durable : IQuantity
+    internal class UpgradeWeapon<TAG, Damage, Durable> : BaseCardAbility where TAG : IHeroFilter where Damage : IQuantity where Durable : IQuantity
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

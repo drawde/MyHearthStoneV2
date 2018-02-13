@@ -2,7 +2,7 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
@@ -25,7 +25,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new HurtDriver<DrawCard<ONE>>()
+            new HurtDriver<DrawCard<MainUserContextFilter,ONE>>()
         };
 
 

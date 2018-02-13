@@ -1,5 +1,5 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// <typeparam name="TAG"></typeparam>
     /// <typeparam name="Q"></typeparam>
     /// <typeparam name="D"></typeparam>
-    internal class UpdateCost<UC, TAG, Q, D> : BaseCardAbility where UC : IUserContextFilter where TAG : ITarget where Q : IQuantity where D : IDirection
+    internal class UpdateCost<UC, TAG, Q, D> : BaseCardAbility where UC : IUserContextFilter where TAG : IFilter where Q : IQuantity where D : IDirection
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

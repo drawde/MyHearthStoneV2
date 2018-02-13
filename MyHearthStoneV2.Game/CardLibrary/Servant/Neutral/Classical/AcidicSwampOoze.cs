@@ -1,7 +1,7 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Hero;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<DestroyEquip<SecondaryHeroTarget>>()
+            new BattlecryDriver<DestroyEquip<SecondaryHeroFilter>>()
         };
 
 

@@ -34,6 +34,8 @@ namespace MyHearthStoneV2.Game.Controler
             //先从手牌中移除这张牌
             user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
 
+            GameContext.TriggerCardAbility(user.HandCards, SpellCardAbilityTime.己方随从入场, AbilityType.BUFF, servant, target);
+
             #region 首先触发打出的这张牌的战吼技能
             if (servant.Abilities.Any(c => c.AbilityType == AbilityType.战吼))
             {

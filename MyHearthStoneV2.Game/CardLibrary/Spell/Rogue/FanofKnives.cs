@@ -3,7 +3,8 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Servant;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
 using System.Collections.Generic;
 
@@ -20,7 +21,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {            
-            new SpellDriver<DoubleActionDriver<RiseDamage<AllEnemyServantTarget,ONE,ONE,SpellDamage>,DrawCard<ONE>>>(),
+            new SpellDriver<DoubleActionDriver<RiseDamage<AllEnemyServantFilter,ONE,ONE,SpellDamage>,DrawCard<MainUserContextFilter,ONE>>>(),
             //new CA_FanofKnives()
         };
 

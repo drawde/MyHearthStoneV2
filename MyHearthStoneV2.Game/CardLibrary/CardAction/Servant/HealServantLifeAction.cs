@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             {
                 servant.Life = servant.BuffLife;
             }
-            gameContext.TriggerCardAbility(servant, SpellCardAbilityTime.治疗, triggerCard);
+            gameContext.TriggerCardAbility(servant, SpellCardAbilityTime.治疗, AbilityType.无, triggerCard);
             gameContext.TriggerCardAbility(actionParameter.GameContext.DeskCards, SpellCardAbilityTime.治疗随从, triggerCard, servant.DeskIndex);
 
             return null;

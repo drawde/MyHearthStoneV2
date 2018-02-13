@@ -7,7 +7,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
 {
     public class CA_EdwinVanCleef : BaseCardAbility
     {
-        public override AbilityType AbilityType { get; set; } = AbilityType.触发;
+        public override AbilityType AbilityType { get; set; } = AbilityType.BUFF;
         public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从入场, SpellCardAbilityTime.己方打出法术牌前 };
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

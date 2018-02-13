@@ -43,6 +43,5 @@ namespace MyHearthStoneV2.Game.Context
         /// </summary>
         public int FatigueValue { get; set; }
 
-        
     }
 }

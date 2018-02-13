@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper
             {
                 lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
             }
-            List<Card> servants = lstCardLib.Where(c => c.Cost == 2 && c.CardType == CardType.随从 && c.Profession == Profession.Neutral).ToList();
+            List<Card> servants = lstCardLib.Where(c => c.Cost == 2 && c.CardType == CardType.随从 && c.Profession == Profession.Neutral && c.IsDerivative == false).ToList();
             BaseServant servant = servants[RandomUtil.CreateRandomInt(0, servants.Count - 1)] as BaseServant;
             CreateNewCardInDeskAction action = new CreateNewCardInDeskAction();
             ControlerActionParameter para = new ControlerActionParameter()

@@ -2,9 +2,8 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry;
 using System.Collections.Generic;
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Rogue
 {
@@ -25,7 +24,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Rogue
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<ComboDriver<Null,RiseDamage<SecondaryTarget,Three,ONE,PhysicalDamage>>>(),
+            new BattlecryDriver<ComboDriver<Null,RiseDamage<SecondaryFilter,Two,ONE,PhysicalDamage>>>(),
             //new CA_SI7Agent()
         };
 

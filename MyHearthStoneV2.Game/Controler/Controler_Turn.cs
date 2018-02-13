@@ -31,6 +31,8 @@ namespace MyHearthStoneV2.Game.Controler
                 GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(uc.IsFirst), SpellCardAbilityTime.己方回合结束);
                 GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(next_uc.IsFirst), SpellCardAbilityTime.对方回合结束);
 
+                GameContext.TriggerCardAbility(uc.HandCards, SpellCardAbilityTime.己方回合结束, AbilityType.BUFF);
+                GameContext.TriggerCardAbility(next_uc.HandCards, SpellCardAbilityTime.对方回合结束, AbilityType.BUFF);
                 uc.IsActivation = false;
                 next_uc.IsActivation = true;
                 if (GameContext.DeskCards.Any(c => c != null))
@@ -102,14 +104,6 @@ namespace MyHearthStoneV2.Game.Controler
             {
                 foreach (var card in activationDeskCards.Where(c => c != null))
                 {
-                    //if (card.CardType == CardType.随从 && card.Damage < 1)
-                    //{
-                    //    card.CanAttack = false;
-                    //}
-                    //else
-                    //{
-                    //    card.CanAttack = true;
-                    //}
                     card.CanAttack = true;
                     BaseActionParameter resetPara = CardActionFactory.CreateParameter(card, GameContext);
                     CardActionFactory.CreateAction(card, ActionType.重置攻击次数).Action(resetPara);

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target
+namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter
 {
-    internal class SecondaryTarget: ITarget
+    internal class SecondaryFilter: IFilter
     {
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {

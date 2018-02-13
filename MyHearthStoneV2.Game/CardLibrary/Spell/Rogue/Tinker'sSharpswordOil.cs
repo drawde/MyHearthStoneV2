@@ -2,8 +2,8 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Hero;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Servant;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
 using System;
 using System.Collections.Generic;
@@ -27,8 +27,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
             new SpellDriver<
                     ComboDriver
                     <
-                        UpgradeWeapon<MainHeroTarget,Three,Zero>,
-                        DoubleActionDriver<UpgradeWeapon<MainHeroTarget,Three,Zero>,AddDamage<RandomMainServantTarget,Three>>
+                        UpgradeWeapon<MainHeroFilter,Three,Zero>,
+                        DoubleActionDriver<UpgradeWeapon<MainHeroFilter,Three,Zero>,AddDamage<RandomMainServantFilter,Three>>
                     >
                 >(),
             //new CA_Tinker_sSharpswordOil()

@@ -29,6 +29,8 @@ using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain;
 using MyHearthStoneV2.Game.CardLibrary.Servant.Warrior;
 using MyHearthStoneV2.Game.CardLibrary.Equip.Warrior;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Rogue;
 
 namespace MyHearthStoneV2.TestConsole
 {
@@ -50,63 +52,47 @@ namespace MyHearthStoneV2.TestConsole
             GameContext gameContext = null;
             //res = Go(GameTableBll.Instance.GetTable("00009", "123"));
             string gameCode = GameBll.Instance.GetGameByTableCode("00009").GameCode;
-            gameContext = GetContext(gameCode);
-            //gameContext.Players[0].Power = 10;
-            //gameContext.Players[1].Power = 10;
-            //GameTester.DrawCard(gameContext, 7);   
-            //gameContext.DeskCards[7] = gameContext.DeskCards[1];
-            //gameContext.DeskCards[6] = gameContext.DeskCards[2];
-            //gameContext.DeskCards[1] = null;
-            //gameContext.DeskCards[2] = null;
-            //var card = gameContext.Players[0].StockCards.First(c => c.CardInGameCode == "17");
-            //gameContext.Players[0].StockCards.RemoveAt(gameContext.Players[0].StockCards.FindIndex(c => c.CardInGameCode == "17"));
-            //gameContext.Players[0].HandCards.Add(card);
-            //SetContext(gameContext);
 
-            //var lstRec = GameRecordBll.Instance.GetGameRecord(gameCode, 10, 1);
-            //for (int i = 0; i < lstRec.Count; i++)
-            //{
-            //    JObject obj = JObject.Parse(lstRec[i].GameContext);
-            //    string deskCard = obj["DeskCards"].ToString();
-            //}
-
-            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() {});
-            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { "0" , "1" , "2" });
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() {  });
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { });
 
             //reslut = Controller_Base_Proxy.LoadEquip(gameCode, drawde, "51");
             //reslut = Controller_Base_Proxy.LoadEquip(gameCode, mendicantbias, "20");            
 
-            //reslut = Controller_Base_Proxy.CastSpell(gameCode, drawde, "30", 3);
-            //reslut = Controller_Base_Proxy.CastSpell(gameCode, mendicantbias, "26", 2);
+            //reslut = Controller_Base_Proxy.CastSpell(gameCode, drawde, "69", -1);
+            //reslut = Controller_Base_Proxy.CastSpell(gameCode, mendicantbias, "63", -1);
 
-            //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "55", 11, -1);
-            //reslut = Controller_Base_Proxy.CastServant(gameCode, mendicantbias, "17", 4, -1);
+            //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "1", 1, -1);
+            //reslut = Controller_Base_Proxy.CastServant(gameCode, mendicantbias, "7", 2, -1);
 
-            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, drawde, "17", 9);
-            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "63", 8);
-            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "64", 8);
+            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, drawde, "35", 2);
+            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "2", 9);
+            //reslut = Controller_Base_Proxy.ServantAttack(gameCode, mendicantbias, "50", 8);
 
 
             //reslut = Controller_Base_Proxy.CastHeroPower(gameCode, drawde);
             //reslut = Controller_Base_Proxy.CastHeroPower(gameCode, mendicantbias);
 
-            //reslut = Controller_Base_Proxy.HeroAttack(gameCode, drawde, 1);
+            //reslut = Controller_Base_Proxy.HeroAttack(gameCode, drawde, 9);
             //reslut = Controller_Base_Proxy.HeroAttack(gameCode, mendicantbias, 8);
 
 
-            //GameTester.CastServant(gameContext, "6");
-            //GameTester.TurnEnd(gameContext);
-
-            //GameTester.LoadEquip<DeathBite>(gameContext);
+            GameTester.TurnEnd(gameCode);
+            //GameTester.CastServant(gameCode, "6");            
+            //GameTester.LoadEquip<DeathBite>(gameCode);
             //(gameContext.DeskCards[8] as BaseHero).Equip.Durable = 1;
-            //SetContext(gameContext);
-
-            gameContext = GetContext(gameCode);            
+            //GameTester.QueueSettlement(gameCode);
+            //GameTester.CreateCard<LuckyCoin>(gameCode);
+            //GameTester.GodDraw<EdwinVanCleef>(gameCode);
+            //GameTester.DrawCard(gameCode, 5);
+            //GameTester.FullPower(gameCode);
+            gameContext = GetContext(gameCode);
+            
             //gameContext.DeskCards[1].RemainAttackTimes = 1;
             //gameContext.DrawCard(true, 6);
             //gameContext.Players[0].Power = 10;
 
-            
+
             //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "0", 1, -1);
             //gameContext.DeskCards[2] = null;
             //gameContext.Players[1].DeskCards[2].RemainAttackTimes = 1;

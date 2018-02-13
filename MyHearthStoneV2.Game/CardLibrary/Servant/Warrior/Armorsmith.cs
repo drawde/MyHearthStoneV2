@@ -25,7 +25,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new MyServantHurtObserverDriver<AppendAmmo<ONE>>(),
+            new MyServantHurtObserverDriver<AddAmmo<ONE>>(),
         };
 
         public override string BackgroudImage { get; set; } = "W10_A047_D.png";

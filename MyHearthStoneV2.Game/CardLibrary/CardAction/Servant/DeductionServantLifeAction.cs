@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             Card triggerCard = para.SecondaryCard;
 
             servant.Life -= para.DamageOrHeal;
-            gameContext.TriggerCardAbility(servant, SpellCardAbilityTime.受伤, triggerCard);
+            gameContext.TriggerCardAbility(servant, SpellCardAbilityTime.受伤, AbilityType.无, triggerCard);
             gameContext.TriggerCardAbility(actionParameter.GameContext.DeskCards, SpellCardAbilityTime.随从受伤, triggerCard, servant.DeskIndex);
 
             return null;

@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
                     //如果手牌没满则放入手牌中
                     uc.HandCards.Add(returnPara.MainCard);
                     returnPara.MainCard.CardLocation = CardLocation.手牌;
-                    gameContext.DeskCards[gameContext.DeskCards.FindIndex(c => c.CardInGameCode == returnPara.MainCard.CardInGameCode)] = null;
+                    gameContext.DeskCards[gameContext.DeskCards.FindIndex(c => c != null && c.CardInGameCode == returnPara.MainCard.CardInGameCode)] = null;
                 }
                 else
                 {

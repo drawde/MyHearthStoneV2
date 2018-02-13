@@ -2,8 +2,8 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Hero;
 using System.Collections.Generic;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
@@ -24,7 +24,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<Heal<SecondaryHeroTarget,Three>>()
+            new BattlecryDriver<Heal<SecondaryFilter,Three>>()
         };
 
         public override string Name { get; set; } = "大地之环先知";

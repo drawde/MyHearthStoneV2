@@ -565,9 +565,9 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="spellTime"></param>
         /// <param name="triggerCard"></param>
         /// <param name="target"></param>
-        internal static void TriggerCardAbility(this GameContext context, Card card, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
+        internal static void TriggerCardAbility(this GameContext context, Card card, SpellCardAbilityTime spellTime, AbilityType abilityType = AbilityType.无, Card triggerCard = null, int target = -1)
         {
-            var triggerAbilities = card.Abilities.Where(c => c.SpellCardAbilityTimes.Any(x => x == spellTime)).ToList();
+            var triggerAbilities = card.Abilities.Where(c => c.SpellCardAbilityTimes.Any(x => x == spellTime) && c.AbilityType == abilityType).ToList();
             for (int n = 0; n < triggerAbilities.Count; n++)
             {
                 BaseCardAbility ca = card.Abilities.First(c => c == triggerAbilities[n]);
@@ -598,7 +598,18 @@ namespace MyHearthStoneV2.Game.Context
             for (int i = 0; i < lstCards.Count(); i++)
             {
                 if (!lstCards[i].Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == spellTime))) continue;
-                TriggerCardAbility(context, lstCards[i], spellTime, triggerCard, target);                
+                TriggerCardAbility(context, lstCards[i], spellTime, AbilityType.无, triggerCard, target);                
+            }
+        }
+
+        internal static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, AbilityType abilityType, Card triggerCard = null, int target = -1)
+        {
+            if (lstCard == null || !lstCard.Any(c => c != null)) return;
+            var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
+            for (int i = 0; i < lstCards.Count(); i++)
+            {
+                if (!lstCards[i].Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == spellTime) && c.AbilityType == abilityType)) continue;
+                TriggerCardAbility(context, lstCards[i], spellTime, abilityType, triggerCard, target);
             }
         }
 

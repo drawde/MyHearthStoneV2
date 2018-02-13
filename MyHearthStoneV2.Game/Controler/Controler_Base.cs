@@ -146,12 +146,14 @@ namespace MyHearthStoneV2.Game.Controler
             firstHero.CardInGameCode = cardInGameIndex.ToString();
             firstHero.DeskIndex = 0;
             firstHero.IsFirstPlayerCard = true;
+            firstUser.AllCards.Add(firstHero);
 
             cardInGameIndex++;
             secondHero.CardCode = lstCardLib.First(c => c.GetType().Name == secondHero.GetType().Name).CardCode;
             secondHero.CardInGameCode = cardInGameIndex.ToString();
             secondHero.DeskIndex = 8;
             secondHero.IsFirstPlayerCard = false;
+            secondUser.AllCards.Add(secondHero);
 
             GameContext.DeskCards = new DeskBoard() { firstHero, null, null, null, null, null, null, null, secondHero, null, null, null, null, null, null, null };
             #endregion

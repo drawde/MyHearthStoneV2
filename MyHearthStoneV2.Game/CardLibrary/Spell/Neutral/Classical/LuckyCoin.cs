@@ -1,5 +1,8 @@
 ﻿
 using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
 using System.Collections.Generic;
 
@@ -14,7 +17,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical
         
         public override string Describe { get; set; } = "";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new AppendPower() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new SpellDriver<AppendPower<MainUserContextFilter,ONE>>(),
+            //new AppendPower()
+        };
 
         public override bool IsDerivative { get; set; } = true;
         public override string BackgroudImage { get; set; } = "coin_D_1.png";

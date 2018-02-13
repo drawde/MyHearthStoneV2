@@ -1,5 +1,9 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
@@ -13,7 +17,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override int InitialCost { get; set; } = 1;
         public override string Describe { get; set; } = "对所有随从造成1点伤害。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Whirlwind() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new SpellDriver<RiseDamage<AllServantFilter,ONE,ONE,SpellDamage>>(),
+            //new CA_Whirlwind()
+        };
 
         public override string BackgroudImage { get; set; } = "W6_076_D.png";
         public override Profession Profession { get; set; } = Profession.Warrior;

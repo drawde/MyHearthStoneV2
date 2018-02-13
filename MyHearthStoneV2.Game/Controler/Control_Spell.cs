@@ -26,7 +26,8 @@ namespace MyHearthStoneV2.Game.Controler
             currentUserContext.ComboSwitch = true;
 
             #region 触发场内牌的技能
-            GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(), SpellCardAbilityTime.己方打出法术牌前, spell, target);
+            GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(currentUserContext.IsFirst), SpellCardAbilityTime.己方打出法术牌前, spell, target);
+            GameContext.TriggerCardAbility(currentUserContext.HandCards, SpellCardAbilityTime.己方打出法术牌前, AbilityType.BUFF, spell, target);
             #endregion
 
             GameContext.CastCardCount++;

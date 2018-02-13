@@ -4,7 +4,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
 using System.Collections.Generic;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target.Hero;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 {
@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new BattlecryDriver<RiseDamage<MainHeroTarget,Three,ONE,PhysicalDamage>>(),
+            new BattlecryDriver<RiseDamage<MainHeroFilter,Three,ONE,PhysicalDamage>>(),
         };
 
         public override string BackgroudImage { get; set; } = "W7_009_D.png";

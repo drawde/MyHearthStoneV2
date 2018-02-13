@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Target;
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.Parameter;
 using System.Linq;
@@ -8,7 +8,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 摧毁武器
     /// </summary>
     /// <typeparam name="TAG"></typeparam>
-    internal class DestroyEquip<TAG> : BaseCardAbility where TAG : IHeroTarget
+    internal class DestroyEquip<TAG> : BaseCardAbility where TAG : IHeroFilter
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

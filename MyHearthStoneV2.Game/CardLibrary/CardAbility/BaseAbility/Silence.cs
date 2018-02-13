@@ -1,49 +1,22 @@
-﻿using MyHearthStoneV2.Game.Action;
-using MyHearthStoneV2.Game.Parameter;
-using System;
+﻿using MyHearthStoneV2.Game.Parameter;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class Silence : BaseCardAbility
+    internal class Silence<TAG> : BaseCardAbility where TAG : IFilter
     {
-        public override CastStyle CastStyle { get; set; } = CastStyle.随从;
-        public override CastCrosshairStyle CastCrosshairStyle { get; set; } = CastCrosshairStyle.单个;
-
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            if (CastCrosshairStyle == CastCrosshairStyle.单个)
+            TAG tag = GameActivator<TAG>.CreateInstance();
+            foreach (BaseBiology biology in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)).OrderBy(c => c.CastIndex))
             {
-                DisableCardAbility(actionParameter.SecondaryCard as BaseBiology, actionParameter.GameContext);
+                DisableCardAbility(biology, actionParameter.GameContext);
             }
-            else if (CastCrosshairStyle == CastCrosshairStyle.范围)
-            {
-                var enemyPlayer = actionParameter.GameContext.GetUserContextByEnemyCard(actionParameter.MainCard);
-                var currentPlayer = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
-                List<BaseBiology> biologys = new List<BaseBiology>();
-                if (CastStyle == CastStyle.敌方随从)
-                {
-                    biologys = actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(enemyPlayer.IsFirst);
-                }
-                else if (CastStyle == CastStyle.己方随从)
-                {
-                    biologys = actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(currentPlayer.IsFirst);
-                }
-                else if (CastStyle == CastStyle.随从)
-                {
-                    biologys.AddRange(actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(currentPlayer.IsFirst));
-                    biologys.AddRange(actionParameter.GameContext.DeskCards.GetDeskServantsByIsFirst(enemyPlayer.IsFirst));
-                }
-                foreach (var bio in biologys)
-                {
-                    DisableCardAbility(bio, actionParameter.GameContext);
-                }
-            }
+            
             return null;
         }
 

@@ -3,22 +3,27 @@ using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.Player;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
+using System.Linq;
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    internal class DrawCard<D> : BaseCardAbility where D : IQuantity
+    internal class DrawCard<UC, D> : BaseCardAbility where UC : IUserContextFilter where D : IQuantity
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             D drawCount = GameActivator<D>.CreateInstance();
-            var uc = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
-            DrawCardActionParameter para = new DrawCardActionParameter()
+            UC uc = GameActivator<UC>.CreateInstance();
+            var users = actionParameter.GameContext.Players.Where(uc.Filter(actionParameter));
+            foreach (UserContext user in users)
             {
-                DrawCount = drawCount.Quantity,
-                GameContext = actionParameter.GameContext,
-                UserContext = uc
-            };
-            new DrawCardAction().Action(para);
+                DrawCardActionParameter para = new DrawCardActionParameter()
+                {
+                    DrawCount = drawCount.Quantity,
+                    GameContext = actionParameter.GameContext,
+                    UserContext = user
+                };
+                new DrawCardAction().Action(para);
+            }
             return null;
         }
     }

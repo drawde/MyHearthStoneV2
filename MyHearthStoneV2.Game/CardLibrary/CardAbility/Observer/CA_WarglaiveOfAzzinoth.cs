@@ -7,7 +7,7 @@ using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.Parameter.Equip;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
-using MyHearthStoneV2.Game.Parameter.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
 {
@@ -34,7 +34,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
             else
             {
                 //沉默目标
-                Silence silence = new Silence();
+                Silence<SecondaryFilter> silence = new Silence<SecondaryFilter>();
                 silence.Action(actionParameter);
                 //actionParameter.GameContext.DisableCardAbility(new List<BaseBiology>() { actionParameter.SecondaryCard as BaseBiology });
 

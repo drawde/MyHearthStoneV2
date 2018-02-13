@@ -28,7 +28,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
             }
             else
             {
-                DeductionHeroLifeAction deductionAct = new DeductionHeroLifeAction();
+                HealHeroLifeAction deductionAct = new HealHeroLifeAction();
                 HeroActionParameter deductionPara = new HeroActionParameter()
                 {
                     Biology = baseHero,

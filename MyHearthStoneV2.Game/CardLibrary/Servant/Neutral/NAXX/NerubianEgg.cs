@@ -3,6 +3,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new DeathWhisperDriver<Summon<Nerubian,ONE>>()
+            new DeathWhisperDriver<Summon<MainUserContextFilter,Nerubian,ONE>>()
         };
 
         public override string BackgroudImage { get; set; } = "NAXX/NerubianEgg.jpg";

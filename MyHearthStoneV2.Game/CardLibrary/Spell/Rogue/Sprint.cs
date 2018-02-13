@@ -2,6 +2,7 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new SpellDriver<DrawCard<Four>>()
+            new SpellDriver<DrawCard<MainUserContextFilter,Four>>()
         };
 
         public override string BackgroudImage { get; set; } = "Classical/Sprint.jpg";

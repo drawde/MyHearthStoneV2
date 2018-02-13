@@ -1,5 +1,11 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Direction;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +30,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain
 
         public override Rarity Rare { get; set; } = Rarity.传说;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_EmperorThaurissan() };
+        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        {
+            new MyTurnEndDriver<UpdateCost<MainUserContextFilter,AllBiologyFilter,ONE,Minus>>(),
+            //new CA_EmperorThaurissan()
+        };
 
 
         public override string Name { get; set; } = "索瑞森大帝";
