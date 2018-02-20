@@ -94,7 +94,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             }
 
             ctl.CastHeroPower(hero, target);
-            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output().Players.First(c => c.UserCode == userCode));
+            return JsonModelResult.PackageSuccess(GameContextCache.GetContext(ctl.GameContext.GameCode).Output());
         }
 
         /// <summary>

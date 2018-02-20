@@ -9,6 +9,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
     public class CA_PowerOverwhelming : BaseCardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.法术;
+        public override CastCrosshairStyle CastCrosshairStyle => CastCrosshairStyle.单个;
+        public override CastStyle CastStyle => CastStyle.随从;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             BaseServant servant = actionParameter.SecondaryCard as BaseServant;

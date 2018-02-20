@@ -108,6 +108,27 @@ namespace MyHearthStoneV2.API.Hubs
         }
 
         [SignalRMethod]
+        public string CastHeroPower(string param)
+        {
+            JObject jobj = JObject.Parse(param);
+            string UserCode = jobj["UserCode"].TryParseString();
+            string GameCode = jobj["GameCode"].TryParseString();
+            int Target = jobj["Target"].TryParseInt(-1);
+
+            var res = Controller_Base_Proxy.GetGame(GameCode, UserCode);
+            if (res.code == (int)OperateResCodeEnum.成功)
+            {
+                var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
+                string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
+                res = Controller_Base_Proxy.CastHeroPower(GameCode, UserCode, Target);
+                var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
+                Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
+                return JsonConvert.SerializeObject(res);
+            }
+            return JsonStringResult.Error(OperateResCodeEnum.参数错误);
+        }
+
+        [SignalRMethod]
         public string CastServant(string param)
         {
             JObject jobj = JObject.Parse(param);

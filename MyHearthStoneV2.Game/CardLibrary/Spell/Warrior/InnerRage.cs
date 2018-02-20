@@ -5,7 +5,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using System.Collections.Generic;
-
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell.Single;
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
 {
     public class InnerRage : BaseSpell
@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override int Damage { get; set; } = 1;
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new SpellDriver
+            new SpellDriver_Single_AllServant
                 <
                     DoubleActionDriver
                     <

@@ -42,7 +42,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <summary>
         /// 当前回合使用英雄技能的剩余次数
         /// </summary>
-        public int RemainingHeroPowerCastCount { get; set; }
+        public int RemainingHeroPowerCastCount { get; set; } = 1;
 
         /// <summary>
         /// 连击开关

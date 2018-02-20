@@ -169,6 +169,9 @@
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\RandomFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Servant\RandomMainServantFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Servant\SecondaryServantFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Spell\Single\SpellDriver_Single_AllEnemy.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Spell\Single\SpellDriver_Single_AllEnemyServant.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Spell\Single\SpellDriver_Single_AllServant.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\DruidAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\MageAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\RogueAbility.cs" />

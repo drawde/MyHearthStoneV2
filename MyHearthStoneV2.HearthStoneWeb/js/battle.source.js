@@ -11,10 +11,11 @@ var handcardoffsets = [
     [-35, -20, -5, 10, 25, 40, 55, 70, 85],
     [-40, -25, -10, 5, 20, 35, 50, 65, 80, 95],
 ];
-
+var My, Enemy;
 var heroPowerImage = "/images/game/texture/hero/heropower/";
 var switchCardIndexs = [];
 var originalCard = { width: "150px", height: "250px" };
+//var originalCard = { width: "100px", height: "166px" };
 //指向性技能的目标
 var targetIndex = -1;
 //当抓起一张牌时，是否用了右键扔掉这张牌
@@ -24,23 +25,24 @@ function registCustomRoomFunction() {
     
     //被动刷新当前游戏环境
     roomHub.client.resetGameContext = function (res, createUserCode) {
-        console.log(createUserCode);
         res = JSON.parse(res);
         if(createUserCode!= getUserCode() && res.code == 100){
             //如果当前用户不是刷新操作的发起人，则刷新游戏环境                        
             console.log("resetGameContext");
-            var currentUser = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
-            if (currentUser.IsActivation) {
+            My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
+            if (My.IsActivation) {
+                console.log("My.IsActivation");
                 //如果当前回合为当前用户，则发起回合开始的动作
                 var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
                 roomHub.server.turnStart(appendParam(param, signObj)).done(function (result) {
-                    result = JSON.parse(result);
                     console.log("turnStart");
+                    result = JSON.parse(result);                    
                     if (result.code == 100) {
                         console.log(result);
                         resetHandCards(result.data.Players);
                         setPowerPanel(result.data.Players);
-                        setDeskCard(result.data.Players);
+                        setDeskCard(result.data.DeskCards, result.data.Players);
                         showSuccessMessage("回合开始");
                     }
                     else {
@@ -52,7 +54,7 @@ function registCustomRoomFunction() {
             else {
                 resetHandCards(res.data.Players);
                 setPowerPanel(res.data.Players);
-                setDeskCard(res.data.Players);
+                setDeskCard(res.data.DeskCards, res.data.Players);
             }
         }
     };
@@ -60,16 +62,16 @@ function registCustomRoomFunction() {
 function ClientConnected(res) {
     console.log(res);
     if (res.code == 100) {        
-        var initCards = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+        My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+        Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
         setPowerPanel(res.data.Players);
         if (res.data.TurnIndex == 0) {            
-            ShowSwitchPanel(initCards.InitCards);
+            ShowSwitchPanel(My.InitCards);
         }
-        else {
-            var currentPlayer = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();                        
+        else {                
             resetHandCards(res.data.Players);
             var baseIdx = 1;
-            if (currentPlayer.IsFirst) {
+            if (My.IsFirst) {
                 $("#myTableCard li").each(function (idx) {
                     $(this).attr("DeskCardIndex", baseIdx);
                     baseIdx++;
@@ -100,10 +102,10 @@ function ClientConnected(res) {
             $(document).bind("mousemove", function (e) {
                 $(".cardDetail").css("left", e.pageX + 60).css("top", e.pageY - 60);
             });
-            if (currentPlayer.IsActivation) {                
+            if (My.IsActivation) {                
                 
             }
-            setDeskCard(res.data.Players);
+            setDeskCard(res.data.DeskCards, res.data.Players);
         }
     }
 }
@@ -209,6 +211,8 @@ function queryMyCards() {
         res = JSON.parse(res);        
         //console.log(res);
         if (res.code == 100) {
+            My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
             $(".container").fadeOut(500);
             $(".switchdone").fadeOut(500);
             //var currentPlayer = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
@@ -227,7 +231,7 @@ function queryMyCards() {
                     //$(".arrow").css("left", e.pageX - 25).css("top", e.pageY - 25);
                 //});
             }
-            setDeskCard(res.data.Players);
+            setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
             showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
@@ -253,6 +257,7 @@ function setPowerPanel(players) {
     else {
         $(".CurrentPowerPanel").append("<li class=\"EmptyPower\"></li>");
     }
+    
     var enemyPower = Enumerable.From(players).Where("x=>x.UserCode!='" + getUserCode() + "'").First().Power;
     $(".EnemyPowerPanel").removeClass().addClass("EnemyPowerPanel Power" + enemyPower);
 }
@@ -261,7 +266,6 @@ $(function () {
     $("#MyClientName").html(getNickName());
     $("body").find("*").unbind("mousedown").bind("contextmenu", function (e) {
         e.preventDefault();
-        console.log("right");
         hideArrow();
         return false;
     });
@@ -291,9 +295,9 @@ $(function () {
 //显示箭头图片
 function showArrow(card, deskIndex) {
     //$(".content-wrap").css("cursor", "crosshair");
-    $("#otherTableCard li").css("cursor", "crosshair");
+    $("#otherTableCard li[card]").css("cursor", "crosshair");
     $("#myTableCard li").css("cursor", "crosshair");
-    $("#otherTableCard li").click(function (e) {
+    $("#otherTableCard li[card]").click(function (e) {
         //console.log($(e.target).parent().attr("deskcardindex"));
         targetIndex = $(e.target).parent().attr("deskcardindex");
         if ($("#otherTableCard li[deskcardindex='" + targetIndex + "']").attr("card")) {
@@ -342,8 +346,8 @@ function castDirectivityAbility(sourceCard, deskIndex) {
 //重置并更新手牌
 function resetHandCards(players) {
     $("#baraja-el").html("");
-    var currentPlayer = Enumerable.From(players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
-    Enumerable.From(currentPlayer.HandCards).ForEach(function (value, index) {
+    //var currentPlayer = Enumerable.From(players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+    Enumerable.From(My.HandCards).ForEach(function (value, index) {
         var cast_Crosshair_Style = CastCrosshairStyle.无;
         cast_Crosshair_Style = Enumerable.From(value).Any(c => Enumerable.From(c.Abilities).Any(x => x.CastCrosshairStyle == CastCrosshairStyle.单个)) ? CastCrosshairStyle.单个 : CastCrosshairStyle.无;
         //$("#baraja-el").append("<li CastCrosshairStyle=\"" + cast_Crosshair_Style + "\" Cost=\"" + value.Cost + "\" cardImg=\"" + cardBackgroupImage + value.BackgroudImage + "\" CardType=\"" + value.CardType + "\" Card=\"" + encodeURI(JSON.stringify(value)) + "\" originalCardHTML=\"" + cardBackgroupImage + value.BackgroudImage + "\" />" +
@@ -353,7 +357,7 @@ function resetHandCards(players) {
         $("#baraja-el").append("<li CastCrosshairStyle=\"" + cast_Crosshair_Style + "\" Cost=\"" + value.Cost + "\" cardImg=\"" + cardBackgroupImage + value.BackgroudImage + "\" CardType=\"" + value.CardType + "\" Card=\"" + encodeURI(JSON.stringify(value)) + "\" originalCardHTML='<img src=\"" + cardBackgroupImage + value.BackgroudImage + "\" />" +
             "<h4>" + value.Name + "</h4><p>Total bicycle rights in blog four loko raw denim ex, helvetica sapiente odio placeat.</p>'>" +
             "<img src=\"" + cardBackgroupImage + value.BackgroudImage + "\" /><h4>" + value.Name + "</h4>" +
-            "<p></p></li>");
+            "<p>" + value.Describe + "</p></li>");
     });
     var $el = $('#baraja-el'),
         baraja = $el.baraja();
@@ -367,7 +371,7 @@ function resetHandCards(players) {
     $("#baraja-el li").each(function () {
         $(this).attr("zindex", $(this).css("z-index"));
         //如果当前费用够打出这张牌，则把牌的样式设置为高亮
-        if(parseInt($(this).attr("Cost")) <= currentPlayer.Power && currentPlayer.IsActivation){
+        if (parseInt($(this).attr("Cost")) <= My.Power && My.IsActivation){
             $(this).addClass("ActiveCard");
         }
     });    
@@ -377,7 +381,7 @@ function resetHandCards(players) {
     $("#baraja-el li").mouseout(function () {
         cardOut(this);
     });
-    if (currentPlayer.IsActivation) {
+    if (My.IsActivation) {
         //$("#baraja-el").shapeshift();
         
         $("#btnTurnEnd img").attr("src", "/images/tables/btn/roundEndOK.png");
@@ -393,14 +397,17 @@ function resetHandCards(players) {
 
 //回合结束事件
 function TurnEnd() {
+    showLoader();
     var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
     roomHub.server.turnEnd(appendParam(param, signObj)).done(function (res) {
         res = JSON.parse(res);
         if (res.code == 100) {
             console.log(res);
+            My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
             resetHandCards(res.data.Players);
             setPowerPanel(res.data.Players);
-            setDeskCard(res.data.Players);
+            setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
             showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
@@ -490,7 +497,6 @@ function bindDragCardEvent() {
             },
             stop: function (event, ui) {
                 
-                //hideArrow();
                 $("#baraja-el li").mouseover(function () {
                     cardOver(this);
                 });
@@ -535,14 +541,38 @@ function bindDragCardEvent() {
 
 //打出一张法术牌
 function castSpell(spell, Target) {
+    showLoader();
     var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"CardInGameCode\":\"" + spell.CardInGameCode + "\",\"Target\":\"" + Target + "\"}";
     roomHub.server.castSpell(appendParam(param, signObj)).done(function (res) {
         res = JSON.parse(res);
         if (res.code == 100) {
             console.log(res);
+            My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
             resetHandCards(res.data.Players);
             setPowerPanel(res.data.Players);
-            setDeskCard(res.data.Players);
+            setDeskCard(res.data.DeskCards, res.data.Players);
+        }
+        else {
+            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+        }
+        hideLoader();
+    });
+}
+
+//使用英雄技能
+function castHeroPower(Target) {
+    showLoader();
+    var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Target\":\"" + Target + "\"}";
+    roomHub.server.castHeroPower(appendParam(param, signObj)).done(function (res) {
+        res = JSON.parse(res);
+        if (res.code == 100) {
+            console.log(res);
+            My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
+            resetHandCards(res.data.Players);
+            setPowerPanel(res.data.Players);
+            setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
             showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
@@ -553,14 +583,17 @@ function castSpell(spell, Target) {
 
 //打出一张随从牌
 function castServant(spell, Location, Target) {
+    showLoader();
     var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"CardInGameCode\":\"" + spell.CardInGameCode + "\",\"Target\":\"" + Target + "\",\"Location\":\"" + Location + "\"}";
     roomHub.server.castServant(appendParam(param, signObj)).done(function (res) {
         res = JSON.parse(res);
         if (res.code == 100) {
             console.log(res);
+            My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
             resetHandCards(res.data.Players);
             setPowerPanel(res.data.Players);
-            setDeskCard(res.data.Players);
+            setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
             showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
@@ -605,26 +638,60 @@ function cardOut(card) {
 }
 
 //设置牌桌环境
-function setDeskCard(players){   
-    var currentPlayer = Enumerable.From(players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
-    var currentDeskCards = Enumerable.From(currentPlayer.DeskCards);
-    var enemyPlayer = Enumerable.From(players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
-    var enemyDeskCards = Enumerable.From(enemyPlayer.DeskCards);
-    //console.log(currentDeskCards);
-    $("#myHero").css("background-image", "url('/images/game/texture/hero/" + Enumerable.From(Profession).First(c=>c.Value == currentPlayer.Hero.Profession).Key + ".png')");
+function setDeskCard(deskCards, players) {
+    //var currentPlayer = Enumerable.From(players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+    var currentDeskCards = Enumerable.From(Enumerable.From(deskCards).ToArray().slice((My.IsFirst ? 0 : 8), (My.IsFirst ? 8 : 16)));
+    //var enemyPlayer = Enumerable.From(players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
+    var enemyDeskCards = Enumerable.From(Enumerable.From(deskCards).ToArray().slice((Enemy.IsFirst ? 0 : 8), (Enemy.IsFirst ? 8 : 16)));
+
+    var myHero = currentDeskCards.First();
+    var enemyHero = enemyDeskCards.First();
+    $("#myHero").css("background-image", "url('/images/game/texture/hero/" + Enumerable.From(Profession).First(c => c.Value == myHero.Profession).Key + ".png')");
+    var myHeroAttr = $("#myHero").find("td");
+    myHeroAttr.eq(0).html(myHero.Damage);
+    myHeroAttr.eq(1).html(myHero.Life);
+    
+    var enemyHeroAttr = $("#enemyHero").find("td");
+    enemyHeroAttr.eq(0).html(enemyHero.Damage);
+    enemyHeroAttr.eq(1).html(enemyHero.Life);
+    var heroPowerFrame = $("#myHero").next();
+    
+    if (My.RemainingHeroPowerCastCount > 0) {        
+        heroPowerFrame.removeClass().addClass("HeroPower " + Enumerable.From(Profession).First(c => c.Value == myHero.Profession).Key + "Power");
+        heroPowerFrame.css("cursor","pointer");
+        heroPowerFrame.click(function(){
+            castHeroPower(-1);
+        });
+    }
+    else{
+        heroPowerFrame.unbind();
+        heroPowerFrame.removeClass().addClass("HeroPower");
+    }
+    if (Enemy.RemainingHeroPowerCastCount > 0) {        
+        $("#enemyHero").next().removeClass().addClass("HeroPower " + Enumerable.From(Profession).First(c => c.Value == enemyHero.Profession).Key + "Power");
+    }
     //设置自己牌桌上的牌
-    $("#myTableCard li").each(function (idx) {        
+    $("#myTableCard li").each(function (idx) {
+        $(this).unbind();
         if (currentDeskCards.Any(c=>c != null && c.DeskIndex == $(this).attr("deskcardindex"))) {            
             //如果牌桌上的某个位置有牌，则绑定这个位置
             var card = currentDeskCards.Where(c=>c != null && c.DeskIndex == $(this).attr("deskcardindex")).First();            
             $(this).attr("card",encodeURI(JSON.stringify(card)));
-            $(this).children("img").attr("src", card.BackgroudImage);
-            $(this).children("img").attr("originalSrc", card.BackgroudImage);
+            $(this).children("img").attr("src", cardBackgroupImage + card.BackgroudImage);
+            $(this).children("img").attr("originalSrc", cardBackgroupImage + card.BackgroudImage);
             $(this).children("div").eq(0).addClass("servantDamege").html(card.Damage);
             $(this).children("div").eq(1).addClass("servantLife").html(card.Life);
             //如果这张牌的剩余攻击次数大于0，添加可以攻击的样式
-            if (card.RemainAttackTimes > 0) {
+            if (card.RemainAttackTimes > 0 && card.CanAttack) {
                 $(this).addClass("ActiveCard");
+                $(this).css("cursor", "pointer");
+                $(this).click(function () {
+                    $("#otherTableCard li[card!=undefined]").css("cursor", "crosshair"); 
+                    $("#otherTableCard li[card!=undefined]").click(function (e) {
+                        targetIndex = $(e.target).parent().attr("deskcardindex");
+                        
+                    });
+                });
             }
         }
         else{
@@ -636,8 +703,8 @@ function setDeskCard(players){
             $(this).children("div").eq(1).removeClass("servantLife").html("");
         }
     });
-    
-    $("#enemyHero").css("background-image", "url('/images/game/texture/hero/" + Enumerable.From(Profession).First(c=>c.Value == enemyPlayer.Hero.Profession).Key + ".png')");
+
+    $("#enemyHero").css("background-image", "url('/images/game/texture/hero/" + Enumerable.From(Profession).First(c => c.Value == enemyHero.Profession).Key + ".png')");
     //设置对手牌桌上的牌
     $("#otherTableCard li").each(function (idx) {
         if (enemyDeskCards.Any(c=>c != null && c.DeskIndex == $(this).attr("deskcardindex"))) {
@@ -645,7 +712,8 @@ function setDeskCard(players){
             var card = enemyDeskCards.Where(c=>c != null && c.DeskIndex == $(this).attr("deskcardindex")).First();
             //encodeURI(JSON.stringify(value))
             $(this).attr("card",encodeURI(JSON.stringify(card)));
-            $(this).children("img").attr("src", card.BackgroudImage);
+            $(this).children("img").attr("src", cardBackgroupImage + card.BackgroudImage);
+            $(this).children("img").attr("originalSrc", cardBackgroupImage + card.BackgroudImage);
             $(this).children("div").eq(0).addClass("servantDamege").html(card.Damage);
             $(this).children("div").eq(1).addClass("servantLife").html(card.Life);
         }
@@ -658,4 +726,7 @@ function setDeskCard(players){
             $(this).children("div").eq(1).removeClass("servantLife").html("");
         }
     });
+}
+
+function servantAttack(cardInGameCode, targetIndex) {
 }

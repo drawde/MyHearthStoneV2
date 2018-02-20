@@ -1,12 +1,11 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell.Single;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
 using System.Collections.Generic;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 {
@@ -21,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new SpellDriver<ComboDriver<RiseDamage<SecondaryFilter,Two,ONE,SpellDamage>,RiseDamage<SecondaryFilter,Four,ONE,SpellDamage>>>(),
+            new SpellDriver_Single_AllEnemy<ComboDriver<RiseDamage<SecondaryFilter,Two,ONE,SpellDamage>,RiseDamage<SecondaryFilter,Four,ONE,SpellDamage>>>(),
         };
 
         public override string BackgroudImage { get; set; } = "Classical/Eviscerate.jpg";

@@ -40,7 +40,7 @@ namespace MyHearthStoneV2.TestConsole
 
         static void Main(string[] args)
         {            
-            //CardUtil.AddToRedis();
+            CardUtil.AddToRedis();
             //List<Card> lstCards = CardUtil.GetCardInRedis();
             //var lst = ShortCodeBusiness.Instance.GetList();
 
@@ -77,8 +77,8 @@ namespace MyHearthStoneV2.TestConsole
             //reslut = Controller_Base_Proxy.HeroAttack(gameCode, mendicantbias, 8);
 
 
-            GameTester.TurnEnd(gameCode);
-            //GameTester.CastServant(gameCode, "6");            
+            //GameTester.TurnEnd(gameCode);
+            //GameTester.CastServant(gameCode, "3");            
             //GameTester.LoadEquip<DeathBite>(gameCode);
             //(gameContext.DeskCards[8] as BaseHero).Equip.Durable = 1;
             //GameTester.QueueSettlement(gameCode);
