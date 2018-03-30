@@ -110,6 +110,7 @@
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\AllBiologyFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\AllSecondaryRandomBiologyFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Context\NotMainUserContextFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Filter\NoneFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\NotMainRandomBiologyFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Servant\NotMainRandomServantFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Servant\RandomSecondaryServantFilter.cs" />

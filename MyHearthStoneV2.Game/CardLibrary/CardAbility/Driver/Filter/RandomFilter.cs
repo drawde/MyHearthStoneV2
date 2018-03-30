@@ -7,7 +7,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter
     /// <summary>
     /// 随机选择场上目标
     /// </summary>
-    internal class RandomFilter : IFilter
+    internal class DeskCardRandomFilter : IFilter
     {
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {

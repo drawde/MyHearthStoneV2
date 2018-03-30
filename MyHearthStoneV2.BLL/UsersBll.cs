@@ -99,7 +99,7 @@ namespace MyHearthStoneV2.BLL
         /// <returns></returns>
         public string Register(string userName, string pwd, string mobile, string email, string invitationCode, string nickName, string headImg = "")
         {
-            if (userName.IsNullOrEmpty() || pwd.IsNullOrEmpty() || invitationCode.IsNullOrEmpty() || nickName.IsNullOrEmpty())
+            if (userName.IsNullOrEmpty() || pwd.IsNullOrEmpty()  || nickName.IsNullOrEmpty())//|| invitationCode.IsNullOrEmpty()
             {
                 return JsonStringResult.Error(OperateResCodeEnum.参数错误);
             }
@@ -120,11 +120,11 @@ namespace MyHearthStoneV2.BLL
             //    return OperateJsonRes.Error(OperateResCodeEnum.邮箱重复);
             //}
             string userCode = SignUtil.CreateSign(userName + RandomUtil.CreateRandomStr(10) + invitationCode + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            var invitation = InvitationBll.Instance.GetInvitation(invitationCode, userCode);
-            if (invitation == null)
-            {
-                return JsonStringResult.Error(OperateResCodeEnum.邀请码错误);
-            }
+            //var invitation = InvitationBll.Instance.GetInvitation(invitationCode, userCode);
+            //if (invitation == null)
+            //{
+            //    return JsonStringResult.Error(OperateResCodeEnum.邀请码错误);
+            //}
             HS_Users user = new HS_Users();
             user.AddTime = DateTime.Now;
             user.Email = email.TryParseString();
@@ -137,9 +137,9 @@ namespace MyHearthStoneV2.BLL
             user.SecretCode = SignUtil.CreateSign(user.UserName + user.UserCode + RandomUtil.CreateRandomStr(10) + DateTime.Now.Ticks);
             _repository.Insert(user);
 
-            invitation.ToUserCode = userCode;
-            invitation.Status = (int)InvitationStatus.已使用;
-            InvitationBll.Instance.Update(invitation);
+            //invitation.ToUserCode = userCode;
+            //invitation.Status = (int)InvitationStatus.已使用;
+            //InvitationBll.Instance.Update(invitation);
             return JsonStringResult.SuccessResult(user.UserCode);
         }
         public bool IsRepeat(string userName)

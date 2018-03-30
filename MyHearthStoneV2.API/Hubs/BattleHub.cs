@@ -165,8 +165,11 @@ namespace MyHearthStoneV2.API.Hubs
                 var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
                 string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
                 res = Controller_Base_Proxy.TurnEnd(GameCode, UserCode);
-                var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
-                Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
+                if (res.code == (int)OperateResCodeEnum.成功)
+                {
+                    var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
+                    Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
+                }
                 return JsonConvert.SerializeObject(res);
             }
             return JsonStringResult.Error(OperateResCodeEnum.参数错误);
@@ -186,6 +189,49 @@ namespace MyHearthStoneV2.API.Hubs
                 var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
                 string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
                 res = Controller_Base_Proxy.TurnStart(GameCode, UserCode);
+                var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
+                Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
+                return JsonConvert.SerializeObject(res);
+            }
+            return JsonStringResult.Error(OperateResCodeEnum.参数错误);
+        }
+
+        [SignalRMethod]
+        public string HeroAttack(string param)
+        {
+            JObject jobj = JObject.Parse(param);
+            string UserCode = jobj["UserCode"].TryParseString();
+            string GameCode = jobj["GameCode"].TryParseString();
+            int Target = jobj["Target"].TryParseInt(-1);
+
+            var res = Controller_Base_Proxy.GetGame(GameCode, UserCode);
+            if (res.code == (int)OperateResCodeEnum.成功)
+            {
+                var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
+                string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
+                res = Controller_Base_Proxy.HeroAttack(GameCode, UserCode, Target);
+                var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
+                Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
+                return JsonConvert.SerializeObject(res);
+            }
+            return JsonStringResult.Error(OperateResCodeEnum.参数错误);
+        }
+
+        [SignalRMethod]
+        public string ServantAttack(string param)
+        {
+            JObject jobj = JObject.Parse(param);
+            string UserCode = jobj["UserCode"].TryParseString();
+            string GameCode = jobj["GameCode"].TryParseString();
+            string CardInGameCode = jobj["CardInGameCode"].TryParseString();
+            int Target = jobj["Target"].TryParseInt(-1);
+
+            var res = Controller_Base_Proxy.GetGame(GameCode, UserCode);
+            if (res.code == (int)OperateResCodeEnum.成功)
+            {
+                var gameContextOutput = ((APISingleModelResult<GameContextOutput>)res).data;
+                string enemyUserCode = gameContextOutput.Players.First(c => c.UserCode != UserCode).UserCode;
+                res = Controller_Base_Proxy.ServantAttack(GameCode, UserCode, CardInGameCode, Target);
                 var gamContext = Controller_Base_Proxy.GetGame(GameCode, enemyUserCode);
                 Clients.Group(GameCode, new string[0]).resetGameContext(JsonConvert.SerializeObject(gamContext), UserCode);
                 return JsonConvert.SerializeObject(res);

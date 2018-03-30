@@ -69,10 +69,10 @@ function postRegister() {
         showMessage("请填写昵称");
         return false;
     }
-    if (!!$("#InvitationCode").val() == false) {
-        showMessage("请填写邀请码");
-        return false;
-    }
+    //if (!!$("#InvitationCode").val() == false) {
+    //    showMessage("请填写邀请码");
+    //    return false;
+    //}
     showLoader();
     //$("#btnReg").removeClass("btn-blue").addClass("btn-gray").attr("disabled", "disabled");
     $.post(url, {

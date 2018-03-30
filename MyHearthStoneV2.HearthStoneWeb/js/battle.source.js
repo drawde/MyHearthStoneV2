@@ -319,6 +319,9 @@ function hideArrow(card, deskIndex) {
     //console.log(32213);
     $("#otherTableCard li").unbind();
     $("#myTableCard li").unbind();
+    $("#enemyHero").unbind();
+    $("#myHero").unbind();
+    
     $("#otherTableCard li").css("cursor", "default");
     $("#myTableCard li").css("cursor", "default");
 
@@ -382,10 +385,12 @@ function resetHandCards(players) {
         cardOut(this);
     });
     if (My.IsActivation) {
-        //$("#baraja-el").shapeshift();
-        
+        //$("#baraja-el").shapeshift();        
         $("#btnTurnEnd img").attr("src", "/images/tables/btn/roundEndOK.png");
-        $("#btnTurnEnd").click(TurnEnd);
+        var objEvt = $._data($("#btnTurnEnd")[0], 'events');
+        if (objEvt == null || objEvt == undefined || objEvt['click'] == null) {
+            $("#btnTurnEnd").click(TurnEnd);
+        }
         bindDragCardEvent();
         bindCastServantEvent();
     }
@@ -398,8 +403,10 @@ function resetHandCards(players) {
 //回合结束事件
 function TurnEnd() {
     showLoader();
+    console.log("TurnEnd");
     var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\"}";
     roomHub.server.turnEnd(appendParam(param, signObj)).done(function (res) {
+        
         res = JSON.parse(res);
         if (res.code == 100) {
             console.log(res);
@@ -650,8 +657,10 @@ function setDeskCard(deskCards, players) {
     var myHeroAttr = $("#myHero").find("td");
     myHeroAttr.eq(0).html(myHero.Damage);
     myHeroAttr.eq(1).html(myHero.Life);
-    
+
+    $("#enemyHero").attr("CardInGameCode", enemyHero.CardInGameCode);
     var enemyHeroAttr = $("#enemyHero").find("td");
+    $("#enemyHero").attr("DeskIndex", enemyHero.DeskIndex);
     enemyHeroAttr.eq(0).html(enemyHero.Damage);
     enemyHeroAttr.eq(1).html(enemyHero.Life);
     var heroPowerFrame = $("#myHero").next();
@@ -670,6 +679,36 @@ function setDeskCard(deskCards, players) {
     if (Enemy.RemainingHeroPowerCastCount > 0) {        
         $("#enemyHero").next().removeClass().addClass("HeroPower " + Enumerable.From(Profession).First(c => c.Value == enemyHero.Profession).Key + "Power");
     }
+
+    //如果这张牌的剩余攻击次数大于0，添加可以攻击的样式
+    if (myHero.RemainAttackTimes > 0 && myHero.CanAttack) {
+        var myHeroEvt = $._data($('#myHero')[0], 'events');
+        if (myHeroEvt == null || myHeroEvt == undefined || myHeroEvt['click'] == null) {
+            $("#myHero").css("cursor", "pointer");
+            $("#myHero").addClass("ActiveCard");
+
+            var enemyHeroEvt = $._data($('#enemyHero')[0], 'events');
+                        
+            if (enemyHeroEvt == null || enemyHeroEvt == undefined || enemyHeroEvt['click'] == null) {
+                $("#enemyHero").css("cursor", "crosshair");
+                $("#enemyHero").click(function (e) {
+                    heroAttack($("#enemyHero").attr("deskindex"));
+                });
+            }
+            $("#otherTableCard li[card!=undefined]").css("cursor", "crosshair");
+            $("#otherTableCard li[card!=undefined]").click(function (e) {
+                targetIndex = $(e.target).parent().attr("deskcardindex");
+                heroAttack(targetIndex);
+            });
+
+            
+            //$("#myHero").click(function (e) {
+            //    targetIndex = $(e.target).parent().attr("DeskIndex");
+            //    heroAttack(targetIndex);
+            //});
+        }
+    }    
+
     //设置自己牌桌上的牌
     $("#myTableCard li").each(function (idx) {
         $(this).unbind();
@@ -681,17 +720,27 @@ function setDeskCard(deskCards, players) {
             $(this).children("img").attr("originalSrc", cardBackgroupImage + card.BackgroudImage);
             $(this).children("div").eq(0).addClass("servantDamege").html(card.Damage);
             $(this).children("div").eq(1).addClass("servantLife").html(card.Life);
-            //如果这张牌的剩余攻击次数大于0，添加可以攻击的样式
+            //如果这张牌的剩余攻击次数大于0，添加可以攻击的样式            
             if (card.RemainAttackTimes > 0 && card.CanAttack) {
                 $(this).addClass("ActiveCard");
-                $(this).css("cursor", "pointer");
-                $(this).click(function () {
-                    $("#otherTableCard li[card!=undefined]").css("cursor", "crosshair"); 
-                    $("#otherTableCard li[card!=undefined]").click(function (e) {
-                        targetIndex = $(e.target).parent().attr("deskcardindex");
-                        
+                $(this).css("cursor", "pointer");                
+                var objEvt = $._data($(this)[0], 'events');
+                if (objEvt == null || objEvt == undefined || objEvt['click'] == null) {
+                    $(this).click(function () {                     
+                        var enemyHeroEvt = $._data($('#enemyHero')[0], 'events');
+                        if (enemyHeroEvt == null || enemyHeroEvt == undefined || enemyHeroEvt['click'] == null) {
+                            $("#enemyHero").css("cursor", "crosshair");
+                            $("#enemyHero").click(function (e) {
+                                servantAttack(card.CardInGameCode, $("#enemyHero").attr("deskindex"));
+                            });
+                        }   
+                        $("#otherTableCard li[card!=undefined]").css("cursor", "crosshair");
+                        $("#otherTableCard li[card!=undefined]").click(function (e) {
+                            targetIndex = $(e.target).parent().attr("deskcardindex");
+                            servantAttack(card.CardInGameCode, targetIndex);
+                        });
                     });
-                });
+                }
             }
         }
         else{
@@ -729,4 +778,42 @@ function setDeskCard(deskCards, players) {
 }
 
 function servantAttack(cardInGameCode, targetIndex) {
+    showLoader();
+    
+    var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"CardInGameCode\":\"" + cardInGameCode + "\",\"Target\":\"" + targetIndex + "\"}";
+    roomHub.server.servantAttack(appendParam(param, signObj)).done(function (res) {
+        res = JSON.parse(res);
+        if (res.code == 100) {
+            console.log(res);
+            My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
+            resetHandCards(res.data.Players);
+            setPowerPanel(res.data.Players);
+            setDeskCard(res.data.DeskCards, res.data.Players);
+        }
+        else {
+            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+        }
+        hideLoader();
+    });
+}
+
+function heroAttack(targetIndex) {
+    showLoader();
+    var param = "{\"GameCode\":\"" + getUrlParam("GameCode") + "\",\"UserCode\":\"" + getUserCode() + "\",\"Target\":\"" + targetIndex + "\"}";
+    roomHub.server.heroAttack(appendParam(param, signObj)).done(function (res) {
+        res = JSON.parse(res);
+        if (res.code == 100) {
+            console.log(res);
+            My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
+            resetHandCards(res.data.Players);
+            setPowerPanel(res.data.Players);
+            setDeskCard(res.data.DeskCards, res.data.Players);
+        }
+        else {
+            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+        }
+        hideLoader();
+    });
 }

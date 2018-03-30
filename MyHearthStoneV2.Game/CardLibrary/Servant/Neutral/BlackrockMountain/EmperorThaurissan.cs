@@ -32,7 +32,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new MyTurnEndDriver<UpdateCost<MainUserContextFilter,AllBiologyFilter,ONE,Minus>>(),
+            new MyTurnEndDriver<UpdateCost<MainUserContextFilter,NoneFilter,ONE,Minus>>(),
             //new CA_EmperorThaurissan()
         };
 
