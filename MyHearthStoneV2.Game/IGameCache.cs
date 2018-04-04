@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game
     /// <summary>
     /// 表示该实例可以被缓存
     /// </summary>
-    internal interface IGameCache
+    public interface IGameCache
     {
     }
 }

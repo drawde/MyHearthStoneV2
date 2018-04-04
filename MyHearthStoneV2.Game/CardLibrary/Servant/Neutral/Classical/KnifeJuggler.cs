@@ -4,8 +4,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer;
-using MyHearthStoneV2.Game.CardLibrary.Servant;
+using MyHearthStoneV2.Game.CardLibrary.Filter;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
@@ -20,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override int InitialLife { get; set; } = 2;
         public override int InitialCost { get; set; } = 2;
 
-        
+
         public override int BuffLife { get; set; } = 2;
         public override string Describe { get; set; } = "每当你召唤一个随从时，对一个随机敌方角色造成1点伤害。";
 
@@ -28,7 +27,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
         {
-            new CastMyServantDriver<RiseDamage<NotMainRandomBiologyFilter,ONE,ONE,PhysicalDamage>>(),
+            new CastMyServantDriver<RiseDamage<EnemyRandomBiologyFilter,ONE,ONE,PhysicalDamage>,InDeskFilter>(),
             //new CA_KnifeJuggler()
         };
 

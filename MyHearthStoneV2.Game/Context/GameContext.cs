@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.Context
 {
@@ -62,5 +63,7 @@ namespace MyHearthStoneV2.Game.Context
         /// 当前用户动作结算队列（指的是用户打出一张牌、指定一个随从攻击等动作时，当前游戏环境的卡牌技能触发队列（先入场先触发、等））
         /// </summary>
         internal LinkedList<ActionStatement> ActionStatementQueue = new LinkedList<ActionStatement>();
+
+        internal LinkedList<IEvent> EventQueue = new LinkedList<IEvent>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary.Filter;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter;

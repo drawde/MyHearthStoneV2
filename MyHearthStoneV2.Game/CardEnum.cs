@@ -23,6 +23,7 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public enum CardLocation
     {
+        不限 = 0,
         牌库 = 1,
         手牌 = 2,
         场上 = 3,

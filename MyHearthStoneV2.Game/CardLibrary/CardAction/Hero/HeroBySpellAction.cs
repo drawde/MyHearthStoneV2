@@ -40,7 +40,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
             }
 
             var damagePara = CardActionFactory.CreateParameter(baseHero, actionParameter.GameContext, damage, secondaryCard: actionParameter.MainCard);
-            CardActionFactory.CreateAction(baseHero, ActionType.受到法术伤害).Action(damagePara);
+            CardActionFactory.CreateAction(baseHero, ActionType.受到伤害).Action(damagePara);
             return new IntParameter() { Value = damage };
         }
     }

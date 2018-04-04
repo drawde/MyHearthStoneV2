@@ -75,11 +75,11 @@
   <ItemGroup>
     <Compile Include="Action\CardActionFactory.cs" />
     <Compile Include="Action\IGameAction.cs" />
+    <Compile Include="Capture\ICapture.cs" />
+    <Compile Include="Capture\Player\CastServantCapture.cs" />
     <Compile Include="CardLibrary\Card.cs" />
     <Compile Include="CardLibrary\BaseBiology.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\CA_DireWolfAlpha.cs" />
-    <Compile Include="CardLibrary\CardAbility\Aura\CA_EmperorThaurissan.cs" />
-    <Compile Include="CardLibrary\CardAbility\Aura\CA_VioletTeacher.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\REV_DireWolfAlpha.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\AddDamage.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\AddAmmo.cs" />
@@ -111,7 +111,7 @@
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\AllSecondaryRandomBiologyFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Context\NotMainUserContextFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\NoneFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Filter\NotMainRandomBiologyFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\Filter\EnemyRandomBiologyFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Servant\NotMainRandomServantFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Servant\RandomSecondaryServantFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IDirection.cs" />
@@ -251,6 +251,9 @@
     <Compile Include="CardLibrary\Equip\Rogue\WickedKnife.cs" />
     <Compile Include="CardLibrary\Equip\Warrior\DeathBite.cs" />
     <Compile Include="CardLibrary\Equip\Warrior\FieryWarAxe.cs" />
+    <Compile Include="CardLibrary\Filter\ICardFilter.cs" />
+    <Compile Include="CardLibrary\Filter\InDeskFilter.cs" />
+    <Compile Include="CardLibrary\Filter\NullFilter.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\BlackrockMountain\EmperorThaurissan.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\BlackrockMountain\GrimPatron.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\Classical\AcidicSwampOoze.cs" />
@@ -314,6 +317,8 @@
     <Compile Include="Context\GameContextCache.cs" />
     <Compile Include="Context\GameContextExtend.cs" />
     <Compile Include="Context\GameContextOutput.cs" />
+    <Compile Include="Event\IEvent.cs" />
+    <Compile Include="Event\Player\CastServantEvent.cs" />
     <Compile Include="GameActivator.cs" />
     <Compile Include="GameTester.cs" />
     <Compile Include="IGameCache.cs" />

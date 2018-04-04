@@ -11,6 +11,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAction.Servant;
 using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.Event.Player;
 
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -54,7 +55,10 @@ namespace MyHearthStoneV2.Game.Controler
             #endregion
 
             BaseActionParameter para = CardActionFactory.CreateParameter(servant, GameContext, deskIndex: location);
-            CardActionFactory.CreateAction(servant, ActionType.进场).Action(para);
+            GameContext.EventQueue.AddLast(new CastServantEvent() { EventCard = servant, Parameter = para});
+
+            
+            //CardActionFactory.CreateAction(servant, ActionType.进场).Action(para);
             //servant.Cast(GameContext, location, target);
 
             #region 然后触发场内牌的技能

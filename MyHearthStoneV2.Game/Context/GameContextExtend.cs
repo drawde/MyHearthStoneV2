@@ -11,6 +11,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.Parameter;
+using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.Context
 {
@@ -298,74 +299,21 @@ namespace MyHearthStoneV2.Game.Context
             context.ActionStatementQueue.AddLast(statement);
         }
 
-        /// <summary>
-        /// 创造一张牌到场内
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="context"></param>
-        /// <param name="isActivation">是否是当前回合玩家的牌</param>
-        /// <returns></returns>
-        //internal static T CreateNewCardInDesk<T>(this GameContext context, bool isActivation = true) where T : BaseServant
-        //{
-        //    T servant = Activator.CreateInstance<T>();
-        //    string cardCode = "";
-        //    using (var redisClient = RedisManager.GetClient())
-        //    {
-        //        List<Card> lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
-        //        cardCode = lstCardLib.First(c => c.GetType() == typeof(T)).CardCode;
-        //    }
-        //    servant.CardCode = cardCode;
-            
-        //    var player = context.Players.First(c => c.IsActivation == isActivation);
-        //    int deskIndex = 0;
-        //    int searchCount = 0;
-        //    for (int i = player.IsFirst ? 0 : 8; i < context.DeskCards.Count; i++)
-        //    {
-        //        searchCount++;
-        //        if (searchCount > 8)
-        //        {
-        //            break;
-        //        }
-        //        if (context.DeskCards[i] == null)
-        //        {
-        //            deskIndex = i;
-        //            break;
-        //        }
-        //    }
-            
-        //    context.AllCard.Add(servant);
-        //    servant.DeskIndex = deskIndex;
-        //    servant.CardInGameCode = context.AllCard.Count.ToString();
-        //    context.DeskCards[deskIndex] = servant;
-        //    player.AllCards.Add(servant);
-        //    servant.Cast(context, deskIndex, -1);            
-
-        //    context.TriggerCardAbility(context.DeskCards.GetDeskCardsByMyCard(servant), SpellCardAbilityTime.己方随从入场, servant);
-        //    var playerTwo = context.Players.First(c => c.IsActivation != isActivation);
-        //    context.TriggerCardAbility(context.DeskCards.GetDeskCardsByEnemyCard(servant), SpellCardAbilityTime.对方随从入场, servant);
-        //    return servant;
-        //}
-
-        /// <summary>
-        /// 创造一张牌到游戏中
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        //internal static T CreateNewCardInController<T>(this GameContext context, UserContext userContext) where T : Card
-        //{
-        //    T card = Activator.CreateInstance<T>();
-        //    string cardCode = "";
-        //    using (var redisClient = RedisManager.GetClient())
-        //    {
-        //        List<Card> lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
-        //        cardCode = lstCardLib.First(c => c.GetType() == typeof(T)).CardCode;
-        //    }
-        //    card.CardCode = cardCode;
-        //    context.AllCard.Add(card);
-        //    card.CardInGameCode = context.AllCard.Count.ToString();
-        //    context.Players.First(c => c == userContext).AllCards.Add(card);
-        //    return card;
-        //}
+        internal static void EventQueueSettlement(this GameContext context)
+        {
+            LinkedList<IEvent> ll = context.EventQueue;
+            if (ll != null && ll.Count > 0)
+            {
+                LinkedListNode<IEvent> node = ll.First;
+                while (node != null)
+                {
+                    node.Value.Settlement();
+                    //foreach(Card card in context.AllCard.Where(c=>c.Abilities.Any(x=>x.)))
+                    node = node.Next;
+                }
+                ll.Clear();
+            }
+        }
 
         /// <summary>
         /// 获取当前回合玩家
@@ -470,91 +418,6 @@ namespace MyHearthStoneV2.Game.Context
         {
             return gameContext.DeskCards.GetHeroByIsFirst(gameContext.Players.First(c => c.IsActivation == isActivation).IsFirst);
         }
-
-
-        /// <summary>
-        /// 从牌库里抽牌
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="isActivation"></param>
-        /// <param name="drawCount"></param>
-        //internal static void DrawCard(this GameContext context, bool isActivation = true, int drawCount = 1)
-        //{
-        //    UserContext uc = null;
-        //    if (isActivation)
-        //    {
-        //        uc = context.GetActivationUserContext();
-        //    }
-        //    else
-        //    {
-        //        uc = context.GetNotActivationUserContext();
-        //    }
-        //    BaseHero hero = context.GetHeroByActivation(uc.IsActivation);
-        //    for (int i = 1; i <= drawCount; i++)
-        //    {
-        //        //当牌库里有牌时
-        //        if (uc.StockCards.Count > 0)
-        //        {
-        //            var drawCard = uc.StockCards.First();
-        //            if (uc.HandCards.Count < 10)
-        //            {
-        //                //如果手牌没满则放入手牌中
-        //                uc.HandCards.Add(drawCard);
-        //                drawCard.CardLocation = CardLocation.手牌;
-        //            }
-        //            else
-        //            {
-        //                //否则撕了这张牌
-        //                drawCard.CardLocation = CardLocation.坟场;
-        //                uc.GraveyardCards.Add(drawCard);
-        //            }
-        //            //最后从牌库移除这张牌
-        //            uc.StockCards.RemoveAt(0);
-        //        }
-        //        else
-        //        {
-        //            //没牌则计算疲劳值
-        //            uc.FatigueValue++;
-        //            int trueDamege = uc.FatigueValue;
-        //            if (hero.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方英雄受到伤害前)))
-        //            {
-        //                context.TriggerCardAbility(context.DeskCards.GetDeskCardsByIsFirst(context.Players.First(c => c.IsActivation == isActivation).IsFirst), SpellCardAbilityTime.己方英雄受到伤害前);
-        //            }
-        //            else
-        //            {
-        //                if (trueDamege >= hero.Ammo)
-        //                {
-        //                    trueDamege -= hero.Ammo;
-        //                    hero.Ammo = 0;
-        //                }
-        //                else
-        //                {
-        //                    hero.Ammo -= trueDamege;
-        //                    trueDamege = 0;
-        //                }
-        //                hero.Life -= trueDamege;
-        //            }
-        //            context.TriggerCardAbility(new List<Card>() { hero }, SpellCardAbilityTime.己方英雄受到伤害后);
-        //        }
-        //    }
-        //}
-
-        /// <summary>
-        /// 移除（沉默、BUFF时间过期）卡牌技能
-        /// </summary>
-        /// <param name="lstCard"></param>
-        /// <param name="cl"></param>
-        /// <param name="spellTime"></param>
-        //internal static void DisableCardAbility(this GameContext context, IEnumerable<BaseBiology> lstCard)
-        //{
-        //    foreach (BaseBiology card in lstCard)
-        //    {
-        //        card.Damage = card.InitialDamage;
-        //        card.Cost = card.InitialCost;
-        //        card.Life = card.InitialLife;
-        //        card.Abilities.Clear();
-        //    }
-        //}
 
 
         /// <summary>

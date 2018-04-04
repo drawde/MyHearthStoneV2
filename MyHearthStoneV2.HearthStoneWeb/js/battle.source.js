@@ -30,6 +30,7 @@ function registCustomRoomFunction() {
             //如果当前用户不是刷新操作的发起人，则刷新游戏环境                        
             console.log("resetGameContext");
             My = Enumerable.From(res.data.Players).Where("x=>x.UserCode=='" + getUserCode() + "'").First();
+            console.log(My);
             Enemy = Enumerable.From(res.data.Players).Where("x=>x.UserCode!='" + getUserCode() + "'").First();
             if (My.IsActivation) {
                 console.log("My.IsActivation");
@@ -46,7 +47,7 @@ function registCustomRoomFunction() {
                         showSuccessMessage("回合开始");
                     }
                     else {
-                        showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+                        showErrorMessage(res.msg);
                     }
                     hideLoader();
                 });
@@ -172,7 +173,7 @@ function switchDone() {
             switchCardIndexs = [];
         }
         else {
-            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+            showErrorMessage(res.msg);
         }
         hideLoader();
     });
@@ -234,7 +235,7 @@ function queryMyCards() {
             setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
-            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+            showErrorMessage(res.msg);
         }
         //hideLoader();
     });
@@ -374,6 +375,11 @@ function resetHandCards(players) {
     $("#baraja-el li").each(function () {
         $(this).attr("zindex", $(this).css("z-index"));
         //如果当前费用够打出这张牌，则把牌的样式设置为高亮
+        console.log("==========resetHandCardsStart==========");
+        console.log(parseInt($(this).attr("Cost")));
+        console.log(My.Power);
+        console.log(My.IsActivation);
+        console.log("==========resetHandCardsEnd==========");
         if (parseInt($(this).attr("Cost")) <= My.Power && My.IsActivation){
             $(this).addClass("ActiveCard");
         }
@@ -417,7 +423,7 @@ function TurnEnd() {
             setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
-            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+            showErrorMessage(res.msg);
         }
         hideLoader();
     });
@@ -561,7 +567,7 @@ function castSpell(spell, Target) {
             setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
-            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+            showErrorMessage(res.msg);
         }
         hideLoader();
     });
@@ -582,7 +588,7 @@ function castHeroPower(Target) {
             setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
-            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+            showErrorMessage(res.msg);
         }
         hideLoader();
     });
@@ -603,7 +609,7 @@ function castServant(spell, Location, Target) {
             setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
-            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+            showErrorMessage(res.msg);
         }
         hideLoader();
     });
@@ -792,7 +798,7 @@ function servantAttack(cardInGameCode, targetIndex) {
             setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
-            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+            showErrorMessage(res.msg);
         }
         hideLoader();
     });
@@ -812,7 +818,7 @@ function heroAttack(targetIndex) {
             setDeskCard(res.data.DeskCards, res.data.Players);
         }
         else {
-            showErrorMessage("时空枢纽收到干扰，你已进入断层空间");
+            showErrorMessage(res.msg);
         }
         hideLoader();
     });

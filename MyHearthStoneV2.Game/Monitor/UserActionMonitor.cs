@@ -32,7 +32,7 @@ namespace MyHearthStoneV2.Game.Monitor
         public override void OnExit(MethodExecutionArgs eventArgs)
         {
             Controler_Base ctl = eventArgs.Instance as Controler_Base;
-
+            ctl.GameContext.EventQueueSettlement();
             ctl.GameContext.QueueSettlement();
 
             if (eventArgs.Arguments != null && eventArgs.Arguments.Count > 0)
