@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
     /// <summary>
     /// 创造一张牌到场内
     /// </summary>
-    internal class CreateNewCardInDeskAction
+    public class CreateNewCardInDeskAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

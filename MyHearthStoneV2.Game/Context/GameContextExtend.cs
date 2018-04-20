@@ -18,9 +18,9 @@ namespace MyHearthStoneV2.Game.Context
     /// <summary>
     /// 游戏环境扩展类
     /// </summary>
-    internal static class GameContextExtend
+    public static class GameContextExtend
     {
-        internal static GameContextOutput Output(this GameContext gameContext, string userCode)
+        public static GameContextOutput Output(this GameContext gameContext, string userCode)
         {
             GameContextOutput gameContextOutput = new GameContextOutput()
             {
@@ -73,7 +73,7 @@ namespace MyHearthStoneV2.Game.Context
             return gameContextOutput;
         }
 
-        internal static GameContextOutput Output(this GameContext gameContext)
+        public static GameContextOutput Output(this GameContext gameContext)
         {
             GameContextOutput gameContextOutput = new GameContextOutput()
             {
@@ -129,7 +129,7 @@ namespace MyHearthStoneV2.Game.Context
         /// 阶段检索，即在每一个结算队列结算完之后，开始的检索，包括死亡检索、受伤检索等
         /// </summary>
         /// <param name="context"></param>
-        internal static void StageRetrieval(this GameContext context)
+        public static void StageRetrieval(this GameContext context)
         {
             if (context.DeskCards.Any(c => c != null && c.Life < 1))
             {
@@ -149,7 +149,7 @@ namespace MyHearthStoneV2.Game.Context
         /// 进行队列结算、光环更新
         /// </summary>
         /// <param name="context"></param>
-        internal static void QueueSettlement(this GameContext context)
+        public static void QueueSettlement(this GameContext context)
         {            
             LinkedList<ActionStatement> ll = context.ActionStatementQueue;
             if (ll != null && ll.Count > 0)
@@ -170,12 +170,12 @@ namespace MyHearthStoneV2.Game.Context
         /// 光环结算
         /// </summary>
         /// <param name="context"></param>
-        internal static void AuraSettlement(this GameContext context)
+        public static void AuraSettlement(this GameContext context)
         {
             //先移除光环BUFF
             foreach (BaseBiology biology in context.DeskCards.Where(c => c != null && c.Abilities.Any(x => x.AbilityType == AbilityType.光环BUFF)))
             {
-                foreach (BaseCardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环BUFF))
+                foreach (IBaseCardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环BUFF))
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
@@ -191,7 +191,7 @@ namespace MyHearthStoneV2.Game.Context
             //再重新触发光环效果（不会触发有触发条件的随从如索瑞森大帝）
             foreach (BaseBiology biology in context.DeskCards.Where(c => c != null && c.Abilities.Any(x => x.AbilityType == AbilityType.光环)))
             {
-                foreach (BaseCardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环 && x.SpellCardAbilityTimes.Count == 0))
+                foreach (IBaseCardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环 && x.SpellCardAbilityTimes.Count == 0))
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
@@ -208,7 +208,7 @@ namespace MyHearthStoneV2.Game.Context
         /// </summary>
         /// <param name="gameContext"></param>
         /// <param name="deskIndex"></param>
-        internal static int ShiftServant(this GameContext gameContext, int deskIndex)
+        public static int ShiftServant(this GameContext gameContext, int deskIndex)
         {
             if (gameContext.DeskCards[deskIndex] != null)
             {
@@ -264,23 +264,7 @@ namespace MyHearthStoneV2.Game.Context
                 #endregion                
             }
             return deskIndex;
-        }
-        /// <summary>
-        /// 添加一个结算队列
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="lstCard"></param>
-        /// <param name="cl"></param>
-        /// <param name="triggerCard"></param>
-        /// <param name="target"></param>
-        //internal static void AddActionStatement(this GameContext context, IEnumerable<Card> lstCard, Card triggerCard = null, int target = -1)
-        //{
-        //    var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
-        //    for (int i = 0; i < lstCards.Count(); i++)
-        //    {
-        //        AddActionStatement(context, lstCards[i], triggerCard, target);
-        //    }
-        //}
+        }        
 
         /// <summary>
         /// 添加一个卡牌技能触发到结算队列
@@ -289,7 +273,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="card"></param>
         /// <param name="triggerCard"></param>
         /// <param name="target"></param>
-        internal static void AddActionStatement(this GameContext context, IGameAction gameAction, BaseActionParameter actionParameter)
+        public static void AddActionStatement(this GameContext context, IGameAction gameAction, BaseActionParameter actionParameter)
         {
             ActionStatement statement = new ActionStatement()
             {
@@ -299,7 +283,15 @@ namespace MyHearthStoneV2.Game.Context
             context.ActionStatementQueue.AddLast(statement);
         }
 
-        internal static void EventQueueSettlement(this GameContext context)
+        public static void AddActionStatements(this GameContext context, IEnumerable<IGameAction> IGameActions, BaseActionParameter actionParameter)
+        {
+            foreach (var gameAction in IGameActions)
+            {
+                AddActionStatement(context, gameAction, actionParameter);
+            }
+        }
+
+        public static void EventQueueSettlement(this GameContext context)
         {
             LinkedList<IEvent> ll = context.EventQueue;
             if (ll != null && ll.Count > 0)
@@ -320,7 +312,7 @@ namespace MyHearthStoneV2.Game.Context
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        internal static UserContext GetActivationUserContext(this GameContext context)
+        public static UserContext GetActivationUserContext(this GameContext context)
         {
             return context.Players.First(c => c.IsActivation);
         }
@@ -330,7 +322,7 @@ namespace MyHearthStoneV2.Game.Context
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        internal static UserContext GetNotActivationUserContext(this GameContext context)
+        public static UserContext GetNotActivationUserContext(this GameContext context)
         {
             if (context.Players.Any(c => c.IsActivation == false))
                 return context.Players.First(c => c.IsActivation == false);
@@ -343,12 +335,12 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="context"></param>
         /// <param name="card"></param>
         /// <returns></returns>
-        internal static bool IsThisActivationUserCard(this GameContext context, Card card)
+        public static bool IsThisActivationUserCard(this GameContext context, Card card)
         {
             return context.Players.Any(c => c.IsActivation && c.AllCards.Any(x => x.CardInGameCode == card.CardInGameCode));
         }
 
-        internal static bool IsThisActivationUserCard(this GameContext context, List<Card> cards)
+        public static bool IsThisActivationUserCard(this GameContext context, List<Card> cards)
         {
             return context.Players.Any(c => c.IsActivation && c.AllCards.Any(x => cards.Any(n => n.CardInGameCode == x.CardInGameCode)));
         }
@@ -359,7 +351,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="context"></param>
         /// <param name="myCard"></param>
         /// <returns></returns>
-        internal static UserContext GetEnemyUserContextByMyCard(this GameContext context, Card myCard)
+        public static UserContext GetEnemyUserContextByMyCard(this GameContext context, Card myCard)
         {
             if (context.AllCard.Any(c => c.CardInGameCode == myCard.CardInGameCode))
             {
@@ -376,7 +368,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="context"></param>
         /// <param name="myCard"></param>
         /// <returns></returns>
-        internal static UserContext GetUserContextByMyCard(this GameContext context, Card myCard)
+        public static UserContext GetUserContextByMyCard(this GameContext context, Card myCard)
         {
             if (context.AllCard.Any(c => c.CardInGameCode == myCard.CardInGameCode))
             {
@@ -401,7 +393,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="context"></param>
         /// <param name="enemyCard"></param>
         /// <returns></returns>
-        internal static UserContext GetUserContextByEnemyCard(this GameContext context, Card enemyCard)
+        public static UserContext GetUserContextByEnemyCard(this GameContext context, Card enemyCard)
         {
             if (context.AllCard.Any(c => c.CardInGameCode == enemyCard.CardInGameCode))
             {
@@ -414,7 +406,7 @@ namespace MyHearthStoneV2.Game.Context
 
 
 
-        internal static BaseHero GetHeroByActivation(this GameContext gameContext, bool isActivation = true)
+        public static BaseHero GetHeroByActivation(this GameContext gameContext, bool isActivation = true)
         {
             return gameContext.DeskCards.GetHeroByIsFirst(gameContext.Players.First(c => c.IsActivation == isActivation).IsFirst);
         }
@@ -428,12 +420,12 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="spellTime"></param>
         /// <param name="triggerCard"></param>
         /// <param name="target"></param>
-        internal static void TriggerCardAbility(this GameContext context, Card card, SpellCardAbilityTime spellTime, AbilityType abilityType = AbilityType.无, Card triggerCard = null, int target = -1)
+        public static void TriggerCardAbility(this GameContext context, Card card, SpellCardAbilityTime spellTime, AbilityType abilityType = AbilityType.无, Card triggerCard = null, int target = -1)
         {
             var triggerAbilities = card.Abilities.Where(c => c.SpellCardAbilityTimes.Any(x => x == spellTime) && c.AbilityType == abilityType).ToList();
             for (int n = 0; n < triggerAbilities.Count; n++)
             {
-                BaseCardAbility ca = card.Abilities.First(c => c == triggerAbilities[n]);
+                IBaseCardAbility ca = card.Abilities.First(c => c == triggerAbilities[n]);
                 CardAbilityParameter para = new CardAbilityParameter()
                 {
                     GameContext = context,
@@ -454,7 +446,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="spellTime"></param>
         /// <param name="triggerCard"></param>
         /// <param name="target"></param>
-        internal static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
+        public static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
         {
             if (lstCard == null || !lstCard.Any(c => c != null)) return;
             var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
@@ -465,7 +457,7 @@ namespace MyHearthStoneV2.Game.Context
             }
         }
 
-        internal static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, AbilityType abilityType, Card triggerCard = null, int target = -1)
+        public static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, AbilityType abilityType, Card triggerCard = null, int target = -1)
         {
             if (lstCard == null || !lstCard.Any(c => c != null)) return;
             var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
@@ -484,14 +476,14 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="abilityType"></param>
         /// <param name="triggerCard"></param>
         /// <param name="target"></param>
-        internal static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, AbilityType abilityType, Card triggerCard = null, int target = -1)
+        public static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, AbilityType abilityType, Card triggerCard = null, int target = -1)
         {
             if (lstCard == null || !lstCard.Any(c => c != null)) return;
             var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
             for (int i = 0; i < lstCards.Count(); i++)
             {
                 if (!lstCards[i].Abilities.Any(c => c.AbilityType == abilityType)) continue;
-                BaseCardAbility ca = lstCards[i].Abilities.First(c => c.AbilityType == abilityType);
+                IBaseCardAbility ca = lstCards[i].Abilities.First(c => c.AbilityType == abilityType);
                 CardAbilityParameter para = new CardAbilityParameter()
                 {
                     GameContext = context,

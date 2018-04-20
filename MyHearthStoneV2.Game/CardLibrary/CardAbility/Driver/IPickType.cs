@@ -3,7 +3,7 @@
     /// <summary>
     /// 挑选方式
     /// </summary>
-    internal interface IPickType : IGameCache
+    public interface IPickType : IGameCache
     {
         PickType PickType { get; set; }
     }

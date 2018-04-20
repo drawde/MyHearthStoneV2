@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
-    public class CA_Preparation : BaseCardAbility
+    public class CA_Preparation : IBaseCardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.法术;
 

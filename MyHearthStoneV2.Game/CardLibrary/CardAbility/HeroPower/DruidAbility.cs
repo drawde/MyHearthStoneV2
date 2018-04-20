@@ -5,7 +5,7 @@ using MyHearthStoneV2.Game.Parameter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
 {
-    internal class DruidAbility : BaseHeroAbility
+    public class DruidAbility : BaseHeroAbility
     {
         public override string PowerImage { get; } = "Druid.png";
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

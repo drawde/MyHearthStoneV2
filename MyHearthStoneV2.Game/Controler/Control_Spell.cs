@@ -8,7 +8,7 @@ using MyHearthStoneV2.Game.Parameter.CardAbility;
 
 namespace MyHearthStoneV2.Game.Controler
 {
-    internal partial class Controler_Base
+    public partial class Controler_Base
     {
         /// <summary>
         /// 打出一张法术牌
@@ -16,7 +16,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="spell"></param>
         /// <param name="target"></param>
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
-        internal void CastSpell(BaseSpell spell, int target)
+        public void CastSpell(BaseSpell spell, int target)
         {
             var currentUserContext = GameContext.GetActivationUserContext();
             //var enenmyUserContext = gameContext.GetNotActivationUserContext();
@@ -41,7 +41,7 @@ namespace MyHearthStoneV2.Game.Controler
 
             if (spell.Abilities.Any(c => c.AbilityType == AbilityType.法术))
             {
-                foreach (BaseCardAbility abilities in spell.Abilities.Where(c => c.AbilityType == AbilityType.法术))
+                foreach (IBaseCardAbility abilities in spell.Abilities.Where(c => c.AbilityType == AbilityType.法术))
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {

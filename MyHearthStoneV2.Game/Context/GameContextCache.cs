@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.Context
 {
-    internal class GameContextCache
+    public class GameContextCache
     {
-        internal static GameContext GetContext(string gameCode)
+        public static GameContext GetContext(string gameCode)
         {
             using (var redisClient = RedisManager.GetClient())
             {
@@ -25,7 +25,7 @@ namespace MyHearthStoneV2.Game.Context
             }
         }
 
-        internal static void SetContext(GameContext ctl)
+        public static void SetContext(GameContext ctl)
         {
             using (var redisClient = RedisManager.GetClient())
             {

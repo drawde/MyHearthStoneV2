@@ -3,6 +3,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.CardLibrary.Spell;
 using System.Collections.Generic;
 
@@ -17,9 +18,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 6;
         public override string Describe { get; set; } = "将所有随从移回其拥有者的手牌。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new SpellDriver<Recover<AllServantFilter>>(),
+            new SpellDriver<Recover<AllServantFilter>,NullFilter>(),
             //new CA_Vanish()
         };
 

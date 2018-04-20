@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Rogue
 
         public override Rarity Rare { get; set; } = Rarity.传说;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_EdwinVanCleef(),new REV_EdwinVanCleef() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_EdwinVanCleef(),new REV_EdwinVanCleef() };
 
         public override string Name { get; set; } = "艾德温·范克里夫";
         public override Profession Profession { get; set; } = Profession.Rogue;

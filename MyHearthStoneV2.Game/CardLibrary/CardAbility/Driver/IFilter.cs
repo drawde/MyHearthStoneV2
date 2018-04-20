@@ -6,7 +6,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// <summary>
     /// 目标筛选器(针对场上的牌)
     /// </summary>
-    internal interface IFilter: IGameCache
+    public interface IFilter: IGameCache
     {
         Func<Card, bool> Filter(BaseActionParameter actionParameter);        
     }

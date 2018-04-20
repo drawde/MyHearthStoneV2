@@ -2,9 +2,10 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using System.Collections.Generic;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
 {
@@ -17,9 +18,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override int InitialCost { get; set; } = 1;
         public override string Describe { get; set; } = "对所有随从造成1点伤害。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new SpellDriver<RiseDamage<AllServantFilter,ONE,ONE,SpellDamage>>(),
+            new SpellDriver<RiseDamage<AllServantFilter,ONE,ONE,SpellDamage>,NullFilter>(),
             //new CA_Whirlwind()
         };
 

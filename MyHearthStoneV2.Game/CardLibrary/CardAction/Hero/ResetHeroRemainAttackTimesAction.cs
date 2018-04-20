@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
     /// <summary>
     /// 重置英雄攻击次数
     /// </summary>
-    internal class ResetHeroRemainAttackTimesAction : Action.IGameAction
+    public class ResetHeroRemainAttackTimesAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

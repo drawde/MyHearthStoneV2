@@ -1,10 +1,11 @@
 ﻿
 using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
 using System.Collections.Generic;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical
 {
@@ -17,9 +18,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical
         
         public override string Describe { get; set; } = "";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new SpellDriver<AppendPower<MainUserContextFilter,ONE>>(),
+            new SpellDriver<AddPower<MainUserContextFilter,ONE>,NullFilter>(),
             //new AppendPower()
         };
 

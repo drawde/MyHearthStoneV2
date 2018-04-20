@@ -1,6 +1,4 @@
-﻿using MyHearthStoneV2.Game.Context;
-using MyHearthStoneV2.Game.Controler;
-using MyHearthStoneV2.Common.Util;
+﻿using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Log;
 using MyHearthStoneV2.Model;
 using PostSharp.Aspects;
@@ -13,8 +11,7 @@ namespace MyHearthStoneV2.Game.Monitor
     /// <summary>
     /// 控制器监控器（保存游戏控制器对象、封装游戏对象的输出）
     /// </summary>
-    [Serializable]
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]    
+    [Serializable]  
     public class ControlerMonitor: OnMethodBoundaryAspect
     {
         string _methodName = "";
@@ -44,19 +41,6 @@ namespace MyHearthStoneV2.Game.Monitor
             ErrRecBll.Instance.AsyncInsert(ex);
             //args.ReturnValue = JsonModelResult.Package500();
             args.FlowBehavior = FlowBehavior.ThrowException;
-        }
-
-        /// <summary>
-        /// 游戏控制器方法结束前，封装游戏对象的输出
-        /// </summary>
-        /// <param name="eventArgs"></param>
-        public override void OnExit(MethodExecutionArgs eventArgs)
-        {
-            
-            //Controler_Base ctl = eventArgs.Instance as Controler_Base;
-
-            //GameContextCache.SetContext(ctl.GameContext);
-            base.OnEntry(eventArgs);
         }
     }
 }

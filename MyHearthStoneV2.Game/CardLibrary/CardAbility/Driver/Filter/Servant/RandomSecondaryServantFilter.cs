@@ -8,7 +8,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant
     /// <summary>
     /// 随机选择副卡方随从
     /// </summary>
-    internal class RandomSecondaryServantFilter : IServantFilter
+    public class RandomSecondaryServantFilter : IServantFilter
     {
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {

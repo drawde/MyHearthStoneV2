@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 将场上的牌返回到手牌
     /// </summary>
     /// <typeparam name="TAG"></typeparam>
-    internal class Recover<TAG> : BaseCardAbility where TAG : IFilter
+    public class Recover<TAG> : IBaseCardAbility where TAG : IFilter
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

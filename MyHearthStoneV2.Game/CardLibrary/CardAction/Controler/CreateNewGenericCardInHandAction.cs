@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
     /// 创造一张牌到手牌
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class CreateNewGenericCardInHandAction<T> : Action.IGameAction where T : Card
+    public class CreateNewGenericCardInHandAction<T> : Action.IGameAction where T : Card
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

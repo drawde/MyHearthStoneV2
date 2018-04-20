@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical
         public override int BuffLife { get; set; } = 4;
         public override CardLocation CardLocation { get; set; }
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
         public override string Describe { get; set; } = "风怒，冲锋，圣盾，嘲讽";
 
         public override Rarity Rare { get; set; } = Rarity.传说;

@@ -13,7 +13,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAction.Equip;
 
 namespace MyHearthStoneV2.Game.Controler
 {
-    internal partial class Controler_Base
+    public partial class Controler_Base
     {
         /// <summary>
         /// 使用英雄技能
@@ -21,7 +21,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="servant"></param>
         /// <param name="target"></param>
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
-        internal void CastHeroPower(BaseHero hero, int target = -1)
+        public void CastHeroPower(BaseHero hero, int target = -1)
         {
             CardAbilityParameter para = new CardAbilityParameter()
             {
@@ -44,7 +44,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="servant"></param>
         /// <param name="target"></param>
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
-        internal void HeroAttack(BaseHero hero, int target)
+        public void HeroAttack(BaseHero hero, int target)
         {
             BaseActionParameter para = CardActionFactory.CreateParameter(hero, GameContext, secondaryCard: GameContext.DeskCards[target]);
             CardActionFactory.CreateAction(hero, ActionType.攻击).Action(para);
@@ -53,7 +53,7 @@ namespace MyHearthStoneV2.Game.Controler
 
 
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
-        internal void LoadEquip(BaseHero hero, BaseEquip equip)
+        public void LoadEquip(BaseHero hero, BaseEquip equip)
         {
             var user = GameContext.GetUserContextByMyCard(hero);
             user.ComboSwitch = true;

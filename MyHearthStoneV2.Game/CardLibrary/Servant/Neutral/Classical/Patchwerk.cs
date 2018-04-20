@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare => Rarity.传说;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Patchwerk() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_Patchwerk() };
 
 
         public override string Name { get; set; } = "帕奇维克";

@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.Parameter.Hero
 {
-    internal class HeroActionParameter: BiologyActionParameter
+    public class HeroActionParameter: BiologyActionParameter
     {
-        internal new BaseHero Biology { get; set; }
+        public new BaseHero Biology { get; set; }
     }
 }

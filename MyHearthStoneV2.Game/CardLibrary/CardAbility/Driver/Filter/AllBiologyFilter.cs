@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter
 {
-    internal class AllBiologyFilter : IFilter
+    public class AllBiologyFilter : IFilter
     {
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {

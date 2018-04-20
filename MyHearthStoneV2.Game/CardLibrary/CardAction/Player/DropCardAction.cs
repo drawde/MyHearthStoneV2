@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
     /// <summary>
     /// 弃牌
     /// </summary>
-    internal class DropCardAction : Action.IGameAction
+    public class DropCardAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

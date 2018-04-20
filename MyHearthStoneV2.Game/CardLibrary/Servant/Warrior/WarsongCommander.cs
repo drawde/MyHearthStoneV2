@@ -21,7 +21,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 
         public override Rarity Rare { get; set; } = Rarity.史诗;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_WarsongCommander() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_WarsongCommander() };
 
 
         public override string Name { get; set; } = "战歌指挥官";

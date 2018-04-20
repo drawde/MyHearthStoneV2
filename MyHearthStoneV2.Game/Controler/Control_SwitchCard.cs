@@ -15,7 +15,7 @@ using MyHearthStoneV2.Game.Parameter.Controler;
 
 namespace MyHearthStoneV2.Game.Controler
 {
-    internal partial class Controler_Base
+    public partial class Controler_Base
     {
         /// <summary>
         /// 开局换牌
@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="userCode"></param>
         /// <param name="lstInitCardIndex"></param>        
         [ControlerMonitor, PlayerActionMonitor, UserActionMonitor]
-        internal void SwitchCard(string userCode, List<int> lstInitCardIndex)
+        public void SwitchCard(string userCode, List<int> lstInitCardIndex)
         {
             UserContext uc = GameContext.Players.First(c => c.User.UserCode == userCode);
             uc.InitCards.ForEach(c => uc.HandCards.Add(c));

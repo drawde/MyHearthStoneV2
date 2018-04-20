@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override int InitialCost { get; set; } = 1;
         public override string Describe { get; set; } = "消灭一个受过伤害的敌方随从。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Execute() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_Execute() };
 
         public override string BackgroudImage { get; set; } = "WoW_Chi_061_D.png";
         public override Profession Profession { get; set; } = Profession.Warrior;

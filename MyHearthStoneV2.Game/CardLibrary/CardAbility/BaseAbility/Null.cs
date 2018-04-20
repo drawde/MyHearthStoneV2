@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    internal class Null : BaseCardAbility
+    public class Null : IBaseCardAbility
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

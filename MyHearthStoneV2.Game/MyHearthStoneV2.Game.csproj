@@ -42,8 +42,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PostSharp, Version=4.3.22.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostSharp.4.3.22\lib\net35-client\PostSharp.dll</HintPath>
+    <Reference Include="PostSharp, Version=4.3.33.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostSharp.4.3.33\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ServiceStack.Common, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
@@ -76,13 +76,19 @@
     <Compile Include="Action\CardActionFactory.cs" />
     <Compile Include="Action\IGameAction.cs" />
     <Compile Include="Capture\ICapture.cs" />
-    <Compile Include="Capture\Player\CastServantCapture.cs" />
     <Compile Include="CardLibrary\Card.cs" />
     <Compile Include="CardLibrary\BaseBiology.cs" />
+    <Compile Include="CardLibrary\CardAbility\AbilityAttribute\AbilityTypeAttr\IAbilityType.cs" />
+    <Compile Include="CardLibrary\CardAbility\AbilityAttribute\CastTargets\ICastTargets.cs" />
+    <Compile Include="CardLibrary\CardAbility\AbilityAttribute\CastTimes\ICastTimes.cs" />
+    <Compile Include="CardLibrary\CardAbility\AbilityAttribute\CrosshairStyle\ICrosshairStyle.cs" />
+    <Compile Include="CardLibrary\CardAbility\AbilityAttribute\CrosshairStyle\NoneStyle.cs" />
+    <Compile Include="CardLibrary\CardAbility\AbilityAttribute\SettlementPriority\ISettlementPriority.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\CA_DireWolfAlpha.cs" />
     <Compile Include="CardLibrary\CardAbility\Aura\REV_DireWolfAlpha.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\AddDamage.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\AddAmmo.cs" />
+    <Compile Include="CardLibrary\CardAbility\BaseAbility\AddPower.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\DestroyEquip.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\LoadEquip.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Null.cs" />
@@ -90,8 +96,11 @@
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Recover.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\UpdateCost.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\AuraDriver.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\BattlecryDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\AfterICastSpellDriver.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\BattlecryDriver\AllEnemyServantBattlecryDriver.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\BattlecryDriver\AllServantBattlecryDriver.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\BattlecryDriver\BaseBattlecryDriver.cs" />
+    <Compile Include="CardLibrary\CardAbility\Driver\BattlecryDriver\NoneTargetBattlecryDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\BeforeICastSpellDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\CastMyServantDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\ComboDriver.cs" />
@@ -105,8 +114,8 @@
     <Compile Include="CardLibrary\CardAbility\BaseAbility\RiseDamage.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Silence.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\SpellPower.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Direction\Minus.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Direction\Plus.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Direction\Minus.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Direction\Plus.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\AllBiologyFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\AllSecondaryRandomBiologyFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Context\NotMainUserContextFilter.cs" />
@@ -114,45 +123,50 @@
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\EnemyRandomBiologyFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Servant\NotMainRandomServantFilter.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Servant\RandomSecondaryServantFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\IDirection.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Direction\IDirection.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\DoubleActionDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\HurtDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IDamageType.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\BaseDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IPickType.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\IQuantity.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\DruidPro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\HunterPro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\IProfession.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\MagePro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\PaladinPro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\PriestPro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\RoguePro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\ShamanPro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\WarlockPro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\ProfessionCondition\WarriorPro.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\IQuantity.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\MyServantHurtObserverDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\MyTurnEndDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\MyTurnStartDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Pick\LimitPick.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Pick\RandomPick.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Eight.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Five.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Four.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Nine.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\ONE.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\RandomQuantity.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Seven.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Six.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Ten.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Three.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Two.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Class1.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Eight.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Five.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Four.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Nine.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\ONE.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\RandomQuantity.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Seven.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Six.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Ten.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Three.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Two.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Summon.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\UpgradeWeapon.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseCardAbility.cs" />
-    <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_DeathBite.cs" />
-    <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_EquipWarglaiveOfAzzinoth.cs" />
-    <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_GuiLingZhiZhu.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Charge.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\HolyShield.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Taunt.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseAbility\Windfury.cs" />
     <Compile Include="CardLibrary\CardAbility\BaseHeroAbility.cs" />
-    <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_NerubianEgg.cs" />
-    <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_PilotedShredder.cs" />
-    <Compile Include="CardLibrary\CardAbility\Deathwhisper\CA_SylvanasWindrunner.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\IFilter.cs" />
-    <Compile Include="CardLibrary\CardAbility\Driver\Quantity\Zero.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\Quantity\Zero.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\ServantHurtObserverDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\SpellDriver.cs" />
     <Compile Include="CardLibrary\CardAbility\Driver\Filter\Context\MainUserContextFilter.cs" />
@@ -179,43 +193,25 @@
     <Compile Include="CardLibrary\CardAbility\HeroPower\WarlockAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\HeroPower\WarriorAbility.cs" />
     <Compile Include="CardLibrary\CardAbility\Observer\CA_EdwinVanCleef.cs" />
-    <Compile Include="CardLibrary\CardAbility\Observer\CA_FrothingBerserker.cs" />
     <Compile Include="CardLibrary\CardAbility\Observer\CA_GrimPatron.cs" />
-    <Compile Include="CardLibrary\CardAbility\Observer\CA_ImpGangBoss.cs" />
-    <Compile Include="CardLibrary\CardAbility\Observer\CA_KnifeJuggler.cs" />
     <Compile Include="CardLibrary\CardAbility\Observer\CA_Patchwerk.cs" />
     <Compile Include="CardLibrary\CardAbility\Observer\CA_WarglaiveOfAzzinoth.cs" />
     <Compile Include="CardLibrary\CardAbility\Observer\CA_WarsongCommander.cs" />
-    <Compile Include="CardLibrary\CardAbility\Observer\CA_WildPyromancer.cs" />
     <Compile Include="CardLibrary\CardAbility\Observer\REV_EdwinVanCleef.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\AppendPower.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\CA_BattleRage.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\CA_BladeFlurry.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\CA_Eviscerate.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\CA_Execute.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\CA_FanofKnives.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\CA_Implosion.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\CA_InnerRage.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\CA_PowerOverwhelming.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\CA_Preparation.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\CA_Sap.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\CA_ShieldBlock.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\CA_Slam.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\CA_Tinker_sSharpswordOil.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\CA_Vanish.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\CA_Whirlwind.cs" />
-    <Compile Include="CardLibrary\CardAbility\Spell\REV_InnerRage.cs" />
     <Compile Include="CardLibrary\CardAbility\Spell\REV_Preparation.cs" />
-    <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\CA_CruelTaskmaster.cs" />
-    <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\REV_CruelTaskmaster.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\REV_DefenderOfArgus.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\REV_JiaoXiaoDeZhongShi.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\CA_DefenderOfArgus.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\AlterBody\CA_JiaoXiaoDeZhongShi.cs" />
     <Compile Include="CardEnum.cs" />
-    <Compile Include="CardLibrary\CardAbility\WarCry\CA_BigGameHunter.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\CA_Loatheb.cs" />
-    <Compile Include="CardLibrary\CardAbility\WarCry\CA_SI7Agent.cs" />
     <Compile Include="CardLibrary\CardAbility\WarCry\REV_Loatheb.cs" />
     <Compile Include="CardLibrary\CardAction\Controler\CreateNewCardInControllerAction.cs" />
     <Compile Include="CardLibrary\CardAction\Controler\CreateNewCardInDeskAction.cs" />
@@ -251,9 +247,18 @@
     <Compile Include="CardLibrary\Equip\Rogue\WickedKnife.cs" />
     <Compile Include="CardLibrary\Equip\Warrior\DeathBite.cs" />
     <Compile Include="CardLibrary\Equip\Warrior\FieryWarAxe.cs" />
+    <Compile Include="CardLibrary\CardAbility\Filter\ICardLocationFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Filter\InDeskFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Filter\InHandFilter.cs" />
+    <Compile Include="CardLibrary\CardAbility\Filter\NullFilter.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\RaceCondition\IRace.cs" />
+    <Compile Include="CardLibrary\Filter\Condition\RarityCondition\IRarity.cs" />
+    <Compile Include="CardLibrary\Filter\ICardCondition.cs" />
     <Compile Include="CardLibrary\Filter\ICardFilter.cs" />
-    <Compile Include="CardLibrary\Filter\InDeskFilter.cs" />
-    <Compile Include="CardLibrary\Filter\NullFilter.cs" />
+    <Compile Include="CardLibrary\Filter\Servant\AssignServantFilter.cs" />
+    <Compile Include="CardLibrary\Filter\Servant\IServantCardFilter.cs" />
+    <Compile Include="CardLibrary\Filter\Servant\RandomServantOfCostFilter.cs" />
+    <Compile Include="CardLibrary\Servant\Filter\IServantFilter.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\BlackrockMountain\EmperorThaurissan.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\BlackrockMountain\GrimPatron.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\Classical\AcidicSwampOoze.cs" />
@@ -317,8 +322,19 @@
     <Compile Include="Context\GameContextCache.cs" />
     <Compile Include="Context\GameContextExtend.cs" />
     <Compile Include="Context\GameContextOutput.cs" />
+    <Compile Include="Event\Ability\DeathWhisperEvent.cs" />
+    <Compile Include="Event\GameProcess\MyTurnEndEvent.cs" />
+    <Compile Include="Event\GameProcess\MyTurnStartEvent.cs" />
     <Compile Include="Event\IEvent.cs" />
+    <Compile Include="Event\NullEvent.cs" />
+    <Compile Include="Event\Player\AfterICastSpellEvent.cs" />
     <Compile Include="Event\Player\CastServantEvent.cs" />
+    <Compile Include="Event\Player\BeforeICastSpellEvent.cs" />
+    <Compile Include="Event\RespondEvent.cs" />
+    <Compile Include="Event\Trigger\AnyServantHurtEvent.cs" />
+    <Compile Include="Event\Trigger\HurtEvent.cs" />
+    <Compile Include="Event\Trigger\MyServantCastedEvent.cs" />
+    <Compile Include="Event\Trigger\MyServantHurtEvent.cs" />
     <Compile Include="GameActivator.cs" />
     <Compile Include="GameTester.cs" />
     <Compile Include="IGameCache.cs" />
@@ -427,10 +443,10 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\PostSharp.4.3.22\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.3.22\tools\PostSharp.targets')" />
+  <Import Project="..\packages\PostSharp.4.3.33\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.3.33\tools\PostSharp.targets')" />
   <Target Name="EnsurePostSharpImported" BeforeTargets="BeforeBuild" Condition="'$(PostSharp30Imported)' == ''">
-    <Error Condition="!Exists('..\packages\PostSharp.4.3.22\tools\PostSharp.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://www.postsharp.net/links/nuget-restore." />
-    <Error Condition="Exists('..\packages\PostSharp.4.3.22\tools\PostSharp.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://www.postsharp.net/links/nuget-restore." />
+    <Error Condition="!Exists('..\packages\PostSharp.4.3.33\tools\PostSharp.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://www.postsharp.net/links/nuget-restore." />
+    <Error Condition="Exists('..\packages\PostSharp.4.3.33\tools\PostSharp.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://www.postsharp.net/links/nuget-restore." />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

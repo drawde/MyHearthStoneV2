@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从进场（不触发技能，比如召唤出来的随从）
     /// </summary>
-    internal class CastServantAction : Action.IGameAction
+    public class CastServantAction : IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 攻击一个随从
     /// </summary>
-    internal class ServantAttackAction : Action.IGameAction
+    public class ServantAttackAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

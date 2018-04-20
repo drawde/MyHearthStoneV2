@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.Parameter.Equip
 {
-    internal class EquipActionParameter: BaseActionParameter
+    public class EquipActionParameter: BaseActionParameter
     {
-        internal BaseEquip Equip { get; set; }
+        public BaseEquip Equip { get; set; }
 
-        internal BaseHero Hero { get; set; }
+        public BaseHero Hero { get; set; }
     }
 }

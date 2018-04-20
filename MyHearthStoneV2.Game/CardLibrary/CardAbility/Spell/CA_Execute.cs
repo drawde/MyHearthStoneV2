@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
-    public class CA_Execute : BaseCardAbility
+    public class CA_Execute : IBaseCardAbility
     {
         public override CastStyle CastStyle { get; set; } = CastStyle.敌方随从;
 

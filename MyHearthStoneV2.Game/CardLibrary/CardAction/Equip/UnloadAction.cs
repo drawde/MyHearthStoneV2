@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
     /// <summary>
     /// 拆卸装备，如果装备耐久小于1的话
     /// </summary>
-    internal class UnloadAction : Action.IGameAction
+    public class UnloadAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

@@ -1,7 +1,7 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 {
@@ -22,14 +23,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 4;
         public override string Describe { get; set; } = "给你的武器+3攻击力，连击：给你的随从+3攻击力。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
             new SpellDriver<
                     ComboDriver
                     <
                         UpgradeWeapon<MainHeroFilter,Three,Zero>,
-                        DoubleActionDriver<UpgradeWeapon<MainHeroFilter,Three,Zero>,AddDamage<RandomMainServantFilter,Three>>
-                    >
+                        DoubleActionDriver<UpgradeWeapon<MainHeroFilter,Three,Zero>,AddDamage<RandomMainServantFilter,Three>,NullFilter>,NullFilter
+                    >,NullFilter
                 >(),
             //new CA_Tinker_sSharpswordOil()
         };

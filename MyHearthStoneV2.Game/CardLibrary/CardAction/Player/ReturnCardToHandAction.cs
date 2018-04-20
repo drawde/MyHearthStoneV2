@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
     /// <summary>
     /// 将一张牌返回到手牌（闷棍）
     /// </summary>
-    internal class ReturnCardToHandAction : Action.IGameAction
+    public class ReturnCardToHandAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

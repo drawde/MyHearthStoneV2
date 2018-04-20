@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.Parameter.Player
 {
-    internal class DropCardActionParameter : BaseActionParameter
+    public class DropCardActionParameter : BaseActionParameter
     {
-        internal int DropCount { get; set; }
-        internal UserContext UserContext { get; set; }
+        public int DropCount { get; set; }
+        public UserContext UserContext { get; set; }
 
-        internal PickType DropCardType { get; set; } = PickType.随机;
+        public PickType DropCardType { get; set; } = PickType.随机;
 
         /// <summary>
         /// 弃牌方式为指定时，设置为被弃牌的下标
         /// </summary>
-        internal List<int> DropCardIndex { get; set; } = new List<int>();
+        public List<int> DropCardIndex { get; set; } = new List<int>();
     }
 }

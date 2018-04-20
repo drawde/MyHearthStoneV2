@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从受到伤害（被火球砸、火冲点）
     /// </summary>
-    internal class ServantByDamegeAction : Action.IGameAction
+    public class ServantByDamegeAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

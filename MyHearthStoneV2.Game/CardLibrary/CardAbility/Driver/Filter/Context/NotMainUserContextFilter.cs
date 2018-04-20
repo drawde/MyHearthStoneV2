@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context
 {
-    internal class NotMainUserContextFilter : IUserContextFilter
+    public class NotMainUserContextFilter : IUserContextFilter
     {
         public Func<UserContext, bool> Filter(BaseActionParameter actionParameter)
         {

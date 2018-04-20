@@ -8,7 +8,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 摧毁武器
     /// </summary>
     /// <typeparam name="TAG"></typeparam>
-    internal class DestroyEquip<TAG> : BaseCardAbility where TAG : IHeroFilter
+    public class DestroyEquip<TAG> : IBaseCardAbility where TAG : IHeroFilter
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

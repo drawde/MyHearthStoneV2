@@ -8,7 +8,7 @@ using MyHearthStoneV2.Game.CardLibrary.Spell;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
-    public class CA_Slam : BaseCardAbility
+    public class CA_Slam : IBaseCardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.法术;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

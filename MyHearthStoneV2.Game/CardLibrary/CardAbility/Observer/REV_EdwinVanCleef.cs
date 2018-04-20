@@ -5,7 +5,7 @@ using MyHearthStoneV2.Game.CardLibrary.Servant;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer
 {
-    public class REV_EdwinVanCleef : BaseCardAbility
+    public class REV_EdwinVanCleef : IBaseCardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.BUFF;
         public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方回合结束 };

@@ -2,6 +2,7 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
@@ -22,9 +23,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.史诗;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new MyTurnStartDriver<Death<AllServantFilter>>()            
+            new MyTurnStartDriver<Death<AllServantFilter>,NullFilter>()            
         };
 
         public override string BackgroudImage { get; set; } = "Classical/Doomsayer.jpg";

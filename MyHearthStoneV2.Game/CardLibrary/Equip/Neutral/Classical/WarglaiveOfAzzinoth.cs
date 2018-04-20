@@ -21,7 +21,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical
 
         public override bool IsDerivative => true;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_WarglaiveOfAzzinoth() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_WarglaiveOfAzzinoth() };
 
         public override string Describe { get; set; } = "攻击目标是随从时，沉默该随从；攻击目标是英雄时，去除所有奥秘，无视护甲";
         public override Profession Profession { get; set; } = Profession.Neutral;

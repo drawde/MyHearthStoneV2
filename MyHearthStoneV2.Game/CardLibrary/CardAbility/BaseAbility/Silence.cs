@@ -7,7 +7,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    internal class Silence<TAG> : BaseCardAbility where TAG : IFilter
+    public class Silence<TAG> : IBaseCardAbility where TAG : IFilter
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

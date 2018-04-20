@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Filter
 {
-    public interface ICardFilter: IGameCache
+    public interface ICardFilter//<C> where C: ICardCondition
     {
-        bool Filter(Card card);
+        Func<Card, bool> Filter();
     }
 }

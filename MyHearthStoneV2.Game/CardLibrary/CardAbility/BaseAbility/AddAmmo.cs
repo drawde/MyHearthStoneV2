@@ -2,11 +2,10 @@
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.Filter;
-
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    internal class AddAmmo<Q> : BaseCardAbility where Q : IQuantity
+    public class AddAmmo<Q> : IBaseCardAbility where Q : IQuantity
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

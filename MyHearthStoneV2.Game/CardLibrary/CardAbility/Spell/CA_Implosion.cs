@@ -10,7 +10,7 @@ using MyHearthStoneV2.Game.Parameter.Variable;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
-    public class CA_Implosion : BaseCardAbility
+    public class CA_Implosion : IBaseCardAbility
     {
         public override CastStyle CastStyle { get; set; } = CastStyle.敌方随从;
         public override CastCrosshairStyle CastCrosshairStyle => CastCrosshairStyle.单个;

@@ -5,9 +5,10 @@ using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using System.Linq;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    internal class DrawCard<UC, D> : BaseCardAbility where UC : IUserContextFilter where D : IQuantity
+    public class DrawCard<UC, D> : IBaseCardAbility where UC : IUserContextFilter where D : IQuantity
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

@@ -2,9 +2,9 @@
 
 namespace MyHearthStoneV2.Game.Parameter.Player
 {
-    internal class ReturnCardToHandParameter : BaseActionParameter
+    public class ReturnCardToHandParameter : BaseActionParameter
     {
-        internal int ReturnCount { get; set; }
-        internal UserContext UserContext { get; set; }
+        public int ReturnCount { get; set; }
+        public UserContext UserContext { get; set; }
     }
 }

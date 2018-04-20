@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 0;
         public override string Describe { get; set; } = "在本回合中，你所施放的下一个法术的法力值消耗减少（3）点。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_Preparation() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_Preparation() };
 
         public override string BackgroudImage { get; set; } = "Classical/Preparation.jpg";
         public override Profession Profession { get; set; } = Profession.Rogue;

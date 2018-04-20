@@ -11,13 +11,13 @@ using MyHearthStoneV2.ShortCodeBll;
 using System.Linq;
 namespace MyHearthStoneV2.Game.Controler
 {
-    internal partial class Controler_Base
+    public partial class Controler_Base
     {
         /// <summary>
         /// 回合结束
         /// </summary>                
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
-        internal void TurnEnd()
+        public void TurnEnd()
         {
             UserContext uc = null, next_uc = null;
             
@@ -67,7 +67,7 @@ namespace MyHearthStoneV2.Game.Controler
         }
 
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
-        internal void TurnStart()
+        public void TurnStart()
         {
             GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(), SpellCardAbilityTime.己方回合开始);
             GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(false), SpellCardAbilityTime.对方回合开始);

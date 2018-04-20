@@ -13,9 +13,9 @@ namespace MyHearthStoneV2.Game.Action
     /// <summary>
     /// 卡牌行为工厂类
     /// </summary>
-    internal class CardActionFactory
+    public class CardActionFactory
     {
-        internal static IGameAction CreateAction(Card biology, ActionType actionType)
+        public static IGameAction CreateAction(Card biology, ActionType actionType)
         {
             IGameAction action = null;
             if (biology.CardType == CardType.英雄)
@@ -51,7 +51,7 @@ namespace MyHearthStoneV2.Game.Action
             return action;
         }
 
-        internal static BiologyActionParameter CreateParameter(Card biology, GameContext gameContext, int damageOrHeal = 0, int deskIndex = -1, Card mainCard = null, Card secondaryCard = null)
+        public static BiologyActionParameter CreateParameter(Card biology, GameContext gameContext, int damageOrHeal = 0, int deskIndex = -1, Card mainCard = null, Card secondaryCard = null)
         {
             BiologyActionParameter para = null;
             if (biology.CardType == CardType.英雄)

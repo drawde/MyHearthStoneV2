@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从受到法术伤害
     /// </summary>
-    internal class ServantBySpellAction : Action.IGameAction
+    public class ServantBySpellAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

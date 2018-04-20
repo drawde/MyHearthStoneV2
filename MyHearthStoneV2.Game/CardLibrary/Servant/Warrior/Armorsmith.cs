@@ -1,7 +1,8 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
@@ -23,9 +24,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new MyServantHurtObserverDriver<AddAmmo<ONE>>(),
+            new MyServantHurtObserverDriver<AddAmmo<ONE>,InDeskFilter>(),
         };
 
         public override string BackgroudImage { get; set; } = "W10_A047_D.png";

@@ -1,5 +1,7 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.Parameter;
 using System.Collections.Generic;
 
@@ -55,7 +57,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 卡牌技能
         /// </summary>
-        public virtual List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>();
+        public virtual List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>();
 
         public virtual CardType CardType { get; set; } = CardType.无;
 

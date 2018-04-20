@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从死亡
     /// </summary>
-    internal class ServantDeadAction : Action.IGameAction
+    public class ServantDeadAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

@@ -5,7 +5,7 @@ using System;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero
 {
-    internal class SecondaryHeroFilter : IHeroFilter
+    public class SecondaryHeroFilter : IHeroFilter
     {
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {

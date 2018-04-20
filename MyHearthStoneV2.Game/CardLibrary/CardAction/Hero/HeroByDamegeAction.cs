@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
     /// <summary>
     /// 英雄受到伤害（被火球砸、火冲点）
     /// </summary>
-    internal class HeroByDamegeAction : Action.IGameAction
+    public class HeroByDamegeAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

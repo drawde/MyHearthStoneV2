@@ -6,7 +6,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
-    public class CA_BattleRage : BaseCardAbility
+    public class CA_BattleRage : IBaseCardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.法术;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

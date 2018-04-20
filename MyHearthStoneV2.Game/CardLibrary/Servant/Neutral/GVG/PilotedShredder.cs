@@ -1,11 +1,11 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Deathwhisper;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using System;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Servant;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 {
@@ -25,7 +25,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new DeathWhisperDriver<CA_PilotedShredder>() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() {
+            new DeathWhisperDriver<Summon<MainUserContextFilter,RandomServantOfCostFilter<Two>,ONE>, InDeskFilter>()
+        };
 
         public override string BackgroudImage { get; set; } = "GVG/PilotedShredder.jpg";
 

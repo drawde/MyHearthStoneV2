@@ -7,7 +7,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// <summary>
     /// 圣盾
     /// </summary>
-    public class HolyShield : BaseCardAbility
+    public class HolyShield : IBaseCardAbility
     {
         public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.己方随从受到伤害前 };
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// </summary>
     /// <typeparam name="UC"></typeparam>
     /// <typeparam name="TAG"></typeparam>
-    internal class Possession<UC, TAG> : BaseCardAbility where UC : IUserContextFilter where TAG : IServantFilter
+    public class Possession<UC, TAG> : IBaseCardAbility where UC : IUserContextFilter where TAG : IServantFilter
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

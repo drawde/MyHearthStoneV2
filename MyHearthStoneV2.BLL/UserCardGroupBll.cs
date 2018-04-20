@@ -9,9 +9,9 @@ using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Common.JsonModel;
 using MyHearthStoneV2.Common.Enum;
-using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.Card;
 using MyHearthStoneV2.Game;
-using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.Card.Hero;
 using EntityFramework.Extensions;
 using MyHearthStoneV2.ShortCodeBll;
 

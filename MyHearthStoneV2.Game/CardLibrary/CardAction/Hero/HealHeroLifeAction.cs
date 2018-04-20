@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
     /// <summary>
     /// 英雄受到治疗时，恢复它的生命值，然后触发随从或英雄受到治疗后的技能
     /// </summary>
-    internal class HealHeroLifeAction : Action.IGameAction
+    public class HealHeroLifeAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

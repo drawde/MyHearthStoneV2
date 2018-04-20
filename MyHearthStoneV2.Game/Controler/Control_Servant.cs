@@ -12,10 +12,11 @@ using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.Event.Player;
+using MyHearthStoneV2.Game.Event.Trigger;
 
 namespace MyHearthStoneV2.Game.Controler
 {
-    internal partial class Controler_Base
+    public partial class Controler_Base
     {
         /// <summary>
         /// 将一名随从从手牌中移到场上
@@ -24,7 +25,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="cardInGameCode"></param>
         /// <param name="location"></param>
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
-        internal void CastServant(BaseServant servant, int location, int target)
+        public void CastServant(BaseServant servant, int location, int target)
         {
             var user = GameContext.GetActivationUserContext();
             user.Power -= servant.Cost < 0 ? 0 : servant.Cost;
@@ -35,7 +36,7 @@ namespace MyHearthStoneV2.Game.Controler
             //先从手牌中移除这张牌
             user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
 
-            GameContext.TriggerCardAbility(user.HandCards, SpellCardAbilityTime.己方随从入场, AbilityType.BUFF, servant, target);
+            //GameContext.TriggerCardAbility(user.HandCards, SpellCardAbilityTime.己方随从入场, AbilityType.BUFF, servant, target);
 
             #region 首先触发打出的这张牌的战吼技能
             if (servant.Abilities.Any(c => c.AbilityType == AbilityType.战吼))
@@ -57,12 +58,12 @@ namespace MyHearthStoneV2.Game.Controler
             BaseActionParameter para = CardActionFactory.CreateParameter(servant, GameContext, deskIndex: location);
             GameContext.EventQueue.AddLast(new CastServantEvent() { EventCard = servant, Parameter = para});
 
-            
+            GameContext.EventQueue.AddLast(new MyServantCastedEvent() { EventCard = servant, Parameter = para });
             //CardActionFactory.CreateAction(servant, ActionType.进场).Action(para);
             //servant.Cast(GameContext, location, target);
 
             #region 然后触发场内牌的技能
-            GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(user.IsFirst).Where(c => c != null && c.CardInGameCode != servant.CardInGameCode), SpellCardAbilityTime.己方随从入场, servant, target);
+            //GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(user.IsFirst).Where(c => c != null && c.CardInGameCode != servant.CardInGameCode), SpellCardAbilityTime.己方随从入场, servant, target);
             #endregion
         }
 
@@ -73,7 +74,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// <param name="servant"></param>
         /// <param name="target"></param>
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
-        internal void ServantAttack(BaseServant servant, int target)
+        public void ServantAttack(BaseServant servant, int target)
         {
             BaseActionParameter para = CardActionFactory.CreateParameter(servant, GameContext, secondaryCard: GameContext.DeskCards[target]);
             CardActionFactory.CreateAction(servant, ActionType.攻击).Action(para);

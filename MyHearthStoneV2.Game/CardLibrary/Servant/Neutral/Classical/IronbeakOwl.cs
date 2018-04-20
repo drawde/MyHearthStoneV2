@@ -1,12 +1,10 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.BattlecryDriver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
-using System;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
@@ -26,9 +24,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new BattlecryDriver<Silence<MainServantFilter>>()
+            new AllServantBattlecryDriver<Silence<MainServantFilter>,NullFilter>()
         };
 
         public override string BackgroudImage { get; set; } = "W4_280_D.png";

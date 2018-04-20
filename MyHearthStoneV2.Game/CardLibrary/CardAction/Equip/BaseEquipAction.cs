@@ -9,14 +9,14 @@ using MyHearthStoneV2.Game.Context;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
 {
-    internal static class BaseEquipAction
+    public static class BaseEquipAction
     {
         /// <summary>
         /// 拆卸装备，如果装备耐久小于1的话
         /// </summary>
         /// <param name="equip"></param>
         /// <param name="gameContext"></param>
-        //internal static void Unload(this BaseEquip equip, GameContext gameContext)
+        //public static void Unload(this BaseEquip equip, GameContext gameContext)
         //{
         //    BaseHero baseHero = gameContext.DeskCards.GetHeroByIsFirst(gameContext.GetUserContextByMyCard(equip).IsFirst);
 

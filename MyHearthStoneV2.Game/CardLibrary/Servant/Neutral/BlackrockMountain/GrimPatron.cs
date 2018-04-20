@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_GrimPatron() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_GrimPatron() };
         public override string BackgroudImage { get; set; } = "BlackrockMountain/GrimPatron.jpg"; 
 
         public override string Name { get; set; } = "恐怖奴隶主";

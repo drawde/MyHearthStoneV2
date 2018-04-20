@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
 {
-    internal class LoadAction : Action.IGameAction
+    public class LoadAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

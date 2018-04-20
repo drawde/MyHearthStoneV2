@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "每有一个受到伤害的友方角色，便抽一张牌。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>() { new CA_BattleRage() };
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_BattleRage() };
 
         public override string BackgroudImage { get; set; } = "WOW_ACT_056_D_1.png";
         public override Profession Profession { get; set; } = Profession.Warrior;

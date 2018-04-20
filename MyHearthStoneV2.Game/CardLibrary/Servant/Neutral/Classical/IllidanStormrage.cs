@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
@@ -22,9 +23,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare => Rarity.传说;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new DeathWhisperDriver<LoadEquip<WarglaiveOfAzzinoth>>()            
+            new DeathWhisperDriver<LoadEquip<WarglaiveOfAzzinoth>,InDeskFilter>()            
         };
         
         public override string Name { get; set; } = "伊利丹·怒风";

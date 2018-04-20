@@ -3,9 +3,10 @@ using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using System.Linq;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    internal class Heal<TAG, C> : BaseCardAbility where TAG : IFilter where C : IQuantity
+    public class Heal<TAG, C> : IBaseCardAbility where TAG : IFilter where C : IQuantity
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

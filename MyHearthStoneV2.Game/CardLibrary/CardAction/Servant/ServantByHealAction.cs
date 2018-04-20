@@ -11,7 +11,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从受到治疗
     /// </summary>
-    internal class ServantByHealAction : Action.IGameAction
+    public class ServantByHealAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

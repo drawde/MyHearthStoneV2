@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
 {
-    internal class DrawCardAction : Action.IGameAction
+    public class DrawCardAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

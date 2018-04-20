@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.Parameter.Player
 {
-    internal class DrawCardActionParameter: BaseActionParameter
+    public class DrawCardActionParameter: BaseActionParameter
     {
-        internal int DrawCount { get; set; }
-        internal UserContext UserContext { get; set; }
+        public int DrawCount { get; set; }
+        public UserContext UserContext { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary;
-using MyHearthStoneV2.Game.CardLibrary.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.Capture
@@ -7,7 +7,7 @@ namespace MyHearthStoneV2.Game.Capture
     /// <summary>
     /// 对游戏事件的捕获
     /// </summary>
-    internal interface ICapture<Filter,Event> where Filter : ICardFilter where Event : IEvent
+    public interface ICapture<Filter, Event> where Filter : ICardLocationFilter where Event : IEvent
     {
         bool TryCapture(Card card, IEvent @event);
     }

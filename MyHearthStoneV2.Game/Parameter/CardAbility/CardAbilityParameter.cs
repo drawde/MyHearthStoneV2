@@ -5,12 +5,12 @@ namespace MyHearthStoneV2.Game.Parameter.CardAbility
     /// <summary>
     /// 卡牌行为参数（用于封装触发卡牌技能、卡牌动作的参数）
     /// </summary>
-    internal class CardAbilityParameter : BaseActionParameter
+    public class CardAbilityParameter : BaseActionParameter
     {
         /// <summary>
         /// 主体卡牌将要进入的牌桌位置
         /// </summary>
-        internal int MainCardLocation { get; set; }
+        public int MainCardLocation { get; set; }
 
     }
 }

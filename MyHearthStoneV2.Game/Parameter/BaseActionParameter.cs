@@ -13,18 +13,18 @@ namespace MyHearthStoneV2.Game.Parameter
     /// </summary>
     public abstract class BaseActionParameter
     {
-        internal GameContext GameContext { get; set; }
+        public GameContext GameContext { get; set; }
 
         /// <summary>
         /// 主体卡牌
         /// </summary>
-        internal Card MainCard { get; set; }
+        public Card MainCard { get; set; }
 
         /// <summary>
         /// 次要卡牌
         /// </summary>
-        internal Card SecondaryCard { get; set; }
+        public Card SecondaryCard { get; set; }
 
-        internal UserContext UserContext { get; set; }
+        public UserContext UserContext { get; set; }
     }
 }

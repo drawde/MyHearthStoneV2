@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 装备一件武器
     /// </summary>
     /// <typeparam name="E"></typeparam>
-    internal class LoadEquip<E> : BaseCardAbility where E : BaseEquip
+    public class LoadEquip<E> : IBaseCardAbility where E : BaseEquip
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

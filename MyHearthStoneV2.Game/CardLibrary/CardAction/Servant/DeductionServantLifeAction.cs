@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从受到伤害时，扣除它的生命值，然后触发随从或英雄受伤后的技能
     /// </summary>
-    internal class DeductionServantLifeAction : Action.IGameAction
+    public class DeductionServantLifeAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

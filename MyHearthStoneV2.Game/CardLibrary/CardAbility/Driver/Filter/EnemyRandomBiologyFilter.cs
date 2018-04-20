@@ -5,7 +5,7 @@ using MyHearthStoneV2.Game.Context;
 using System.Linq;
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter
 {
-    internal class EnemyRandomBiologyFilter : IFilter
+    public class EnemyRandomBiologyFilter : IFilter
     {
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {

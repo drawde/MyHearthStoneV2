@@ -5,7 +5,7 @@ using System;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant
 {
-    internal class NotMainRandomServantFilter : IServantFilter
+    public class NotMainRandomServantFilter : IServantFilter
     {
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {

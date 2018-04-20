@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// <summary>
     /// 冲锋
     /// </summary>
-    public class Charge : BaseCardAbility
+    public class Charge : IBaseCardAbility
     {
         public override AbilityType AbilityType => AbilityType.冲锋;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

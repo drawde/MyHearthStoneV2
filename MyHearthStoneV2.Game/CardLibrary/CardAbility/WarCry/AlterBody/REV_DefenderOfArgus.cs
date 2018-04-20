@@ -6,7 +6,7 @@ using MyHearthStoneV2.Game.Parameter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
 {
-    internal class REV_DefenderOfArgus: CA_DefenderOfArgus
+    public class REV_DefenderOfArgus: CA_DefenderOfArgus
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.BUFF;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

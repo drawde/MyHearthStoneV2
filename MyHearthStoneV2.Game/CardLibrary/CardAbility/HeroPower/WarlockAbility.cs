@@ -6,7 +6,7 @@ using MyHearthStoneV2.Game.Parameter.Player;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
 {
-    internal class WarlockAbility : BaseHeroAbility
+    public class WarlockAbility : BaseHeroAbility
     {
         public override string PowerImage { get; } = "Warlock.png";
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

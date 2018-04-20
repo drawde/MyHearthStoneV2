@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
-    public class CA_BladeFlurry : BaseCardAbility
+    public class CA_BladeFlurry : IBaseCardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.法术;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

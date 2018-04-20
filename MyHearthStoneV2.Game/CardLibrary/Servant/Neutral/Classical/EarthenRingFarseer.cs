@@ -1,9 +1,10 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
@@ -22,9 +23,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new BattlecryDriver<Heal<SecondaryFilter,Three>>()
+            new BattlecryDriver<Heal<SecondaryFilter,Three>,NullFilter>()
         };
 
         public override string Name { get; set; } = "大地之环先知";

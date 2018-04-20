@@ -7,7 +7,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// <summary>
     /// 风怒
     /// </summary>
-    public class Windfury : BaseCardAbility
+    public class Windfury : IBaseCardAbility
     {
         public override List<SpellCardAbilityTime> SpellCardAbilityTimes { get;  set; } = new List<SpellCardAbilityTime>() { SpellCardAbilityTime.重置攻击次数 };
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

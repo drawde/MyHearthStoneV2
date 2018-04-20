@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 {
@@ -21,9 +22,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "将一个敌方随从移回其拥有者的手牌。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new SpellDriver_Single_AllEnemyServant<Recover<SecondaryServantFilter>>(),
+            new SpellDriver_Single_AllEnemyServant<Recover<SecondaryServantFilter>,NullFilter>(),
             //new CA_Sap()
         };
 

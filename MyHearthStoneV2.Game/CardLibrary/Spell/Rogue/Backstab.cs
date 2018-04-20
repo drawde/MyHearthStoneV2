@@ -2,9 +2,10 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell.Single;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using System.Collections.Generic;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 {
@@ -17,9 +18,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 0;
         public override string Describe { get; set; } = "对一个未受伤害的随从造成2点伤害。";
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new SpellDriver_Single_AllEnemyServant<RiseDamage<SecondaryServantFilter,Two,ONE,SpellDamage>>(),
+            new SpellDriver_Single_AllEnemyServant<RiseDamage<SecondaryServantFilter,Two,ONE,SpellDamage>,InHandFilter>(),
         };
 
         public override string BackgroudImage { get; set; } = "Classical/Backstab.jpg";

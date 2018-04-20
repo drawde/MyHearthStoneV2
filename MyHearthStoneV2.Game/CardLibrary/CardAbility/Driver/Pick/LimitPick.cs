@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Pick
 {
-    internal class LimitPick : IPickType
+    public class LimitPick : IPickType
     {
         public PickType PickType { get; set; } = PickType.指定;
     }

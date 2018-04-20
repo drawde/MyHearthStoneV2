@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.Parameter.Controler
 {
-    internal class ControlerActionParameter : BaseActionParameter
+    public class ControlerActionParameter : BaseActionParameter
     {
-        internal bool IsActivation { get; set; }
+        public bool IsActivation { get; set; }
 
-        internal UserContext UserContext { get; set; }
+        public UserContext UserContext { get; set; }
     }
 }

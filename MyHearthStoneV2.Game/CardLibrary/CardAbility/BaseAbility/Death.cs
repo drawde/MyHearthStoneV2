@@ -10,9 +10,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 将一个目标标记为死亡
     /// </summary>
     /// <typeparam name="TAG"></typeparam>
-    internal class Death<TAG> : BaseCardAbility where TAG : IFilter
+    public class Death<TAG> : IBaseCardAbility where TAG : IFilter
     {
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             TAG tag = GameActivator<TAG>.CreateInstance();
             foreach (var card in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)).OrderBy(c => c.CastIndex))

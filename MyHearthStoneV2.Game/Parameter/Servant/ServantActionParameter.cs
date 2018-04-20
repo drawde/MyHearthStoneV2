@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.Parameter.Servant
 {
-    internal class ServantActionParameter : BiologyActionParameter
+    public class ServantActionParameter : BiologyActionParameter
     {
-        internal new BaseServant Biology { get; set; }
+        public new BaseServant Biology { get; set; }
     }
 }

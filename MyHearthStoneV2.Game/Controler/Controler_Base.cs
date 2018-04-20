@@ -15,17 +15,17 @@ namespace MyHearthStoneV2.Game.Controler
     /// <summary>
     /// 游戏控制器
     /// </summary>
-    internal partial class Controler_Base
+    public partial class Controler_Base
     {
         /// <summary>
         /// 游戏环境对象
         /// </summary>
-        internal GameContext GameContext { get; set; }
+        public GameContext GameContext { get; set; }
 
 
         [ControlerMonitor, PlayerActionMonitor, UserActionMonitor]
-        internal void GameStart(HS_Game game, CUsers firstPlayer, CUsers secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
-        {                        
+        public void GameStart(HS_Game game, CUsers firstPlayer, CUsers secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
+        {
             #region 加载玩家卡组
             //gameContextOutput = new GameContextOutput();
             UserContext firstUser = new UserContext

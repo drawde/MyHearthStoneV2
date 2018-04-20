@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.Game.CardLibrary.Filter;
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Parameter;
 using System;
@@ -9,10 +9,16 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
 {
-    public class REV_DireWolfAlpha : BaseCardAbility
+    public class REV_DireWolfAlpha : IBaseCardAbility
     {
-        public override AbilityType AbilityType { get; set; } = AbilityType.光环BUFF;
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public PriorityOfSettlement PriorityOfSettlement { get; set; } = PriorityOfSettlement.无;
+        public CastStyle CastStyle { get; set; } = CastStyle.无;
+        public CastCrosshairStyle CastCrosshairStyle { get; set; } = CastCrosshairStyle.无;
+
+        public List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; } = new List<SpellCardAbilityTime>();
+
+        public AbilityType AbilityType { get; set; } = AbilityType.无;
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             BaseServant servant = actionParameter.MainCard as BaseServant;
             servant.Damage -= 1;

@@ -1,16 +1,12 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Direction;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
-using System;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain
 {
@@ -30,10 +26,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain
 
         public override Rarity Rare { get; set; } = Rarity.传说;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new MyTurnEndDriver<UpdateCost<MainUserContextFilter,NoneFilter,ONE,Minus>>(),
-            //new CA_EmperorThaurissan()
+            new MyTurnEndDriver<UpdateCost<MainUserContextFilter,NoneFilter,ONE,Minus>,InDeskFilter>(),
         };
 
 

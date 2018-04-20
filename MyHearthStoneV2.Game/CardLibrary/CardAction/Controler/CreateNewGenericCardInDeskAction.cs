@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
     /// 创造一张牌到场内
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class CreateNewGenericCardInDeskAction<T>: Action.IGameAction where T : BaseServant
+    public class CreateNewGenericCardInDeskAction<T>: Action.IGameAction where T : BaseServant
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

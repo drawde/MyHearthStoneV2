@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility
 {
-    public abstract class BaseHeroAbility : BaseCardAbility
+    public abstract class BaseHeroAbility : IBaseCardAbility
     {
         /// <summary>
         /// 技能背景图片

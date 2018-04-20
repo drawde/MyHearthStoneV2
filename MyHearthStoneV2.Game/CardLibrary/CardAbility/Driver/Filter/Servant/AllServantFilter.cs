@@ -3,7 +3,7 @@ using System;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant
 {
-    internal class AllServantFilter : IServantFilter
+    public class AllServantFilter : IServantFilter
     {
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {

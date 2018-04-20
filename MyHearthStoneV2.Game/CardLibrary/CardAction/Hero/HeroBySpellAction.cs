@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
     /// <summary>
     /// 英雄受到法术伤害
     /// </summary>
-    internal class HeroBySpellAction : Action.IGameAction
+    public class HeroBySpellAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 随从受到治疗时，增加它的生命值，然后触发随从或英雄治疗后的技能
     /// </summary>
-    internal class HealServantLifeAction : Action.IGameAction
+    public class HealServantLifeAction : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

@@ -10,11 +10,11 @@ namespace MyHearthStoneV2.Game
     /// 游戏对象缓存器
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class GameActivator<T> where T : IGameCache
+    public class GameActivator<T> where T : IGameCache
     {
         private static List<T> Instances { get; set; } = new List<T>();
 
-        internal static T CreateInstance()
+        public static T CreateInstance()
         {
             if (Instances.Any(c => c.GetType() == typeof(T)))
                 return Instances.First(c => c.GetType() == typeof(T));

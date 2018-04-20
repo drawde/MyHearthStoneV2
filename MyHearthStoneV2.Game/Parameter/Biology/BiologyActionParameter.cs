@@ -9,10 +9,10 @@ namespace MyHearthStoneV2.Game.Parameter.Biology
 {
     public class BiologyActionParameter: BaseActionParameter
     {
-        internal virtual BaseBiology Biology { get; set; }
+        public virtual BaseBiology Biology { get; set; }
 
-        internal int DamageOrHeal { get; set; }
+        public int DamageOrHeal { get; set; }
 
-        internal int DeskIndex { get; set; }
+        public int DeskIndex { get; set; }
     }
 }

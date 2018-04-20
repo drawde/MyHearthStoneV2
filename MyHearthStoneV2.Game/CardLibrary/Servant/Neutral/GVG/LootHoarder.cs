@@ -1,13 +1,14 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 {
@@ -27,9 +28,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 
         public override Rarity Rare => Rarity.普通;
 
-        public override List<BaseCardAbility> Abilities { get; set; } = new List<BaseCardAbility>()
+        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
         {
-            new DeathWhisperDriver<DrawCard<MainUserContextFilter,ONE>>(),            
+            new DeathWhisperDriver<DrawCard<MainUserContextFilter,ONE>,InDeskFilter>(),            
         };
 
 

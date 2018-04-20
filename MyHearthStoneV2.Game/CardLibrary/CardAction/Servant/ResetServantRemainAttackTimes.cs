@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
     /// <summary>
     /// 重置随从攻击次数
     /// </summary>
-    internal class ResetServantRemainAttackTimes : Action.IGameAction
+    public class ResetServantRemainAttackTimes : Action.IGameAction
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

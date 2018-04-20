@@ -4,7 +4,7 @@ using System;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context
 {
-    internal class SecondaryUserContextFilter : IUserContextFilter
+    public class SecondaryUserContextFilter : IUserContextFilter
     {
         public Func<UserContext, bool> Filter(BaseActionParameter actionParameter)
         {

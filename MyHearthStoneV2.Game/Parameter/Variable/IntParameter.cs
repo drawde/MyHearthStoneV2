@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.Parameter.Variable
 {
-    internal class IntParameter: IActionOutputParameter
+    public class IntParameter: IActionOutputParameter
     {
         public int Value { get; set; }
     }

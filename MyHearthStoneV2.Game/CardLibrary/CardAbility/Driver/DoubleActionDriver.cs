@@ -1,4 +1,7 @@
 ﻿using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.Capture;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 using System;
 
@@ -9,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// </summary>
     /// <typeparam name="G1"></typeparam>
     /// <typeparam name="G2"></typeparam>
-    internal class DoubleActionDriver<G1, G2> : BaseDriver<G1> where G1 : IGameAction where G2 : IGameAction
+    public class DoubleActionDriver<G1, G2, F> : BaseDriver<G1, F>, ICapture<F, NullEvent> where G1 : IGameAction where G2 : IGameAction where F : ICardLocationFilter
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
@@ -17,5 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
             Activator.CreateInstance<G2>().Action(actionParameter);
             return null;
         }
+
+        public override bool TryCapture(Card card, IEvent @event) => false;
     }
 }
