@@ -134,7 +134,7 @@ namespace MyHearthStoneV2.Game.Context
             if (context.DeskCards.Any(c => c != null && c.Life < 1))
             {
                 //先按入场顺序排列
-                var lstBiology = context.DeskCards.Where(c => c != null && (c.Life < 1 || c.Deathing)).OrderBy(x => x.CastIndex);
+                var lstBiology = context.DeskCards.Where(c => c != null && (c.Life < 1 || c.IsDeathing)).OrderBy(x => x.CastIndex);
                 foreach (var bio in lstBiology)
                 {
                     BaseActionParameter para = CardActionFactory.CreateParameter(bio, context);
@@ -162,8 +162,9 @@ namespace MyHearthStoneV2.Game.Context
                 }
                 ll.Clear();                
             }
+            context.AutoShiftServant();
             AuraSettlement(context);
-            StageRetrieval(context);
+            StageRetrieval(context);            
         }
 
         /// <summary>
@@ -175,7 +176,7 @@ namespace MyHearthStoneV2.Game.Context
             //先移除光环BUFF
             foreach (BaseBiology biology in context.DeskCards.Where(c => c != null && c.Abilities.Any(x => x.AbilityType == AbilityType.光环BUFF)))
             {
-                foreach (IBaseCardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环BUFF))
+                foreach (ICardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环BUFF))
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
@@ -191,7 +192,7 @@ namespace MyHearthStoneV2.Game.Context
             //再重新触发光环效果（不会触发有触发条件的随从如索瑞森大帝）
             foreach (BaseBiology biology in context.DeskCards.Where(c => c != null && c.Abilities.Any(x => x.AbilityType == AbilityType.光环)))
             {
-                foreach (IBaseCardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环 && x.SpellCardAbilityTimes.Count == 0))
+                foreach (ICardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环 && x.SpellCardAbilityTimes.Count == 0))
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
@@ -200,6 +201,72 @@ namespace MyHearthStoneV2.Game.Context
                     };
                     ability.Action(para);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 把随从自动向中间靠拢
+        /// </summary>
+        /// <param name="gameContext"></param>
+        /// <param name="deskIndex"></param>
+        /// <returns></returns>
+        public static int AutoShiftServant(this GameContext gameContext, int deskIndex)
+        {
+            if (deskIndex < 4 && gameContext.DeskCards[deskIndex + 1] == null)
+            {
+                return AutoShiftServant(gameContext, deskIndex + 1);
+            }
+            else if (deskIndex > 4 && deskIndex < 8 && gameContext.DeskCards[deskIndex - 1] == null)
+            {
+                return AutoShiftServant(gameContext, deskIndex - 1);
+            }
+            else if (deskIndex < 12 && deskIndex > 8 && gameContext.DeskCards[deskIndex + 1] == null)
+            {
+                return AutoShiftServant(gameContext, deskIndex + 1);
+            }
+            else if (deskIndex > 12 && gameContext.DeskCards[deskIndex - 1] == null)
+            {
+                return AutoShiftServant(gameContext, deskIndex - 1);
+            }
+            return deskIndex;
+        }
+
+        /// <summary>
+        /// 把随从自动向中间靠拢
+        /// </summary>
+        /// <param name="gameContext"></param>
+        public static void AutoShiftServant(this GameContext gameContext)
+        {
+            int centerIndex = 4, minIndex = 0, maxIndex = 8;
+            for (int t = 0; t < 2; t++)
+            {
+                List<BaseBiology> lstRight = gameContext.DeskCards.Where(c => c != null && c.DeskIndex >= centerIndex && c.DeskIndex < maxIndex).ToList();
+                int idx = 0;
+                for (int i = centerIndex; i < maxIndex; i++)
+                {
+                    gameContext.DeskCards[i] = null;
+                    if (lstRight.Count > idx)
+                    {
+                        gameContext.DeskCards[i] = lstRight[idx];
+                    }
+                    idx++;
+                }
+
+                List<BaseBiology> lstLeft = gameContext.DeskCards.Where(c => c != null && c.DeskIndex > minIndex && c.DeskIndex < centerIndex).ToList();
+                idx = 0;
+                for (int i = centerIndex - 1; i > minIndex; i--)
+                {
+                    gameContext.DeskCards[i] = null;
+                    if (lstLeft.Count > idx)
+                    {
+                        gameContext.DeskCards[i] = lstLeft[idx];
+                    }
+                    idx++;
+                }
+
+                minIndex += 8;
+                maxIndex += 8;
+                centerIndex += 8;
             }
         }
 
@@ -213,7 +280,7 @@ namespace MyHearthStoneV2.Game.Context
             if (gameContext.DeskCards[deskIndex] != null)
             {
                 bool shiftDone = false;
-                int maxIndex = 16,minIndex = 8;
+                int maxIndex = 16, minIndex = 8;
                 if (deskIndex < 8)
                 {
                     maxIndex = 8;
@@ -224,7 +291,7 @@ namespace MyHearthStoneV2.Game.Context
                 for (; idx < maxIndex; idx++)
                 {
                     if (gameContext.DeskCards[idx] == null)
-                    {                        
+                    {
                         BaseServant servant = null;
                         for (int i = idx; i > deskIndex; i--)
                         {
@@ -425,7 +492,7 @@ namespace MyHearthStoneV2.Game.Context
             var triggerAbilities = card.Abilities.Where(c => c.SpellCardAbilityTimes.Any(x => x == spellTime) && c.AbilityType == abilityType).ToList();
             for (int n = 0; n < triggerAbilities.Count; n++)
             {
-                IBaseCardAbility ca = card.Abilities.First(c => c == triggerAbilities[n]);
+                ICardAbility ca = card.Abilities.First(c => c == triggerAbilities[n]);
                 CardAbilityParameter para = new CardAbilityParameter()
                 {
                     GameContext = context,
@@ -483,7 +550,7 @@ namespace MyHearthStoneV2.Game.Context
             for (int i = 0; i < lstCards.Count(); i++)
             {
                 if (!lstCards[i].Abilities.Any(c => c.AbilityType == abilityType)) continue;
-                IBaseCardAbility ca = lstCards[i].Abilities.First(c => c.AbilityType == abilityType);
+                ICardAbility ca = lstCards[i].Abilities.First(c => c.AbilityType == abilityType);
                 CardAbilityParameter para = new CardAbilityParameter()
                 {
                     GameContext = context,

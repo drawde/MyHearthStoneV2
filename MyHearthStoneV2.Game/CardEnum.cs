@@ -92,7 +92,8 @@ namespace MyHearthStoneV2.Game
         随从 = 5,
         己方英雄 = 7,
         敌方英雄 = 8,
-        英雄 = 9
+        英雄 = 9,
+        无限制 = 10
     }
 
     /// <summary>

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry
 {
-    public class CA_Loatheb : IBaseCardAbility
+    public class CA_Loatheb : ICardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.战吼;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

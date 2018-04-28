@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// </summary>
     /// <typeparam name="G1"></typeparam>
     /// <typeparam name="G2"></typeparam>
-    public class DoubleActionDriver<G1, G2, F> : BaseDriver<G1, F>, ICapture<F, NullEvent> where G1 : IGameAction where G2 : IGameAction where F : ICardLocationFilter
+    public class DoubleActionDriver<G1, G2, F> : BaseDriver<G1, F>, ICapture<F, IEvent> where G1 : IGameAction where G2 : IGameAction where F : ICardLocationFilter
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
 
         public override Rarity Rare { get; set; } = Rarity.传说;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_Loatheb() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new CA_Loatheb() };
 
         public override string Name { get; set; } = "洛欧塞布";
         public override Profession Profession { get; set; } = Profession.Neutral;

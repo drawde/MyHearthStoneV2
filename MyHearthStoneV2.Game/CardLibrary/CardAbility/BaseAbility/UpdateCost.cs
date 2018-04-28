@@ -3,8 +3,10 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.Event;
+using System;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
@@ -14,22 +16,23 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// <typeparam name="TAG"></typeparam>
     /// <typeparam name="Q"></typeparam>
     /// <typeparam name="D"></typeparam>
-    public class UpdateCost<UC, TAG, Q, D> : IBaseCardAbility where UC : IUserContextFilter where TAG : IFilter where Q : IQuantity where D : IDirection
+    public class UpdateCost<UC, TAG, Q, D> : ICardAbility where UC : IUserContextFilter where TAG : IFilter where Q : INumber where D : IDirection
     {
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            D direction = GameActivator<D>.CreateInstance();
-            UC uc = GameActivator<UC>.CreateInstance();
+            D direction = Activator.CreateInstance<D>();
+            UC uc = Activator.CreateInstance<UC>();
             var users = actionParameter.GameContext.Players.Where(uc.Filter(actionParameter));
             foreach (UserContext user in users)
             {
-                foreach (BaseBiology biology in user.HandCards.Where(GameActivator<TAG>.CreateInstance().Filter(actionParameter)))
+                foreach (BaseBiology biology in user.HandCards.Where(Activator.CreateInstance<TAG>().Filter(actionParameter)))
                 {
-                    int quantity = direction.SetQuantity(GameActivator<Q>.CreateInstance());
-                    biology.Cost += quantity;
+                    int Number = direction.SetNumber(GameActivator<Q>.CreateInstance());
+                    biology.Cost += Number;
                 }
             }
             return null;
         }
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

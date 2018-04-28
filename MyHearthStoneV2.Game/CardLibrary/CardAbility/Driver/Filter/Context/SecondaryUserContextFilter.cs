@@ -6,6 +6,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context
 {
     public class SecondaryUserContextFilter : IUserContextFilter
     {
+        public bool NoCache { get; set; } = true;
         public Func<UserContext, bool> Filter(BaseActionParameter actionParameter)
         {
             UserContext user = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.SecondaryCard);

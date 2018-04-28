@@ -1,6 +1,13 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using System.Collections.Generic;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Assert.ActionPrameter.SecondaryCard;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Extract.Card;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.DynamicNumber;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
@@ -20,7 +27,16 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare => Rarity.传说;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_Patchwerk() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
+        {
+            new ServantAttackingDriver<
+                Assert<
+                    SecondaryCardIsHero,
+                    ArmorPenetration<SecondaryHeroFilter,DynamicDoubleNumber<ExtractCardDamage<SecondaryFilter>>>,
+                    Null
+                    >,
+                InDeskFilter>()
+        };
 
 
         public override string Name { get; set; } = "帕奇维克";

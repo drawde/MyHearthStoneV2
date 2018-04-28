@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell
 {
-    public class CA_PowerOverwhelming : IBaseCardAbility
+    public class CA_PowerOverwhelming : ICardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.法术;
         public override CastCrosshairStyle CastCrosshairStyle => CastCrosshairStyle.单个;

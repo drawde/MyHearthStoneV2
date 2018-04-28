@@ -6,15 +6,17 @@ using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.Controler;
 using MyHearthStoneV2.Game.Parameter.Equip;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Event;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
     /// <summary>
     /// 装备一件武器
     /// </summary>
     /// <typeparam name="E"></typeparam>
-    public class LoadEquip<E> : IBaseCardAbility where E : BaseEquip
+    public class LoadEquip<E> : ICardAbility where E : BaseEquip
     {
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByMyCard(actionParameter.MainCard as BaseBiology);
             ControlerActionParameter ctlPara = new ControlerActionParameter()
@@ -33,5 +35,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
             new LoadAction().Action(para);
             return null;
         }
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

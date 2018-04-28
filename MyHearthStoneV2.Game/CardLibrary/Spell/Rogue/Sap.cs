@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "将一个敌方随从移回其拥有者的手牌。";
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
             new SpellDriver_Single_AllEnemyServant<Recover<SecondaryServantFilter>,NullFilter>(),
             //new CA_Sap()

@@ -1,7 +1,9 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 using System.Collections.Generic;
 
@@ -57,7 +59,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 卡牌技能
         /// </summary>
-        public virtual List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>();
+        public virtual List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>();
 
         public virtual CardType CardType { get; set; } = CardType.无;
 
@@ -75,6 +77,8 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 卡牌归属
         /// </summary>
-        public bool IsFirstPlayerCard { get; set; } 
+        public bool IsFirstPlayerCard { get; set; }
+
+        public virtual LinkedList<IBuff<ICardLocationFilter, IEvent>> Buffs { get; set; } = new LinkedList<IBuff<ICardLocationFilter, IEvent>>();
     }
 }

@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare => Rarity.传说;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
             new DeathWhisperDriver<LoadEquip<WarglaiveOfAzzinoth>,InDeskFilter>()            
         };

@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.TOC
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new DeathWhisperDriver<CreateNewGenericCardInHandAction<LuckyCoin>, InDeskFilter>() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new DeathWhisperDriver<CreateNewGenericCardInHandAction<LuckyCoin>, InDeskFilter>() };
 
         public override string Name { get; set; } = "盗墓匪贼";
         public override Profession Profession { get; set; } = Profession.Rogue;

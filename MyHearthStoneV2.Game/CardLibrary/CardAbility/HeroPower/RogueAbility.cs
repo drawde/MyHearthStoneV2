@@ -6,13 +6,16 @@ using MyHearthStoneV2.Game.CardLibrary.Equip.Rogue;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Controler;
 using MyHearthStoneV2.Game.Parameter.Equip;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Equip;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.AbilityAttribute;
+using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
 {
-    public class RogueAbility : BaseHeroAbility
+    public class RogueAbility : DefaultAttribute, IHeroAbility
     {
-        public override string PowerImage { get; } = "Rogue.png";
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public string PowerImage { get; } = "Rogue.png";
+        public int Cost { get; set; } = 2;
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByMyCard(actionParameter.MainCard as BaseBiology);
             ControlerActionParameter ctlPara = new ControlerActionParameter()
@@ -32,5 +35,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
             
             return null;
         }
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

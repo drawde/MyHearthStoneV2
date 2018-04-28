@@ -1,8 +1,10 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.Player;
+using System;
 using System.Linq;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
@@ -11,11 +13,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 将场上的牌返回到手牌
     /// </summary>
     /// <typeparam name="TAG"></typeparam>
-    public class Recover<TAG> : IBaseCardAbility where TAG : IFilter
+    public class Recover<TAG> : ICardAbility where TAG : IFilter
     {
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            TAG tag = GameActivator<TAG>.CreateInstance();
+            TAG tag = Activator.CreateInstance<TAG>();
             foreach (BaseBiology biology in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)).OrderBy(c => c.CastIndex))
             {
                 UserContext user = actionParameter.GameContext.GetUserContextByMyCard(biology);
@@ -30,5 +32,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
             }
             return null;
         }
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

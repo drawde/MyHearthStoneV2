@@ -4,14 +4,16 @@ using System.Linq;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using System;
+using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class Silence<TAG> : IBaseCardAbility where TAG : IFilter
+    public class Silence<TAG> : ICardAbility where TAG : IFilter
     {
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            TAG tag = GameActivator<TAG>.CreateInstance();
+            TAG tag = Activator.CreateInstance<TAG>();
             foreach (BaseBiology biology in actionParameter.GameContext.DeskCards.Where(tag.Filter(actionParameter)).OrderBy(c => c.CastIndex))
             {
                 DisableCardAbility(biology, actionParameter.GameContext);
@@ -22,9 +24,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 
         private void DisableCardAbility(BaseBiology bio, GameContext gameContext)
         {
-            if (bio.Abilities.Any(c => c.AbilityType == AbilityType.BUFF))
+            bio.Abilities.Clear();
+            if (bio.Buffs.Any())
             {
-                foreach (var ability in bio.Abilities)
+                foreach (var ability in bio.Buffs)
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
@@ -42,5 +45,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 
             bio.Abilities.Clear();
         }
+
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

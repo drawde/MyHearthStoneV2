@@ -1,23 +1,22 @@
-﻿using System.Collections.Generic;
-using MyHearthStoneV2.Game.Context;
-using MyHearthStoneV2.Game.CardLibrary.CardAction;
-using MyHearthStoneV2.Game.Parameter;
+﻿using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.AbilityAttribute;
+using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
     /// <summary>
     /// 冲锋
     /// </summary>
-    public class Charge : IBaseCardAbility
+    public class Charge : ICardAbility
     {
-        public override AbilityType AbilityType => AbilityType.冲锋;
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             BaseActionParameter para = CardActionFactory.CreateParameter(actionParameter.MainCard, actionParameter.GameContext);
             CardActionFactory.CreateAction(actionParameter.MainCard, ActionType.重置攻击次数).Action(para);
             //bb.ResetRemainAttackTimes(actionParameter.GameContext);
             return null;
-        }        
+        }
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

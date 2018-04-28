@@ -6,7 +6,7 @@ using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Servant;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Condition;
 using MyHearthStoneV2.Redis;
@@ -19,12 +19,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 召唤一个随从到场上
     /// </summary>
     /// <typeparam name="F"></typeparam>
-    public class Summon<UC, F, C> : IBaseCardAbility where UC : IUserContextFilter where F : IServantCardFilter where C : IQuantity
+    public class Summon<UC, F, Num> : ICardAbility where UC : IUserContextFilter where F : IServantCardFilter where Num : INumber
     {
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             int count = 0;
-            C summonCount = GameActivator<C>.CreateInstance();
+            Num summonCount = GameActivator<Num>.CreateInstance();
             UC uc = GameActivator<UC>.CreateInstance();
             var users = actionParameter.GameContext.Players.Where(uc.Filter(actionParameter));
             var filter = Activator.CreateInstance<F>();
@@ -37,7 +37,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 
             foreach (UserContext user in users)
             {
-                while (count < summonCount.Quantity)
+                while (count < summonCount.GetNumber(actionParameter))
                 {
                     CreateNewCardInDeskAction action = new CreateNewCardInDeskAction();
                     //CreateNewGenericCardInDeskAction<F> action = new CreateNewGenericCardInDeskAction<F>();
@@ -53,5 +53,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
             }
             return null;
         }
+
+        public bool TryCapture(Card card, Event.IEvent @event) => false;
     }
 }

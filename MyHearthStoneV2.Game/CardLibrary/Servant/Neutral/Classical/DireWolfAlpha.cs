@@ -24,7 +24,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_DireWolfAlpha() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
+        {
+            new CA_DireWolfAlpha()
+        };
 
         public override string BackgroudImage { get; set; } = "WOW_TAL_008_D.png";
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
 {
-    public class REV_DireWolfAlpha : IBaseCardAbility
+    public class REV_DireWolfAlpha : ICardAbility
     {
         public PriorityOfSettlement PriorityOfSettlement { get; set; } = PriorityOfSettlement.无;
         public CastStyle CastStyle { get; set; } = CastStyle.无;

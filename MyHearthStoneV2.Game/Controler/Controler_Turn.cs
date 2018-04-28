@@ -1,13 +1,18 @@
 ﻿using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.CardLibrary.CardAction;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Monitor;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.Player;
 using MyHearthStoneV2.Model;
 using MyHearthStoneV2.ShortCodeBll;
+using System.Collections.Generic;
 using System.Linq;
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -19,13 +24,25 @@ namespace MyHearthStoneV2.Game.Controler
         [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor(AttributePriority = 1)]
         public void TurnEnd()
         {
-            UserContext uc = null, next_uc = null;
-            
+            UserContext uc = GameContext.GetActivationUserContext(), next_uc = null;
+
+            List<Card> buffCards = new List<Card>();
+            buffCards.AddRange(GameContext.DeskCards.GetDeskCardsByIsFirst(uc.IsFirst));
+            buffCards.AddRange(uc.HandCards);
+            buffCards = buffCards.Where(c => c.Buffs.Count > 0).ToList();
+            foreach (Card card in buffCards)
+            {
+                LinkedListNode<IBuff<ICardLocationFilter, IEvent>> buff = card.Buffs.First;
+                //while (buff != null && buff.Value)
+                //{
+                //}
+
+            }
+
             #region 调整玩家对象
             
             if (GameContext.TurnIndex > 0)
             {
-                uc = GameContext.GetActivationUserContext();
                 next_uc = GameContext.GetNotActivationUserContext();
 
                 GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(uc.IsFirst), SpellCardAbilityTime.己方回合结束);
@@ -51,7 +68,6 @@ namespace MyHearthStoneV2.Game.Controler
             else
             {
                 //开局换完牌后，设置先手玩家费用=1
-                uc = GameContext.GetActivationUserContext();
                 uc.FullPower = 1;
                 uc.Power = 1;
             }
@@ -71,10 +87,6 @@ namespace MyHearthStoneV2.Game.Controler
         {
             GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(), SpellCardAbilityTime.己方回合开始);
             GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(false), SpellCardAbilityTime.对方回合开始);
-
-            //获取是自己的牌的技能所影响的牌
-            //var myBuffCards = gameContext.AllCard.Where(c => gameContext.IsThisActivationUserCard(c.Buffs.Keys.ToList()));
-            //gameContext.DisableCardAbility(myBuffCards, CardLocation.场上, BuffTimeLimit.己方回合开始);
 
             var uc = GameContext.GetActivationUserContext();
             if (uc.FullPower < 10)
@@ -100,14 +112,11 @@ namespace MyHearthStoneV2.Game.Controler
 
             var activationDeskCards = GameContext.DeskCards.GetDeskCardsByIsFirst(uc.IsFirst);
             //让场上的随从或英雄获取攻击次数
-            if (activationDeskCards.Any(c => c != null))
+            foreach (var card in activationDeskCards.Where(c => c != null))
             {
-                foreach (var card in activationDeskCards.Where(c => c != null))
-                {
-                    card.CanAttack = true;
-                    BaseActionParameter resetPara = CardActionFactory.CreateParameter(card, GameContext);
-                    CardActionFactory.CreateAction(card, ActionType.重置攻击次数).Action(resetPara);
-                }
+                card.CanAttack = true;
+                BaseActionParameter resetPara = CardActionFactory.CreateParameter(card, GameContext);
+                CardActionFactory.CreateAction(card, ActionType.重置攻击次数).Action(resetPara);
             }
         }
     }

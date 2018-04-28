@@ -1,11 +1,9 @@
 ﻿using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.Context;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.Event
 {
@@ -18,9 +16,10 @@ namespace MyHearthStoneV2.Game.Event
             {
                 //if (card.Abilities.Any(c => c.TryCapture(@event.EventCard, @event)))
                 //{
-                    
+
                 //}
-                gameContext.AddActionStatements(card.Abilities.Where(c => c.TryCapture(@event.EventCard, @event)), @event.Parameter);
+                @event.Parameter.TertiaryCard = card;
+                gameContext.AddActionStatements(card.Abilities.Where(c => c.TryCapture(@event.EventCard, @event)), @event.Parameter);//(c as BaseDriver<IGameAction, ICardLocationFilter>)
             }
         }
     }

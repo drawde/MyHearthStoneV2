@@ -1,10 +1,11 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.BattlecryDriver;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
@@ -24,9 +25,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new BattlecryDriver<DrawCard<MainUserContextFilter,ONE>,NullFilter>(),//() { DrawCount = 1, AbilityType = AbilityType.战吼 },
+            new NoneTargetBattlecryDriver<DrawCard<MainUserContextFilter,ONE>,NullFilter>(),
             new SpellPower()
         };
 

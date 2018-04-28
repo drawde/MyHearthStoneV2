@@ -1,15 +1,18 @@
-﻿using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility.AbilityAttribute;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Controler;
+using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.Player;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
 {
-    public class WarlockAbility : BaseHeroAbility
+    public class WarlockAbility : DefaultAttribute, IHeroAbility
     {
-        public override string PowerImage { get; } = "Warlock.png";
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public string PowerImage { get; } = "Warlock.png";
+        public int Cost { get; set; } = 2;
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             var uc = actionParameter.GameContext.GetActivationUserContext();
             var hero = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(uc.IsFirst);
@@ -24,5 +27,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
             //actionParameter.GameContext.DrawCard();
             return null;
         }
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

@@ -8,7 +8,7 @@ using MyHearthStoneV2.Game.Parameter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
 {
-    public class CA_DireWolfAlpha : IBaseCardAbility
+    public class CA_DireWolfAlpha : ICardAbility
     {
         public AbilityType AbilityType { get; set; } = AbilityType.光环;
         public PriorityOfSettlement PriorityOfSettlement { get; set; }

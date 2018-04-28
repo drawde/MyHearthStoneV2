@@ -8,6 +8,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Hero
     {
         public override string Name { get; set; } = "盗贼";
         public override Profession Profession { get; set; } = Profession.Rogue;
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new RogueAbility() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new RogueAbility() };
     }
 }

@@ -20,7 +20,8 @@ namespace MyHearthStoneV2.Game
                 return Instances.First(c => c.GetType() == typeof(T));
 
             T instance = Activator.CreateInstance<T>();
-            Instances.Add(instance);
+            if (instance.NoCache == false)
+                Instances.Add(instance);
             return instance;
         }
     }

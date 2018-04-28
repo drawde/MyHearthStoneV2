@@ -7,7 +7,7 @@ using MyHearthStoneV2.Game.Action;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
 {
-    public class CA_JiaoXiaoDeZhongShi : IBaseCardAbility
+    public class CA_JiaoXiaoDeZhongShi : ICardAbility
     {
         public override CastStyle CastStyle { get; set; } = CastStyle.随从;
         public override CastCrosshairStyle CastCrosshairStyle { get; set; } = CastCrosshairStyle.单个;

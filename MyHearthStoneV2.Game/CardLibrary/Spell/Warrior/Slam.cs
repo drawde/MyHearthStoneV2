@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "对一个随从造成2点伤害，如果它依然存活，则抽一张牌。";
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_Slam() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new CA_Slam() };
 
         public override string BackgroudImage { get; set; } = "W6_002_D.png";
         public override Profession Profession { get; set; } = Profession.Warrior;

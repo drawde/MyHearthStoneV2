@@ -32,7 +32,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
                 {
                     //否则标记这张牌为死亡
                     BaseBiology biology = returnPara.MainCard as BaseBiology;
-                    biology.Deathing = true;                    
+                    biology.IsDeathing = true;                    
                 }
             }
             return null;

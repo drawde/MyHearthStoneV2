@@ -2,7 +2,7 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell.Single;
@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override int InitialCost { get; set; } = 0;
         public override string Describe { get; set; } = "对一个随从造成1点伤害，该随从获得+2攻击力。";
         public override int Damage { get; set; } = 1;
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
             new SpellDriver_Single_AllServant
                 <

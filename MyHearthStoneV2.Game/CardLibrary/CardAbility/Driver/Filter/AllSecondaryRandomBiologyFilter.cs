@@ -7,6 +7,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter
 {
     public class AllSecondaryRandomBiologyFilter : IFilter
     {
+        public bool NoCache { get; set; } = true;
         public Func<Card, bool> Filter(BaseActionParameter actionParameter)
         {
             var targets = actionParameter.GameContext.DeskCards.GetDeskCardsByIsFirst(actionParameter.GameContext.GetUserContextByMyCard(actionParameter.SecondaryCard).IsFirst).

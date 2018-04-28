@@ -1,12 +1,4 @@
-﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.Context;
-using System.Collections.Generic;
-using MyHearthStoneV2.Game.Controler;
-using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Servant;
-using MyHearthStoneV2.Game.CardLibrary.Hero;
-
-namespace MyHearthStoneV2.Game.CardLibrary
+﻿namespace MyHearthStoneV2.Game.CardLibrary
 {
     /// <summary>
     /// 生物牌（随从、英雄）
@@ -38,7 +30,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 被法术或技能修改后的生命值
         /// </summary>
-        public virtual int BuffLife { get; set; }        
+        public virtual int BuffLife { get; set; }
 
         /// <summary>
         /// 当前回合剩余攻击次数
@@ -63,6 +55,27 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// <summary>
         /// 是否被标记为已死亡（力量的代价效果）
         /// </summary>
-        public virtual bool Deathing { get; set; } = false;
+        public virtual bool IsDeathing { get; set; } = false;
+
+        #region 基础技能
+        public virtual bool HasHolyShield { get; set; } = false;
+        public virtual bool HasTaunt { get; set; } = false;
+        public virtual bool HasCharge { get; set; } = false;
+        public virtual bool HasWindfury { get; set; } = false;
+
+        /// <summary>
+        /// 剧毒
+        /// </summary>
+        public virtual bool HasPoison { get; set; } = false;
+
+        /// <summary>
+        /// 超级风怒
+        /// </summary>
+        public virtual bool HasMegaWindfury { get; set; } = false;
+        /// <summary>
+        /// 潜行
+        /// </summary>
+        public virtual bool HasStealth { get; set; } = false;
+        #endregion
     }
 }

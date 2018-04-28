@@ -3,5 +3,6 @@
     public class PaladinPro : IProfession
     {
         public Game.Profession Profession { get; set; } = Game.Profession.Paladin;
+        public bool NoCache { get; set; } = false;
     }
 }

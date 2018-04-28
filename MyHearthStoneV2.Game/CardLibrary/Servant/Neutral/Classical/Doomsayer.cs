@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.史诗;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
             new MyTurnStartDriver<Death<AllServantFilter>,NullFilter>()            
         };

@@ -1,5 +1,11 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Observer;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.PlayCard;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
+using MyHearthStoneV2.Game.Event.GameProcess;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Rogue
@@ -19,7 +25,13 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Rogue
 
         public override Rarity Rare { get; set; } = Rarity.传说;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_EdwinVanCleef(),new REV_EdwinVanCleef() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
+        {
+            new MainPlayerPlayCardDriver<
+                    ChangeDamageAndLife<TertiaryFilter,Two,ONE,Plus,InHandFilter,
+                    RestoreDamageAndLife<TertiaryFilter,Two,ONE,Minus,InHandFilter,MyTurnEndEvent>>,
+                InHandFilter>()
+        };
 
         public override string Name { get; set; } = "艾德温·范克里夫";
         public override Profession Profession { get; set; } = Profession.Rogue;

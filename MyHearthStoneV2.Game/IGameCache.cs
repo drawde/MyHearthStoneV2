@@ -11,5 +11,6 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public interface IGameCache
     {
+        bool NoCache { get; set; }
     }
 }

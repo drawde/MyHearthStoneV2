@@ -10,6 +10,7 @@ using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.Parameter.Equip;
 using MyHearthStoneV2.Game.CardLibrary.CardAction.Equip;
+using MyHearthStoneV2.Game.Event.Player;
 
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -65,6 +66,7 @@ namespace MyHearthStoneV2.Game.Controler
                 Hero = hero,
             };
             new LoadAction().Action(equipPara);
+            GameContext.EventQueue.AddLast(new MainPlayerPlayCardEvent() { EventCard = equip, Parameter = equipPara });
             //hero.LoadEquip(GameContext, equip);
         }
     }

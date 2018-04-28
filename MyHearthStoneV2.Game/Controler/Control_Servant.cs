@@ -31,40 +31,35 @@ namespace MyHearthStoneV2.Game.Controler
             user.Power -= servant.Cost < 0 ? 0 : servant.Cost;
             user.ComboSwitch = true;
 
-            location = GameContext.ShiftServant(location);
-
+            location = GameContext.AutoShiftServant(GameContext.ShiftServant(location));            
             //先从手牌中移除这张牌
             user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
 
             //GameContext.TriggerCardAbility(user.HandCards, SpellCardAbilityTime.己方随从入场, AbilityType.BUFF, servant, target);
 
-            #region 首先触发打出的这张牌的战吼技能
-            if (servant.Abilities.Any(c => c.AbilityType == AbilityType.战吼))
-            {
-                foreach (var ability in servant.Abilities.Where(c => c.AbilityType == AbilityType.战吼))
-                {
-                    CardAbilityParameter abilityPara = new CardAbilityParameter()
-                    {
-                        GameContext = GameContext,
-                        MainCard = servant,
-                        SecondaryCard = target > -1 ? GameContext.DeskCards[target] : null,
-                        MainCardLocation = location
-                    };
-                    ability.Action(abilityPara);
-                }
-            }
-            #endregion
+            //#region 首先触发打出的这张牌的战吼技能
+            //if (servant.Abilities.Any(c => c.AbilityType == AbilityType.战吼))
+            //{
+            //    foreach (var ability in servant.Abilities.Where(c => c.AbilityType == AbilityType.战吼))
+            //    {
+            //        CardAbilityParameter abilityPara = new CardAbilityParameter()
+            //        {
+            //            GameContext = GameContext,
+            //            MainCard = servant,
+            //            SecondaryCard = target > -1 ? GameContext.DeskCards[target] : null,
+            //            MainCardLocation = location
+            //        };
+            //        ability.Action(abilityPara);
+            //    }
+            //}
+            //#endregion
 
-            BaseActionParameter para = CardActionFactory.CreateParameter(servant, GameContext, deskIndex: location);
+            BaseActionParameter para = CardActionFactory.CreateParameter(servant, GameContext, deskIndex: location, secondaryCard: target > -1 ? GameContext.DeskCards[target] : null);
             GameContext.EventQueue.AddLast(new CastServantEvent() { EventCard = servant, Parameter = para});
 
             GameContext.EventQueue.AddLast(new MyServantCastedEvent() { EventCard = servant, Parameter = para });
-            //CardActionFactory.CreateAction(servant, ActionType.进场).Action(para);
-            //servant.Cast(GameContext, location, target);
-
-            #region 然后触发场内牌的技能
-            //GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(user.IsFirst).Where(c => c != null && c.CardInGameCode != servant.CardInGameCode), SpellCardAbilityTime.己方随从入场, servant, target);
-            #endregion
+            GameContext.EventQueue.AddLast(new MainPlayerPlayCardEvent() { EventCard = servant, Parameter = para });
+            
         }
 
 

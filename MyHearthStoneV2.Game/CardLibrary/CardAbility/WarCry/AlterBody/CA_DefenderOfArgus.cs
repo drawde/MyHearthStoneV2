@@ -9,7 +9,7 @@ using MyHearthStoneV2.Game.Action;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody
 {
-    public class CA_DefenderOfArgus: IBaseCardAbility
+    public class CA_DefenderOfArgus: ICardAbility
     {
         public override AbilityType AbilityType { get; set; } = AbilityType.战吼;
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)

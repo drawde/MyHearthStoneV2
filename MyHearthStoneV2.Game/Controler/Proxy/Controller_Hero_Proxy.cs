@@ -88,7 +88,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
 
             BaseHero hero = ctl.GameContext.GetHeroByActivation();
 
-            if (player.Power < (hero.Abilities.First() as BaseHeroAbility).Cost)
+            if (player.Power < (hero.Abilities.First() as IHeroAbility).Cost)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.没有足够的法力值);
             }

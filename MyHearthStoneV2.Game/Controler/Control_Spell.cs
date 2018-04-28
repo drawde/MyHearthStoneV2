@@ -5,6 +5,8 @@ using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter.CardAbility;
+using MyHearthStoneV2.Game.Event.Player;
+using MyHearthStoneV2.Game.Action;
 
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -41,7 +43,7 @@ namespace MyHearthStoneV2.Game.Controler
 
             if (spell.Abilities.Any(c => c.AbilityType == AbilityType.法术))
             {
-                foreach (IBaseCardAbility abilities in spell.Abilities.Where(c => c.AbilityType == AbilityType.法术))
+                foreach (ICardAbility abilities in spell.Abilities.Where(c => c.AbilityType == AbilityType.法术))
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
@@ -55,10 +57,21 @@ namespace MyHearthStoneV2.Game.Controler
             spell.CardLocation = CardLocation.坟场;
             currentUserContext.GraveyardCards.Add(spell);
 
+            GameContext.EventQueue.AddLast(new MainPlayerPlayCardEvent()
+            {
+                EventCard = spell,
+                Parameter = new CardAbilityParameter()
+                {
+                    GameContext = GameContext,
+                    MainCard = spell,
+                    SecondaryCard = triggerCard,
+                }
+            });
             #region 触发场内牌的技能
             GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(), SpellCardAbilityTime.己方打出法术牌后, spell, target);
             GameContext.TriggerCardAbility(GameContext.DeskCards.GetDeskCardsByIsFirst(false), SpellCardAbilityTime.对方打出法术牌后, spell, target);
             #endregion
+
         }
     }
 }

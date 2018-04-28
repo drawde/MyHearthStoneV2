@@ -1,11 +1,12 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
 using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.BattlecryDriver;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 {
@@ -25,9 +26,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new BattlecryDriver<RiseDamage<MainHeroFilter,Three,ONE,PhysicalDamage>,NullFilter>(),
+            new NoneTargetBattlecryDriver<RiseDamage<MainHeroFilter,Three,ONE,PhysicalDamage>,NullFilter>(),
         };
 
         public override string BackgroudImage { get; set; } = "W7_009_D.png";

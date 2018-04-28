@@ -2,7 +2,7 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell.Single;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "造成2点伤害。连击：造成4点伤害取而代之。";
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>()
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
             new SpellDriver_Single_AllEnemy<ComboDriver<RiseDamage<SecondaryFilter,Two,ONE,SpellDamage>,RiseDamage<SecondaryFilter,Four,ONE,SpellDamage>,NullFilter>,NullFilter>(),
         };

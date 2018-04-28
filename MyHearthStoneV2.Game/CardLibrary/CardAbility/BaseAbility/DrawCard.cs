@@ -5,12 +5,14 @@ using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
+using MyHearthStoneV2.Game.Event;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class DrawCard<UC, D> : IBaseCardAbility where UC : IUserContextFilter where D : IQuantity
+    public class DrawCard<UC, D> : ICardAbility where UC : IUserContextFilter where D : INumber
     {
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             D drawCount = GameActivator<D>.CreateInstance();
             UC uc = GameActivator<UC>.CreateInstance();
@@ -19,7 +21,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
             {
                 DrawCardActionParameter para = new DrawCardActionParameter()
                 {
-                    DrawCount = drawCount.Quantity,
+                    DrawCount = drawCount.GetNumber(actionParameter),
                     GameContext = actionParameter.GameContext,
                     UserContext = user
                 };
@@ -27,5 +29,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
             }
             return null;
         }
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

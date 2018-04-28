@@ -1,10 +1,13 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
-using System;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Biology;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.DynamicNumber;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
 {
@@ -17,7 +20,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override int InitialCost { get; set; } = 2;
         public override string Describe { get; set; } = "每有一个受到伤害的友方角色，便抽一张牌。";
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new CA_BattleRage() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
+        {
+            //InjuredCardsFilter
+            new SpellDriver<DrawCard<MainUserContextFilter,GetDynamicNumber<InjuredCardsFilter<MyBiologyFilter>>>,NullFilter>()
+            //new CA_BattleRage()
+        };
 
         public override string BackgroudImage { get; set; } = "WOW_ACT_056_D_1.png";
         public override Profession Profession { get; set; } = Profession.Warrior;

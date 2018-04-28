@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical
         public override int BuffLife { get; set; } = 4;
         public override CardLocation CardLocation { get; set; }
 
-        public override List<IBaseCardAbility> Abilities { get; set; } = new List<IBaseCardAbility>() { new Taunt(), new Windfury(), new Charge(), new HolyShield() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { };
         public override string Describe { get; set; } = "风怒，冲锋，圣盾，嘲讽";
 
         public override Rarity Rare { get; set; } = Rarity.传说;
@@ -30,5 +30,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical
 
         public override Profession Profession { get; set; } = Profession.Shaman;
         public override Race Race { get; set; } = Race.元素;
+        public override bool HasCharge => true;
+        public override bool HasTaunt => true;
+        public override bool HasWindfury => true;
+        public override bool HasHolyShield => true;
     }
 }

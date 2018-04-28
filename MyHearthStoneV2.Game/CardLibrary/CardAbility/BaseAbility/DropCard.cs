@@ -5,12 +5,14 @@ using MyHearthStoneV2.Game.CardLibrary.CardAction.Player;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Quantity;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
+using MyHearthStoneV2.Game.Event;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class DropCard<UC, Q, P> : IBaseCardAbility where UC : IUserContextFilter where Q : IQuantity where P : IPickType
+    public class DropCard<UC, Q, P> : ICardAbility where UC : IUserContextFilter where Q : INumber where P : IPickType
     {
-        public override IActionOutputParameter Action(BaseActionParameter actionParameter)
+        public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             Q dropCount = GameActivator<Q>.CreateInstance();
             P pickType = GameActivator<P>.CreateInstance();
@@ -21,7 +23,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
                 DropCardActionParameter para = new DropCardActionParameter()
                 {
                     MainCard = actionParameter.MainCard,
-                    DropCount = dropCount.Quantity,
+                    DropCount = dropCount.GetNumber(actionParameter),
                     GameContext = actionParameter.GameContext,
                     UserContext = user,
                     DropCardType = pickType.PickType
@@ -30,5 +32,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
             }
             return null;
         }
+        public bool TryCapture(Card card, IEvent @event) => false;
     }
 }
