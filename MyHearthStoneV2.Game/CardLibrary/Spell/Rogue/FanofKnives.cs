@@ -7,6 +7,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
 using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 {
@@ -21,7 +22,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {            
-            new SpellDriver<DoubleActionDriver<RiseDamage<AllEnemyServantFilter,ONE,ONE,SpellDamage>,DrawCard<MainUserContextFilter,ONE>,NullFilter>,NullFilter>(),
+            new NoneTargetSpellDriver<
+                DoubleActionDriver<
+                    RiseDamage<AllEnemyServantFilter,ONE,ONE,SpellDamage>,
+                    DrawCard<MainUserContextFilter,ONE>,
+                NullFilter>>(),
             //new CA_FanofKnives()
         };
 

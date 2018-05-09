@@ -1,5 +1,12 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.BattlecryDriver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Spell;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
+using MyHearthStoneV2.Game.Event.GameProcess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +30,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
 
         public override Rarity Rare { get; set; } = Rarity.传说;
 
-        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new CA_Loatheb() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
+        {
+            new NoneTargetBattlecryDriver<
+                ChangeCost<SecondaryHandSpell,Five,ONE,Plus,InHandFilter,
+                        RestoreCost<MainHandSpell,Five,ONE,Minus,InHandFilter,MyTurnEndEvent>>>()
+        };
 
         public override string Name { get; set; } = "洛欧塞布";
         public override Profession Profession { get; set; } = Profession.Neutral;

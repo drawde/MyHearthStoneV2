@@ -19,32 +19,17 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
             BaseHero baseHero = para.Biology;
             GameContext gameContext = para.GameContext;
             BaseBiology attackCard = para.SecondaryCard as BaseBiology;
-            if (attackCard.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方英雄受到伤害后)))
+            int trueDamege = attackCard.Damage;
+            if (attackCard.CardType == CardType.英雄)
             {
-                var abiliti = attackCard.Abilities.First(c =>
-                    c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方英雄受到伤害后));
-                CardAbilityParameter cardPara = new CardAbilityParameter()
+                BaseHero attackHero = attackCard as BaseHero;
+                if (attackHero.Equip != null)
                 {
-                    GameContext = gameContext,
-                    MainCard = baseHero,
-                    SecondaryCard = attackCard
-                };
-                abiliti.Action(cardPara);
-            }
-            else
-            {
-                int trueDamege = attackCard.Damage;
-                if (attackCard.CardType == CardType.英雄)
-                {
-                    BaseHero attackHero = attackCard as BaseHero;
-                    if (attackHero.Equip != null)
-                    {
-                        trueDamege += attackHero.Equip.Damage;
-                    }
+                    trueDamege += attackHero.Equip.Damage;
                 }
-                BaseActionParameter underAttackPara = CardActionFactory.CreateParameter(baseHero, actionParameter.GameContext, trueDamege, secondaryCard: attackCard);
-                CardActionFactory.CreateAction(baseHero, ActionType.受到伤害).Action(underAttackPara);
             }
+            BaseActionParameter underAttackPara = CardActionFactory.CreateParameter(baseHero, actionParameter.GameContext, trueDamege, secondaryCard: attackCard);
+            CardActionFactory.CreateAction(baseHero, ActionType.受到伤害).Action(underAttackPara);
             return null;
         }
     }

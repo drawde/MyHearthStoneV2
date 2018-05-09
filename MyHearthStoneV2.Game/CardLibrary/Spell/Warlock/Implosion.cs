@@ -34,8 +34,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warlock
                         Summon<MainUserContextFilter,AssignServantFilter<Imp>,ContainerNumber>
                         >,
                     RandomNumber<Two,Four>
-                >,
-                NullFilter>()
+                >>()
         };
 
         public override string BackgroudImage { get; set; } = "GVG/Implosion.jpg";

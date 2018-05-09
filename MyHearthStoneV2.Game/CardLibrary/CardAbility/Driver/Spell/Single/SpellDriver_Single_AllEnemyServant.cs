@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell.Single
     /// 单个目标法术驱动器
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SpellDriver_Single_AllEnemyServant<T, F> : SpellDriver<T, F>, ICapture<F, NullEvent> where T : IGameAction where F : ICardLocationFilter
+    public class SpellDriver_Single_AllEnemyServant<T> : BaseSpellDriver<T>, ICapture<InParachuteFilter, NullEvent> where T : IGameAction
     {
         public override bool TryCapture(Card card, IEvent @event) => false;
         public override AbilityType AbilityType => AbilityType.法术;

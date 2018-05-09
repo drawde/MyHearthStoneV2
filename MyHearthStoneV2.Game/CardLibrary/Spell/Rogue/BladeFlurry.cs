@@ -1,11 +1,10 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.DamageType;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Extract.Card;
 using System.Collections.Generic;
@@ -23,12 +22,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new SpellDriver<
+            new NoneTargetSpellDriver<
                 DoubleAbility<
                     RiseDamage<AllMainEnemyFilter,ExtractCardDamage<MainHeroFilter>,ONE,SpellDamage>,
-                    DestroyEquip<MainHeroFilter>>,
-                NullFilter
-                >()
+                    DestroyEquip<MainHeroFilter>>>()
         };
 
         public override string BackgroudImage { get; set; } = "Classical/BladeFlurry.jpg";

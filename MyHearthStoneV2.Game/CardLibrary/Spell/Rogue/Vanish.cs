@@ -2,7 +2,7 @@
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.CardLibrary.Spell;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new SpellDriver<Recover<AllServantFilter>,NullFilter>(),
+            new NoneTargetSpellDriver<Recover<AllServantFilter>>(),
             //new CA_Vanish()
         };
 

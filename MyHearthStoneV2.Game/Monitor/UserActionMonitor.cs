@@ -1,11 +1,8 @@
 ﻿using MyHearthStoneV2.Game.Controler;
 using PostSharp.Aspects;
 using System;
-using System.Linq;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Common.Util;
-using System.Collections.Generic;
-using MyHearthStoneV2.Game.CardLibrary.CardAction;
 using MyHearthStoneV2.Log;
 using System.Reflection;
 using MyHearthStoneV2.Model;
@@ -32,7 +29,8 @@ namespace MyHearthStoneV2.Game.Monitor
         public override void OnExit(MethodExecutionArgs eventArgs)
         {
             Controler_Base ctl = eventArgs.Instance as Controler_Base;
-            ctl.GameContext.EventQueueSettlement();
+            //ctl.GameContext.AddEndOfPlayerActionEvent();
+            //ctl.GameContext.EventQueueSettlement();
             ctl.GameContext.QueueSettlement();
 
             if (eventArgs.Arguments != null && eventArgs.Arguments.Count > 0)

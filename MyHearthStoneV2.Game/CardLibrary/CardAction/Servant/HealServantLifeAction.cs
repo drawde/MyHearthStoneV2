@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             ServantActionParameter para = actionParameter as ServantActionParameter;
-            BaseServant servant = para.Biology;
+            BaseServant servant = para.Servant;
             GameContext gameContext = para.GameContext;
             Card triggerCard = para.SecondaryCard;
 
@@ -23,9 +23,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             {
                 servant.Life = servant.BuffLife;
             }
-            gameContext.TriggerCardAbility(servant, SpellCardAbilityTime.治疗, AbilityType.无, triggerCard);
-            gameContext.TriggerCardAbility(actionParameter.GameContext.DeskCards, SpellCardAbilityTime.治疗随从, triggerCard, servant.DeskIndex);
-
             return null;
         }
     }

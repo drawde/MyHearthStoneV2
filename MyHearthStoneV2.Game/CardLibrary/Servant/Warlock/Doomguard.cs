@@ -33,7 +33,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {            
-            new NoneTargetBattlecryDriver<DoubleActionDriver<DropCard<MainUserContextFilter,Two,RandomPick>,Charge,NullFilter>,NullFilter>()
+            new NoneTargetBattlecryDriver<DoubleActionDriver<DropCard<MainUserContextFilter,Two,RandomPick>,Charge,NullFilter>>()
         };
 
         public override string BackgroudImage { get; set; } = "W11_141_D_1.png";

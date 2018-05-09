@@ -5,6 +5,7 @@ using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
 {
@@ -19,15 +20,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new SpellDriver
+            new NoneTargetSpellDriver
                 <
                     DoubleActionDriver
                     <
                         AddAmmo<Five>,
                         DrawCard<MainUserContextFilter,ONE>,
                         NullFilter
-                    >,NullFilter
-                >(),
+                    >>(),
             //new CA_ShieldBlock()
         };
 

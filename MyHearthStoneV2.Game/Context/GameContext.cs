@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.Context
@@ -65,5 +69,17 @@ namespace MyHearthStoneV2.Game.Context
         public LinkedList<ActionStatement> ActionStatementQueue = new LinkedList<ActionStatement>();
 
         public LinkedList<IEvent> EventQueue = new LinkedList<IEvent>();
+
+        public LinkedList<IAura> Aurae = new LinkedList<IAura>();
+
+        /// <summary>
+        /// 每张牌被打出时将从手牌移到手牌和牌桌之间的过渡位置，在触发完战吼后再从那里移到牌桌
+        /// </summary>
+        public Card ParachuteCard { get; set; }
+
+        /// <summary>
+        /// 每张牌被死亡时将从牌桌移到坟场和牌桌之间的过渡位置，俗称灵车漂移
+        /// </summary>
+        public LinkedList<Card> HearseCards = new LinkedList<Card>();
     }
 }

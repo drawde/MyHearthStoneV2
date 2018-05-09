@@ -31,7 +31,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
             new DeathWhisperDriver<DrawCard<MainUserContextFilter,ONE>,InDeskFilter>(),
-            new SpellPower()
         };
 
 
@@ -39,5 +38,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override string BackgroudImage { get; set; } = "Classical/BloodmageThalnos.jpg";
 
         public override Profession Profession { get; set; } = Profession.Neutral;
+        public override int SpellPower => 1;
     }
 }

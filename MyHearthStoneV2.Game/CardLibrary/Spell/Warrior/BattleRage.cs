@@ -3,6 +3,7 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Biology;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.DynamicNumber;
@@ -23,7 +24,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
             //InjuredCardsFilter
-            new SpellDriver<DrawCard<MainUserContextFilter,GetDynamicNumber<InjuredCardsFilter<MyBiologyFilter>>>,NullFilter>()
+            new NoneTargetSpellDriver<DrawCard<MainUserContextFilter,GetDynamicNumber<InjuredCardsFilter<MyBiologyFilter>>>>()
             //new CA_BattleRage()
         };
 

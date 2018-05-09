@@ -19,26 +19,16 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             ServantActionParameter para = actionParameter as ServantActionParameter;
-            BaseServant baseServant = para.Biology;
+            BaseServant baseServant = para.Servant;
             GameContext gameContext = para.GameContext;
             int damage = para.DamageOrHeal;
 
-            var biologys = gameContext.DeskCards.GetDeskCardsByMyCard(baseServant);
             //计算法术强度类技能
-            foreach (var biology in biologys.Where(c => c != null))
+            var biologys = gameContext.DeskCards.GetDeskCardsByMyCard(baseServant);
+            damage += biologys.Sum(c => c.SpellPower);
+            if (biologys.Any(c => c.CardType == CardType.英雄 && (c as BaseHero).Equip != null))
             {
-                if (biology.Abilities.Any(c => c.AbilityType == AbilityType.法术强度))
-                {
-                    damage += biology.Abilities.Where(c => c.AbilityType == AbilityType.法术强度).Sum(x => (x as SpellPower).Damage);
-                }
-                if (biology.CardType == CardType.英雄)
-                {
-                    BaseHero hero = biology as BaseHero;
-                    if (hero.Equip != null && hero.Equip.Abilities.Any(c => c.AbilityType == AbilityType.法术强度))
-                    {
-                        damage += hero.Equip.Abilities.Where(c => c.AbilityType == AbilityType.法术强度).Sum(x => (x as SpellPower).Damage);
-                    }
-                }
+                damage += (biologys.First(c => c.CardType == CardType.英雄) as BaseHero).Equip.SpellPower;
             }
 
             var damagePara = CardActionFactory.CreateParameter(baseServant, actionParameter.GameContext, damage, secondaryCard: actionParameter.MainCard);

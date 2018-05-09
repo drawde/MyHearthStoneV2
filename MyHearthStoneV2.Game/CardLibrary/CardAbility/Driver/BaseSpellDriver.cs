@@ -9,7 +9,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// 法术驱动器
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SpellDriver<T, F> : BaseDriver<T, F>, ICapture<F, NullEvent> where T : IGameAction where F : ICardLocationFilter
+    public abstract class BaseSpellDriver<T> : BaseDriver<T, InParachuteFilter>, ICapture<InParachuteFilter, NullEvent> where T : IGameAction
     {
         public override AbilityType AbilityType => AbilityType.法术;
         public override CastCrosshairStyle CastCrosshairStyle { get; set; } = CastCrosshairStyle.无;

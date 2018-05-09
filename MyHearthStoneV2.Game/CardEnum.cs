@@ -27,7 +27,9 @@ namespace MyHearthStoneV2.Game
         牌库 = 1,
         手牌 = 2,
         场上 = 3,
-        坟场 = 4
+        坟场 = 4,
+        降落伞 = 5,
+        灵车 = 6
     }
 
     public enum Rarity

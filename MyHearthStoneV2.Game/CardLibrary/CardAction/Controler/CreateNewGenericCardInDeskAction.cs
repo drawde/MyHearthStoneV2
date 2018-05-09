@@ -1,6 +1,7 @@
 ﻿using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Event.Servant;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.Controler;
 using MyHearthStoneV2.Redis;
@@ -65,10 +66,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
             CardActionFactory.CreateAction(servant, ActionType.进场).Action(castPara);
             //servant.Cast(context, deskIndex, -1);
 
-            context.TriggerCardAbility(context.DeskCards.GetDeskCardsByMyCard(servant), SpellCardAbilityTime.己方随从入场, servant);
-            var playerTwo = context.Players.First(c => c.IsActivation != isActivation);
-            context.TriggerCardAbility(context.DeskCards.GetDeskCardsByEnemyCard(servant), SpellCardAbilityTime.对方随从入场, servant);
-            actionParameter.MainCard = servant;
+            context.EventQueue.AddLast(new ServantInDeskEvent() { EventCard = servant, Parameter = para });
             return servant;
         }
 

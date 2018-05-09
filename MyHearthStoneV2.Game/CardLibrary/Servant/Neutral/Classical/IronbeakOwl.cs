@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new AllServantBattlecryDriver<Silence<MainServantFilter>,NullFilter>()
+            new AllServantBattlecryDriver<Silence<MainServantFilter>>()
         };
 
         public override string BackgroudImage { get; set; } = "W4_280_D.png";

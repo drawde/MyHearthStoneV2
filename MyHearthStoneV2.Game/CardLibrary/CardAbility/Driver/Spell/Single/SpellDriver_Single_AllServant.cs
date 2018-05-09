@@ -5,7 +5,7 @@ using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell.Single
 {
-    public class SpellDriver_Single_AllServant<T, F> : SpellDriver<T, F>, ICapture<F, NullEvent> where T : IGameAction where F : ICardLocationFilter
+    public class SpellDriver_Single_AllServant<T> : BaseSpellDriver<T>, ICapture<InParachuteFilter, NullEvent> where T : IGameAction
     {
         public override bool TryCapture(Card card, IEvent @event) => false;
         public override AbilityType AbilityType => AbilityType.法术;

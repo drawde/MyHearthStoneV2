@@ -27,7 +27,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Rogue
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new AllServantBattlecryDriver<ComboDriver<Null,RiseDamage<SecondaryFilter,Two,ONE,PhysicalDamage>,NullFilter>,NullFilter>(),
+            new AllServantBattlecryDriver<ComboDriver<Null,RiseDamage<SecondaryFilter,Two,ONE,PhysicalDamage>,NullFilter>>(),
             //new CA_SI7Agent()
         };
 

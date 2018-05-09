@@ -17,9 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             ServantActionParameter para = actionParameter as ServantActionParameter;
-            BaseServant servant = para.Biology;
-            GameContext gameContext = para.GameContext;
-            BaseBiology attackCard = para.SecondaryCard as BaseBiology;
+            BaseServant servant = para.Servant;
 
             if (servant.Damage > 0 && servant.CanAttack && servant.RemainAttackTimes < 1)
             {

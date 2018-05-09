@@ -1,8 +1,11 @@
-﻿
-using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody;
-using MyHearthStoneV2.Game.CardLibrary.Servant;
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.BattlecryDriver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
+using MyHearthStoneV2.Game.Event.GameProcess;
 using System.Collections.Generic;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
@@ -23,7 +26,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new CA_JiaoXiaoDeZhongShi() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
+        {
+            new AllServantBattlecryDriver<
+                ChangeDamage<SecondaryServantFilter,Two,ONE,Plus,InDeskFilter,
+                            RestoreDamage<MainServantFilter,Two,ONE,Minus,InDeskFilter,TurnEndEvent>>>()
+        };
 
         public override string BackgroudImage { get; set; } = "W2_326_D.png";
 

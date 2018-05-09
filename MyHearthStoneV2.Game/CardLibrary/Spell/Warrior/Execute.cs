@@ -19,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new SpellDriver_Single_AllEnemyServant<Assert<SecondaryCardIsInjured,Death<SecondaryServantFilter>,Null>,NullFilter>()
+            new SpellDriver_Single_AllEnemyServant<Assert<SecondaryCardIsInjured,Death<SecondaryServantFilter>,Null>>()
         };
 
         public override string BackgroudImage { get; set; } = "WoW_Chi_061_D.png";

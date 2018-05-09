@@ -20,29 +20,13 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             ServantActionParameter para = actionParameter as ServantActionParameter;
-            BaseServant servant = para.Biology;
+            BaseServant servant = para.Servant;
             GameContext gameContext = para.GameContext;
             BaseBiology attackCard = para.SecondaryCard as BaseBiology;
             int trueDamege = para.DamageOrHeal;
 
-            //攻击对方
-            if (servant.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.随从攻击)))
-            {
-                var abiliti = servant.Abilities.First(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.随从攻击));
-                CardAbilityParameter abilityPara = new CardAbilityParameter()
-                {
-                    GameContext = gameContext,
-                    MainCard = servant,
-                    SecondaryCard = attackCard,
-                };
-                abiliti.Action(abilityPara);
-            }
-            else
-            {
-                BaseActionParameter actionPara = CardActionFactory.CreateParameter(attackCard, actionParameter.GameContext, trueDamege, secondaryCard: servant);
-                CardActionFactory.CreateAction(attackCard, ActionType.受到攻击).Action(actionPara);
-                //targetCard.UnderAttack(gameContext, servant);
-            }
+            BaseActionParameter actionPara = CardActionFactory.CreateParameter(attackCard, actionParameter.GameContext, trueDamege, secondaryCard: servant);
+            CardActionFactory.CreateAction(attackCard, ActionType.受到攻击).Action(actionPara);
 
             //自己挨打（如果攻击的是英雄，则不掉血）
             if (attackCard.CardType == CardType.随从)
@@ -51,12 +35,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
                 ServantActionParameter underAttackPara = new ServantActionParameter()
                 {
                     GameContext = gameContext,
-                    Biology = servant,
+                    Servant = servant,
                     SecondaryCard = attackCard,
                     DamageOrHeal = attackCard.Damage,
                 };
                 underAttackAction.Action(underAttackPara);
-                //UnderAttack(servant, gameContext, targetCard);
             }
             servant.RemainAttackTimes -= 1;
             servant.CanAttack = servant.RemainAttackTimes > 0 ? true : false;

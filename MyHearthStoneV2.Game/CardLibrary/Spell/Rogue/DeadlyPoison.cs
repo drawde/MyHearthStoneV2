@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 {
@@ -23,7 +24,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new SpellDriver<UpgradeWeapon<MainHeroFilter,Two,Zero>,NullFilter>()
+            new NoneTargetSpellDriver<UpgradeWeapon<MainHeroFilter,Two,Zero>>()
         };
 
         public override string BackgroudImage { get; set; } = "Classical/DeadlyPoison.jpg";

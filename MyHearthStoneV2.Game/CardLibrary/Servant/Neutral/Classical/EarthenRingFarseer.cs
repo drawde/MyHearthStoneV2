@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new AllTargetBattlecryDriver<Heal<SecondaryFilter,Three>,NullFilter>()
+            new AllTargetBattlecryDriver<Heal<SecondaryFilter,Three>>()
         };
 
         public override string Name { get; set; } = "大地之环先知";

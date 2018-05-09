@@ -1,7 +1,10 @@
 ﻿using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter;
+using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.Parameter.Servant;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,21 +18,28 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             ServantActionParameter para = actionParameter as ServantActionParameter;
-            BaseServant servant = para.Biology;
+            BaseServant servant = para.Servant;
             GameContext gameContext = para.GameContext;
             Card triggerCard = para.SecondaryCard;
 
             //随从死亡
             if (servant.Life < 1 || servant.IsDeathing)
             {
-                //随从进坟场
-                servant.CardLocation = CardLocation.坟场;
-                UserContext uc = gameContext.GetUserContextByMyCard(servant);
-                uc.GraveyardCards.Add(servant);
-                int deskIndex = gameContext.DeskCards.FindIndex(c => c != null && c.CardInGameCode == servant.CardInGameCode);
-                gameContext.DeskCards[deskIndex] = null;                
-                gameContext.TriggerCardAbility(new List<Card>() { servant }, AbilityType.亡语, triggerCard, servant.DeskIndex);
-                gameContext.TriggerCardAbility(gameContext.DeskCards.GetDeskCardsByEnemyCard(servant), SpellCardAbilityTime.对方随从入坟场, triggerCard, servant.DeskIndex);
+                //UserContext uc = gameContext.GetUserContextByMyCard(servant);
+
+                servant.CardLocation = CardLocation.灵车;
+                gameContext.DeskCards[servant.DeskIndex] = null;
+                gameContext.HearseCards.AddLast(servant);
+
+                if (servant.Abilities.Any(c => c is DeathWhisperDriver<IGameAction, ICardLocationFilter>))
+                {
+                    gameContext.AddActionStatement(servant.Abilities.First(), new CardAbilityParameter()
+                    {
+                        GameContext = gameContext,
+                        MainCard = servant,
+                        SecondaryCard = triggerCard,
+                    });                    
+                }
             }            
             return null;
         }

@@ -1,11 +1,10 @@
-﻿
-using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Context;
 using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical
 {
@@ -20,7 +19,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new SpellDriver<AddPower<MainUserContextFilter,ONE>,NullFilter>(),
+            new NoneTargetSpellDriver<AddPower<MainUserContextFilter,ONE>>(),
             //new AppendPower()
         };
 

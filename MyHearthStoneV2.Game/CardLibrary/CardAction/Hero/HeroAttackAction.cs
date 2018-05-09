@@ -27,29 +27,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
 
             if (baseHero.Equip != null)
             {
-                if (baseHero.Equip.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.英雄攻击)))
-                {
-                    gameContext.TriggerCardAbility(new List<Card> { baseHero.Equip }, SpellCardAbilityTime.英雄攻击, targetCard);
-                }
-                else
-                {
-                    CardActionFactory.CreateAction(targetCard, ActionType.受到攻击).Action(uaPara);
-                }
-                UnloadAction unloadAction = new UnloadAction();
-                EquipActionParameter equipPara = new EquipActionParameter()
-                {
-                    GameContext = gameContext,
-                    Equip = baseHero.Equip,
-                };
-                unloadAction.Action(equipPara);
-
-                //baseHero.Equip.Unload(gameContext);
+                baseHero.Equip.Durable -= 1;
             }
-            else
-            {
-                CardActionFactory.CreateAction(targetCard, ActionType.受到攻击).Action(uaPara);
-            }
-
+            CardActionFactory.CreateAction(targetCard, ActionType.受到攻击).Action(uaPara);
             //自己挨打（如果攻击的是英雄，则不掉血）
             if (targetCard.CardType == CardType.随从)
             {

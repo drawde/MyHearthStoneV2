@@ -76,6 +76,11 @@
         /// 潜行
         /// </summary>
         public virtual bool HasStealth { get; set; } = false;
+
+        /// <summary>
+        /// 法术强度
+        /// </summary>
+        public virtual int SpellPower { get; set; } = 0;
         #endregion
     }
 }

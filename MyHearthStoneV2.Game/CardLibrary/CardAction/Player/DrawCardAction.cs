@@ -1,7 +1,9 @@
 ﻿using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Hero;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter;
+using MyHearthStoneV2.Game.Parameter.Hero;
 using MyHearthStoneV2.Game.Parameter.Player;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,25 +45,23 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
                     //没牌则计算疲劳值
                     uc.FatigueValue++;
                     int trueDamege = uc.FatigueValue;
-                    if (hero.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方英雄受到伤害前)))
+                    if (trueDamege >= hero.Ammo)
                     {
-                        drawPara.GameContext.TriggerCardAbility(drawPara.GameContext.DeskCards.GetDeskCardsByIsFirst(drawPara.GameContext.Players.First(c => c.IsActivation == uc.IsActivation).IsFirst), SpellCardAbilityTime.己方英雄受到伤害前);
+                        trueDamege -= hero.Ammo;
+                        hero.Ammo = 0;
                     }
                     else
                     {
-                        if (trueDamege >= hero.Ammo)
-                        {
-                            trueDamege -= hero.Ammo;
-                            hero.Ammo = 0;
-                        }
-                        else
-                        {
-                            hero.Ammo -= trueDamege;
-                            trueDamege = 0;
-                        }
-                        hero.Life -= trueDamege;
+                        hero.Ammo -= trueDamege;
+                        trueDamege = 0;
                     }
-                    drawPara.GameContext.TriggerCardAbility(new List<Card>() { hero }, SpellCardAbilityTime.己方英雄受到伤害后);
+                    new DeductionHeroLifeAction().Action(new HeroActionParameter()
+                    {
+                        Biology = hero,
+                        GameContext = actionParameter.GameContext,
+                        DamageOrHeal = trueDamege
+                    });
+                    //hero.Life -= trueDamege;
                 }
             }
             return null;

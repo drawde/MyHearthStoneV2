@@ -1,6 +1,7 @@
 ﻿using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Event.Trigger;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.Hero;
 
@@ -17,9 +18,17 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
             BaseHero baseHero = para.Biology;
             GameContext gameContext = para.GameContext;
             int damage = para.DamageOrHeal;
-            baseHero.Life -= damage;
-            gameContext.TriggerCardAbility(baseHero, SpellCardAbilityTime.受伤);
-            gameContext.TriggerCardAbility(baseHero, SpellCardAbilityTime.英雄受伤, AbilityType.无, para.SecondaryCard, baseHero.DeskIndex);
+
+            if (baseHero.HasHolyShield)
+            {
+                baseHero.HasHolyShield = false;
+            }
+            else
+            {
+                baseHero.Life -= damage;
+            }
+
+            gameContext.EventQueue.AddLast(new AnyHurtEvent() { EventCard = baseHero, Parameter = para });
             return null;
         }
     }

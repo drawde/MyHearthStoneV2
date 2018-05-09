@@ -6,14 +6,17 @@ using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
 using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using System;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
-using MyHearthStoneV2.Game.Event.GameProcess;
+using MyHearthStoneV2.Game.Action;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
 {
-    public class ChangeDamageAndLife<TAG, NUM, QAT, D, F, BUFF> : ICardAbility where TAG : IFilter where NUM : INumber where QAT : INumber where D : IDirection
-        where F : ICardLocationFilter where BUFF : IBuff<ICardLocationFilter, IEvent>
+    public class ChangeDamageAndLife<TAG, NUM, QAT, D, F, BUFF> : IBuff<ICardLocationFilter, IEvent, IBuffRestore<ICardLocationFilter, IEvent>> where TAG : IFilter where NUM : INumber where QAT : INumber where D : IDirection
+        where F : ICardLocationFilter where BUFF : IBuffRestore<ICardLocationFilter, IEvent>
     {
+        public Card MasterCard { get; set; }
+        public ChangeDamageAndLife(Card masterCard) => MasterCard = masterCard;
+        public IBuffRestore<ICardLocationFilter, IEvent> BuffRestore { get; set; }
+
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             TAG tag = Activator.CreateInstance<TAG>();
@@ -21,7 +24,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
             QAT qat = GameActivator<QAT>.CreateInstance();
             D direction = Activator.CreateInstance<D>();
             F locationFilter = GameActivator<F>.CreateInstance();
-            BUFF buff = Activator.CreateInstance<BUFF>();
+            BUFF buff = (BUFF)Activator.CreateInstance(typeof(BUFF), MasterCard);
+            BuffRestore = buff;
             for (int i = 0; i < qat.GetNumber(actionParameter); i++)
             {
                 foreach (BaseBiology biology in actionParameter.GameContext.AllCard.Where(tag.Filter(actionParameter)).OrderBy(c => c.CastIndex))
@@ -31,10 +35,20 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
                     biology.Damage += direction.SetNumber(num);
 
                     biology.Buffs.AddLast(buff);
+
+                    BaseActionParameter para = CardActionFactory.CreateParameter(biology, actionParameter.GameContext);
+                    CardActionFactory.CreateAction(biology, ActionType.重置攻击次数).Action(para);
                 }
             }
             return null;
         }
+
+        //public IActionOutputParameter Restore(BaseActionParameter actionParameter)
+        //{
+        //    BUFF buff = Activator.CreateInstance<BUFF>();
+        //    return buff.Action(actionParameter);            
+        //}
+
         public bool TryCapture(Card card, IEvent @event) => false;
     }
 }

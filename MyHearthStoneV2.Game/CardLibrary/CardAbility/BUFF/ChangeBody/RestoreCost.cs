@@ -10,7 +10,7 @@ using System;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
 {
-    public class RestoreCost<TAG, NUM, QAT, D, F, EVENT> : IBuff<ICardLocationFilter, IEvent>, ICapture<ICardLocationFilter, IEvent>
+    public class RestoreCost<TAG, NUM, QAT, D, F, EVENT> : IBuffRestore<ICardLocationFilter, IEvent>, ICapture<ICardLocationFilter, IEvent>
         where TAG : IFilter
         where NUM : INumber
         where QAT : INumber
@@ -18,6 +18,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
         where EVENT : IEvent
         where F : ICardLocationFilter
     {
+        public Card MasterCard { get; set; }
+        public RestoreCost(Card masterCard) => MasterCard = masterCard;
+
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             TAG tag = Activator.CreateInstance<TAG>();

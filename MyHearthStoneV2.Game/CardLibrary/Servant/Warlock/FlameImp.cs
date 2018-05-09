@@ -28,7 +28,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new NoneTargetBattlecryDriver<RiseDamage<MainHeroFilter,Three,ONE,PhysicalDamage>,NullFilter>(),
+            new NoneTargetBattlecryDriver<RiseDamage<MainHeroFilter,Three,ONE,PhysicalDamage>>(),
         };
 
         public override string BackgroudImage { get; set; } = "W7_009_D.png";

@@ -31,7 +31,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new NoneTargetBattlecryDriver<DrawCard<MainUserContextFilter,ONE>,NullFilter>()
+            new NoneTargetBattlecryDriver<DrawCard<MainUserContextFilter,ONE>>()
         };
 
 

@@ -1,8 +1,8 @@
 ﻿using MyHearthStoneV2.BLL;
 using MyHearthStoneV2.Game;
-using MyHearthStoneV2.Game.Card;
-using MyHearthStoneV2.Game.Card.Servant.Neutral.Classical;
-using MyHearthStoneV2.Game.Card.Servant.Neutral.NAXX;
+using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX;
 using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Common.Util;
 using MyHearthStoneV2.Model;
@@ -25,12 +25,12 @@ using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.ShortCodeBll;
 using MyHearthStoneV2.Game.Controler.Proxy;
 using MyHearthStoneV2.Model.CustomModels;
-using MyHearthStoneV2.Game.Card.Servant.Neutral.BlackrockMountain;
-using MyHearthStoneV2.Game.Card.Servant.Warrior;
-using MyHearthStoneV2.Game.Card.Equip.Warrior;
-using MyHearthStoneV2.Game.Card.Hero;
-using MyHearthStoneV2.Game.Card.Spell.Neutral.Classical;
-using MyHearthStoneV2.Game.Card.Servant.Rogue;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.BlackrockMountain;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Warrior;
+using MyHearthStoneV2.Game.CardLibrary.Equip.Warrior;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Rogue;
 
 namespace MyHearthStoneV2.TestConsole
 {

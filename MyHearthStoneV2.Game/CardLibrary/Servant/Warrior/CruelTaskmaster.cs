@@ -44,7 +44,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
             new AllServantBattlecryDriver<
                 DoubleActionDriver<
                     RiseDamage<SecondaryServantFilter,ONE,ONE,PhysicalDamage>,
-                    AddDamage<SecondaryServantFilter,Two>,NullFilter>,NullFilter
+                    AddDamage<SecondaryServantFilter,Two>,NullFilter>
                 >(),
             //new CA_CruelTaskmaster()
         };

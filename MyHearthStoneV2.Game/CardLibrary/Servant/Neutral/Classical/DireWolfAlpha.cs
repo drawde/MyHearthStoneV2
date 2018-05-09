@@ -1,10 +1,17 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
-using System;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
+using MyHearthStoneV2.Game.Event;
+using MyHearthStoneV2.Game.Event.GameProcess;
+using MyHearthStoneV2.Game.Event.Servant;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
@@ -24,11 +31,20 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
+        public override List<ICardAbility> Abilities { get; set; }
+        public DireWolfAlpha()
         {
-            new CA_DireWolfAlpha()
-        };
-
+            Abilities = new List<ICardAbility>()
+            {
+                new AuraDriver<
+                    StandardAura<
+                        ChangeDamage<MainCardBothSidesFilter,ONE,ONE,Plus,InDeskFilter,
+                            RestoreDamage<MainServantFilter,ONE,ONE,Minus,InDeskFilter,NullEvent>
+                        >>,
+                    InDeskFilter,
+                    ServantInDeskEvent>(this)
+            };
+        }
         public override string BackgroudImage { get; set; } = "WOW_TAL_008_D.png";
 
         public override string Name { get; set; } = "恐狼前锋";

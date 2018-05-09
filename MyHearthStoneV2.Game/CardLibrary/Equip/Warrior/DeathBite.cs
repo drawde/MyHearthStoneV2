@@ -22,7 +22,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Equip.Warrior
         public override string Describe { get; set; }  = "亡语：对所有随从造成1点伤害";
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new DeathWhisperDriver<RiseDamage<AllServantFilter,ONE,ONE,SpellDamage>,InDeskFilter>(),
+            new DeathWhisperDriver<RiseDamage<AllServantFilter,ONE,ONE,CardAbility.Driver.DamageType.SpellDamage>,InDeskFilter>(),
             //new CA_DeathBite()
         };
         public override Profession Profession { get; set; } = Profession.Warrior;

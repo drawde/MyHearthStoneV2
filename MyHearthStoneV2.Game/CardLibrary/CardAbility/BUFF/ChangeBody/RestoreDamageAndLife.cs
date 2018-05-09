@@ -7,10 +7,11 @@ using MyHearthStoneV2.Game.Capture;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 using MyHearthStoneV2.Game.Event;
 using System;
+using MyHearthStoneV2.Game.Action;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
 {
-    public class RestoreDamageAndLife<TAG, NUM, QAT, D, F, EVENT> : IBuff<ICardLocationFilter, IEvent>, ICapture<ICardLocationFilter, IEvent>
+    public class RestoreDamageAndLife<TAG, NUM, QAT, D, F, EVENT> : IBuffRestore<ICardLocationFilter, IEvent>, ICapture<ICardLocationFilter, IEvent>
         where TAG : IFilter
         where NUM : INumber
         where QAT : INumber
@@ -18,6 +19,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
         where EVENT : IEvent
         where F : ICardLocationFilter
     {
+        public Card MasterCard { get; set; }
+        public RestoreDamageAndLife(Card masterCard) => MasterCard = masterCard;
+
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             TAG tag = Activator.CreateInstance<TAG>();
@@ -34,6 +38,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
                     biology.BuffLife += direction.SetNumber(num);
                     biology.Life += direction.SetNumber(num);
                     biology.Damage += direction.SetNumber(num);
+
+                    //BaseActionParameter para = CardActionFactory.CreateParameter(biology, actionParameter.GameContext);
+                    //CardActionFactory.CreateAction(biology, ActionType.重置攻击次数).Action(para);
                 }
             }
             return null;

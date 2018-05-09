@@ -10,6 +10,6 @@ namespace MyHearthStoneV2.Game.Parameter.Servant
 {
     public class ServantActionParameter : BiologyActionParameter
     {
-        public new BaseServant Biology { get; set; }
+        public new BaseServant Servant { get; set; }
     }
 }

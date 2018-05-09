@@ -14,6 +14,8 @@
         /// </summary>
         public virtual int Damage { get; set; }        
         public virtual int InitialDamege { get; set; }
+        public virtual int SpellPower { get; set; } = 0;
+        public virtual bool HasWindfury { get; set; } = false;
         
     }
 }

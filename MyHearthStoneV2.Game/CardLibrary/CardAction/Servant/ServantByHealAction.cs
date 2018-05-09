@@ -16,29 +16,20 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             ServantActionParameter para = actionParameter as ServantActionParameter;
-            BaseServant servant = para.Biology;
+            BaseServant servant = para.Servant;
             GameContext gameContext = para.GameContext;
             Card triggerCard = para.SecondaryCard;
             int damege = para.DamageOrHeal;
 
-            if (servant.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方随从受到治疗前)))
+            DeductionServantLifeAction dslAct = new DeductionServantLifeAction();
+            ServantActionParameter dslPara = new ServantActionParameter()
             {
-                gameContext.TriggerCardAbility(new List<Card>() { servant }, SpellCardAbilityTime.己方随从受到治疗前, triggerCard, servant.DeskIndex);
-            }
-            else
-            {
-                DeductionServantLifeAction dslAct = new DeductionServantLifeAction();
-                ServantActionParameter dslPara = new ServantActionParameter()
-                {
-                    GameContext = gameContext,
-                    Biology = servant,
-                    SecondaryCard = triggerCard,
-                    DamageOrHeal = damege,
-                };
-                dslAct.Action(dslPara);
-                //DeductionBiologyLife(servant, gameContext, triggerCard, trueDamege);
-            }
-            gameContext.TriggerCardAbility(gameContext.DeskCards.GetDeskCardsByMyCard(servant), SpellCardAbilityTime.己方随从受到治疗后, triggerCard, servant.DeskIndex);
+                GameContext = gameContext,
+                Servant = servant,
+                SecondaryCard = triggerCard,
+                DamageOrHeal = damege,
+            };
+            dslAct.Action(dslPara);
 
             return null;
         }

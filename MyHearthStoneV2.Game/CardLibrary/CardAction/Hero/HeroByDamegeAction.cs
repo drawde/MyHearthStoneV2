@@ -22,12 +22,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
             Card targetCard = para.SecondaryCard;
 
             var trueDamege = damege;
-            if (baseHero.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.己方英雄受到伤害前)))
-            {
-                gameContext.TriggerCardAbility(new List<Card> { baseHero }, SpellCardAbilityTime.己方英雄受到伤害前, targetCard,
-                    baseHero.DeskIndex);
-            }
-            else
+            if(baseHero.HasHolyShield == false)
             {
                 if (trueDamege >= baseHero.Ammo)
                 {
@@ -50,9 +45,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
                 deductionAct.Action(deductionPara);
                 //DeductionBiologyLife(baseHero, context, targetCard, trueDamege);
             }
-
-            gameContext.TriggerCardAbility(new List<Card> { baseHero }, SpellCardAbilityTime.己方英雄受到伤害后, targetCard,
-                baseHero.DeskIndex);
             return null;
         }
     }

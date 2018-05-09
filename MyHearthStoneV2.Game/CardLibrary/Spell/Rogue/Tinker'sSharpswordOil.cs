@@ -4,13 +4,14 @@ using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Hero;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Spell;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Spell;
 
 namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 {
@@ -25,13 +26,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new SpellDriver<
+            new NoneTargetSpellDriver<
                     ComboDriver
                     <
                         UpgradeWeapon<MainHeroFilter,Three,Zero>,
                         DoubleActionDriver<UpgradeWeapon<MainHeroFilter,Three,Zero>,AddDamage<RandomMainServantFilter,Three>,NullFilter>,NullFilter
-                    >,NullFilter
-                >(),
+                    >>(),
             //new CA_Tinker_sSharpswordOil()
         };
 

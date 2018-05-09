@@ -53,7 +53,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
 
-            List<BaseBiology> taunts = ctl.GameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst ? false : true).Where(c => c != null && c.Abilities.Any(x => x is Taunt)).ToList();
+            List<BaseBiology> taunts = ctl.GameContext.DeskCards.GetDeskCardsByIsFirst(player.IsFirst ? false : true).Where(c => c != null && c.HasTaunt).ToList();
             if (taunts != null && taunts.Count > 0 && taunts.Any(c => c.DeskIndex == target) == false)
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.你必须先攻击有嘲讽技能的随从);

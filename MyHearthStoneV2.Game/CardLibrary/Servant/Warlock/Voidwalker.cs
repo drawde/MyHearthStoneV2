@@ -24,12 +24,13 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warlock
 
         public override Rarity Rare { get; set; } = Rarity.普通;
 
-        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new Taunt() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { };
 
         public override string BackgroudImage { get; set; } = "Classical/Voidwalker.jpg";
 
         public override string Name { get; set; } = "虚空行者";
         public override Profession Profession { get; set; } = Profession.Warlock;
         public override Race Race { get; set; } = Race.恶魔;
+        public override bool HasTaunt => true;
     }
 }

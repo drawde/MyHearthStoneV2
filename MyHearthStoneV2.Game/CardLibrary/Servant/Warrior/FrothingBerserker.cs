@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new ServantHurtObserverDriver<AddDamage<MainServantFilter,ONE>,InDeskFilter>()
+            new BiologyHurtObserverDriver<AddDamage<MainServantFilter,ONE>,InDeskFilter>()
         };
 
 

@@ -27,8 +27,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new NoneTargetBattlecryDriver<DrawCard<MainUserContextFilter,ONE>,NullFilter>(),
-            new SpellPower()
+            new NoneTargetBattlecryDriver<DrawCard<MainUserContextFilter,ONE>>(),
         };
 
 
@@ -36,5 +35,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
         public override string BackgroudImage { get; set; } = "Classical/AzureDrake.jpg";
 
         public override Profession Profession { get; set; } = Profession.Neutral;
+        public override int SpellPower => 1;
     }
 }

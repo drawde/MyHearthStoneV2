@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new NoneTargetBattlecryDriver<Heal<MainHeroFilter,Eight>,NullFilter>(),            
+            new NoneTargetBattlecryDriver<Heal<MainHeroFilter,Eight>>(),            
         };
 
         public override string Name { get; set; } = "老式治疗机器人";

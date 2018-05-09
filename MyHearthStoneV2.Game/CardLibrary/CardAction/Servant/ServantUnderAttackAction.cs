@@ -19,37 +19,22 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             ServantActionParameter para = actionParameter as ServantActionParameter;
-            BaseServant servant = para.Biology;
+            BaseServant servant = para.Servant;
             GameContext gameContext = para.GameContext;
             BaseBiology attackCard = para.SecondaryCard as BaseBiology;
             int damege = para.DamageOrHeal;
 
-            if (attackCard.Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.随从攻击)))
+            int trueDamege = attackCard.Damage;
+            if (attackCard.CardType == CardType.英雄)
             {
-                var abiliti = attackCard.Abilities.First(c => c.SpellCardAbilityTimes.Any(x => x == SpellCardAbilityTime.随从攻击));
-                CardAbilityParameter actionPara = new CardAbilityParameter()
+                BaseHero attackHero = attackCard as BaseHero;
+                if (attackHero.Equip != null)
                 {
-                    GameContext = gameContext,
-                    MainCard = servant,
-                    SecondaryCard = attackCard,
-                };
-                abiliti.Action(para);
-            }
-            else
-            {
-                int trueDamege = attackCard.Damage;
-                if (attackCard.CardType == CardType.英雄)
-                {
-                    BaseHero attackHero = attackCard as BaseHero;
-                    if (attackHero.Equip != null)
-                    {
-                        trueDamege += attackHero.Equip.Damage;
-                    }
+                    trueDamege += attackHero.Equip.Damage;
                 }
-                BaseActionParameter underAttackPara = CardActionFactory.CreateParameter(servant, actionParameter.GameContext, trueDamege, secondaryCard: attackCard);
-                CardActionFactory.CreateAction(servant, ActionType.受到伤害).Action(underAttackPara);                
             }
-
+            BaseActionParameter underAttackPara = CardActionFactory.CreateParameter(servant, actionParameter.GameContext, trueDamege, secondaryCard: attackCard);
+            CardActionFactory.CreateAction(servant, ActionType.受到伤害).Action(underAttackPara);
             return null;
         }
     }

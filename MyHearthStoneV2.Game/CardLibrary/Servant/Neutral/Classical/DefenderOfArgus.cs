@@ -1,5 +1,11 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.WarCry.AlterBody;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.BattlecryDriver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter.Servant;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using System.Collections.Generic;
 
@@ -20,7 +26,13 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 
         public override Rarity Rare { get; set; } = Rarity.精良;
 
-        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new CA_DefenderOfArgus() };
+        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
+        {
+            new NoneTargetBattlecryDriver<
+                DoubleAbility<
+                    Taunt<MainCardBothSidesFilter>,
+                    AddDamageAndLife<MainCardBothSidesFilter,ONE,ONE,Plus,InDeskFilter>>>()
+        };
 
 
         public override string Name { get; set; } = "阿古斯防御者";

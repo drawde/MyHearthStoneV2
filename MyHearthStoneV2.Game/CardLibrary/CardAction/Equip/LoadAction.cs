@@ -22,9 +22,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
             if (baseHero.Equip != null)
             {
                 var oldEquip = baseHero.Equip;
-                oldEquip.CardLocation = CardLocation.坟场;
-                if (oldEquip.Abilities.Any(c => c.AbilityType == AbilityType.亡语))
-                    gameContext.TriggerCardAbility(new List<Card> { equip }, SpellCardAbilityTime.无, equip);
+
+                UnloadAction unloadAction = new UnloadAction();
+                EquipActionParameter equipPara = new EquipActionParameter()
+                {
+                    GameContext = gameContext,
+                    Equip = oldEquip,
+                };
+                unloadAction.Action(equipPara);
             }
             baseHero.Equip = equip;
 

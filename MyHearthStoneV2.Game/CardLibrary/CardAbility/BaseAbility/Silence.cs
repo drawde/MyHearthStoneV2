@@ -40,10 +40,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
             bio.Damage = bio.Damage < bio.InitialDamage ? bio.Damage : bio.InitialDamage;
             bio.Cost = bio.Cost < bio.InitialCost ? bio.Cost : bio.InitialCost;
             bio.Life = bio.Life < bio.InitialLife ? bio.Life : bio.InitialLife;
-
             bio.BuffLife = bio.InitialLife;
 
-            bio.Abilities.Clear();
+            bio.Buffs.Clear();
         }
 
         public bool TryCapture(Card card, IEvent @event) => false;

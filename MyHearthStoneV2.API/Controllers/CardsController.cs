@@ -1,14 +1,14 @@
 ﻿using MyHearthStoneV2.API.Filters;
 using MyHearthStoneV2.BLL;
 using MyHearthStoneV2.Common.JsonModel;
-using MyHearthStoneV2.Game.Card;
+using MyHearthStoneV2.Game.CardLibrary;
 using Newtonsoft.Json.Linq;
 using MyHearthStoneV2.Common.Util;
 using System.Web.Mvc;
 using System;
 using MyHearthStoneV2.Game;
 using System.Linq;
-using MyHearthStoneV2.Game.Card.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
 
 namespace MyHearthStoneV2.API.Controllers
 {

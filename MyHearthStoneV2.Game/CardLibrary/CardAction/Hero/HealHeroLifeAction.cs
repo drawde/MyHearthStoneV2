@@ -23,8 +23,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
             {
                 baseHero.Life = baseHero.BuffLife;
             }
-            gameContext.TriggerCardAbility(baseHero, SpellCardAbilityTime.治疗);
-            gameContext.TriggerCardAbility(baseHero, SpellCardAbilityTime.治疗英雄, AbilityType.无, para.SecondaryCard, baseHero.DeskIndex);
+
             return null;
         }
     }

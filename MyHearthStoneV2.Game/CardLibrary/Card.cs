@@ -79,6 +79,6 @@ namespace MyHearthStoneV2.Game.CardLibrary
         /// </summary>
         public bool IsFirstPlayerCard { get; set; }
 
-        public virtual LinkedList<IBuff<ICardLocationFilter, IEvent>> Buffs { get; set; } = new LinkedList<IBuff<ICardLocationFilter, IEvent>>();
+        public virtual LinkedList<IBuffRestore<ICardLocationFilter, IEvent>> Buffs { get; set; } = new LinkedList<IBuffRestore<ICardLocationFilter, IEvent>>();
     }
 }

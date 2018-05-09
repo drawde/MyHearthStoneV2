@@ -21,7 +21,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
 
         public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>()
         {
-            new SpellDriver_Single_AllEnemy<ComboDriver<RiseDamage<SecondaryFilter,Two,ONE,SpellDamage>,RiseDamage<SecondaryFilter,Four,ONE,SpellDamage>,NullFilter>,NullFilter>(),
+            new SpellDriver_Single_AllEnemy<
+                ComboDriver<
+                    RiseDamage<SecondaryFilter,Two,ONE,SpellDamage>,
+                    RiseDamage<SecondaryFilter,Four,ONE,SpellDamage>,
+                NullFilter>>(),
         };
 
         public override string BackgroudImage { get; set; } = "Classical/Eviscerate.jpg";

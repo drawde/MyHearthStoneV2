@@ -12,6 +12,10 @@ using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Event;
+using MyHearthStoneV2.Game.Event.Player;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
+using MyHearthStoneV2.Game.CardLibrary.CardAction.Equip;
+using MyHearthStoneV2.Game.Parameter.Equip;
 
 namespace MyHearthStoneV2.Game.Context
 {
@@ -131,6 +135,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="context"></param>
         public static void StageRetrieval(this GameContext context)
         {
+            bool hasQueueSettlement = false;
             if (context.DeskCards.Any(c => c != null && c.Life < 1))
             {
                 //先按入场顺序排列
@@ -141,8 +146,24 @@ namespace MyHearthStoneV2.Game.Context
                     CardActionFactory.CreateAction(bio, ActionType.死亡).Action(para);
                     //bio.BiologyDead(context, null);
                 }
-                QueueSettlement(context);
+                hasQueueSettlement = true;
             }
+            if (context.DeskCards.Any(c => c != null && c.CardType == CardType.英雄 && (c as BaseHero).Equip != null && (c as BaseHero).Equip.Durable < 1))
+            {
+                var heros = context.DeskCards.Where(c => c != null && c.CardType == CardType.英雄 && (c as BaseHero).Equip != null && (c as BaseHero).Equip.Durable < 1);
+                foreach (var hero in heros)
+                {
+                    UnloadAction unloadAction = new UnloadAction();
+                    EquipActionParameter equipPara = new EquipActionParameter()
+                    {
+                        GameContext = context,
+                        Equip = (hero as BaseHero).Equip,
+                    };
+                    unloadAction.Action(equipPara);
+                }
+                hasQueueSettlement = true;
+            }
+            if (hasQueueSettlement) QueueSettlement(context);
         }
 
         /// <summary>
@@ -150,7 +171,8 @@ namespace MyHearthStoneV2.Game.Context
         /// </summary>
         /// <param name="context"></param>
         public static void QueueSettlement(this GameContext context)
-        {            
+        {
+            EventQueueSettlement(context);
             LinkedList<ActionStatement> ll = context.ActionStatementQueue;
             if (ll != null && ll.Count > 0)
             {
@@ -159,48 +181,91 @@ namespace MyHearthStoneV2.Game.Context
                 {
                     node.Value.Settlement();
                     node = node.Next;
+                    Card deadCard = node.Value.CardActionParameter.MainCard;
+                    if (deadCard != null && context.HearseCards.Any(c=>c.CardInGameCode == deadCard.CardInGameCode))
+                    {
+                        UserContext uc = context.GetUserContextByMyCard(deadCard);
+                        //进坟场
+                        deadCard.CardLocation = CardLocation.坟场;
+                        uc.GraveyardCards.Add(deadCard);
+                        context.HearseCards.Remove(deadCard);
+                    }
                 }
-                ll.Clear();                
+                ll.Clear();
             }
-            context.AutoShiftServant();
+            ClearHearse(context);
+            AutoShiftServant(context);
             AuraSettlement(context);
-            StageRetrieval(context);            
+            StageRetrieval(context);
         }
 
+        public static void ClearHearse(this GameContext context)
+        {
+            LinkedList<Card> ll = context.HearseCards;
+            if (ll != null && ll.Count > 0)
+            {
+                LinkedListNode<Card> node = ll.First;
+                while (node != null)
+                {
+                    UserContext uc = context.GetUserContextByMyCard(node.Value);
+                    node.Value.CardLocation = CardLocation.坟场;
+                    uc.GraveyardCards.Add(node.Value);
+                    node = node.Next;
+                }
+                ll.Clear();
+            }
+        }
+
+        public static void EventQueueSettlement(this GameContext context)
+        {
+            AddEndOfPlayerActionEvent(context);
+            LinkedList<IEvent> ll = context.EventQueue;
+            if (ll != null && ll.Count > 0)
+            {
+                LinkedListNode<IEvent> node = ll.First;
+                while (node != null)
+                {
+                    node.Value.Settlement();
+                    node = node.Next;
+                }
+                ll.Clear();
+            }
+        }
+        public static void AddEndOfPlayerActionEvent(this GameContext context)
+        {
+            foreach (Card card in context.AllCard)
+            {
+                CardAbilityParameter para = new CardAbilityParameter()
+                {
+                    MainCard = card,
+                    GameContext = context
+                };
+                context.EventQueue.AddLast(new EndOfPlayerActionEvent() { EventCard = card, Parameter = para });
+            }
+        }
         /// <summary>
         /// 光环结算
         /// </summary>
         /// <param name="context"></param>
         public static void AuraSettlement(this GameContext context)
         {
-            //先移除光环BUFF
-            foreach (BaseBiology biology in context.DeskCards.Where(c => c != null && c.Abilities.Any(x => x.AbilityType == AbilityType.光环BUFF)))
+            LinkedList<IAura> ll = context.Aurae;
+            if (ll != null && ll.Count > 0)
             {
-                foreach (ICardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环BUFF))
+                LinkedListNode<IAura> node = ll.First;
+                while (node != null)
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
-                        GameContext = context,
-                        MainCard = biology,
+                        MainCard = node.Value.AuraCard,
+                        GameContext = context
                     };
-                    ability.Action(para);
-                    //biology.Abilities.Remove(ability);
-                }
-                biology.Abilities.RemoveAll(x => x.AbilityType == AbilityType.光环BUFF);
-            }
 
-            //再重新触发光环效果（不会触发有触发条件的随从如索瑞森大帝）
-            foreach (BaseBiology biology in context.DeskCards.Where(c => c != null && c.Abilities.Any(x => x.AbilityType == AbilityType.光环)))
-            {
-                foreach (ICardAbility ability in biology.Abilities.Where(x => x.AbilityType == AbilityType.光环 && x.SpellCardAbilityTimes.Count == 0))
-                {
-                    CardAbilityParameter para = new CardAbilityParameter()
-                    {
-                        GameContext = context,
-                        MainCard = biology,
-                    };
-                    ability.Action(para);
+                    node.Value.RestoreAura(para);
+                    node.Value.Action(para);
+                    node = node.Next;
                 }
+                ll.Clear();
             }
         }
 
@@ -331,7 +396,7 @@ namespace MyHearthStoneV2.Game.Context
                 #endregion                
             }
             return deskIndex;
-        }        
+        }
 
         /// <summary>
         /// 添加一个卡牌技能触发到结算队列
@@ -358,21 +423,7 @@ namespace MyHearthStoneV2.Game.Context
             }
         }
 
-        public static void EventQueueSettlement(this GameContext context)
-        {
-            LinkedList<IEvent> ll = context.EventQueue;
-            if (ll != null && ll.Count > 0)
-            {
-                LinkedListNode<IEvent> node = ll.First;
-                while (node != null)
-                {
-                    node.Value.Settlement();
-                    //foreach(Card card in context.AllCard.Where(c=>c.Abilities.Any(x=>x.)))
-                    node = node.Next;
-                }
-                ll.Clear();
-            }
-        }
+        
 
         /// <summary>
         /// 获取当前回合玩家
@@ -476,91 +527,6 @@ namespace MyHearthStoneV2.Game.Context
         public static BaseHero GetHeroByActivation(this GameContext gameContext, bool isActivation = true)
         {
             return gameContext.DeskCards.GetHeroByIsFirst(gameContext.Players.First(c => c.IsActivation == isActivation).IsFirst);
-        }
-
-
-        /// <summary>
-        /// 触发卡牌技能
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="card"></param>
-        /// <param name="spellTime"></param>
-        /// <param name="triggerCard"></param>
-        /// <param name="target"></param>
-        public static void TriggerCardAbility(this GameContext context, Card card, SpellCardAbilityTime spellTime, AbilityType abilityType = AbilityType.无, Card triggerCard = null, int target = -1)
-        {
-            var triggerAbilities = card.Abilities.Where(c => c.SpellCardAbilityTimes.Any(x => x == spellTime) && c.AbilityType == abilityType).ToList();
-            for (int n = 0; n < triggerAbilities.Count; n++)
-            {
-                ICardAbility ca = card.Abilities.First(c => c == triggerAbilities[n]);
-                CardAbilityParameter para = new CardAbilityParameter()
-                {
-                    GameContext = context,
-                    MainCard = card,
-                    SecondaryCard = triggerCard,
-                    MainCardLocation = target,
-                };
-
-                AddActionStatement(context, ca, para);
-                //lstCards[i].Abilities.First(c => c == triggerAbilities[n]).CastAbility(context, triggerCard, lstCards[i], target);
-            }
-        }
-
-        /// <summary>
-        /// 触发卡牌技能
-        /// </summary>
-        /// <param name="cl"></param>
-        /// <param name="spellTime"></param>
-        /// <param name="triggerCard"></param>
-        /// <param name="target"></param>
-        public static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, Card triggerCard = null, int target = -1)
-        {
-            if (lstCard == null || !lstCard.Any(c => c != null)) return;
-            var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
-            for (int i = 0; i < lstCards.Count(); i++)
-            {
-                if (!lstCards[i].Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == spellTime))) continue;
-                TriggerCardAbility(context, lstCards[i], spellTime, AbilityType.无, triggerCard, target);                
-            }
-        }
-
-        public static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, SpellCardAbilityTime spellTime, AbilityType abilityType, Card triggerCard = null, int target = -1)
-        {
-            if (lstCard == null || !lstCard.Any(c => c != null)) return;
-            var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
-            for (int i = 0; i < lstCards.Count(); i++)
-            {
-                if (!lstCards[i].Abilities.Any(c => c.SpellCardAbilityTimes.Any(x => x == spellTime) && c.AbilityType == abilityType)) continue;
-                TriggerCardAbility(context, lstCards[i], spellTime, abilityType, triggerCard, target);
-            }
-        }
-
-        /// <summary>
-        /// 触发卡牌技能
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="lstCard"></param>
-        /// <param name="abilityType"></param>
-        /// <param name="triggerCard"></param>
-        /// <param name="target"></param>
-        public static void TriggerCardAbility(this GameContext context, IEnumerable<Card> lstCard, AbilityType abilityType, Card triggerCard = null, int target = -1)
-        {
-            if (lstCard == null || !lstCard.Any(c => c != null)) return;
-            var lstCards = lstCard.Where(c => c != null).OrderBy(c => c.CastIndex).ToList();
-            for (int i = 0; i < lstCards.Count(); i++)
-            {
-                if (!lstCards[i].Abilities.Any(c => c.AbilityType == abilityType)) continue;
-                ICardAbility ca = lstCards[i].Abilities.First(c => c.AbilityType == abilityType);
-                CardAbilityParameter para = new CardAbilityParameter()
-                {
-                    GameContext = context,
-                    MainCard = lstCards[i],
-                    SecondaryCard = triggerCard,
-                    MainCardLocation = target,
-                };
-
-                AddActionStatement(context, ca, para);
-            }
-        }
+        }        
     }
 }

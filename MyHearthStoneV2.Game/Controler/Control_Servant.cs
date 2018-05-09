@@ -13,6 +13,8 @@ using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.Event.Player;
 using MyHearthStoneV2.Game.Event.Trigger;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.BattlecryDriver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
 
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -34,32 +36,18 @@ namespace MyHearthStoneV2.Game.Controler
             location = GameContext.AutoShiftServant(GameContext.ShiftServant(location));            
             //先从手牌中移除这张牌
             user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
-
-            //GameContext.TriggerCardAbility(user.HandCards, SpellCardAbilityTime.己方随从入场, AbilityType.BUFF, servant, target);
-
-            //#region 首先触发打出的这张牌的战吼技能
-            //if (servant.Abilities.Any(c => c.AbilityType == AbilityType.战吼))
-            //{
-            //    foreach (var ability in servant.Abilities.Where(c => c.AbilityType == AbilityType.战吼))
-            //    {
-            //        CardAbilityParameter abilityPara = new CardAbilityParameter()
-            //        {
-            //            GameContext = GameContext,
-            //            MainCard = servant,
-            //            SecondaryCard = target > -1 ? GameContext.DeskCards[target] : null,
-            //            MainCardLocation = location
-            //        };
-            //        ability.Action(abilityPara);
-            //    }
-            //}
-            //#endregion
+            GameContext.ParachuteCard = servant;
+            servant.CardLocation = CardLocation.降落伞;
 
             BaseActionParameter para = CardActionFactory.CreateParameter(servant, GameContext, deskIndex: location, secondaryCard: target > -1 ? GameContext.DeskCards[target] : null);
-            GameContext.EventQueue.AddLast(new CastServantEvent() { EventCard = servant, Parameter = para});
-
-            GameContext.EventQueue.AddLast(new MyServantCastedEvent() { EventCard = servant, Parameter = para });
-            GameContext.EventQueue.AddLast(new MainPlayerPlayCardEvent() { EventCard = servant, Parameter = para });
+            if (servant.Abilities.Any(c => c is BaseBattlecryDriver<IGameAction, ICardLocationFilter>))
+            {
+                servant.Abilities.First().Action(para);
+            }            
+            //GameContext.EventQueue.AddLast(new BattlecryEvent() { EventCard = servant, Parameter = para });
             
+            new CastServantAction().Action(para);
+            GameContext.ParachuteCard = null;
         }
 
 

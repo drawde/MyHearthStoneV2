@@ -1,6 +1,9 @@
 ﻿using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.CardLibrary.Servant;
 using MyHearthStoneV2.Game.Context;
+using MyHearthStoneV2.Game.Event.Player;
+using MyHearthStoneV2.Game.Event.Servant;
+using MyHearthStoneV2.Game.Event.Trigger;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.Parameter.Servant;
@@ -15,7 +18,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             ServantActionParameter para = actionParameter as ServantActionParameter;
-            BaseServant servant = para.Biology;
+            BaseServant servant = para.Servant;
             GameContext gameContext = para.GameContext;
             BaseBiology attackCard = para.SecondaryCard as BaseBiology;
             int deskIndex = para.DeskIndex;
@@ -32,11 +35,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
                 user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
             else if (user.StockCards.Any(c => c.CardInGameCode == servant.CardInGameCode))
                 user.StockCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
-            if (servant.Abilities.Any(c => c.AbilityType == AbilityType.冲锋))
-            {
-                servant.Abilities.First(c => c.AbilityType == AbilityType.冲锋).Action(new CardAbilityParameter() { GameContext = gameContext, MainCard = servant, MainCardLocation = deskIndex });
-            }
 
+            if (servant.HasCharge)
+            {
+                new ResetServantRemainAttackTimes().Action(para);                
+            }
+            gameContext.EventQueue.AddLast(new ServantInDeskEvent() { EventCard = servant, Parameter = para });
+            gameContext.EventQueue.AddLast(new MyServantCastedEvent() { EventCard = servant, Parameter = para });
+            gameContext.EventQueue.AddLast(new MainPlayerPlayCardEvent() { EventCard = servant, Parameter = para });
             return null;
         }
 

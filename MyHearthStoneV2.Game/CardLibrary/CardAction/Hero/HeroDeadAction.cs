@@ -1,10 +1,13 @@
 ﻿using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter;
-using System;
-using System.Collections.Generic;
+using MyHearthStoneV2.Game.Parameter.CardAbility;
+using MyHearthStoneV2.Game.Parameter.Hero;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
 {
@@ -15,6 +18,23 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
+            HeroActionParameter para = actionParameter as HeroActionParameter;
+            BaseHero baseHero = para.Biology;
+            GameContext gameContext = para.GameContext;
+            var user = gameContext.GetUserContextByMyCard(baseHero);
+
+            gameContext.DeskCards[user.IsFirst ? 0 : 8] = null;
+            baseHero.CardLocation = CardLocation.灵车;
+            gameContext.HearseCards.AddLast(baseHero);
+
+            if (baseHero.Abilities.Any(c => c is DeathWhisperDriver<IGameAction, ICardLocationFilter>))
+            {
+                gameContext.AddActionStatement(baseHero.Abilities.First(), new CardAbilityParameter()
+                {
+                    GameContext = gameContext,
+                    MainCard = baseHero,
+                });
+            }
             return null;
         }
     }

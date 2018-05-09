@@ -70,7 +70,7 @@ namespace MyHearthStoneV2.Game.Action
             {
                 para = new ServantActionParameter
                 {
-                    Biology = biology as BaseServant,
+                    Servant = biology as BaseServant,
                     GameContext = gameContext,
                     MainCard = mainCard,
                     SecondaryCard = secondaryCard,

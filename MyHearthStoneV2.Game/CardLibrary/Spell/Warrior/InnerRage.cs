@@ -27,8 +27,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
                     <
                         RiseDamage<SecondaryServantFilter,ONE,ONE,SpellDamage>,
                         AddDamage<SecondaryServantFilter,Two>,NullFilter
-                    >,NullFilter
-                >(),
+                    >>(),
             //new CA_InnerRage()
         };
 
