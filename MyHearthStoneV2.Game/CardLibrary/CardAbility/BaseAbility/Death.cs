@@ -1,8 +1,8 @@
 ﻿using MyHearthStoneV2.Common;
 using MyHearthStoneV2.Game.Action;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
 using System;
 using System.Linq;
 
@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 将一个目标标记为死亡
     /// </summary>
     /// <typeparam name="TAG"></typeparam>
-    public class Death<TAG> : ICardAbility where TAG : IFilter
+    public class Death<TAG> : ICardAbility where TAG : IParameterFilter
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

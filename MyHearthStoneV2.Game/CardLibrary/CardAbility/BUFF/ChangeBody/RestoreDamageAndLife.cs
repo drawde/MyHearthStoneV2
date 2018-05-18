@@ -1,20 +1,20 @@
 ﻿using MyHearthStoneV2.Game.Parameter;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.Widget.Number;
+using MyHearthStoneV2.Game.Widget.Direction;
 using MyHearthStoneV2.Game.Capture;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using MyHearthStoneV2.Game.Event;
 using System;
 using MyHearthStoneV2.Game.Action;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
 {
-    public class RestoreDamageAndLife<TAG, NUM, QAT, D, F, EVENT> : IBuffRestore<ICardLocationFilter, IEvent>, ICapture<ICardLocationFilter, IEvent>
-        where TAG : IFilter
-        where NUM : INumber
-        where QAT : INumber
+    public class RestoreDamageAndLife<TAG, DMG_NUM, LFE_NUM, D, F, EVENT> : IBuffRestore<ICardLocationFilter, IEvent>, ICapture<ICardLocationFilter, IEvent>
+        where TAG : IParameterFilter
+        where DMG_NUM : INumber
+        where LFE_NUM : INumber
         where D : IDirection
         where EVENT : IEvent
         where F : ICardLocationFilter
@@ -25,23 +25,20 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             TAG tag = Activator.CreateInstance<TAG>();
-            NUM num = GameActivator<NUM>.CreateInstance();
-            QAT qat = GameActivator<QAT>.CreateInstance();
+            DMG_NUM num = GameActivator<DMG_NUM>.CreateInstance();
+            LFE_NUM qat = GameActivator<LFE_NUM>.CreateInstance();
             D direction = Activator.CreateInstance<D>();
             F locationFilter = GameActivator<F>.CreateInstance();
             //ET et = GameActivator<ET>.CreateInstance();
 
-            for (int i = 0; i < qat.GetNumber(actionParameter); i++)
+            foreach (BaseBiology biology in actionParameter.GameContext.AllCard.Where(tag.Filter(actionParameter)).Where(c => locationFilter.Filter(c)).OrderBy(c => c.CastIndex))
             {
-                foreach (BaseBiology biology in actionParameter.GameContext.AllCard.Where(tag.Filter(actionParameter)).OrderBy(c => c.CastIndex))
-                {
-                    biology.BuffLife += direction.SetNumber(num);
-                    biology.Life += direction.SetNumber(num);
-                    biology.Damage += direction.SetNumber(num);
+                biology.BuffLife += direction.SetNumber(qat);
+                biology.Life += direction.SetNumber(qat);
+                biology.Damage += direction.SetNumber(num);
 
-                    //BaseActionParameter para = CardActionFactory.CreateParameter(biology, actionParameter.GameContext);
-                    //CardActionFactory.CreateAction(biology, ActionType.重置攻击次数).Action(para);
-                }
+                //BaseActionParameter para = CardActionFactory.CreateParameter(biology, actionParameter.GameContext);
+                //CardActionFactory.CreateAction(biology, ActionType.重置攻击次数).Action(para);
             }
             return null;
         }

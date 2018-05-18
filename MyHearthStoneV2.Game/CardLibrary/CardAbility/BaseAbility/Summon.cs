@@ -2,16 +2,15 @@
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.Controler;
 using MyHearthStoneV2.Game.Context;
-using MyHearthStoneV2.Game.CardLibrary.Servant;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Servant;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition;
+using MyHearthStoneV2.Game.Widget.Number;
+using MyHearthStoneV2.Game.Widget.Filter.Servant;
 using MyHearthStoneV2.Redis;
 using System.Collections.Generic;
 using System;
+using MyHearthStoneV2.Game.Widget.Filter.PickCard;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
@@ -19,36 +18,41 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     /// 召唤一个随从到场上
     /// </summary>
     /// <typeparam name="F"></typeparam>
-    public class Summon<UC, F, Num> : ICardAbility where UC : IUserContextFilter where F : IServantCardFilter where Num : INumber
+    public class Summon<UC, CardLocation, F, CardPick, NUM> : ICardAbility where UC : IUserContextFilter where F : IServantCardFilter where CardPick : ICardPickFilter where NUM : INumber where CardLocation : ICardLocationFilter
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            int count = 0;
-            Num summonCount = GameActivator<Num>.CreateInstance();
             UC uc = GameActivator<UC>.CreateInstance();
             var users = actionParameter.GameContext.Players.Where(uc.Filter(actionParameter));
             var filter = Activator.CreateInstance<F>();
-            BaseServant servant = null;
+            CardLocation cardLocation = GameActivator<CardLocation>.CreateInstance();
+            List<Card> summonCards = new List<Card>();
+            CardPick cardPick = Activator.CreateInstance<CardPick>();
+
             using (var redisClient = RedisManager.GetClient())
             {
                 List<Card> lstCardLib = redisClient.Get<List<Card>>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.CardsInstance));
-                servant = lstCardLib.Where(filter.Filter()).First() as BaseServant;
+                summonCards.AddRange(lstCardLib.Where(filter.Filter()));
             }
-
+            NUM num = GameActivator<NUM>.CreateInstance();
             foreach (UserContext user in users)
             {
-                while (count < summonCount.GetNumber(actionParameter))
+                summonCards = cardPick.Filter(summonCards.Where(c => user.AllCards.Where(x => cardLocation.Filter(x)).Any(z => z.CardCode == c.CardCode)).ToList(), actionParameter).ToList();
+                foreach (Card card in summonCards)
                 {
-                    CreateNewCardInDeskAction action = new CreateNewCardInDeskAction();
-                    //CreateNewGenericCardInDeskAction<F> action = new CreateNewGenericCardInDeskAction<F>();
-                    ControlerActionParameter para = new ControlerActionParameter()
+                    for (int i = 0; i < num.GetNumber(actionParameter); i++)
                     {
-                        GameContext = actionParameter.GameContext,
-                        IsActivation = user.IsActivation,
-                        MainCard = servant
-                    };
-                    action.Action(para);
-                    count++;
+                        var newCard = Activator.CreateInstance(card.GetType()) as Card;
+                        newCard.CardCode = card.CardCode;
+                        CreateNewCardInDeskAction action = new CreateNewCardInDeskAction();
+                        ControlerActionParameter para = new ControlerActionParameter()
+                        {
+                            GameContext = actionParameter.GameContext,
+                            IsActivation = user.IsActivation,
+                            PrimaryCard = newCard
+                        };
+                        action.Action(para);
+                    }
                 }
             }
             return null;

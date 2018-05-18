@@ -24,7 +24,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
             GameContext context = para.GameContext;
             bool isActivation = para.IsActivation;
 
-            BaseServant servant = para.MainCard as BaseServant;
+            BaseServant servant = para.PrimaryCard as BaseServant;
             string cardCode = "";
             using (var redisClient = RedisManager.GetClient())
             {

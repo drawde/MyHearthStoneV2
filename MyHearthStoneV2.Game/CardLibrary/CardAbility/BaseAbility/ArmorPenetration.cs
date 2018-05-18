@@ -1,6 +1,6 @@
 ﻿using MyHearthStoneV2.Game.Action;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver.Filter;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
+using MyHearthStoneV2.Game.Widget.Number;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
                 //将护甲削减为0
                 int ammo = hero.Ammo;
                 hero.Ammo = 0;
-                BaseActionParameter para = CardActionFactory.CreateParameter(hero, actionParameter.GameContext, damege.GetNumber(actionParameter), secondaryCard: actionParameter.MainCard);
+                BaseActionParameter para = CardActionFactory.CreateParameter(hero, actionParameter.GameContext, damege.GetNumber(actionParameter), secondaryCard: actionParameter.PrimaryCard);
                 CardActionFactory.CreateAction(hero, ActionType.受到伤害).Action(para);
                 //hero.BiologyByDamege(actionParameter.SecondaryCard, actionParameter.GameContext, servant.Damage * 2);
                 hero.Ammo = ammo;

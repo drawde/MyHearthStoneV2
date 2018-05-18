@@ -1,14 +1,14 @@
 ﻿using MyHearthStoneV2.Game.Action;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.Parameter;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using System;
 using MyHearthStoneV2.Game.Event;
+using MyHearthStoneV2.Game.Widget.Number;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class AddDamage<TAG,Q> : ICardAbility where TAG : IFilter where Q : INumber
+    public class AddDamage<TAG,Q> : ICardAbility where TAG : IParameterFilter where Q : INumber
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {

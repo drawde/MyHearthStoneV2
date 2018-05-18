@@ -7,8 +7,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.Hero
 {
     public class Mage : BaseHero
     {
-        public override string Name { get; set; } = "法师";
-        public override Profession Profession { get; set; } = Profession.Mage;
-        public override List<ICardAbility> Abilities { get; set; } = new List<ICardAbility>() { new MageAbility() };
+        public override string Name => "法师";
+        public override Profession Profession => Profession.Mage;
+        public override List<ICardAbility> Abilities => new List<ICardAbility>() { new MageAbility() };
+        public override bool IsEnable => false;
     }
 }

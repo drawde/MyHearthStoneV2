@@ -24,6 +24,15 @@ namespace MyHearthStoneV2.Game.Context
     /// </summary>
     public static class GameContextExtend
     {
+        public static GameContextOutput WriteGameStatus(this GameContext gameContext, GameContextOutput gameContextOutput)
+        {
+            //if (gameContext.GameStatus != GameStatus.进行中)
+            //{
+            //    GameContextCache.RemoveContext(gameContext);
+            //}
+            gameContextOutput.GameStatus = gameContext.GameStatus;
+            return gameContextOutput;
+        }
         public static GameContextOutput Output(this GameContext gameContext, string userCode)
         {
             GameContextOutput gameContextOutput = new GameContextOutput()
@@ -74,7 +83,7 @@ namespace MyHearthStoneV2.Game.Context
                     });
                 }
             }
-            return gameContextOutput;
+            return WriteGameStatus(gameContext, gameContextOutput);
         }
 
         public static GameContextOutput Output(this GameContext gameContext)
@@ -126,7 +135,7 @@ namespace MyHearthStoneV2.Game.Context
                     });
                 }
             }
-            return gameContextOutput;
+            return WriteGameStatus(gameContext, gameContextOutput);
         }
 
         /// <summary>
@@ -181,7 +190,7 @@ namespace MyHearthStoneV2.Game.Context
                 {
                     node.Value.Settlement();
                     node = node.Next;
-                    Card deadCard = node.Value.CardActionParameter.MainCard;
+                    Card deadCard = node.Value.CardActionParameter.PrimaryCard;
                     if (deadCard != null && context.HearseCards.Any(c=>c.CardInGameCode == deadCard.CardInGameCode))
                     {
                         UserContext uc = context.GetUserContextByMyCard(deadCard);
@@ -197,6 +206,7 @@ namespace MyHearthStoneV2.Game.Context
             AutoShiftServant(context);
             AuraSettlement(context);
             StageRetrieval(context);
+            JudgeVictory(context);
         }
 
         public static void ClearHearse(this GameContext context)
@@ -237,7 +247,7 @@ namespace MyHearthStoneV2.Game.Context
             {
                 CardAbilityParameter para = new CardAbilityParameter()
                 {
-                    MainCard = card,
+                    PrimaryCard = card,
                     GameContext = context
                 };
                 context.EventQueue.AddLast(new EndOfPlayerActionEvent() { EventCard = card, Parameter = para });
@@ -257,7 +267,7 @@ namespace MyHearthStoneV2.Game.Context
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
-                        MainCard = node.Value.AuraCard,
+                        PrimaryCard = node.Value.AuraCard,
                         GameContext = context
                     };
 
@@ -522,11 +532,25 @@ namespace MyHearthStoneV2.Game.Context
             return null;
         }
 
-
-
         public static BaseHero GetHeroByActivation(this GameContext gameContext, bool isActivation = true)
         {
             return gameContext.DeskCards.GetHeroByIsFirst(gameContext.Players.First(c => c.IsActivation == isActivation).IsFirst);
-        }        
+        }
+
+        public static void JudgeVictory(this GameContext gameContext)
+        {
+            if (gameContext.GameStatus == GameStatus.进行中 && gameContext.DeskCards.Any(c => c != null && c.CardType == CardType.英雄 && (c.IsDeathing || c.Life < 1)))
+            {
+                var heros = gameContext.DeskCards.Where(c => c != null && c.CardType == CardType.英雄 && (c.IsDeathing || c.Life < 1));
+                if (heros.Count() > 1)
+                {
+                    gameContext.GameStatus = GameStatus.平局;
+                }
+                else if (heros.Count() > 0)
+                {
+                    gameContext.GameStatus = heros.First().IsFirstPlayerCard ? GameStatus.后手胜利 : GameStatus.先手胜利;
+                }                
+            }
+        }
     }
 }

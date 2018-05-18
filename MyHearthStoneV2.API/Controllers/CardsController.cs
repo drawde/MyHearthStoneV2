@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.API.Controllers
         [DataVerify]
         public ActionResult GetCard()
         {
-            var cards = CardUtil.GetCardInRedis();
+            var cards = CardUtil.GetCardInRedis().Where(c => c.IsEnable);
             var param = JObject.Parse(TempData["param"].TryParseString());
             string profession = param["Profession"].TryParseString();
             int cost = param["cost"].TryParseInt(-1);
@@ -32,7 +32,7 @@ namespace MyHearthStoneV2.API.Controllers
             {
                 cards = cards.Where(c => c.Cost == cost).ToList();
             }
-            cards = cards.OrderBy(c => c.Cost).OrderBy(c => c.Profession).ToList();
+            cards = cards.OrderBy(c => c.Cost).ThenBy(c => c.Profession).ToList();
             return Content(JsonStringResult.SuccessResult(cards));
         }
     }

@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using MyHearthStoneV2.Game.CardLibrary;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.Context
@@ -57,6 +54,10 @@ namespace MyHearthStoneV2.Game.Context
         /// 一共打出了多少张牌
         /// </summary>
         public int CastCardCount { get; set; } = 0;
+
+
+        public GameStatus GameStatus { get; set; } = GameStatus.无;
+
 
         /// <summary>
         /// 累计结算队列数(用于区分不同的队列)

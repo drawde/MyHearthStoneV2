@@ -35,5 +35,6 @@ namespace MyHearthStoneV2.Common.Enum
         只能携带本职业的牌或中立牌 = 123,
         错误的目标 = 124,
         你无法施放这个技能 = 125,
+        游戏已经结束 = 126,
     }
 }

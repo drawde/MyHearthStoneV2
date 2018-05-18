@@ -17,7 +17,7 @@
         ViewBag.Title = cardGroup.GroupName;
         groupName = cardGroup.GroupName;
     }
-    List<Card> lstCards = CardUtil.GetCardInRedis();
+    List<Card> lstCards = CardUtil.GetCardInRedis().Where(c => c.IsEnable).ToList();
     ViewBag.cssAndJSVersion = TempData["cssAndJSVersion"];
     List<HS_UserCardGroupDetail> lstCardDetail = ViewBag.lstCardGroupDetail as List<HS_UserCardGroupDetail>;
     var rr = Request;

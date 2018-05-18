@@ -1,14 +1,15 @@
 ﻿using MyHearthStoneV2.Game.Capture;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 using System;
 using System.Linq;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.CardStatus
 {
-    public class Death<TAG, F, EVENT> : IBuffRestore<ICardLocationFilter, IEvent>, ICapture<ICardLocationFilter, IEvent> where TAG : IFilter where EVENT : IEvent where F : ICardLocationFilter
+    public class Death<TAG, F, EVENT> : IBuffRestore<ICardLocationFilter, IEvent>, ICapture<ICardLocationFilter, IEvent> where TAG : IParameterFilter where EVENT : IEvent where F : ICardLocationFilter
     {
         public Card MasterCard { get; set; }
 

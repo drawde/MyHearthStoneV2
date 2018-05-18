@@ -4,6 +4,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.AbilityAttribute.CastTime
 {
     public interface ICastTimes
     {
-        List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; }
+        //List<SpellCardAbilityTime> SpellCardAbilityTimes { get; set; }
     }
 }

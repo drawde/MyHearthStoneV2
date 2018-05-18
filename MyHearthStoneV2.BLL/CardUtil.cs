@@ -1,10 +1,10 @@
-﻿using MyHearthStoneV2.Game.CardLibrary;
-using MyHearthStoneV2.Game.CardLibrary.Hero;
-using MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical;
-using MyHearthStoneV2.Model;
+﻿using MyHearthStoneV2.Model;
 using MyHearthStoneV2.Redis;
 using MyHearthStoneV2.ShortCodeBll;
 using System.Collections.Generic;
+using MyHearthStoneV2.Game.CardLibrary;
+using MyHearthStoneV2.Game.CardLibrary.Hero;
+using MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical;
 using MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical;
 using MyHearthStoneV2.Game.CardLibrary.Servant.Warrior;
 using MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical;
@@ -20,6 +20,9 @@ using MyHearthStoneV2.Game.CardLibrary.Servant.Rogue;
 using MyHearthStoneV2.Game.CardLibrary.Equip.Rogue;
 using MyHearthStoneV2.Game.CardLibrary.Spell.Rogue;
 using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.TOC;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Paladin;
+using MyHearthStoneV2.Game.CardLibrary.Spell.Paladin;
+using MyHearthStoneV2.Game.CardLibrary.Equip.Paladin;
 
 namespace MyHearthStoneV2.BLL
 {
@@ -111,6 +114,17 @@ namespace MyHearthStoneV2.BLL
                 new MadBomber(),//疯狂投弹者
                 new Whelp(),//雏龙
                 new AcidicSwampOoze(),//酸性沼泽软泥怪
+                new AnduinLothar(),//安度因洛萨
+                new SilverHandRecruit(),//白银之手新兵
+                new BluegillWarrior(),//蓝腮战士
+                new MurlocWarleader(),//鱼人领军
+                new OldMurkEye(),//老瞎眼
+                new AnyfinCanHappen(),//亡者归来
+                new Consecration(),//奉献
+                new Equality(),//生而平等
+                new LayOnHands(),//圣疗
+                new TruesilverChampion(),//真银圣剑
+                new SludgeBelcher(),//淤泥喷射者
             };
 
             lstCard.ForEach(c => c.CardCode = ShortCodeBusiness.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);

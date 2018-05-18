@@ -2,7 +2,7 @@
 using System.Linq;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Parameter.CardAbility;
@@ -46,7 +46,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura
                 {
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
-                        MainCard = card,
+                        PrimaryCard = card,
                         GameContext = actionParameter.GameContext
                     };
                     restoreBuff.Action(para);

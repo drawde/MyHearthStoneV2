@@ -42,7 +42,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             }
             gameContext.EventQueue.AddLast(new ServantInDeskEvent() { EventCard = servant, Parameter = para });
             gameContext.EventQueue.AddLast(new MyServantCastedEvent() { EventCard = servant, Parameter = para });
-            gameContext.EventQueue.AddLast(new MainPlayerPlayCardEvent() { EventCard = servant, Parameter = para });
+            gameContext.EventQueue.AddLast(new PrimaryPlayerPlayCardEvent() { EventCard = servant, Parameter = para });
             return null;
         }
 

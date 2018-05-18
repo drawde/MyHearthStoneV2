@@ -2,8 +2,8 @@
 {
     public class Hunter: BaseHero
     {
-        public override string Name { get; set; } = "猎人";
-        public override Profession Profession { get; set; } = Profession.Hunter;
-        
+        public override string Name => "猎人";
+        public override Profession Profession => Profession.Hunter;
+        public override bool IsEnable => false;
     }
 }

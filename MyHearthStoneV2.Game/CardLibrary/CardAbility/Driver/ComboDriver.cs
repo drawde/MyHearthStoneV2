@@ -3,7 +3,7 @@ using MyHearthStoneV2.Game.Parameter;
 using System;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Capture;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using MyHearthStoneV2.Game.Event;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     {
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            UserContext user = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
+            UserContext user = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.PrimaryCard);
             if (user.ComboSwitch)
                 Activator.CreateInstance<G2>().Action(actionParameter);
             else

@@ -6,10 +6,11 @@ using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using System;
 using MyHearthStoneV2.Game.Event;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class Silence<TAG> : ICardAbility where TAG : IFilter
+    public class Silence<TAG> : ICardAbility where TAG : IParameterFilter
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
@@ -32,7 +33,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
                     CardAbilityParameter para = new CardAbilityParameter()
                     {
                         GameContext = gameContext,
-                        MainCard = bio,
+                        PrimaryCard = bio,
                     };
                     ability.Action(para);
                 }

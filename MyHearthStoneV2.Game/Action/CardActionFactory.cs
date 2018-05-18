@@ -51,7 +51,7 @@ namespace MyHearthStoneV2.Game.Action
             return action;
         }
 
-        public static BiologyActionParameter CreateParameter(Card biology, GameContext gameContext, int damageOrHeal = 0, int deskIndex = -1, Card mainCard = null, Card secondaryCard = null)
+        public static BiologyActionParameter CreateParameter(Card biology, GameContext gameContext, int damageOrHeal = 0, int deskIndex = -1, Card primaryCard = null, Card secondaryCard = null)
         {
             BiologyActionParameter para = null;
             if (biology.CardType == CardType.英雄)
@@ -60,7 +60,7 @@ namespace MyHearthStoneV2.Game.Action
                 {
                     Biology = biology as BaseHero,
                     GameContext = gameContext,
-                    MainCard = mainCard,
+                    PrimaryCard = primaryCard,
                     SecondaryCard = secondaryCard,
                     DamageOrHeal = damageOrHeal,
                     DeskIndex = deskIndex
@@ -72,7 +72,7 @@ namespace MyHearthStoneV2.Game.Action
                 {
                     Servant = biology as BaseServant,
                     GameContext = gameContext,
-                    MainCard = mainCard,
+                    PrimaryCard = primaryCard,
                     SecondaryCard = secondaryCard,
                     DamageOrHeal = damageOrHeal,
                     DeskIndex = deskIndex

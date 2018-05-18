@@ -89,6 +89,7 @@ namespace MyHearthStoneV2.Game.Controler
                 GameCode = game.GameCode,
                 CurrentTurnCode = game.CurrentTurnCode,
                 NextTurnCode = game.NextTurnCode,
+                GameStatus = GameStatus.进行中
             };
             GameContext.Players.Add(firstUser);
             GameContext.Players.Add(secondUser);

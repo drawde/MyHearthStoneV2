@@ -27,7 +27,7 @@ namespace MyHearthStoneV2.Game.Controler
             CardAbilityParameter para = new CardAbilityParameter()
             {
                 GameContext = GameContext,
-                MainCard = hero,                
+                PrimaryCard = hero,                
             };
             if (target > -1)
             {
@@ -66,7 +66,7 @@ namespace MyHearthStoneV2.Game.Controler
                 Hero = hero,
             };
             new LoadAction().Action(equipPara);
-            GameContext.EventQueue.AddLast(new MainPlayerPlayCardEvent() { EventCard = equip, Parameter = equipPara });
+            GameContext.EventQueue.AddLast(new PrimaryPlayerPlayCardEvent() { EventCard = equip, Parameter = equipPara });
             //hero.LoadEquip(GameContext, equip);
         }
     }

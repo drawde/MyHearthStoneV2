@@ -1,8 +1,6 @@
 ﻿using MyHearthStoneV2.Game.CardLibrary.CardAbility;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 using System.Collections.Generic;
@@ -80,5 +78,7 @@ namespace MyHearthStoneV2.Game.CardLibrary
         public bool IsFirstPlayerCard { get; set; }
 
         public virtual LinkedList<IBuffRestore<ICardLocationFilter, IEvent>> Buffs { get; set; } = new LinkedList<IBuffRestore<ICardLocationFilter, IEvent>>();
+
+        public virtual bool IsEnable { get; set; } = true;
     }
 }

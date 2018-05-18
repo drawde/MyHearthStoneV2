@@ -10,7 +10,7 @@ namespace MyHearthStoneV2.Game.Parameter.CardAbility
         /// <summary>
         /// 主体卡牌将要进入的牌桌位置
         /// </summary>
-        public int MainCardLocation { get; set; }
+        public int PrimaryCardLocation { get; set; }
 
     }
 }

@@ -40,5 +40,21 @@ namespace MyHearthStoneV2.Game.Context
                 }
             }
         }
+
+        public static void RemoveContext(GameContext ctl)
+        {
+            using (var redisClient = RedisManager.GetClient())
+            {
+                try
+                {
+                    redisClient.Watch(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, ctl.GameCode));
+                    redisClient.Remove(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, ctl.GameCode));
+                }
+                finally
+                {
+                    redisClient.UnWatch();
+                }
+            }
+        }
     }
 }

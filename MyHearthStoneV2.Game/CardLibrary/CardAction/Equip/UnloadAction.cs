@@ -1,6 +1,6 @@
 ﻿using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.Parameter;
@@ -33,7 +33,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
                 gameContext.AddActionStatement(baseHero.Equip.Abilities.First(), new CardAbilityParameter()
                 {
                     GameContext = gameContext,
-                    MainCard = baseHero.Equip,
+                    PrimaryCard = baseHero.Equip,
                 });
             }
             //UserContext user = gameContext.GetUserContextByMyCard(baseHero);

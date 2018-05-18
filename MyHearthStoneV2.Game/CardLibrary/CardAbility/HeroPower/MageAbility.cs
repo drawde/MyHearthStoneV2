@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             var uc = actionParameter.GameContext.GetActivationUserContext();
-            var hero = actionParameter.MainCard as BaseHero;
+            var hero = actionParameter.PrimaryCard as BaseHero;
 
             BaseActionParameter para = CardActionFactory.CreateParameter(actionParameter.SecondaryCard, actionParameter.GameContext, 1, secondaryCard: hero);
             CardActionFactory.CreateAction(actionParameter.SecondaryCard, ActionType.受到伤害).Action(para);

@@ -1,15 +1,15 @@
 ﻿using MyHearthStoneV2.Game.Parameter;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.Widget.Number;
+using MyHearthStoneV2.Game.Widget.Direction;
 using MyHearthStoneV2.Game.Event;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using System;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
 {
-    public class ChangeCost<TAG, NUM, QAT, D, F, BUFF> : IBuff<ICardLocationFilter, IEvent, IBuffRestore<ICardLocationFilter, IEvent>> where TAG : IFilter where NUM : INumber where QAT : INumber where D : IDirection
+    public class ChangeCost<TAG, NUM, QAT, D, F, BUFF> : IBuff<ICardLocationFilter, IEvent, IBuffRestore<ICardLocationFilter, IEvent>> where TAG : IParameterFilter where NUM : INumber where QAT : INumber where D : IDirection
         where F : ICardLocationFilter where BUFF : IBuffRestore<ICardLocationFilter, IEvent>
     {
         public Card MasterCard { get; set; }

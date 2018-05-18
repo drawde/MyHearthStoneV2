@@ -8,7 +8,7 @@ using MyHearthStoneV2.Game.Parameter.CardAbility;
 using MyHearthStoneV2.Game.Event.Player;
 using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 
 namespace MyHearthStoneV2.Game.Controler
 {
@@ -43,7 +43,7 @@ namespace MyHearthStoneV2.Game.Controler
             CardAbilityParameter para = new CardAbilityParameter()
             {
                 GameContext = GameContext,
-                MainCard = spell,
+                PrimaryCard = spell,
                 SecondaryCard = triggerCard,
             };
             GameContext.EventQueue.AddLast(new BeforeICastSpellEvent() { EventCard = spell, Parameter = para }); 
@@ -59,13 +59,13 @@ namespace MyHearthStoneV2.Game.Controler
             spell.CardLocation = CardLocation.灵车;
             GameContext.HearseCards.AddLast(spell);
 
-            GameContext.EventQueue.AddLast(new MainPlayerPlayCardEvent()
+            GameContext.EventQueue.AddLast(new PrimaryPlayerPlayCardEvent()
             {
                 EventCard = spell,
                 Parameter = new CardAbilityParameter()
                 {
                     GameContext = GameContext,
-                    MainCard = spell,
+                    PrimaryCard = spell,
                     SecondaryCard = triggerCard,
                 }
             });

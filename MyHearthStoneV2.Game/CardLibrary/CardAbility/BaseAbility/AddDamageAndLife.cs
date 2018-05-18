@@ -1,15 +1,16 @@
 ﻿using MyHearthStoneV2.Game.Parameter;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
 using System.Linq;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Direction;
+using MyHearthStoneV2.Game.Widget.Number;
+using MyHearthStoneV2.Game.Widget.Direction;
 using MyHearthStoneV2.Game.Event;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Filter;
+using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using System;
 using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
+
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class AddDamageAndLife<TAG, NUM, QAT, D, F> : ICardAbility where TAG : IFilter where NUM : INumber where QAT : INumber where D : IDirection
+    public class AddDamageAndLife<TAG, NUM, QAT, D, F> : ICardAbility where TAG : IParameterFilter where NUM : INumber where QAT : INumber where D : IDirection
         where F : ICardLocationFilter
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)

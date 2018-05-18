@@ -30,7 +30,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
                 damage += (biologys.First(c => c.CardType == CardType.英雄) as BaseHero).Equip.SpellPower;
             }
 
-            var damagePara = CardActionFactory.CreateParameter(baseHero, actionParameter.GameContext, damage, secondaryCard: actionParameter.MainCard);
+            var damagePara = CardActionFactory.CreateParameter(baseHero, actionParameter.GameContext, damage, secondaryCard: actionParameter.PrimaryCard);
             CardActionFactory.CreateAction(baseHero, ActionType.受到伤害).Action(damagePara);
             return new IntParameter() { Value = damage };
         }

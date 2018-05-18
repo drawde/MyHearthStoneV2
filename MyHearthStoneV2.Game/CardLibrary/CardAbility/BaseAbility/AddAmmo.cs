@@ -1,20 +1,25 @@
 ﻿using MyHearthStoneV2.Game.Parameter;
 using MyHearthStoneV2.Game.Context;
 using MyHearthStoneV2.Game.CardLibrary.Hero;
-using MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver;
-using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Number;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.AbilityAttribute;
 using MyHearthStoneV2.Game.Event;
+using MyHearthStoneV2.Game.Widget.Number;
+using MyHearthStoneV2.Game.Widget.Filter.ParameterFilter;
+using System.Linq;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
 {
-    public class AddAmmo<Q> : DefaultAttribute, ICardAbility where Q : INumber
+    public class AddAmmo<UC, Q> : DefaultAttribute, ICardAbility where Q : INumber where UC : IUserContextFilter
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            var uc = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard);
-            BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(uc.IsFirst);
-            hero.Ammo += GameActivator<Q>.CreateInstance().GetNumber(actionParameter);
+            UC uc = GameActivator<UC>.CreateInstance();
+            var users = actionParameter.GameContext.Players.Where(uc.Filter(actionParameter));
+            foreach (UserContext user in users)
+            {
+                BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(user.IsFirst);
+                hero.Ammo += GameActivator<Q>.CreateInstance().GetNumber(actionParameter);
+            }            
             return null;
         }
 

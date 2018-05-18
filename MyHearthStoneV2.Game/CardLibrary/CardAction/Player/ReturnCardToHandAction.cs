@@ -24,14 +24,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
                 if (uc.HandCards.Count < 10)
                 {
                     //如果手牌没满则放入手牌中
-                    uc.HandCards.Add(returnPara.MainCard);
-                    returnPara.MainCard.CardLocation = CardLocation.手牌;
-                    gameContext.DeskCards[gameContext.DeskCards.FindIndex(c => c != null && c.CardInGameCode == returnPara.MainCard.CardInGameCode)] = null;
+                    uc.HandCards.Add(returnPara.PrimaryCard);
+                    returnPara.PrimaryCard.CardLocation = CardLocation.手牌;
+                    gameContext.DeskCards[gameContext.DeskCards.FindIndex(c => c != null && c.CardInGameCode == returnPara.PrimaryCard.CardInGameCode)] = null;
                 }
                 else
                 {
                     //否则标记这张牌为死亡
-                    BaseBiology biology = returnPara.MainCard as BaseBiology;
+                    BaseBiology biology = returnPara.PrimaryCard as BaseBiology;
                     biology.IsDeathing = true;                    
                 }
             }

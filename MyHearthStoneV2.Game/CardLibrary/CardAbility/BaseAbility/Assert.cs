@@ -1,4 +1,4 @@
-﻿using MyHearthStoneV2.Game.CardLibrary.Filter.Condition.Assert;
+﻿using MyHearthStoneV2.Game.Widget.Condition.Assert;
 using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 using System;

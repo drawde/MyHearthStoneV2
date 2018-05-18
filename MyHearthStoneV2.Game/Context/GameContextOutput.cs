@@ -48,5 +48,7 @@ namespace MyHearthStoneV2.Game.Context
         /// 一共打出了多少张牌
         /// </summary>
         public int CastCardCount { get; set; } = 0;
+
+        public GameStatus GameStatus { get; set; } = GameStatus.无;
     }
 }

@@ -17,11 +17,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
         public int Cost { get; set; } = 2;
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByMyCard(actionParameter.MainCard as BaseBiology);
+            BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByMyCard(actionParameter.PrimaryCard as BaseBiology);
             ControlerActionParameter ctlPara = new ControlerActionParameter()
             {
                 GameContext = actionParameter.GameContext,
-                UserContext = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard)
+                UserContext = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.PrimaryCard)
             };
 
             WickedKnife knife = new CreateNewCardInControllerAction<WickedKnife>().Action(ctlPara) as WickedKnife;

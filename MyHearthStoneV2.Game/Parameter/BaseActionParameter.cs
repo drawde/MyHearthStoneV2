@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.Game.Parameter
         /// <summary>
         /// 主体卡牌
         /// </summary>
-        public Card MainCard { get; set; }
+        public Card PrimaryCard { get; set; }
 
         /// <summary>
         /// 次要卡牌

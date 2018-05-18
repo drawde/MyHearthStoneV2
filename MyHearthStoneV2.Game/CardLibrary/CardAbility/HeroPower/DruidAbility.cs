@@ -1,7 +1,6 @@
 ﻿using MyHearthStoneV2.Game.Action;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.AbilityAttribute;
 using MyHearthStoneV2.Game.Context;
-using MyHearthStoneV2.Game.Controler;
 using MyHearthStoneV2.Game.Event;
 using MyHearthStoneV2.Game.Parameter;
 
@@ -17,8 +16,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.HeroPower
             var hero = actionParameter.GameContext.DeskCards.GetHeroByIsFirst(uc.IsFirst);
             hero.Ammo += 1;
             hero.Damage += 1;
-            BaseActionParameter para = CardActionFactory.CreateParameter(actionParameter.MainCard, actionParameter.GameContext);
-            CardActionFactory.CreateAction(actionParameter.MainCard, ActionType.重置攻击次数).Action(para);
+            BaseActionParameter para = CardActionFactory.CreateParameter(actionParameter.PrimaryCard, actionParameter.GameContext);
+            CardActionFactory.CreateAction(actionParameter.PrimaryCard, ActionType.重置攻击次数).Action(para);
 
             return null;
         }

@@ -100,6 +100,10 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             return ctl;
         }
 
+        private static bool VictoryValidate(GameContext gameContext)
+        {
+            return gameContext.GameStatus != GameStatus.进行中 && gameContext.GameStatus != GameStatus.无;
+        }
         /// <summary>
         /// 验证参数的有效性
         /// </summary>

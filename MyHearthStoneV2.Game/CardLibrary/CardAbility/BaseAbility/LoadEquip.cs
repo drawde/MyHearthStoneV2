@@ -18,11 +18,11 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
     {
         public IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
-            BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByMyCard(actionParameter.MainCard as BaseBiology);
+            BaseHero hero = actionParameter.GameContext.DeskCards.GetHeroByMyCard(actionParameter.PrimaryCard as BaseBiology);
             ControlerActionParameter ctlPara = new ControlerActionParameter()
             {
                 GameContext = actionParameter.GameContext,
-                UserContext = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.MainCard)
+                UserContext = actionParameter.GameContext.GetUserContextByMyCard(actionParameter.PrimaryCard)
             };
 
             E equip = new CreateNewCardInControllerAction<E>().Action(ctlPara) as E;
