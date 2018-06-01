@@ -22,23 +22,23 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
             for (int i = 1; i <= drawCount; i++)
             {
                 //当牌库里有牌时
-                if (uc.StockCards.Count > 0)
+                if (uc.StockCards.Count() > 0)
                 {
                     var drawCard = uc.StockCards.First();
-                    if (uc.HandCards.Count < 10)
+                    if (uc.HandCards.Count() < 10)
                     {
                         //如果手牌没满则放入手牌中
-                        uc.HandCards.Add(drawCard);
+                        //uc.HandCards.Add(drawCard);
                         drawCard.CardLocation = CardLocation.手牌;
                     }
                     else
                     {
                         //否则撕了这张牌
                         drawCard.CardLocation = CardLocation.坟场;
-                        uc.GraveyardCards.Add(drawCard);
+                        //uc.GraveyardCards.Add(drawCard);
                     }
                     //最后从牌库移除这张牌
-                    uc.StockCards.RemoveAt(0);
+                    //uc.StockCards.RemoveAt(0);
                 }
                 else
                 {

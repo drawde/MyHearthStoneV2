@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.Controler
         /// <summary>
         /// 回合结束
         /// </summary>                
-        [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98)]
+        [ControlerMonitor(AttributePriority = 99), PlayerActionMonitor(AttributePriority = 98), UserActionMonitor]
         public void TurnEnd()
         {
             UserContext uc = GameContext.GetActivationUserContext(), next_uc = null;
@@ -34,7 +34,7 @@ namespace MyHearthStoneV2.Game.Controler
             List<Card> buffCards = new List<Card>();
             buffCards.AddRange(GameContext.DeskCards.GetDeskCardsByIsFirst(uc.IsFirst));
             buffCards.AddRange(uc.HandCards);
-            buffCards = buffCards.Where(c => c.Buffs.Count > 0).ToList();
+            buffCards = buffCards.Where(c => c != null && c.Buffs.Count > 0).ToList();
             foreach (Card card in buffCards)
             {
                 LinkedListNode<IBuffRestore<ICardLocationFilter, IEvent>> buff = card.Buffs.First;
@@ -48,10 +48,10 @@ namespace MyHearthStoneV2.Game.Controler
                 }
             }
 
-            GameContext.TurnIndex++;
+            
             #region 调整玩家对象
             if (GameContext.TurnIndex > 0)
-            {
+            {                
                 next_uc = GameContext.GetNotActivationUserContext();
 
                 CardAbilityParameter para = new CardAbilityParameter()
@@ -86,8 +86,8 @@ namespace MyHearthStoneV2.Game.Controler
             GameContext.CurrentTurnRemainingSecond = 60;
             GameContext.CurrentTurnCode = GameContext.NextTurnCode;
             GameContext.NextTurnCode = ShortCodeBusiness.Instance.CreateCode(ShortCodeTypeEnum.GameTurnCode);
-            
-            
+            GameContext.TurnIndex++;
+
             #endregion
         }
 

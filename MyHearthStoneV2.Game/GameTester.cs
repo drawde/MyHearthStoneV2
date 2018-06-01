@@ -72,16 +72,16 @@ namespace MyHearthStoneV2.Game
                     }
                 }
 
-                if (gameContext.Players[0].HandCards.Any(c => c.CardInGameCode == cardInGameCode))
-                {
-                    servant = gameContext.Players[0].HandCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
-                    gameContext.Players[0].HandCards.RemoveAt(gameContext.Players[0].HandCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
-                }
-                else if (gameContext.Players[0].StockCards.Any(c => c.CardInGameCode == cardInGameCode))
-                {
-                    servant = gameContext.Players[0].StockCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
-                    gameContext.Players[0].StockCards.RemoveAt(gameContext.Players[0].StockCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
-                }
+                //if (gameContext.Players[0].HandCards.Any(c => c.CardInGameCode == cardInGameCode))
+                //{
+                //    servant = gameContext.Players[0].HandCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
+                //    gameContext.Players[0].HandCards.RemoveAt(gameContext.Players[0].HandCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
+                //}
+                //else if (gameContext.Players[0].StockCards.Any(c => c.CardInGameCode == cardInGameCode))
+                //{
+                //    servant = gameContext.Players[0].StockCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
+                //    gameContext.Players[0].StockCards.RemoveAt(gameContext.Players[0].StockCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
+                //}
 
             }
             else
@@ -100,16 +100,16 @@ namespace MyHearthStoneV2.Game
                     }
                 }
 
-                if (gameContext.Players[1].HandCards.Any(c => c.CardInGameCode == cardInGameCode))
-                {
-                    servant = gameContext.Players[1].HandCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
-                    gameContext.Players[1].HandCards.RemoveAt(gameContext.Players[1].HandCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
-                }
-                else if (gameContext.Players[1].StockCards.Any(c => c.CardInGameCode == cardInGameCode))
-                {
-                    servant = gameContext.Players[1].StockCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
-                    gameContext.Players[1].StockCards.RemoveAt(gameContext.Players[1].StockCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
-                }
+                //if (gameContext.Players[1].HandCards.Any(c => c.CardInGameCode == cardInGameCode))
+                //{
+                //    servant = gameContext.Players[1].HandCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
+                //    gameContext.Players[1].HandCards.RemoveAt(gameContext.Players[1].HandCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
+                //}
+                //else if (gameContext.Players[1].StockCards.Any(c => c.CardInGameCode == cardInGameCode))
+                //{
+                //    servant = gameContext.Players[1].StockCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
+                //    gameContext.Players[1].StockCards.RemoveAt(gameContext.Players[1].StockCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
+                //}
             }
             gameContext.CastCardCount++;
             servant.CastIndex = gameContext.CastCardCount;
@@ -148,13 +148,31 @@ namespace MyHearthStoneV2.Game
             if (current.AllCards.Any(c => c.GetType() == typeof(T)))
             {
                 var card = current.StockCards.First(c => c.GetType() == typeof(T));
-                current.StockCards.RemoveAt(current.StockCards.FindIndex(c => c.GetType() == typeof(T)));
-                current.HandCards.Add(card);
+                card.CardLocation = CardLocation.手牌;
+                //current.StockCards.RemoveAt(current.StockCards.FindIndex(c => c.GetType() == typeof(T)));
+                //current.HandCards.Add(card);
 
                 using (var redisClient = RedisManager.GetClient())
                 {
                     redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
                 }
+            }
+        }
+
+        public static void FullPower(string gameCode, int power = 10)
+        {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+            }
+            foreach (var player in gameContext.Players)
+            {
+                player.Power = 10;
+            }
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
             }
         }
 
@@ -166,8 +184,9 @@ namespace MyHearthStoneV2.Game
                 gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
                 UserContext user = gameContext.GetActivationUserContext();
                 var card = new CreateNewCardInControllerAction<T>().Action(new ControlerActionParameter() { GameContext = gameContext, UserContext = user }) as T;
-                user.HandCards.Add(card);
-                gameContext.AllCard.Add(card);
+                card.CardLocation = CardLocation.手牌;
+                //user.HandCards.Add(card);
+                user.AllCards.Add(card);
                 redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
                 return card;
             }            

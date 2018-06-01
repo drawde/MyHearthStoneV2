@@ -28,12 +28,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
 
         public override List<ICardAbility> Abilities => new List<ICardAbility>()
         {
-            new DeathWhisperDriver<Summon<PrimaryUserContextFilter,NullFilter,AssignServantFilter<Nerubian>,AllPickFilter,ONE>,InDeskFilter>()
+            new DeathWhisperDriver<Summon<PrimaryUserContextFilter,NullFilter,AssignServantFilter<Slime>,AllPickFilter,ONE>,InDeskFilter>()
         };
         public override bool HasTaunt => true;
         public override string BackgroudImage => "NAXX/SludgeBelcher.png";
 
-        public override string Name => "蛛魔之卵";
+        public override string Name => "淤泥喷射者";
         public override bool CanAttack => false;
         public override Profession Profession => Profession.Neutral;
     }

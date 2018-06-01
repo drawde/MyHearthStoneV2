@@ -29,7 +29,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.查询不到需要的数据);
             }
-            if (VictoryValidate(ctl.GameContext) == false)
+            if (VictoryValidate(ctl.GameContext))
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.游戏已经结束);
             }

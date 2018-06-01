@@ -125,6 +125,7 @@ namespace MyHearthStoneV2.BLL
                 new LayOnHands(),//圣疗
                 new TruesilverChampion(),//真银圣剑
                 new SludgeBelcher(),//淤泥喷射者
+                new Slime()//淤泥怪
             };
 
             lstCard.ForEach(c => c.CardCode = ShortCodeBusiness.Instance.GetOrCreate(c.GetType().FullName, ShortCodeTypeEnum.卡牌).Code);

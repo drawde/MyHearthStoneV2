@@ -56,9 +56,9 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
             }
             context.CastCardCount++;
             servant.CastIndex = context.CastCardCount;
-            context.AllCard.Add(servant);
+            //context.AllCard.Add(servant);
             servant.DeskIndex = deskIndex;
-            servant.CardInGameCode = context.AllCard.Count.ToString();
+            servant.CardInGameCode = context.AllCard.Count().ToString();
             context.DeskCards[deskIndex] = servant;
             player.AllCards.Add(servant);
 

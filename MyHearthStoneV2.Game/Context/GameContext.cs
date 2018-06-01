@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MyHearthStoneV2.Game.CardLibrary;
 using MyHearthStoneV2.Game.CardLibrary.CardAbility.Aura;
 using MyHearthStoneV2.Game.Event;
@@ -38,7 +39,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <summary>
         /// 本局中所有的牌
         /// </summary>
-        public List<Card> AllCard { get; set; }
+        public IEnumerable<Card> AllCard => Players[0].AllCards.Concat(Players[1].AllCards);
 
         /// <summary>
         /// 本局中对战的玩家

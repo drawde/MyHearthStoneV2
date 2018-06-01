@@ -24,10 +24,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
             UserContext uc = dropPara.UserContext;
             
             
-            if (dropPara.DropCardType == PickType.随机 && uc.HandCards.Count > 0)
+            if (dropPara.DropCardType == PickType.随机 && uc.HandCards.Count() > 0)
             {
                 List<int> dropList = new List<int>();
-                for (int i = 0; i < uc.HandCards.Count; i++)
+                for (int i = 0; i < uc.HandCards.Count(); i++)
                 {
                     dropList.Add(i);
                 }
@@ -38,10 +38,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
                 List<int> dropIdx = RandomUtil.CreateRandomInt(0, dropList.Count - 1, dropCount).OrderByDescending(c => c).ToList();
                 foreach (int idx in dropIdx)
                 {
-                    Card card = uc.HandCards[idx];
+                    Card card = uc.HandCards.ToList()[idx];
                     card.CardLocation = CardLocation.坟场;
-                    uc.HandCards.RemoveAt(idx);
-                    uc.GraveyardCards.Add(card);
+                    //uc.HandCards.RemoveAt(idx);
+                    //uc.GraveyardCards.Add(card);
                 }
             }
                 

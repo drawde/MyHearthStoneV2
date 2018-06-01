@@ -32,8 +32,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
             }
             card.CardCode = cardCode;
             card.IsFirstPlayerCard = userContext.IsFirst;
-            context.AllCard.Add(card);
-            card.CardInGameCode = context.AllCard.Count.ToString();
+            //context.AllCard.Add(card);
+            card.CardInGameCode = context.AllCard.Count().ToString();
             context.Players.First(c => c == userContext).AllCards.Add(card);
             return card;
         }

@@ -42,10 +42,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BaseAbility
                 var resurrectionCards = cardPick.Filter(waitingCards, actionParameter);
                 foreach (var card in resurrectionCards)
                 {
-                    if (user.GraveyardCards.Any(c => c.CardCode == card.CardCode))
-                    {
-                        user.GraveyardCards.RemoveAt(user.GraveyardCards.FindIndex(c => c.CardCode == card.CardCode));
-                    }
+                    //if (user.GraveyardCards.Any(c => c.CardCode == card.CardCode))
+                    //{
+                    //    user.GraveyardCards.RemoveAt(user.GraveyardCards.FindIndex(c => c.CardCode == card.CardCode));
+                    //}
                     CreateNewCardInDeskAction action = new CreateNewCardInDeskAction();
                     ControlerActionParameter para = new ControlerActionParameter()
                     {

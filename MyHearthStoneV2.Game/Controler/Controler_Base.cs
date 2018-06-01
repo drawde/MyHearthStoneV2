@@ -58,7 +58,7 @@ namespace MyHearthStoneV2.Game.Controler
             //{
             //    firstUser.AllCards.Add(lstCardLib.First(c => c.CardCode == detail.CardCode));
             //});
-            firstUser.StockCards = firstUser.AllCards;
+            //firstUser.StockCards = firstUser.AllCards;
 
             UserContext secondUser = new UserContext
             {
@@ -79,7 +79,7 @@ namespace MyHearthStoneV2.Game.Controler
                 cardInGameIndex++;
             });
 
-            secondUser.StockCards = secondUser.AllCards;
+            //secondUser.StockCards = secondUser.AllCards;
             
             
             GameContext = new GameContext
@@ -97,17 +97,16 @@ namespace MyHearthStoneV2.Game.Controler
 
             #region 初始化开场选牌
             int firstPickUpCount = 4;
-            List<Card> lstFirstPickUpCard = new List<Card>();
-            List<Card> lstSecondPickUpCard = new List<Card>();
-
             List<int> lstRndIndex = RandomUtil.CreateRandomInt(0, GameContext.Players.First(c => c.IsFirst).AllCards.Count - 1, firstPickUpCount);
             for (int i = 0; i < lstRndIndex.Count; i++)
             {
                 if (i < lstRndIndex.Count - 1)
                 {
-                    lstFirstPickUpCard.Add(GameContext.Players.First(c => c.IsFirst).AllCards[lstRndIndex[i]]);
+                    //lstFirstPickUpCard.Add(GameContext.Players.First(c => c.IsFirst).AllCards[lstRndIndex[i]]);
+                    GameContext.Players.First(c => c.IsFirst).AllCards[lstRndIndex[i]].CardLocation = CardLocation.InitCard;
                 }
-                lstSecondPickUpCard.Add(GameContext.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]]);
+                //lstSecondPickUpCard.Add(GameContext.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]]);
+                GameContext.Players.First(c => c.IsFirst == false).AllCards[lstRndIndex[i]].CardLocation = CardLocation.InitCard;
             }
             
             BaseHero firstHero = null, secondHero = null;
@@ -136,33 +135,33 @@ namespace MyHearthStoneV2.Game.Controler
                 case "Warrior": secondHero = new Warrior(); break;
             }
 
-            firstUser.HandCards = new List<Card>();
-            firstUser.InitCards = lstFirstPickUpCard;
+            //firstUser.HandCards = new List<Card>();
+            //firstUser.InitCards = lstFirstPickUpCard;
 
-            secondUser.HandCards = new List<Card>();
-            secondUser.InitCards = lstSecondPickUpCard;
+            //secondUser.HandCards = new List<Card>();
+            //secondUser.InitCards = lstSecondPickUpCard;
 
             cardInGameIndex++;
             firstHero.CardCode = lstCardLib.First(c => c.GetType().Name == firstHero.GetType().Name).CardCode;
             firstHero.CardInGameCode = cardInGameIndex.ToString();
             firstHero.DeskIndex = 0;
             firstHero.IsFirstPlayerCard = true;
-            firstUser.AllCards.Add(firstHero);
+            //firstUser.AllCards.Add(firstHero);
 
             cardInGameIndex++;
             secondHero.CardCode = lstCardLib.First(c => c.GetType().Name == secondHero.GetType().Name).CardCode;
             secondHero.CardInGameCode = cardInGameIndex.ToString();
             secondHero.DeskIndex = 8;
             secondHero.IsFirstPlayerCard = false;
-            secondUser.AllCards.Add(secondHero);
+            //secondUser.AllCards.Add(secondHero);
 
             GameContext.DeskCards = new DeskBoard() { firstHero, null, null, null, null, null, null, null, secondHero, null, null, null, null, null, null, null };
             #endregion
 
-            List<Card> lstAll = new List<Card>();
-            lstAll.AddRange(firstUser.AllCards);
-            lstAll.AddRange(secondUser.AllCards);
-            GameContext.AllCard = lstAll;
+            //List<Card> lstAll = new List<Card>();
+            //lstAll.AddRange(firstUser.AllCards);
+            //lstAll.AddRange(secondUser.AllCards);
+            //GameContext.AllCard = lstAll;
         }       
     }
 }

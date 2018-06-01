@@ -52,12 +52,12 @@ namespace MyHearthStoneV2.Game.Context
                 {
                     gameContextOutput.Players.Add(new UserContextOutput()
                     {
-                        HandCards = cd.HandCards,
-                        InitCards = cd.InitCards,
+                        HandCards = cd.HandCards.ToList(),
+                        InitCards = cd.InitCards.ToList(),
                         IsActivation = cd.IsActivation,
                         IsFirst = cd.IsFirst,
                         Power = cd.Power,
-                        StockCards = cd.StockCards.Count,
+                        StockCards = cd.StockCards.Count(),
                         SwitchDone = cd.SwitchDone,
                         UserCode = cd.UserCode,
                         TurnIndex = gameContext.TurnIndex,
@@ -69,12 +69,12 @@ namespace MyHearthStoneV2.Game.Context
                 {
                     gameContextOutput.Players.Add(new UserContextSimpleOutput()
                     {
-                        HandCards = cd.HandCards.Count,
-                        InitCards = cd.InitCards.Count,
+                        HandCards = cd.HandCards.Count(),
+                        InitCards = cd.InitCards.Count(),
                         IsActivation = cd.IsActivation,
                         IsFirst = cd.IsFirst,
                         Power = cd.Power,
-                        StockCards = cd.StockCards.Count,
+                        StockCards = cd.StockCards.Count(),
                         SwitchDone = cd.SwitchDone,
                         UserCode = cd.UserCode,
                         TurnIndex = gameContext.TurnIndex,
@@ -104,12 +104,12 @@ namespace MyHearthStoneV2.Game.Context
                 {
                     gameContextOutput.Players.Add(new UserContextOutput()
                     {
-                        HandCards = cd.HandCards,
-                        InitCards = cd.InitCards,
+                        HandCards = cd.HandCards.ToList(),
+                        InitCards = cd.InitCards.ToList(),
                         IsActivation = cd.IsActivation,
                         IsFirst = cd.IsFirst,
                         Power = cd.Power,
-                        StockCards = cd.StockCards.Count,
+                        StockCards = cd.StockCards.Count(),
                         SwitchDone = cd.SwitchDone,
                         UserCode = cd.UserCode,
                         TurnIndex = gameContext.TurnIndex,
@@ -121,12 +121,12 @@ namespace MyHearthStoneV2.Game.Context
                 {
                     gameContextOutput.Players.Add(new UserContextSimpleOutput()
                     {
-                        HandCards = cd.HandCards.Count,
-                        InitCards = cd.InitCards.Count,
+                        HandCards = cd.HandCards.Count(),
+                        InitCards = cd.InitCards.Count(),
                         IsActivation = cd.IsActivation,
                         IsFirst = cd.IsFirst,
                         Power = cd.Power,
-                        StockCards = cd.StockCards.Count,
+                        StockCards = cd.StockCards.Count(),
                         SwitchDone = cd.SwitchDone,
                         UserCode = cd.UserCode,
                         TurnIndex = gameContext.TurnIndex,
@@ -188,17 +188,17 @@ namespace MyHearthStoneV2.Game.Context
                 LinkedListNode<ActionStatement> node = ll.First;
                 while (node != null)
                 {
-                    node.Value.Settlement();
-                    node = node.Next;
+                    node.Value.Settlement();                    
                     Card deadCard = node.Value.CardActionParameter.PrimaryCard;
                     if (deadCard != null && context.HearseCards.Any(c=>c.CardInGameCode == deadCard.CardInGameCode))
                     {
                         UserContext uc = context.GetUserContextByMyCard(deadCard);
                         //进坟场
                         deadCard.CardLocation = CardLocation.坟场;
-                        uc.GraveyardCards.Add(deadCard);
+                        //uc.GraveyardCards.Add(deadCard);
                         context.HearseCards.Remove(deadCard);
                     }
+                    node = node.Next;
                 }
                 ll.Clear();
             }
@@ -219,7 +219,7 @@ namespace MyHearthStoneV2.Game.Context
                 {
                     UserContext uc = context.GetUserContextByMyCard(node.Value);
                     node.Value.CardLocation = CardLocation.坟场;
-                    uc.GraveyardCards.Add(node.Value);
+                    //uc.GraveyardCards.Add(node.Value);
                     node = node.Next;
                 }
                 ll.Clear();

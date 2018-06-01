@@ -37,10 +37,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Equip
             gameContext.CastCardCount++;
             equip.CastIndex = gameContext.CastCardCount;
             equip.CardLocation = CardLocation.场上;
-            if (user.HandCards.Any(c => c.CardInGameCode == equip.CardInGameCode))
-                user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == equip.CardInGameCode));
-            else if (user.StockCards.Any(c => c.CardInGameCode == equip.CardInGameCode))
-                user.StockCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == equip.CardInGameCode));
+            //if (user.HandCards.Any(c => c.CardInGameCode == equip.CardInGameCode))
+            //    user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == equip.CardInGameCode));
+            //else if (user.StockCards.Any(c => c.CardInGameCode == equip.CardInGameCode))
+            //    user.StockCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == equip.CardInGameCode));
 
             BaseActionParameter resetPara = CardActionFactory.CreateParameter(baseHero, actionParameter.GameContext);
             CardActionFactory.CreateAction(baseHero, ActionType.重置攻击次数).Action(resetPara);

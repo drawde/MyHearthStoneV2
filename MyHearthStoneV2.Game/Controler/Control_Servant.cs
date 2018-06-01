@@ -35,19 +35,28 @@ namespace MyHearthStoneV2.Game.Controler
 
             location = GameContext.AutoShiftServant(GameContext.ShiftServant(location));            
             //先从手牌中移除这张牌
-            user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
+            //user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
             GameContext.ParachuteCard = servant;
             servant.CardLocation = CardLocation.降落伞;
 
             BaseActionParameter para = CardActionFactory.CreateParameter(servant, GameContext, deskIndex: location, secondaryCard: target > -1 ? GameContext.DeskCards[target] : null);
-            if (servant.Abilities.Any(c => c is BaseBattlecryDriver<IGameAction, ICardLocationFilter>))
+            CardAbilityParameter cardAbilityParameter = new CardAbilityParameter()
             {
-                servant.Abilities.First().Action(para);
-            }            
+                GameContext = GameContext,
+                PrimaryCard = servant,
+                SecondaryCard = target > -1 ? GameContext.DeskCards[target] : null,
+                PrimaryCardLocation = location,
+            };
+            new BattlecryEvent() { EventCard = servant, Parameter = cardAbilityParameter }.Settlement();
+            GameContext.QueueSettlement();
+            //if (servant.Abilities.Any(c => c is BaseBattlecryDriver<IGameAction, ICardLocationFilter>))
+            //{
+            //    servant.Abilities.First().Action(para);
+            //}            
             //GameContext.EventQueue.AddLast(new BattlecryEvent() { EventCard = servant, Parameter = para });
-            
+
             new CastServantAction().Action(para);
-            GameContext.ParachuteCard = null;
+            GameContext.ParachuteCard = null;            
         }
 
 

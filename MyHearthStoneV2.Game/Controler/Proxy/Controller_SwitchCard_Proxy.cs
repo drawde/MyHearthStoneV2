@@ -40,7 +40,7 @@ namespace MyHearthStoneV2.Game.Controler.Proxy
             {
                 initCardIndex.Add(idx.TryParseInt());
             }
-            if (initCardIndex.Any(c => c < 0 || c > 3) || initCardIndex.Any(c => c >= ctl.GameContext.Players.First(x => x.UserCode == userCode).InitCards.Count))
+            if (initCardIndex.Any(c => c < 0 || c > 3) || initCardIndex.Any(c => c >= ctl.GameContext.Players.First(x => x.UserCode == userCode).InitCards.Count()))
             {
                 return JsonModelResult.PackageFail(OperateResCodeEnum.参数错误);
             }

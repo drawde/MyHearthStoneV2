@@ -80,5 +80,6 @@ namespace MyHearthStoneV2.Game.CardLibrary
         public virtual LinkedList<IBuffRestore<ICardLocationFilter, IEvent>> Buffs { get; set; } = new LinkedList<IBuffRestore<ICardLocationFilter, IEvent>>();
 
         public virtual bool IsEnable { get; set; } = true;
+        public int Sort { get; set; }
     }
 }

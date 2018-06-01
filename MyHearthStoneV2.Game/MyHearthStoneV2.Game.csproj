@@ -132,6 +132,7 @@
     <Compile Include="CardLibrary\Servant\Neutral\Classical\BluegillWarrior.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\Classical\MurlocWarleader.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\Classical\OldMurkEye.cs" />
+    <Compile Include="CardLibrary\Servant\Neutral\NAXX\Slime.cs" />
     <Compile Include="CardLibrary\Servant\Neutral\NAXX\SludgeBelcher.cs" />
     <Compile Include="CardLibrary\Servant\Paladin\SilverHandRecruit.cs" />
     <Compile Include="CardLibrary\Spell\Paladin\AnyfinCanHappen.cs" />

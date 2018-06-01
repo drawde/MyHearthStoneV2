@@ -29,14 +29,14 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Hero
                 GameContext = gameContext
             });
             
-            if (user.HandCards.Any(c => c == baseHero))
-            {
-                user.HandCards.Remove(baseHero);
-            }
-            else if (user.StockCards.Any(c => c == baseHero))
-            {
-                user.StockCards.Remove(baseHero);
-            }
+            //if (user.HandCards.Any(c => c == baseHero))
+            //{
+            //    user.HandCards.Remove(baseHero);
+            //}
+            //else if (user.StockCards.Any(c => c == baseHero))
+            //{
+            //    user.StockCards.Remove(baseHero);
+            //}
             gameContext.DeskCards[user.IsActivation ? 0 : 8] = baseHero;
             return null;
         }

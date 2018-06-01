@@ -21,10 +21,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Player
             GameContext gameContext = actionParameter.GameContext;
             for (int i = 1; i <= returnCount; i++)
             {
-                if (uc.HandCards.Count < 10)
+                if (uc.HandCards.Count() < 10)
                 {
                     //如果手牌没满则放入手牌中
-                    uc.HandCards.Add(returnPara.PrimaryCard);
+                    //uc.HandCards.Add(returnPara.PrimaryCard);
                     returnPara.PrimaryCard.CardLocation = CardLocation.手牌;
                     gameContext.DeskCards[gameContext.DeskCards.FindIndex(c => c != null && c.CardInGameCode == returnPara.PrimaryCard.CardInGameCode)] = null;
                 }

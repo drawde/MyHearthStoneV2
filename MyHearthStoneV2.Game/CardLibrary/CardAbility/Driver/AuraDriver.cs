@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     public class AuraDriver<T, F, E> : BaseDriver<T, F>, ICapture<F, E> where T : IAura where F : ICardLocationFilter where E : IEvent
     {
         public Card AuraCard { get; set; }
-        private ICardLocationFilter filter = GameActivator<F>.CreateInstance();
+        //private ICardLocationFilter filter = GameActivator<F>.CreateInstance();
         public AuraDriver(Card auraCard)
         {
             auraCard = AuraCard;
@@ -22,12 +22,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
         public override IActionOutputParameter Action(BaseActionParameter actionParameter)
         {
             IAura aura = (IAura)Activator.CreateInstance(typeof(T), AuraCard);
-            aura.LocationFilter = filter;
+            aura.LocationFilter = GameActivator<F>.CreateInstance();
             return aura.Action(actionParameter);
         }
         public override bool TryCapture(Card card, IEvent @event)
         {            
-            return filter.Filter(card) && @event.GetType() == typeof(E) && @event.EventCard.IsFirstPlayerCard == card.IsFirstPlayerCard;
+            return GameActivator<F>.CreateInstance().Filter(card) && @event.GetType() == typeof(E) && @event.EventCard.IsFirstPlayerCard == card.IsFirstPlayerCard;
         }
     }
 }

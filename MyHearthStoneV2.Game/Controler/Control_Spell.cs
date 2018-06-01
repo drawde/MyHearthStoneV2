@@ -26,7 +26,7 @@ namespace MyHearthStoneV2.Game.Controler
             //var enenmyUserContext = gameContext.GetNotActivationUserContext();
 
             currentUserContext.Power -= spell.Cost < 0 ? 0 : spell.Cost;
-            currentUserContext.HandCards.Remove(spell);
+            //currentUserContext.HandCards.Remove(spell);
             currentUserContext.ComboSwitch = true;
 
             GameContext.CastCardCount++;

@@ -29,21 +29,21 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Controler
             }
             card.IsFirstPlayerCard = userContext.IsFirst;
             card.CardCode = cardCode;
-            context.AllCard.Add(card);
-            card.CardInGameCode = context.AllCard.Count.ToString();
+            //context.AllCard.Add(card);
+            card.CardInGameCode = context.AllCard.Count().ToString();
             context.Players.First(c => c == userContext).AllCards.Add(card);
 
-            if (userContext.HandCards.Count < 10)
+            if (userContext.HandCards.Count() < 10)
             {
                 //如果手牌没满则放入手牌中
-                userContext.HandCards.Add(card);
+                //userContext.HandCards.Add(card);
                 card.CardLocation = CardLocation.手牌;
             }
             else
             {
                 //否则撕了这张牌
                 card.CardLocation = CardLocation.坟场;
-                userContext.GraveyardCards.Add(card);
+                //userContext.GraveyardCards.Add(card);
             }
             return card;
         }

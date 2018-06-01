@@ -31,10 +31,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAction.Servant
             servant.CanAttack = true;
 
             gameContext.DeskCards[deskIndex] = servant;
-            if (user.HandCards.Any(c => c.CardInGameCode == servant.CardInGameCode))
-                user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
-            else if (user.StockCards.Any(c => c.CardInGameCode == servant.CardInGameCode))
-                user.StockCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
+            //if (user.HandCards.Any(c => c.CardInGameCode == servant.CardInGameCode))
+            //    user.HandCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
+            //else if (user.StockCards.Any(c => c.CardInGameCode == servant.CardInGameCode))
+            //    user.StockCards.RemoveAt(user.HandCards.FindIndex(c => c.CardInGameCode == servant.CardInGameCode));
 
             if (servant.HasCharge)
             {

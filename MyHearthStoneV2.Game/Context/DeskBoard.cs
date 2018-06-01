@@ -12,38 +12,38 @@ namespace MyHearthStoneV2.Game.Context
     /// </summary>
     public class DeskBoard : List<BaseBiology>
     {
-        public List<BaseBiology> FirstPlayerDeskCards()
+        public IEnumerable<BaseBiology> FirstPlayerDeskCards()
         {
             return GetRange(0, 8);
         }
 
-        public List<BaseBiology> SecondPlayerDeskCards()
+        public IEnumerable<BaseBiology> SecondPlayerDeskCards()
         {
             return GetRange(8, 8);
         }
 
-        public List<BaseBiology> GetDeskCardsByIsFirst(bool isFirst = true)
+        public IEnumerable<BaseBiology> GetDeskCardsByIsFirst(bool isFirst = true)
         {
             return GetRange(isFirst ? 0 : 8, 8);
         }
 
-        public List<BaseBiology> GetDeskServantsByIsFirst(bool isFirst = true)
+        public IEnumerable<BaseBiology> GetDeskServantsByIsFirst(bool isFirst = true)
         {
             return GetRange(isFirst ? 0 : 8, 8).Where(c => c != null && c.CardType == CardType.随从).ToList();
         }
 
-        public List<BaseBiology> GetDeskBiologysByIsFirst(bool isFirst = true)
+        public IEnumerable<BaseBiology> GetDeskBiologysByIsFirst(bool isFirst = true)
         {
             return GetRange(isFirst ? 0 : 8, 8).Where(c => c != null).ToList();
         }
 
-        public List<BaseBiology> GetServants()
+        public IEnumerable<BaseBiology> GetServants()
         {
             return this.Where(c => c != null && c.CardType == CardType.随从).ToList();
         }
-        public List<BaseBiology> GetAllBiology()
+        public IEnumerable<BaseBiology> GetAllBiology()
         {
-            return this.Where(c => c != null).ToList();
+            return this.Where(c => c != null);
         }
 
         public Func<BaseBiology, bool> GetServant(string cardInGameCode)
@@ -71,7 +71,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="context"></param>
         /// <param name="enemyCard"></param>
         /// <returns></returns>
-        public List<BaseBiology> GetDeskCardsByEnemyCard(BaseBiology biology)
+        public IEnumerable<BaseBiology> GetDeskCardsByEnemyCard(BaseBiology biology)
         {
             return GetRange(biology.DeskIndex < 8 ? 8 : 0, 8);
         }
@@ -82,7 +82,7 @@ namespace MyHearthStoneV2.Game.Context
         /// <param name="context"></param>
         /// <param name="myCard"></param>
         /// <returns></returns>
-        public List<BaseBiology> GetDeskCardsByMyCard(BaseBiology biology)
+        public IEnumerable<BaseBiology> GetDeskCardsByMyCard(BaseBiology biology)
         {
             return GetRange(biology.DeskIndex < 8 ? 0 : 8, 8);
         }
