@@ -32,15 +32,16 @@ using MyHearthStoneV2.Game.CardLibrary.Hero;
 using MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical;
 using MyHearthStoneV2.Game.CardLibrary.Servant.Rogue;
 using MyHearthStoneV2.Game.CardLibrary.Servant.Warlock;
+using MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG;
 
 namespace MyHearthStoneV2.TestConsole
 {
-    
+
     class Program
     {
 
         static void Main(string[] args)
-        {            
+        {
             //CardUtil.AddToRedis();
             //List<Card> lstCards = CardUtil.GetCardInRedis();
             //var lst = ShortCodeBusiness.Instance.GetList();
@@ -54,8 +55,8 @@ namespace MyHearthStoneV2.TestConsole
             //res = Go(GameTableBll.Instance.GetTable("00009", "123"));
             string gameCode = GameBll.Instance.GetGameByTableCode("00009").GameCode;
 
-            reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() { "0", "1", "2" });
-            reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { "0", "1" });
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() { "0", "1" });
+            //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { "0", "1", "2" });
 
             //reslut = Controller_Base_Proxy.LoadEquip(gameCode, drawde, "51");
             //reslut = Controller_Base_Proxy.LoadEquip(gameCode, mendicantbias, "20");            
@@ -63,7 +64,7 @@ namespace MyHearthStoneV2.TestConsole
             //reslut = Controller_Base_Proxy.CastSpell(gameCode, drawde, "69", -1);
             //reslut = Controller_Base_Proxy.CastSpell(gameCode, mendicantbias, "63", -1);
 
-            //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "1", 1, -1);
+            reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "33", 12, -1);
             //reslut = Controller_Base_Proxy.CastServant(gameCode, mendicantbias, "58", 10, -1);
 
             //reslut = Controller_Base_Proxy.ServantAttack(gameCode, drawde, "35", 2);
@@ -80,16 +81,18 @@ namespace MyHearthStoneV2.TestConsole
 
             //GameTester.TurnEnd(gameCode);
             //GameTester.FullPower(gameCode);
+            //GameTester.DrawCardUntilFull(gameCode);
             //GameTester.CastServant(gameCode, "6");            
+            //GameTester.CastServant<PilotedShredder>(gameCode);
             //GameTester.LoadEquip<DeathBite>(gameCode);
             //(gameContext.DeskCards[8] as BaseHero).Equip.Durable = 1;
             //GameTester.QueueSettlement(gameCode);
             //GameTester.CreateCard<LuckyCoin>(gameCode);
-            //GameTester.GodDraw<FlameImp>(gameCode);
+            //GameTester.GodDraw<EdwinVanCleef>(gameCode);
             //GameTester.DrawCard(gameCode, 5);
             //GameTester.FullPower(gameCode);
             gameContext = GetContext(gameCode);
-            
+
             //gameContext.DeskCards[1].RemainAttackTimes = 1;
             //gameContext.DrawCard(true, 6);
             //gameContext.Players[0].Power = 10;
@@ -171,7 +174,7 @@ namespace MyHearthStoneV2.TestConsole
                 }
                 else
                 {
-                    
+
                 }
             }
             else

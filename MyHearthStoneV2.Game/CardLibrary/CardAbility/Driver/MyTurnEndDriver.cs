@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
         {
             ICardLocationFilter filter = GameActivator<F>.CreateInstance();
             UserContext uc = @event.Parameter.GameContext.GetUserContextByMyCard(card);
-            return filter.Filter(card) && @event.GetType() == typeof(MyTurnEndEvent) && @event.Parameter.UserContext.IsActivation;
+            return filter.Filter(card) && @event.GetType() == typeof(MyTurnEndEvent) && @event.Parameter.GameContext.IsThisActivationUserCard(card);
         }
     }
 }

@@ -24,6 +24,30 @@ namespace MyHearthStoneV2.Game
     /// </summary>
     public class GameTester
     {
+        public static void DrawCardUntilFull(string gameCode)
+        {
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+            }
+
+            var uc = gameContext.GetActivationUserContext();
+            DrawCardActionParameter para = new DrawCardActionParameter()
+            {
+                DrawCount = 10 - uc.HandCards.Count(),
+                GameContext = gameContext,
+                UserContext = uc
+            };
+            Action.IGameAction drawCardAction = new DrawCardAction();
+            drawCardAction.Action(para);
+
+            using (var redisClient = RedisManager.GetClient())
+            {
+                redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+            }
+        }
+
         public static void DrawCard(string gameCode, int drawCount)
         {
             GameContext gameContext = null;
@@ -58,6 +82,7 @@ namespace MyHearthStoneV2.Game
             }
             if (gameContext.Players[0].AllCards.Any(c => c.CardInGameCode == cardInGameCode))
             {
+                servant = gameContext.Players[0].AllCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
                 if (gameContext.Players[0].IsFirst == false)
                 {
                     start = 9;
@@ -71,21 +96,10 @@ namespace MyHearthStoneV2.Game
                         break;
                     }
                 }
-
-                //if (gameContext.Players[0].HandCards.Any(c => c.CardInGameCode == cardInGameCode))
-                //{
-                //    servant = gameContext.Players[0].HandCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
-                //    gameContext.Players[0].HandCards.RemoveAt(gameContext.Players[0].HandCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
-                //}
-                //else if (gameContext.Players[0].StockCards.Any(c => c.CardInGameCode == cardInGameCode))
-                //{
-                //    servant = gameContext.Players[0].StockCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
-                //    gameContext.Players[0].StockCards.RemoveAt(gameContext.Players[0].StockCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
-                //}
-
             }
             else
             {
+                servant = gameContext.Players[1].AllCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
                 if (gameContext.Players[1].IsFirst == false)
                 {
                     start = 9;
@@ -99,29 +113,64 @@ namespace MyHearthStoneV2.Game
                         break;
                     }
                 }
-
-                //if (gameContext.Players[1].HandCards.Any(c => c.CardInGameCode == cardInGameCode))
-                //{
-                //    servant = gameContext.Players[1].HandCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
-                //    gameContext.Players[1].HandCards.RemoveAt(gameContext.Players[1].HandCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
-                //}
-                //else if (gameContext.Players[1].StockCards.Any(c => c.CardInGameCode == cardInGameCode))
-                //{
-                //    servant = gameContext.Players[1].StockCards.First(c => c.CardInGameCode == cardInGameCode) as BaseServant;
-                //    gameContext.Players[1].StockCards.RemoveAt(gameContext.Players[1].StockCards.FindIndex(c => c.CardInGameCode == cardInGameCode));
-                //}
             }
             gameContext.CastCardCount++;
             servant.CastIndex = gameContext.CastCardCount;
             servant.CanAttack = true;
             servant.RemainAttackTimes = 1;
             servant.DeskIndex = deskIndex;
+            servant.CardLocation = CardLocation.场上;
             gameContext.DeskCards[deskIndex] = servant;
 
             using (var redisClient = RedisManager.GetClient())
             {
                 redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
             }
+        }
+
+        public static void CastServant<Servant>(string gameCode)
+        {
+            int deskIndex = -1;
+            int start = 1, end = 8;
+            BaseServant servant = null;
+            GameContext gameContext = null;
+            using (var redisClient = RedisManager.GetClient())
+            {
+                gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
+            }
+            UserContext uc = gameContext.GetActivationUserContext();
+            if (uc.AllCards.Any(c => c.GetType() == typeof(Servant)))
+            {
+                uc.ComboSwitch = true;
+                servant = uc.AllCards.OrderByDescending(c => c.Sort).First(c => c.GetType() == typeof(Servant)) as BaseServant;
+                if (uc.IsFirst == false)
+                {
+                    start = 9;
+                    end = 16;
+                }
+                for (int i = start; i < end; i++)
+                {
+                    if (gameContext.DeskCards[i] == null)
+                    {
+                        deskIndex = i;
+                        break;
+                    }
+                }
+                gameContext.CastCardCount++;
+                servant.CastIndex = gameContext.CastCardCount;
+                servant.CanAttack = true;
+                servant.RemainAttackTimes = 1;
+                servant.DeskIndex = deskIndex;
+                gameContext.DeskCards[deskIndex] = servant;
+                servant.CardLocation = CardLocation.场上;
+
+                using (var redisClient = RedisManager.GetClient())
+                {
+                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
+                }
+            }
+
+
         }
 
         public static void TurnEnd(string gameCode)
@@ -189,7 +238,7 @@ namespace MyHearthStoneV2.Game
                 user.AllCards.Add(card);
                 redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
                 return card;
-            }            
+            }
         }
 
 
@@ -207,7 +256,7 @@ namespace MyHearthStoneV2.Game
             //T equip = Activator.CreateInstance<T>();
             ControlerActionParameter ctlPara = null;
 
-
+            current.ComboSwitch = true;
             if (current.AllCards.Any(c => c.GetType() == typeof(T)))
             {
                 isfirst = current.IsFirst;
@@ -226,7 +275,7 @@ namespace MyHearthStoneV2.Game
                     UserContext = enemy
                 };
             }
-            
+
             BaseEquip equip = new CreateNewCardInControllerAction<T>().Action(ctlPara) as BaseEquip;
             EquipActionParameter equipPara = new EquipActionParameter()
             {
@@ -250,7 +299,7 @@ namespace MyHearthStoneV2.Game
                 gameContext = redisClient.Get<GameContext>(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameCode));
                 gameContext.QueueSettlement();
                 redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);
-            }            
+            }
         }
 
         public static void FullPower(string gameCode)

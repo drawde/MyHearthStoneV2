@@ -8,6 +8,7 @@ using MyHearthStoneV2.Game.Widget.Filter.CardLocationFilter;
 using MyHearthStoneV2.Game.Event;
 using System;
 using MyHearthStoneV2.Game.Action;
+using MyHearthStoneV2.Game.Context;
 
 namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
 {
@@ -47,7 +48,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.BUFF.ChangeBody
         {
             F locationFilter = GameActivator<F>.CreateInstance();
             ICardLocationFilter filter = GameActivator<F>.CreateInstance();
-            return filter.Filter(card) && @event.GetType() == locationFilter.GetType() && @event.Parameter.UserContext.IsActivation;
+            return filter.Filter(card) && @event.GetType() == locationFilter.GetType() && @event.Parameter.GameContext.IsThisActivationUserCard(card);
         }
     }
 }
