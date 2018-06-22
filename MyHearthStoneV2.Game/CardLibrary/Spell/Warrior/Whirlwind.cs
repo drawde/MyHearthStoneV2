@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "旋风斩";
-        public override int Cost => 1;
+        public override int Cost { get; set; }  = 1;
         public override int InitialCost => 1;
         public override string Describe => "对所有随从造成1点伤害。";
 
@@ -28,6 +28,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override string BackgroudImage => "W6_076_D.png";
         public override Profession Profession => Profession.Warrior;
 
-        public override int Damage => 1;
+        public override int Damage { get; set; }  = 1;
     }
 }

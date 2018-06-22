@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Paladin
         public override Rarity Rare => Rarity.史诗;
 
         public override string Name => "生而平等";
-        public override int Cost => 2;
+        public override int Cost { get; set; }  = 2;
         public override int InitialCost => 2;
         public override string Describe => "将所有随从的生命值变为1。";
 

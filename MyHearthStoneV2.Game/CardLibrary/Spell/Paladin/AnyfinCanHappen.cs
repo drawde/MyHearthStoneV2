@@ -16,7 +16,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Paladin
         public override Rarity Rare => Rarity.精良;
 
         public override string Name => "亡者归来";
-        public override int Cost => 10;
+        public override int Cost { get; set; }  = 10;
         public override int InitialCost => 10;
         public override string Describe => "召唤七个在本局对战中死亡的鱼人。";
 

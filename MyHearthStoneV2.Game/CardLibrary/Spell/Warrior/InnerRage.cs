@@ -15,10 +15,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "怒火中烧";
-        public override int Cost => 0;
+        public override int Cost { get; set; }  = 0;
         public override int InitialCost => 0;
         public override string Describe => "对一个随从造成1点伤害，该随从获得+2攻击力。";
-        public override int Damage => 1;
+        public override int Damage { get; set; }  = 1;
         public override List<ICardAbility> Abilities => new List<ICardAbility>()
         {
             new SpellDriver_Single_AllServant

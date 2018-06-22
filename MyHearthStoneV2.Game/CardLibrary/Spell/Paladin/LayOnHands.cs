@@ -17,7 +17,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Paladin
         public override Rarity Rare => Rarity.史诗;
 
         public override string Name => "圣疗";
-        public override int Cost => 8;
+        public override int Cost { get; set; }  = 8;
         public override int InitialCost => 8;
         public override string Describe => "恢复8点生命。抽3张牌。";
 

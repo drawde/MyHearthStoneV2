@@ -9,15 +9,15 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Shaman.Classical
 {
     public class Al_akir : BaseServant
     {
-        public override int Damage => 3;
-        public override int Life => 4;
-        public override int Cost => 8;
+        public override int Damage { get; set; }  = 3;
+        public override int Life { get; set; }  = 4;
+        public override int Cost { get; set; }  = 8;
 
         public override int InitialDamage => 3;
         public override int InitialLife => 4;
         public override int InitialCost => 8;
         
-        public override int BuffLife => 4;
+        public override int BuffLife { get; set; }  = 4;
         public override CardLocation CardLocation { get; set; }
 
         public override List<ICardAbility> Abilities => new List<ICardAbility>() { };

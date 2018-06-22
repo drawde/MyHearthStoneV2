@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "背刺";
-        public override int Cost => 0;
+        public override int Cost { get; set; }  = 0;
         public override int InitialCost => 0;
         public override string Describe => "对一个未受伤害的随从造成2点伤害。";
 
@@ -26,6 +26,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override Profession Profession => Profession.Rogue;
 
         public override CastCardPrecondition CastCardPrecondition => CastCardPrecondition.健康;
-        public override int Damage => 2;
+        public override int Damage { get; set; }  = 2;
     }
 }

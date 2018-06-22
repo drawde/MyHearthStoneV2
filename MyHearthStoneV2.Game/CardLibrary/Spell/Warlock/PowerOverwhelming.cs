@@ -23,7 +23,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warlock
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "力量的代价";
-        public override int Cost => 1;
+        public override int Cost { get; set; }  = 1;
         public override int InitialCost => 1;
         public override string Describe => "直到回合结束，使一个友方随从获得+4/+4，然后将其消灭。";
 

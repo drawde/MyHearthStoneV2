@@ -37,8 +37,8 @@ namespace MyHearthStoneV2.Game.Monitor
             {
                 DataExchangeBll.Instance.AsyncInsert(_methodName, _className, eventArgs.Arguments.ToJsonString(), eventArgs.ReturnValue.TryParseString().ToJsonString(), DataSourceEnum.GameControler);
             }
-            GameContextCache.SetContext(ctl.GameContext);
-            base.OnEntry(eventArgs);
+            //GameContextCache.SetContext(ctl.GameContext);
+            base.OnExit(eventArgs);
         }
 
     }

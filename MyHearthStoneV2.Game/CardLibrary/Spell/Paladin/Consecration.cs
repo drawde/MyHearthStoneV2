@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Paladin
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "奉献";
-        public override int Cost => 4;
+        public override int Cost { get; set; }  = 4;
         public override int InitialCost => 4;
         public override string Describe => "对所有敌人造成2点伤害。";
 

@@ -13,7 +13,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Neutral.Classical
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "幸运币";
-        public override int Cost => 0;
+        public override int Cost { get; set; }  = 0;
         
         public override string Describe => "";
 

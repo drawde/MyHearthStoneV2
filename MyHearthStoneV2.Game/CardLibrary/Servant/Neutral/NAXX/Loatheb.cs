@@ -12,15 +12,15 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.NAXX
 {
     public class Loatheb : BaseServant
     {
-        public override int Damage => 5;
-        public override int Life => 5;
-        public override int Cost => 5;
+        public override int Damage { get; set; }  = 5;
+        public override int Life { get; set; }  = 5;
+        public override int Cost { get; set; }  = 5;
 
         public override int InitialDamage => 5;
         public override int InitialLife => 5;
         public override int InitialCost => 5;
 
-        public override int BuffLife => 5;
+        public override int BuffLife { get; set; }  = 5;
         public override string Describe => "战吼：下一回合敌方法术的法力值消耗增加（5）点。";
 
         public override Rarity Rare => Rarity.传说;

@@ -15,7 +15,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "猛击";
-        public override int Cost => 2;
+        public override int Cost { get; set; }  = 2;
         public override int InitialCost => 2;
         public override string Describe => "对一个随从造成2点伤害，如果它依然存活，则抽一张牌。";
 
@@ -30,6 +30,6 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override string BackgroudImage => "W6_002_D.png";
         public override Profession Profession => Profession.Warrior;
 
-        public override int Damage => 2;
+        public override int Damage { get; set; }  = 2;
     }
 }
