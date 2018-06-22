@@ -18,16 +18,16 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
     public class LeeroyJenkins : BaseServant
     {
-        public override int Damage => 6;
-        public override int Life => 2;
-        public override int Cost => 5;
+        public override int Damage { get; set; }  = 6;
+        public override int Life { get; set; }  = 2;
+        public override int Cost { get; set; }  = 5;
 
         public override int InitialDamage => 6;
         public override int InitialLife => 2;
         public override int InitialCost => 5;
 
 
-        public override int BuffLife => 2;
+        public override int BuffLife { get; set; }  = 2;
         public override string Describe => "冲锋，战吼：为你的对手召唤2只1/1的雏龙。";
 
         public override Rarity Rare => Rarity.传说;

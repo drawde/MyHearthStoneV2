@@ -16,7 +16,12 @@ namespace MyHearthStoneV2.Game.CardLibrary.CardAbility.Driver
     /// <typeparam name="T"></typeparam>
     public abstract class BaseDriver<T, F> : DefaultAttribute, ICardAbility where T : IGameAction where F : ICardLocationFilter
     {
-        public virtual IActionOutputParameter Action(BaseActionParameter actionParameter) => Activator.CreateInstance<T>().Action(actionParameter);
+        public virtual IActionOutputParameter Action(BaseActionParameter actionParameter)
+        {            
+            if (typeof(T).GetConstructor(Type.EmptyTypes) != null)
+                return Activator.CreateInstance<T>().Action(actionParameter);
+            return ((T)Activator.CreateInstance(typeof(T), actionParameter.TertiaryCard)).Action(actionParameter);
+        }
 
         public virtual bool TryCapture(Card card, IEvent @event) => false;
     }

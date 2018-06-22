@@ -51,10 +51,10 @@ namespace MyHearthStoneV2.TestConsole
 
             string res = "";
             APIResultBase reslut = null;
-            GameContext gameContext = null;
+            
             //res = Go(GameTableBll.Instance.GetTable("00009", "123"));
             string gameCode = GameBll.Instance.GetGameByTableCode("00009").GameCode;
-
+            GameContext gameContext = GetContext(gameCode);
             //reslut = Controller_Base_Proxy.SwitchCard(gameCode, drawde, new List<string>() { "0", "1" });
             //reslut = Controller_Base_Proxy.SwitchCard(gameCode, mendicantbias, new List<string>() { "0", "1", "2" });
 
@@ -91,12 +91,12 @@ namespace MyHearthStoneV2.TestConsole
             //GameTester.GodDraw<EdwinVanCleef>(gameCode);
             //GameTester.DrawCard(gameCode, 5);
             //GameTester.FullPower(gameCode);
-            gameContext = GetContext(gameCode);
+            //gameContext = GetContext(gameCode);
 
             //gameContext.DeskCards[1].RemainAttackTimes = 1;
             //gameContext.DrawCard(true, 6);
             //gameContext.Players[0].Power = 10;
-
+            //SetContext(gameContext);
 
             //reslut = Controller_Base_Proxy.CastServant(gameCode, drawde, "0", 1, -1);
             //gameContext.DeskCards[2] = null;

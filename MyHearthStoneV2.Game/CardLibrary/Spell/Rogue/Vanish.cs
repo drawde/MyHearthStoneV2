@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "消失";
-        public override int Cost => 6;
+        public override int Cost { get; set; }  = 6;
         public override int InitialCost => 6;
         public override string Describe => "将所有随从移回其拥有者的手牌。";
 

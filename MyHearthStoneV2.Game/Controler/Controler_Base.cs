@@ -27,7 +27,6 @@ namespace MyHearthStoneV2.Game.Controler
         public void GameStart(HS_Game game, CUsers firstPlayer, CUsers secondPlayer, List<HS_UserCardGroupDetail> firstCardGroup, List<HS_UserCardGroupDetail> secondCardGroup,string firstUserProfession, string secondUserProfession)
         {
             #region 加载玩家卡组
-            //gameContextOutput = new GameContextOutput();
             UserContext firstUser = new UserContext
             {
                 UserCode = firstPlayer.UserCode,
@@ -53,12 +52,6 @@ namespace MyHearthStoneV2.Game.Controler
                 firstUser.AllCards.Add(card);
                 cardInGameIndex++;
             }
-
-            //firstCardGroup.ForEach(delegate (HS_UserCardGroupDetail detail)
-            //{
-            //    firstUser.AllCards.Add(lstCardLib.First(c => c.CardCode == detail.CardCode));
-            //});
-            //firstUser.StockCards = firstUser.AllCards;
 
             UserContext secondUser = new UserContext
             {

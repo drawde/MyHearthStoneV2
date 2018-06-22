@@ -33,7 +33,8 @@ namespace MyHearthStoneV2.Game.Monitor
             HS_GameRecord record = new HS_GameRecord
             {
                 AddTime = DateTime.Now,
-                GameContext = JsonConvert.SerializeObject(ctl.GameContext),
+                //GameContext = JsonConvert.SerializeObject(ctl.GameContext),
+                GameContext = "",
                 FirstUserCode = ctl.GameContext.GetActivationUserContext().UserCode,
                 GameCode = ctl.GameContext.GameCode,
                 IsFirstUserTurn = false,

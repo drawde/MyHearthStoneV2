@@ -12,15 +12,15 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
     public class VioletTeacher : BaseServant
     {
-        public override int Damage => 3;
-        public override int Life => 5;
-        public override int Cost => 4;
+        public override int Damage { get; set; }  = 3;
+        public override int Life { get; set; }  = 5;
+        public override int Cost { get; set; }  = 4;
 
         public override int InitialDamage => 3;
         public override int InitialLife => 5;
         public override int InitialCost => 4;
         
-        public override int BuffLife => 5;
+        public override int BuffLife { get; set; }  = 5;
 
         public override string Describe => "每当你施放一个法术时，召唤一个1/1的紫罗兰学徒。";
 

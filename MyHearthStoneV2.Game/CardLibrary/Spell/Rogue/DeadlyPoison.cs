@@ -18,7 +18,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "致命药膏";
-        public override int Cost => 1;
+        public override int Cost { get; set; }  = 1;
         public override int InitialCost => 1;
         public override string Describe => "使你的武器获得+2攻击力。";
 

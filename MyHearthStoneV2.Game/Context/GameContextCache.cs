@@ -25,14 +25,14 @@ namespace MyHearthStoneV2.Game.Context
             }
         }
 
-        public static void SetContext(GameContext ctl)
+        public static void SetContext(GameContext gameContext)
         {
             using (var redisClient = RedisManager.GetClient())
             {
                 try
                 {
-                    redisClient.Watch(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, ctl.GameCode));
-                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, ctl.GameCode), ctl);
+                    redisClient.Watch(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode));
+                    redisClient.Set(RedisKey.GetKey(RedisAppKeyEnum.Alpha, RedisCategoryKeyEnum.GameContext, gameContext.GameCode), gameContext);                    
                 }
                 finally
                 {

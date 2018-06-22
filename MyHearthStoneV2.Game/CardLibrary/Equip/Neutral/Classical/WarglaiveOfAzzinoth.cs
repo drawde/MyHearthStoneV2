@@ -17,8 +17,8 @@ namespace MyHearthStoneV2.Game.CardLibrary.Equip.Neutral.Classical
 
         public override string BackgroudImage => "W19_a256_D.png";
 
-        public override int Damage => 3;
-        public override int Durable => 3;
+        public override int Damage { get; set; } = 3;
+        public override int Durable { get; set; } = 3;
 
         public override int InitialDamege => 3;
 

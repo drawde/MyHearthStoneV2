@@ -11,16 +11,16 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
     public class AzureDrake : BaseServant
     {
-        public override int Damage => 4;
-        public override int Life => 4;
-        public override int Cost => 5;
+        public override int Damage { get; set; }  = 4;
+        public override int Life { get; set; }  = 4;
+        public override int Cost { get; set; }  = 5;
 
         public override int InitialDamage => 4;
         public override int InitialLife => 4;
         public override int InitialCost => 5;
 
 
-        public override int BuffLife => 4;
+        public override int BuffLife { get; set; }  = 4;
         public override string Describe => "法术伤害+1，战吼：抽一张牌。";
 
         public override Rarity Rare => Rarity.精良;

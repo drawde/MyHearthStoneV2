@@ -9,15 +9,15 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
     public class Doomsayer : BaseServant
     {
-        public override int Damage => 0;
-        public override int Life => 7;
-        public override int Cost => 2;
+        public override int Damage { get; set; }  = 0;
+        public override int Life { get; set; }  = 7;
+        public override int Cost { get; set; }  = 2;
 
         public override int InitialDamage => 0;
         public override int InitialLife => 7;
         public override int InitialCost => 2;
 
-        public override int BuffLife => 7;
+        public override int BuffLife { get; set; }  = 7;
 
         public override string Describe => "在你的回合开始时，消灭所有随从。";
 

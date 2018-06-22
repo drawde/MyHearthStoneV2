@@ -12,15 +12,15 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Rogue
 {
     public class SI7Agent : BaseServant
     {
-        public override int Damage => 3;
-        public override int Life => 3;
-        public override int Cost => 3;
+        public override int Damage { get; set; }  = 3;
+        public override int Life { get; set; }  = 3;
+        public override int Cost { get; set; }  = 3;
 
         public override int InitialDamage => 3;
         public override int InitialLife => 3;
         public override int InitialCost => 3;
 
-        public override int BuffLife => 3;
+        public override int BuffLife { get; set; }  = 3;
         public override string Describe => "连击：造成2点伤害。";
 
         public override Rarity Rare => Rarity.精良;

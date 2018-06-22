@@ -12,7 +12,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "疾跑";
-        public override int Cost => 7;
+        public override int Cost { get; set; }  = 7;
         public override int InitialCost => 7;
         public override string Describe => "抽4张牌。";
 

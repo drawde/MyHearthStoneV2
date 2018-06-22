@@ -17,13 +17,13 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
     public class OldMurkEye : BaseServant
     {
-        public override int Damage => 2;
-        public override int Life => 4;
-        public override int Cost => 4;
+        public override int Damage { get; set; }  = 2;
+        public override int Life { get; set; }  = 4;
+        public override int Cost { get; set; }  = 4;
         public override int InitialDamage => 2;
         public override int InitialLife => 4;
         public override int InitialCost => 4;
-        public override int BuffLife => 4;
+        public override int BuffLife { get; set; }  = 4;
         public override string Describe => "冲锋，在战场上每有一个其他鱼人便获得+1攻击力。";
         public override Rarity Rare => Rarity.传说;
         public override string Name => "老瞎眼";

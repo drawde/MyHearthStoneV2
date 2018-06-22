@@ -16,7 +16,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "剑刃乱舞";
-        public override int Cost => 2;
+        public override int Cost { get; set; }  = 2;
         public override int InitialCost => 2;
         public override string Describe => "摧毁你的武器，对所有敌方角色造成等同于其攻击力的伤害。";
 

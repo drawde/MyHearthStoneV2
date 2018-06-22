@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "战斗怒火";
-        public override int Cost => 2;
+        public override int Cost { get; set; }  = 2;
         public override int InitialCost => 2;
         public override string Describe => "每有一个受到伤害的友方角色，便抽一张牌。";
 

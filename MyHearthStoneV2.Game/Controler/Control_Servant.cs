@@ -56,7 +56,9 @@ namespace MyHearthStoneV2.Game.Controler
             //GameContext.EventQueue.AddLast(new BattlecryEvent() { EventCard = servant, Parameter = para });
 
             new CastServantAction().Action(para);
-            GameContext.ParachuteCard = null;            
+            GameContext.ParachuteCard = null;
+            //GameContext.QueueSettlement();
+            //GameContextCache.SetContext(GameContext);
         }
 
 

@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.ShortCodeBl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.Log", "MyHearthStoneV2.Log\MyHearthStoneV2.Log.csproj", "{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.DesktopApp", "MyHearthStoneV2.DesktopApp\MyHearthStoneV2.DesktopApp.csproj", "{7ED03379-11E1-474A-B286-8A90320413C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHearthStoneV2.GameTest", "MyHearthStoneV2.GameTest\MyHearthStoneV2.GameTest.csproj", "{329DA30C-FE03-4B1C-A9FD-6AB49A14E3F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,10 +95,10 @@ Global
 		{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5195F93D-8FF6-48C3-8E0B-4D04A50AE024}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7ED03379-11E1-474A-B286-8A90320413C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7ED03379-11E1-474A-B286-8A90320413C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7ED03379-11E1-474A-B286-8A90320413C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7ED03379-11E1-474A-B286-8A90320413C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329DA30C-FE03-4B1C-A9FD-6AB49A14E3F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329DA30C-FE03-4B1C-A9FD-6AB49A14E3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329DA30C-FE03-4B1C-A9FD-6AB49A14E3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329DA30C-FE03-4B1C-A9FD-6AB49A14E3F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,16 +13,16 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
     public class Patchwerk : BaseServant
     {
-        public override int Damage => 4;
-        public override int Life => 10;
-        public override int Cost => 9;
+        public override int Damage { get; set; }  = 4;
+        public override int Life { get; set; }  = 10;
+        public override int Cost { get; set; }  = 9;
 
         public override int InitialDamage => 4;
         public override int InitialLife => 10;
         public override int InitialCost => 9;
 
         
-        public override int BuffLife => 10;
+        public override int BuffLife { get; set; }  = 10;
         public override string Describe => "当他的攻击目标为英雄时，无视护甲并造成双倍伤害";
 
         public override Rarity Rare => Rarity.传说;

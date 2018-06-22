@@ -10,16 +10,16 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Warrior
 {
     public class FrothingBerserker : BaseServant
     {
-        public override int Damage => 2;
-        public override int Life => 4;
-        public override int Cost => 3;
+        public override int Damage { get; set; }  = 2;
+        public override int Life { get; set; }  = 4;
+        public override int Cost { get; set; }  = 3;
 
         public override int InitialDamage => 2;
         public override int InitialLife => 4;
         public override int InitialCost => 3;
 
         
-        public override int BuffLife => 4;
+        public override int BuffLife { get; set; }  = 4;
         public override string Describe => "每当一个随从受到伤害时，便获得+1攻击力。";
 
         public override Rarity Rare => Rarity.史诗;

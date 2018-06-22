@@ -14,16 +14,16 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.GVG
 {
     public class LootHoarder : BaseServant
     {
-        public override int Damage => 2;
-        public override int Life => 1;
-        public override int Cost => 2;
+        public override int Damage { get; set; }  = 2;
+        public override int Life { get; set; }  = 1;
+        public override int Cost { get; set; }  = 2;
 
         public override int InitialDamage => 2;
         public override int InitialLife => 1;
         public override int InitialCost => 2;
 
         
-        public override int BuffLife => 1;
+        public override int BuffLife { get; set; }  = 1;
         public override string Describe => "亡语：抽一张牌。";
 
         public override Rarity Rare => Rarity.普通;

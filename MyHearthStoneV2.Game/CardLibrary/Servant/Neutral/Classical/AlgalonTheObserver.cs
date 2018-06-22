@@ -12,15 +12,15 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
     public class AlgalonTheObserver : BaseServant
     {
-        public override int Damage => 5;
-        public override int Life => 5;
-        public override int Cost => 10;
+        public override int Damage { get; set; }  = 5;
+        public override int Life { get; set; }  = 5;
+        public override int Cost { get; set; }  = 10;
 
         public override int InitialDamage => 5;
         public override int InitialLife => 5;
         public override int InitialCost => 10;
 
-        public override int BuffLife => 5;
+        public override int BuffLife { get; set; }  = 5;
         public override string Describe => "回合开始时如果你的场上有随从，抽一张牌，否则直接输掉游戏。";
 
         public override Rarity Rare => Rarity.史诗;

@@ -15,13 +15,13 @@ namespace MyHearthStoneV2.Game.CardLibrary.Servant.Neutral.Classical
 {
     public class MurlocWarleader : BaseServant
     {
-        public override int Damage => 3;
-        public override int Life => 3;
-        public override int Cost => 3;
+        public override int Damage { get; set; }  = 3;
+        public override int Life { get; set; }  = 3;
+        public override int Cost { get; set; }  = 3;
         public override int InitialDamage => 3;
         public override int InitialLife => 3;
         public override int InitialCost => 3;
-        public override int BuffLife => 3;
+        public override int BuffLife { get; set; }  = 3;
         public override string Describe => "所有其他鱼人获得+2/+1。";
         public override Rarity Rare => Rarity.史诗;
         public override string Name => "鱼人领军";

@@ -14,7 +14,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Warrior
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "盾牌格挡";
-        public override int Cost => 3;
+        public override int Cost { get; set; }  = 3;
         public override int InitialCost => 3;
         public override string Describe => "获得5点护甲。抽1张牌。";
 

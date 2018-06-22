@@ -20,7 +20,7 @@ namespace MyHearthStoneV2.Game.CardLibrary.Spell.Rogue
         public override Rarity Rare => Rarity.普通;
 
         public override string Name => "修补匠的磨刀油";
-        public override int Cost => 4;
+        public override int Cost { get; set; }  = 4;
         public override int InitialCost => 4;
         public override string Describe => "给你的武器+3攻击力，连击：给你的随从+3攻击力。";
 

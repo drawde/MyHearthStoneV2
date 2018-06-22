@@ -14,9 +14,10 @@ namespace MyHearthStoneV2.Game.CardLibrary.Equip.Paladin
 
         public override string BackgroudImage => "Paladin/TruesilverChampion.jpg";
 
-        public override int Damage => 4;
-        public override int Durable => 2;
-
+        public override int Damage { get; set; } = 4;
+        public override int Durable { get; set; } = 2;
+        public override int Cost { get; set; } = 4;
+        public override int InitialCost => 4;
         public override int InitialDamege => 4;
         public override Rarity Rare => Rarity.普通;
 
